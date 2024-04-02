@@ -1,0 +1,72 @@
+<div class="add-custom-column-modal-wrapper">
+    <div class="status-row">
+        <div class="step first" [ngClass]="{'done': currentStep >= 1, 'current': currentStep == 1, 'raise-failed': processStatus === false}">
+            <span class="step-title">1. Select Fields</span>
+            <span class="step-circle"></span>
+            <span class="step-line"></span>
+        </div>
+        <div class="step second" [ngClass]="{'done': currentStep >= 2, 'current': currentStep == 2, 'raise-failed': processStatus === false}">
+            <span class="step-title">2. Set Friendly Names</span>
+            <span class="step-circle"></span>
+            <!--span class="step-line"></span-->
+        </div>
+        <!--div class="step third" [ngClass]="{'done': currentStep >= 3, 'last': currentStep == 3, 'raise-failed': processStatus === false}">
+            <span class="step-title">3. Results</span>
+            <span class="step-circle"></span>
+        </div-->
+    </div>
+    <div class="steps">
+        <div class="step-content xml" *ngIf="currentStep == 1">
+            <div class="schemas">
+                <imfx-schema-tree
+                    #schemaTree
+                    [expandOnFilter]="true"
+                    [groups]="originSchemaTypes"
+                    [returnSchema]="true"
+                    (selected)="onSelectTree($event)">
+                </imfx-schema-tree>
+            </div>
+            <div class="selected-xml-tree" *ngIf="!xmlLoading && !xmlEmpty">
+                <imfx-xml-tree
+                    #xmlTree
+                    [schemaModel]="selectedSchemaModel"
+                    [xmlModel]="selectedXmlModel"
+                    [withNodeSelection]="true"
+                    (onSelectNodes)="onSelectNodes($event)"
+                ></imfx-xml-tree>
+            </div>
+        </div>
+        <div class="step-content fields" *ngIf="currentStep == 2">
+            <div class="column-field" *ngFor="let c of resultColumns">
+                <div class="label" title="{{c.Label + ' ( ' + c.Path + ' )'}}">{{c.Label}}<span style="margin:0; margin-left: 10px; opacity: 0.5;">({{c.Path}})</span></div>
+                <input type="text" [(ngModel)]="c.Name"/>
+            </div>
+        </div>
+        <!--div class="step-content result" *ngIf="currentStep == 3">
+            <div class="result-wrapper">
+                <i class="result-icon icon "
+                   [ngClass]="{'icons-statusgreen ': (processStatus === true), 'icons-statusred': (processStatus === false)}"
+                ></i>
+            </div>
+        </div-->
+    </div>
+    <div class="overlay-wrapper" #modalOverlayWrapper>
+        <div class="spinner"></div>
+    </div>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div class="buttons" *ngIf="currentStep == 1">
+            <button *ngIf="selectedFields.length > 0" class="next" (click)="goToNextStep()">Next</button>
+        </div>
+        <div class="buttons" *ngIf="currentStep == 2">
+            <button class="back" (click)="goToPreviousStep();this.changeModalSize('xl');">Back</button>
+            <!--button class="next" *ngIf="validFriendlyNames()" (click)="goToNextStep()">Next</button-->
+            <button class="next" *ngIf="validFriendlyNames()" (click)="saveColumns()">Add</button>
+        </div>
+        <!--div class="buttons" *ngIf="currentStep == 3">
+            <button class="next" (click)="closeModal()">Ok</button>
+        </div-->
+    </div>
+</ng-template>

@@ -1,0 +1,190 @@
+@import "../../../../../../views/base/styles/theme.scss";
+@each $key, $value in $common-themes {
+    .#{$key} {
+        imfx-metadata-tab {
+            .modal-body {
+                height: calc(100% - 116px) !important;
+                position: relative;
+
+                .modal-overlay {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    right: 0;
+                    bottom: -40px;
+                    background: getThemeColor(3, $key);
+
+                    .spinner {
+                        width: 50px;
+                        height: 50px;
+                        display: block;
+                        position: absolute;
+                        left: calc(50% - 25px);
+                        top: calc(50% - 25px);
+                    }
+                }
+            }
+
+            .metadata-tab-wrapper {
+                font-size: 0;
+                box-sizing: border-box;
+                padding: 10px;
+                height: 100%;
+
+                .trees-wrapper {
+                    height: calc(100% - 42px);
+                    font-size: 0;
+                    position: relative;
+
+                    &.full {
+                        height: 100%;
+                    }
+
+                    .xml-overlay {
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        bottom: 0;
+                        left: 0;
+                        background: getThemeColor(4, $key);
+                        .spinner {
+                            display: block;
+                            margin: 0 auto;
+                            position: relative;
+                            top: calc(50% - 25px);
+                            width: 50px;
+                            height: 50px;
+                        }
+                    }
+
+                    .toggle-buttons {
+                        position: absolute;
+                        right: 45px;
+                        top: 5px;
+                        cursor: pointer;
+                        text-align: right;
+                        font-size: 20px;
+                        width: 20px;
+                        text-align: center;
+                    }
+
+                    .inherit-info {
+                        position: absolute;
+                        right: 20px;
+                        top: 5px;
+                        cursor: pointer;
+
+                        .hover-panel {
+                            display: none;
+                            background: getThemeColor(5, $key);
+                            position: absolute;
+                            right: 0;
+                            top: 23px;
+                            padding: 5px;
+                            min-width: 200px;
+                            max-width: 400px;
+
+                            .hover-field {
+                                width: 100%;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                white-space: nowrap;
+
+                                .label {
+                                    display: inline-block;
+                                    width: 85px;
+                                }
+                                .value {
+                                    display: inline;
+                                }
+                            }
+                        }
+                        &:hover {
+                            .hover-panel {
+                                display: block;
+                            }
+                        }
+                        .icon:hover {
+                            opacity: 1!important;
+                        }
+                    }
+                }
+                .add-document {
+                    display: inline-block;
+                    margin-top: 16px;
+                    margin-right: 15px;
+                }
+
+                .docs-block,
+                .xml-block {
+                    display: inline-block;
+                    font-size: 16px;
+                    box-sizing: border-box;
+                    vertical-align: top;
+                    height: 100%;
+                    border: 1px solid getThemeColor(22, $key);
+                    overflow-x: hidden;
+                    overflow-y: auto;
+                }
+                .docs-block {
+                    width: 30%;
+                    i {
+                        left: 8px;
+                        top: 2px;
+                        font-weight: 900;
+                    }
+
+                    .required-types {
+                        border-bottom: 1px solid getThemeColor(9,$key);
+                        padding: 2px 5px 2px 10px;
+
+                        .item {
+                            box-sizing: border-box;
+                            padding: 2px 5px 2px 18px;
+                            cursor: pointer;
+                            position: relative;
+
+                            .icon {
+                                position: absolute;
+                                left: -7px;
+                                width: 20px;
+                                height: 20px;
+                                line-height: 20px;
+                                top: 0px;
+                                opacity: 1;
+                            }
+
+                            .icon.check{
+                                color: getThemeColor(12, $key);
+                                &:before {
+                                    font-size: 25px;
+                                    content: "\F109"
+                                }
+                            }
+                            .icon.icons-statusred{
+                                color: getThemeColor(13, $key);
+                                left: -4px;
+                                &:before {
+                                    font-size: 20px;
+                                }
+                            }
+                        }
+
+                        &.edit-mode {
+                            opacity: 0.5;
+                            .item {
+                                cursor: default;
+                            }
+                        }
+                    }
+                }
+                .xml-block {
+                    width: 70%;
+                    border-left: 0;
+                    box-sizing: border-box;
+                    padding: 10px;
+                }
+            }
+        }
+    }
+}

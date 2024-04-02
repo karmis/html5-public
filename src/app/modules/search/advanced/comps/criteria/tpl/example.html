@@ -1,0 +1,24 @@
+<nav class="flex-criterias">
+    <div class="flex-criteria-field">
+        <!--Criteria-->
+        <advanced-criteria-field-example
+                #advancedCriteriaFieldBuilder
+                [criteria]="criteria"
+        ></advanced-criteria-field-example>
+    </div>
+    <!--<div class="flex-criteria-comparison" [hidden]="mode=='example'">-->
+        <!--&lt;!&ndash;Division&ndash;&gt;-->
+        <!--<advanced-criteria-operators-->
+                <!--#advancedCriteriaOperatorsModule-->
+                <!--(onSelected)="onSelectOperator($event)"></advanced-criteria-operators>-->
+    <!--</div>-->
+
+    <!--Control-->
+    <div class="flex-criteria-value" style="width: 100%;">
+        <advanced-criteria-controls
+                #advancedCriteriaControlModule
+        ></advanced-criteria-controls>
+    </div>
+
+    <!--Remove criteria button-->
+</nav>

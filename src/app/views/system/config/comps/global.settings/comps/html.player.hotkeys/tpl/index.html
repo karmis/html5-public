@@ -1,0 +1,26 @@
+<div class="global-settings-player-hotkeys full-height" #htmlPlayerHotkeysSettingsWrapper>
+    <div *ngFor="let act_name of hotkeysNames" class="form-group">
+        <input #ngIsActive
+               type="checkbox"
+               [(ngModel)]="hotkeysData[act_name].active"/>
+
+        <label [attr.disabled]="hotkeysData[act_name].active ? null : ''">
+            {{('player.SHORTCUTS.' + act_name) | translate}}
+        </label>
+        <input #combin="ngModel"
+               class="form-control"
+               [attr.disabled]="hotkeysData[act_name].active ? null : ''"
+               [(ngModel)]="hotkeysData[act_name].combin"
+               (keydown)="keyDown($event)"
+               (keyup)="keyUp($event, combin)"
+               type="text"
+               placeholder="Not appointed"/>
+        <span *ngIf="permanentHotkeysData[act_name] && hotkeysData[act_name].active"
+              class="permanent-value">
+            "{{permanentHotkeysData[act_name].combin}}" ({{'global_settings.player_shortcuts.permanent' | translate}})
+        </span>
+
+    </div>
+    <button class="primary" (click)="SaveSettings()">Save</button>
+    <button class="primary" (click)="SetDefault()">Reset</button>
+</div>

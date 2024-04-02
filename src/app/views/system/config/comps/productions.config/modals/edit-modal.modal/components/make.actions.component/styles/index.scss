@@ -1,0 +1,147 @@
+@import "../../../../../../../../../base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        production-make-actions {
+            .production-make-actions-wrapper {
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                padding: 8px 3px 3px 3px;
+
+                .top-block {
+                    display: flex;
+                    flex-grow: 0;
+                    flex-shrink: 0;
+
+                    .field-row {
+                        flex: 50%;
+                        display: flex;
+                        flex-direction: row;
+                        padding: 0 0 10px 0;
+
+                        &:not(:last-child) {
+                            margin-right: 10px;
+                        }
+
+                        .field-label {
+                            width: 120px;
+                            line-height: 32px;
+                        }
+                        .field-value {
+                            flex: 1;
+                        }
+                    }
+                }
+                .bottom-block {
+                    flex-grow: 1;
+                    display: flex;
+                    flex-direction: column;
+
+                    .grid-wrapper {
+                        height: 100%;
+                        position: relative;
+                        flex-grow: 1;
+                        border: 1px solid getThemeColor(9, $key);
+                        .add-new-item {
+                            width: 28px;
+                            height: 28px;
+                            line-height: 28px;
+                            position: absolute;
+                            padding: 0;
+                            z-index: 2;
+                            left: -1px;
+                            top: -28px;
+                            background: getThemeColor(4, $key);
+                            border: 1px solid getThemeColor(9, $key);
+                            border-bottom: 0;
+
+                            &:hover {
+                                background: getThemeColor(5, $key);
+                                .icon {
+                                    opacity: 1;
+                                }
+                            }
+
+                            i {
+                                transform: rotate(45deg);
+                                display: block;
+                                width: 100%;
+                            }
+                        }
+                    }
+                    .grid-tabs {
+                        flex: 0;
+                        .sub-tabs-wrapper
+                        {
+                            //width: 150px;
+                            position: relative;
+                            display: inline-block;
+                            margin: 0;
+                            margin-left: 50px;
+
+                            .sub-tab {
+                                display: inline-block;
+                                cursor: pointer;
+                                background: none!important;
+                                height: 24px!important;
+                                padding: 0;
+                                margin-right: 24px;
+
+                                span {
+                                    font-size: 12px;
+                                    font-family: 'sinkin_sans500_medium', 'Roboto', sans-serif;
+                                }
+
+                                &:hover {
+                                    opacity: 1;
+                                    i {
+                                        opacity: 1;
+                                    }
+                                    span {
+                                        opacity: 1;
+                                    }
+                                }
+                                i {
+                                    position: relative;
+                                    top: -1px;
+                                    padding-right: 4px;
+                                }
+
+                                &.active {
+                                    border-bottom: getThemeColor(7,$key) 2px solid;
+                                    opacity: 1;
+                                    i {
+                                        opacity: 1;
+                                    }
+                                    span {
+                                        opacity: 1;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .slick-grid-wrapper {
+                    .slick-header-column,
+                    .slick-group-header-column,
+                    .slick-header-column.ui-state-default,
+                    .slick-group-header-column.ui-state-default {
+                        height: 28px;
+                        line-height: inherit;
+                    }
+
+                    .slick-header-columns-left .slick-header-column:last-child, .grid-canvas-left .slick-cell:last-child {
+                        border-right: none;
+                    }
+
+                    .cell-reorder-w {
+                        width: 115px !important;
+                    }
+                }
+
+            }
+        }
+    }
+}

@@ -1,0 +1,89 @@
+@import "../../../views/base/styles/theme.scss";
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .overlay-wrapper{
+            display: block;
+            opacity: 1;
+            background-color: #000D;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 150;
+            transition: background-color 1s ease-in, opacity 1s ease-in;
+            & .visible{
+
+            }
+
+            .prompt-title {
+                font-size: inherit;
+                line-height: inherit;
+                text-align: left;
+                color: rgba(223, 235, 243, 0.7);
+                >div {
+                    font-size: inherit;
+                    line-height: inherit;
+                }
+            }
+
+            .prompt-options{
+                font-size: inherit;
+                >div {
+                    font-size: inherit;
+                    color: rgba(223, 235, 243, 0.7);
+                    cursor: pointer;
+                    text-decoration: underline;
+                    &:hover {
+                        color: rgb(223, 235, 243);
+                    }
+                }
+            }
+
+            .prompt-wrapper {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                overflow: hidden;
+                overflow-y: auto;
+                align-items: center;
+                align-content: center;
+                justify-content: center;
+                font-size: 32px;
+                font-weight: bold;
+                line-height: 40px;
+                word-wrap: break-word;
+                word-break: break-word;
+                text-align: center;
+                white-space: pre-line;
+                user-select: none;
+
+                .prompt-title {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    text-align: center;
+                }
+
+                .prompt-options {
+                    margin-top: 15px;
+                    >div {
+                        display: inline-block;
+                        margin-right: 50px;
+                        &:last-child {
+                            margin-right: 0;
+                        }
+                    }
+                }
+
+            }
+        }
+
+    }
+}
+
+
+
+

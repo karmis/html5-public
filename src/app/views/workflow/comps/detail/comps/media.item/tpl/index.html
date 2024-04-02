@@ -1,0 +1,12 @@
+<div class="workflow-meida-item">
+  <div class="media-basket-item" (dblclick)="goToDetail()" >
+    <div class="thumb">
+      <img [src]="item.THUMBURL" />
+    </div>
+    <div class="details">
+      <h2 class="item-name">{{item.TITLE}}</h2>
+      <p>{{item.DURATION_text}} {{item.ITEM_TYPE_text}}</p>
+      <p>{{item.VERSIONID1}}</p>
+    </div>
+  </div>
+</div>

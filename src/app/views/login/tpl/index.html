@@ -1,0 +1,240 @@
+<div class="full-height full-width login-screen" style="display: table;">
+    <div style="display: table-cell; vertical-align: middle">
+        <img *ngIf="bigLogo" [src]="bigLogo" class="main-logo"  #img
+             (error)="img.hidden = true"
+             (load)="img.hidden = false">
+        <div class="dialog-signin">
+            <h2 class="test-login-prompt" *ngIf="!loadingOkta && !loading && !bigLogo && !showQrCode">
+                {{ 'login.prompt' | translate }}
+            </h2>
+            <h2 class="test-login-prompt" *ngIf="(loadingOkta || loading || loadingAD) && !bigLogo && !showQrCode">
+                {{ 'login.prompt_load' | translate }}
+            </h2>
+            <form class="form-grid test-login-form full-width" style="width: 100%;" *ngIf="checkLoginMode('ActiveDirectory') && !loadingAD && isError && !showQrCode">
+                <div class="error" role="alert">
+                    {{(errorTextObj.inTranslateList) ? (errorTextObj.type | translate) : errorTextObj.type}}
+                    <div *ngIf="isErrorMoreInfo" class="err-more-btn" (click)="toggleMoreInfoPopup($event)"> {{ 'login.learn_more' | translate }}
+                        <div class="err-info-popup">
+                            <p *ngFor="let item of errorMoreInfoText.split('\n')">{{item}}</p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <form class="form-grid test-login-form full-width" *ngIf="checkLoginMode('Native')" [formGroup]="loginForm" [hidden]="changeExpired || showQrCode" novalidate
+                  (submit)="login($event, loginForm.value, loginForm.valid)" autocomplete="off">
+                <div *ngIf="isError" class="error" role="alert">
+                    {{(errorTextObj.inTranslateList) ? (errorTextObj.type | translate) : errorTextObj.type}}
+                    <div *ngIf="isErrorMoreInfo" class="err-more-btn" (click)="toggleMoreInfoPopup($event)"> {{ 'login.learn_more' | translate }}
+                        <div class="err-info-popup">
+                            <p *ngFor="let item of errorMoreInfoText.split('\n')">{{item}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-grid-row" [hidden]="loadingOkta || loadingAD || changeExpired || showQrCode">
+                    <div>
+                        <input class="field"
+                               formControlName="username"
+                               spellcheck="false"
+                               required
+                               autofocus
+                               placeholder="{{ 'login.username' | translate }}"
+                               id="login-username">
+                    </div>
+                </div>
+                <div class="form-grid-row">
+                    <div class="form-grid-group">
+                        <input class="field" type="password"
+                               formControlName="password"
+                               required
+                               placeholder="{{ 'login.password' | translate }}"
+                               [hidden]="loadingOkta || loadingAD || changeExpired || showQrCode"
+                               id="login-password">
+                        <div *ngIf="capsLockNotification" [hidden]="loadingOkta || loadingAD || changeExpired || showQrCode" class="error" role="alert" style="padding-right: 10px;">
+                            {{ 'login.capsLockNotificationText' | translate }}
+                        </div>
+                        <button class="primary full-width test-login-submit" type="submit" [hidden]="loadingOkta || loadingAD || isExpired || isForcePassReset || showQrCode"
+                                [disabled]="(disabledLoginBtn|| !loginForm.valid)" id="login-submit">
+                          <div *ngIf="loading" class="loader-login icon" style="display: inline-block;" ></div>
+                          {{ 'login.sign_in' | translate }}
+                        </button>
+                        <button class="primary full-width" type="button" (click)="changePassword()" [hidden]="!isExpired && !isForcePassReset">
+                            {{ 'login.change_pas' | translate }}
+                        </button>
+                    </div>
+                </div>
+                <div class="form-grid-row" *ngIf="checkLoginMode('Native')"
+                     class="forgot-password-wrapper">
+                    <forgot-password-form>
+                    </forgot-password-form>
+                </div>
+            </form>
+            <div *ngIf="showQrCode || showSmsField" class="qr-code-wrapper form-grid">
+                <div class="raw-qr-code-header" *ngIf="showQrCode && !showSmsField">
+                    Setup Two-Factor Authentication
+                </div>
+                <div class="qr-code-container" *ngIf="showQrCode && !showSmsField">
+                    <ngx-qrcode *ngIf="showQrCode" id="qrCodeImage" [qrc-element-type]="qrCodeElementType" [qrc-value] = "qrCodeValue">
+                    </ngx-qrcode>
+                </div>
+                <div class="raw-qr-code-message" *ngIf="showQrCode && !showSmsField">
+                    Use your two-factor authentication app to scan the QR code.
+                    If you can't use a QR code then use code below:
+                </div>
+                <div class="raw-qr-code" *ngIf="showQrCode && !showSmsField">
+                    {{qrCodeValueRaw}}
+                </div>
+                <div *ngIf="showQrCode && !showSmsField">
+                    <div>
+                        <button class="primary full-width" type="button" style="position: relative;" (click)="acceptSaving()"> <!-- (click)="changePasswordApply()" -->
+                            {{ 'login.accept_saving_code' | translate }}
+                        </button>
+                    </div>
+                    <div>
+                        <button class="primary full-width" type="button" style="position: relative; margin-top: 8px;" (click)="backCode()"> <!-- (click)="changePasswordApply()" -->
+                            {{ 'common.cancel' | translate }}
+                        </button>
+                    </div>
+                </div>
+                <div class="raw-qr-code-message" style="text-align: center" *ngIf="showSmsField">
+                    {{message2fa}}
+                </div>
+                <div class="form-grid-row" *ngIf="showSmsField">
+                    <label class="">
+                        {{ 'login.code' | translate }}
+                    </label>
+                    <div>
+                        <input class="field" type="text" #codeInput [(ngModel)]="code2fa" (keyup)="onKeyUpCode($event)"
+                               spellcheck="false" > <!--[(ngModel)]="changePassObject.UserId"-->
+                    </div>
+                </div>
+                <div class="form-grid-row" *ngIf="showSmsField">
+                    <label class="">
+
+                    </label>
+                    <div>
+                        <button class="primary full-width" type="button" style="position: relative;" (click)="login($event, storedCredentials.value, storedCredentials.valid)"> <!-- (click)="changePasswordApply()" -->
+                            {{ 'login.send_code' | translate }}
+                        </button>
+                        <button class="primary full-width" type="button" style="position: relative;" (click)="backCode()">
+                            {{ 'common.cancel' | translate }}
+                        </button>
+                    </div>
+                </div>
+                <!--div class="form-grid-row" *ngIf="showSmsField">
+                    <label class="">
+
+                    </label>
+                    <div>
+                        <button class="primary full-width" type="button" style="position: relative;"]] (click)="backCode()">
+                            {{ 'common.cancel' | translate }}
+                            <div style="position: absolute; width: 20px; height: 20px; top: 7px; left: -25px;" class="spinner small"></div>
+                        </button>
+                    </div>
+                </div-->
+            </div>
+            <div [hidden]="!changeExpired" class="change-pass-wrapper form-grid">
+                <div *ngIf="isError" class="error" role="alert">
+                    {{(errorTextObj.inTranslateList) ? (errorTextObj.type | translate) : errorTextObj.type}}
+                    <div *ngIf="isErrorMoreInfo" class="err-more-btn" (click)="toggleMoreInfoPopup($event)"> {{ 'login.learn_more' | translate }}
+                        <div class="err-info-popup">
+                            <p *ngFor="let item of errorMoreInfoText.split('\n')">{{item}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-grid-row">
+                    <label class="">
+                        {{ 'login.username' | translate }}
+                    </label>
+                    <div>
+                        <input class="field" type="text"
+                               spellcheck="false" [(ngModel)]="changePassObject.UserId">
+                    </div>
+                </div>
+                <div class="form-grid-row">
+                    <label class="">
+                        {{ 'login.password_old' | translate }}
+                    </label>
+                    <div>
+                        <input class="field" type="password"
+                               autocomplete="new-password"
+                               spellcheck="false" [(ngModel)]="changePassObject.OldPassword">
+                    </div>
+                </div>
+                <div class="form-grid-row">
+                    <label class="">
+                        {{ 'login.password_new' | translate }}
+                    </label>
+                    <div>
+                        <input class="field" type="password"
+                               autocomplete="new-password"
+                               spellcheck="false" [(ngModel)]="changePassObject.NewPassword">
+                    </div>
+                </div>
+                <div class="form-grid-row">
+                    <label class="">
+
+                    </label>
+                    <div>
+                        <button class="primary full-width" type="button" style="position: relative;" [disabled]="changeInProgress" (click)="changePasswordApply()">
+                            {{ 'login.change_pas' | translate }}
+                            <div *ngIf="changeInProgress" style="position: absolute; width: 20px; height: 20px; top: 7px; left: -25px;" class="spinner small"></div>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-grid-row">
+                    <label class="">
+
+                    </label>
+                    <div>
+                        <button class="primary full-width" type="button" [disabled]="changeInProgress" (click)="backChangePassword()" style="margin: 0;">
+                            {{ 'common.cancel' | translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="okta-login-wrapper" *ngIf="checkLoginMode('Okta') && !changeExpired && !showQrCode">
+                <div class="okta-row">
+                    <div class="okta-left-dummy">
+                        {{ 'login.username' | translate }}
+                    </div>
+                    <div class="okta-btn-wrapper">
+                        <div class="okta-login-btn" (click)="loginOcta($event)">
+                            <div class="loader-login icon okta-loader" [ngClass]="{'okta-load': loadingOkta}"></div>
+                            <span class="okta-login-title">{{ 'login.sign_in_okta' | translate }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          <div *ngIf="autologin" class="autologin-overlay">
+            <h2>Auto login in progress....</h2>
+          </div>
+        </div>
+    </div>
+    <div *ngIf="showTAC" class="login-terms-wrapper">
+        <div class="terms">
+            <div class="tc-title">Terms & Conditions</div>
+            <textarea class="tc-body" readonly [value]="termsAndConditionsText"></textarea>
+            <div class="tc-buttons">
+                <button class="tc-decline" type="button" (click)="termsAccept(false)">
+                    Decline
+                </button>
+                <button class="primary dynamic__primary-button tc-accept" type="button" (click)="termsAccept(true)">
+                    Accept
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<span style="background-color: #ffffff; border-radius: 10px; padding: 10px; color: black">-->
+<!--</span>-->
+<footer>
+    <p>Copyright © 2015-{{currentYear}} TMD. All rights reserved
+        <br>Build: {{appVersion}}
+        <br/>Server Version: {{serverVersion}}
+    </p>
+    <nav>
+        <imfx-language-switcher [asLink]="true"></imfx-language-switcher>
+    </nav>
+    <p></p>
+</footer>

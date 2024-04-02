@@ -1,0 +1,29 @@
+.error-modal-descriptionField {
+    height: 120px;
+    max-height: 120px;
+    min-height: 120px;
+}
+
+.error-modal-stackField {
+    height: 120px;
+    max-height: 120px;
+    min-height: 120px;
+}
+
+.noresize-textarea {
+    -webkit-appearance: textarea;
+    -webkit-rtl-ordering: logical;
+    -webkit-user-select: text;
+    -webkit-box-orient: vertical;
+    cursor: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    resize: vertical;
+    line-height: 16px !important;
+}
+
+.error-modal-counter {
+    background: #f00;
+    padding: 4px;
+}
+

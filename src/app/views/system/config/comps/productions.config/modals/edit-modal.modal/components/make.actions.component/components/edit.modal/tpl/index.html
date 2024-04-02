@@ -1,0 +1,105 @@
+<div class="production-config-make-actions-edit-modal-wrapper">
+    <div class="main-fields">
+        <div class="field-wrapper">
+            <span class="field-label">Is Preset</span>
+            <div class="field-value"
+                 [ngClass]="{'notvalid': (okAttepmt && !validateField('IS_PRESET'))}"
+                 style="flex-grow: 0;"
+            >
+                <input type="checkbox"
+                       [checked]="itemToSave['IS_PRESET'] === true"
+                       (change)="$event.target.checked ? itemToSave['IS_PRESET'] = true : itemToSave['IS_PRESET'] = false"
+                />
+            </div>
+        </div>
+
+        <div class="field-wrapper">
+            <span class="field-label">Action</span>
+            <div class="field-value" [ngClass]="{'notvalid': (okAttepmt && !validateField('ACTION_ID'))}">
+                <imfx-controls-select2
+                    [clearFormat]="{
+                        showButton: false,
+                        defaultValue: null
+                    }"
+                    [width]="'100%'"
+                    [data]="getLookupsForRules('ACTION_ID', true)"
+                    [value]="[{Id: itemToSave['ACTION_ID']}]"
+                    [placeholder]="'xml.select_value'|translate"
+                    [placeholderRefToTranslate]="'xml.select_value'"
+                    [withOptionMouseEnter]="true"
+                    (onSelect)="onSelect($event, 'ACTION_ID')"
+                ></imfx-controls-select2>
+            </div>
+        </div>
+
+        <div class="field-wrapper" [hidden]="itemToSave['IS_PRESET'] === true">
+            <span class="field-label">File Type Filter</span>
+            <div class="field-value" [ngClass]="{'notvalid': (okAttepmt && !validateField('MEDIA_FILE_TYPE'))}">
+                <imfx-controls-select2
+                    [clearFormat]="{
+                        showButton: true,
+                        defaultValue: null
+                    }"
+                    [width]="'100%'"
+                    [data]="getLookupsForRules('MEDIA_FILE_TYPE')"
+                    [value]="[{Id: itemToSave['CHECKS_FILTER']}]"
+                    [placeholder]="'xml.select_value'|translate"
+                    [placeholderRefToTranslate]="'xml.select_value'"
+                    [withOptionMouseEnter]="true"
+                    (onSelect)="onSelect($event, 'CHECKS_FILTER')"
+                ></imfx-controls-select2>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-wrapper"
+         [hidden]="itemToSave['IS_PRESET'] === true"
+         [ngClass]="{'notvalid': (okAttepmt && !validateField('Checks'))}">
+<!--        <div class="field-value"-->
+<!--             [ngClass]="{'notvalid': (okAttepmt && !validateField('Checks'))}"-->
+<!--        >-->
+            <button class="add-new-item" (click)="showModal()" title="{{'common.add' | translate}}">
+                <i class="icons-cross icon"></i>
+            </button>
+            <slick-grid #slickGrid
+                        class="vertical-align-row"
+                        [config]="gridConfig"
+            >
+            </slick-grid>
+<!--        </div>-->
+    </div>
+
+
+    <div class="field-value"
+         [hidden]="itemToSave['IS_PRESET'] !== true"
+         [ngClass]="{'notvalid': (okAttepmt && !validateField('PRESET_ID'))}">
+        <div class="preset-wrapper">
+            <!--        <order-preset-grouped-input-->
+            <!--            #controlWorkflow-->
+            <!--            (onSelect)="clickByPresetItemEvent($event)"-->
+            <!--            [allow_clear]="true"-->
+            <!--            (onClear)="onClearPresetItem()"-->
+            <!--            [dontLoadAfterViewInit]="false"-->
+            <!--        ></order-preset-grouped-input>-->
+
+            <order-presets-grouped
+                #listWorkflow
+                [data]="presetGroups"
+                (clickByPresetItemEvent)="clickByPresetItemEvent($event)"
+            ></order-presets-grouped>
+        </div>
+    </div>
+
+    <!--    <div class="overlay-wrapper" #modalOverlayWrapper>-->
+    <!--        <div class="spinner"></div>-->
+    <!--    </div>-->
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div>
+            <button type="button" (click)="clickOk()">{{'common.ok'| translate}}</button>
+            <button type="button" (click)="closeModal()">{{'common.cancel'| translate}}</button>
+        </div>
+    </div>
+</ng-template>

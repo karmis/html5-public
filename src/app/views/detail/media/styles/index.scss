@@ -1,0 +1,42 @@
+@import "../../../base/styles/theme.scss";
+@each $key, $value in $common-themes {
+    .#{$key} {
+
+        .lm_header{
+            z-index: 2;
+        }
+
+        .detail .imfx-toolbar-header h4 {
+            margin: 0;
+            line-height: 50px;
+        }
+    }
+}
+
+.nyan {
+    position: fixed;
+    left: -100%;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    z-index: 9999;
+    object-fit: contain;
+
+    &.run {
+        -webkit-animation-name: nyanRun;
+        -webkit-animation-duration: 2s;
+        -webkit-animation-iteration-count: 1;
+        -webkit-animation-timing-function: ease-in;
+        -webkit-animation-fill-mode: forwards;
+    }
+}
+
+@-webkit-keyframes nyanRun {
+    from {
+        left: -100%;
+    }
+    to {
+        left: 100%;
+    }
+}
+

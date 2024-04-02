@@ -1,0 +1,34 @@
+<div class="load-master-change-queue-modal-wrapper">
+    <div class="main-fields">
+        <div class="field-row">
+            <div class="label">{{"load_master.fields.id" | translate}}</div>
+            <div class="value"><input type="text" digitOnly [(ngModel)]="itemToSave.ID"/></div>
+        </div>
+        <div class="field-row">
+            <div class="label">{{"load_master.fields.name" | translate}}</div>
+            <div class="value"><input type="text" [(ngModel)]="itemToSave.Name"/></div>
+        </div>
+        <div class="field-row">
+            <div class="label">{{"load_master.fields.size" | translate}}</div>
+            <div class="value"><input type="text" digitOnly [(ngModel)]="itemToSave.Size"/></div>
+        </div>
+        <div class="field-row">
+            <div class="label">{{"load_master.fields.is_enabled" | translate}}</div>
+            <div class="value"><input type="checkbox"
+                                      [checked]="itemToSave.IsEnabled"
+                                      (change)="itemToSave.IsEnabled = !itemToSave.IsEnabled" /></div>
+        </div>
+    </div>
+    <div class="overlay-wrapper" #modalOverlayWrapper>
+        <div class="spinner"></div>
+    </div>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div>
+            <button type="button" *ngIf="!inLoad" (click)="saveData()">{{'common.save'| translate}}</button>
+            <button type="button" *ngIf="!inLoad" (click)="closeModal()">{{'common.cancel'| translate}}</button>
+        </div>
+    </div>
+</ng-template>

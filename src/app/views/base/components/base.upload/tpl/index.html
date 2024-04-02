@@ -1,0 +1,497 @@
+<li dropdown class="dropdown upload-dropdown-submenu dropdown-dragover-target"
+    [ngClass]="{'hovered': ddMode !== 'skip'}"
+    (click)="onOpenPopup()">
+    <a class="upload-btn">
+        <i class="upload-icons icons-upload icon"></i>
+        <span *ngIf="getModels().length > 0">
+            {{ getModels().length }}
+        </span>
+    </a>
+
+    <div class="dialog dialog-upload submenu dropdown-dragover-target" style="top: 100%" #queueMenu>
+        <!--is set uploads files-->
+        <div class="all-uploads is-uploads-in-progress" *ngIf="ddMode === false">
+            <!-- false && more than 0 -->
+            <div *ngIf="getModels().length > 0">
+                <div class="upload-items">
+                    <!--item-->
+                    <div class="upload-item" [ngClass]="'method-'+uploadModel.method"
+                         *ngFor="let uploadModel of getModels(); let i = index">
+                        <div *ngIf="uploadModel.method==='aspera'">
+                            <ng-container
+                                *ngTemplateOutlet="aspera_template;context:{uploadModel: uploadModel}"></ng-container>
+                        </div>
+                        <div *ngIf="uploadModel.method==='remote'">
+                            <ng-container
+                                *ngTemplateOutlet="remote_template;context:{uploadModel: uploadModel}"></ng-container>
+                        </div>
+                        <div *ngIf="uploadProvider.isNativeUpload(uploadModel.method) && uploadProvider.kindOfNativeUploadMethod() === 'native'">
+                            <ng-container
+                                *ngTemplateOutlet="native_template;context:{uploadModel: uploadModel}"></ng-container>
+                        </div>
+                        <div *ngIf="uploadProvider.isNativeUpload(uploadModel.method) && uploadProvider.kindOfNativeUploadMethod() === 'native.chunk'">
+                            <ng-container
+                                *ngTemplateOutlet="native_chunk_template;context:{uploadModel: uploadModel}"></ng-container>
+                        </div>
+                    </div>
+                </div>
+                <!--end item-->
+<!--                <button title="{{ 'upload.clear_all' | translate }}" class="width-10per btn-danger" (click)="uploadProvider.clearAll()">-->
+<!--                    <i class="upload-icons fa fa-trash-o" aria-hidden="true"></i>-->
+<!--                </button>-->
+                <button class="half-width upload-fake" (click)="uploadProvider.removeCompleted()">
+                    {{ 'upload.delete_completed' | translate }}
+                </button>
+                <button class="half-width primary upload-fake" (click)="open()">
+                    {{ 'base.media_upload' | translate }}
+                </button>
+            </div>
+
+            <div *ngIf="getModels().length === 0">
+                <div class="row-item upload-fake" style="display: block;">
+                    <p class="item-name upload-fake" style="margin-bottom: 5px; margin-top: 0;">
+                        {{ 'upload.no_uploads_in_progress' | translate }}
+                    </p>
+                    <div class="">
+                        <button class="full-width primary upload-fake" (click)="open()">
+                            {{ 'base.media_upload' | translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item no-uploads-in-progress upload-fake" *ngIf="ddMode === true">
+            <!-- true and more than 0 -->
+            <div *ngIf="getModels().length >= 0">
+                <div class="fake-upload row-item drop-file-block item-name">
+                    {{ 'upload.drop_file_for_upload' | translate }}
+                </div>
+            </div>
+            <!-- true and 0 -->
+<!--            <div *ngIf="getModels().length === 0">-->
+<!--                <div class="fake-upload row-item drop-file-block item-name">-->
+<!--                    {{ 'upload.drop_file_for_upload' | translate }}-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+    </div>
+</li>
+
+
+<!-- Aspera template -->
+<ng-template #aspera_template let-uploadModel="uploadModel">
+    <div class="left-icons-area upload-fake">
+        <div class="left-icon-wrapper default"
+             *ngIf="uploadModel.state=='paused'">
+            <i class="upload-icons icons-pause icon" (click)="showStatusDescription(uploadModel)"
+               [title]="uploadModel.getStatusMessage()"></i>
+        </div>
+        <div class="left-icon-wrapper error"
+             *ngIf="uploadModel.state=='error' || uploadModel.state =='aborted'">
+            <i class="upload-icons icons-statusred icon" (click)="showStatusDescription(uploadModel)"
+               [title]="uploadModel.getStatusMessage()"></i>
+        </div>
+        <div class="left-icon-wrapper warning"
+             *ngIf="uploadModel.state === 'warning'">
+            <i class="upload-icons icons-statusorange icon" (click)="showStatusDescription(uploadModel)"
+               [title]="uploadModel.getStatusMessage()"></i>
+        </div>
+        <div class="left-icon-wrapper success"
+             *ngIf="uploadModel.state=='success'"
+             title="{{'upload.queue_state_success' | translate}}">
+            <i class="upload-icons icons-statusgreen icon" (click)="showStatusDescription(uploadModel)"
+               [title]="uploadModel.getStatusMessage()"></i>
+        </div>
+        <div class="left-icon-wrapper waiting"
+             *ngIf="uploadModel.state=='waiting'||uploadModel.state=='restored'"
+             title="{{'upload.queue_state_wait' | translate}}">
+            <i class="upload-icons icons-duration icon" [title]="uploadModel.getStatusMessage()"></i>
+        </div>
+        <div class="left-icon-wrapper calculating"
+             *ngIf="uploadModel.state=='calculating'"
+             title="{{'upload.queue_state_calculating' | translate: {percent: uploadModel.getFormattedPercentValue()} }}">
+            <i class="upload-icons icons-calculating fa fa-cog" [title]="uploadModel.getStatusMessage()"></i>
+        </div>
+
+    </div>
+    <div class="common-block-area upload-fake">
+        <div class="upload-fake-class  item-name d-inline">
+            <div class="upload-fake" title="{{uploadModel.name }} ({{uploadModel.getStatusMessage()}})">
+                <span class="upload-span-name">{{uploadModel.name.split('\\').reverse()[0]}}</span>
+                <span class="upload-span-msg">({{uploadModel.getStatusMessage()}})</span>
+            </div>
+        </div>
+        <div class="item-details d-inline upload-fake">
+            <div class="upload-fake-class item-file-size upload-fake">
+                {{uploadModel.getFormattedSize()}}
+                <!--                    {{ 'upload.mb' | translate }}-->
+            </div>
+        </div>
+
+        <div class="upload-icons right-icons-area">
+            <button class="icon-button workflow upload-fake"
+                    *ngIf="uploadModel.state=='success' && uploadModel.response?.WorkflowResult?.JobId"
+                    (click)="navFromUploadMenu('/workflow/detail', uploadModel.response.WorkflowResult.JobId)"
+                    title="{{'upload.open_created_workflow' | translate:{'jobRef': uploadModel.response.WorkflowResult.JobId} }}">
+                <i class="upload-icons icons-duration icon"></i>
+            </button>
+            <!--            <button class="icon-button workflow"-->
+            <!--                    *ngIf="uploadModel.state=='success' && uploadModel.response.WorkflowResult && !uploadModel.response.WorkflowResult.JobRef"-->
+            <!--                    title="{{'upload.open_created_workflow_error' | translate:{'errorMsg': uploadModel.response.WorkflowResult.ErrorDesc} }}">-->
+            <!--                <i class="upload-icons icons-duration icon wf-error-icon"></i>-->
+            <!--            </button>-->
+            <button class="icon-button media upload-fake"
+                    (click)="navFromUploadMenu('/media/detail', uploadModel.response.MediaId)"
+                    *ngIf="(uploadModel.state==='success'  || uploadModel.state==='warning' ) && uploadModel.response.MediaId"
+                    title="{{'upload.open_created_media' | translate}}">
+                <i class="upload-icons icons-hide-empty icon"></i>
+            </button>
+            <button
+                *ngIf="uploadModel.state === 'paused' || uploadModel.state=='waiting' || uploadModel.state=='restored'"
+                class="icon-button files upload-fake"
+                (click)="retry(uploadModel)"
+                title="{{ 'common_hints.resume_upload' | translate }}">
+                <i class="upload-icons icons-play icon"></i>
+            </button>
+            <button
+                *ngIf="uploadModel.state=='aborted'||uploadModel.state === 'restored'||uploadModel.state === 'error'"
+                class="icon-button files upload-fake"
+                (click)="retry(uploadModel)"
+                title="{{ 'common_hints.retry_upload' | translate }}">
+                <i class="upload-icons icons-upload icon"></i>
+            </button>
+
+            <button
+                *ngIf="uploadModel.state=='progress'"
+                class="icon-button files upload-fake"
+                (click)="pause(uploadModel)"
+                title="{{ 'common_hints.pause_upload' | translate }}">
+                <i class="upload-icons icons-pause icon"></i>
+            </button>
+            <button *ngIf="uploadModel.state=='error'||uploadModel.state=='aborted'"
+                    class="icon-button files upload-fake"
+                    (click)="copyError(uploadModel)"
+                    title="{{ 'common_hints.copy_error' | translate }}">
+                <i class="upload-icons icons-files icon"></i>
+            </button>
+            <button class="icon-button delete upload-fake" (click)="removeModel(uploadModel)"
+                    title="{{ 'common_hints.remove' | translate }}">
+                <i class="upload-icons icons-cross icon"></i>
+            </button>
+        </div>
+
+    </div>
+    <div class="upload-progress-bar">
+        <div class="progress-meter-work"
+             *ngIf="uploadModel.state == 'progress' ||uploadModel.state == 'calculating'">
+            <div class="progress-meter-line" [ngClass]="uploadModel.state"
+                 [ngStyle]="{'width': uploadModel.getPercentagePercentValue() + '%'}"></div>
+        </div>
+        <div class="progress-meter-end"
+             *ngIf="uploadModel.state != 'progress'"></div>
+    </div>
+</ng-template>
+<!--Remote template-->
+<ng-template #remote_template let-uploadModel="uploadModel">
+    <div class="left-icons-area">
+        <div class="left-icon-wrapper error"
+             *ngIf="uploadModel.state=='error' || uploadModel.state =='aborted'">
+            <i class="upload-icons icons-statusred icon" (click)="showStatusDescription(uploadModel)"
+               [title]="uploadModel.getStatusMessage()"></i>
+        </div>
+        <div class="left-icon-wrapper warning"
+             *ngIf="uploadModel.state === 'warning'">
+            <i class="upload-icons icons-statusorange icon" (click)="showStatusDescription(uploadModel)"
+               [title]="uploadModel.getStatusMessage()"></i>
+        </div>
+        <div class="left-icon-wrapper success"
+             *ngIf="uploadModel.state=='success'"
+             title="{{'upload.queue_state_success' | translate}}">
+            <i class="upload-icons icons-statusgreen icon" (click)="showStatusDescription(uploadModel)"
+               [title]="uploadModel.getStatusMessage()"></i>
+        </div>
+        <div class="left-icon-wrapper waiting"
+             *ngIf="uploadModel.state=='waiting'||uploadModel.state=='restored'"
+             title="{{'upload.queue_state_wait' | translate}}">
+            <i class="upload-icons icons-duration icon" [title]="uploadModel.getStatusMessage()"></i>
+        </div>
+        <div class="left-icon-wrapper calculating"
+             *ngIf="uploadModel.state=='calculating'"
+             title="{{'upload.queue_state_calculating' | translate: {percent: uploadModel.getFormattedPercentValue()} }}">
+            <i class="upload-icons icons-calculating fa fa-cog" [title]="uploadModel.getStatusMessage()"></i>
+        </div>
+
+    </div>
+    <div class="common-block-area upload-fake">
+        <div class="upload-fake-class  item-name d-inline">
+            <div class="upload-fake" title="{{uploadModel.name}}">
+                {{uploadModel.name}}
+            </div>
+        </div>
+        <div class="item-details d-inline">
+            <div class="upload-fake-class item-file-size">
+                {{uploadModel.getFormattedSize()}}
+                <!--                {{ 'upload.mb' | translate }}-->
+            </div>
+        </div>
+
+        <div class="right-icons-area upload-fake">
+            <button class="icon-button workflow"
+                    *ngIf="uploadModel.state=='success' && uploadModel.response?.WorkflowResult?.JobId"
+                    (click)="navFromUploadMenu('/workflow/detail', uploadModel.response.WorkflowResult.JobId)"
+                    title="{{'upload.open_created_workflow' | translate:{'jobRef': uploadModel.response.WorkflowResult.JobId} }}">
+                <i class="upload-icons icons-duration icon"></i>
+            </button>
+            <button class="icon-button media"
+                    (click)="navFromUploadMenu('/media/detail', uploadModel.response.MediaId)"
+                    *ngIf="(uploadModel.state==='success'  || uploadModel.state==='warning' ) && uploadModel.response.MediaId"
+                    title="{{'upload.open_created_media' | translate}}">
+                <i class="upload-icons icons-hide-empty icon"></i>
+            </button>
+            <button
+                *ngIf="uploadModel.state=='error' || uploadModel.state=='aborted'||uploadModel.state === 'restored'"
+                class="icon-button files"
+                (click)="retry(uploadModel)"
+                title="{{ 'common_hints.retry_upload' | translate }}">
+                <i class="upload-icons icons-upload icon"></i>
+            </button>
+
+            <button *ngIf="uploadModel.state=='error'||uploadModel.state=='aborted'"
+                    class="icon-button files"
+                    (click)="copyError(uploadModel)"
+                    title="{{ 'common_hints.copy_error' | translate }}">
+                <i class="upload-icons icons-files icon"></i>
+            </button>
+            <button class="icon-button delete" (click)="removeModel(uploadModel)"
+                    title="{{ 'common_hints.remove' | translate }}">
+                <i class="upload-icons icons-cross icon"></i>
+            </button>
+        </div>
+
+    </div>
+    <div class="upload-progress-bar">
+        <div class="progress-meter-work"
+             *ngIf="uploadModel.state == 'progress' ||uploadModel.state == 'calculating'">
+            <div class="progress-meter-line" [ngClass]="uploadModel.state"
+                 [ngStyle]="{'width': uploadModel.getPercentagePercentValue() + '%'}"></div>
+        </div>
+        <div class="progress-meter-end"
+             *ngIf="uploadModel.state != 'progress'"></div>
+    </div>
+</ng-template>
+
+<!--Native template-->
+<ng-template #native_template let-uploadModel="uploadModel">
+    <div class="left-icons-area">
+        <div class="left-icon-wrapper error"
+             *ngIf="uploadModel.state=='error' || uploadModel.state =='aborted'">
+            <i class="upload-icons icons-statusred icon" (click)="showStatusDescription(uploadModel)"
+               [title]="uploadModel.getStatusMessage()"></i>
+        </div>
+        <div class="left-icon-wrapper warning"
+             *ngIf="uploadModel.state === 'warning'">
+            <i class="upload-icons icons-statusorange icon" (click)="showStatusDescription(uploadModel)"
+               [title]="uploadModel.getStatusMessage()"></i>
+        </div>
+        <div class="left-icon-wrapper success"
+             *ngIf="uploadModel.state=='success'"
+             title="{{'upload.queue_state_success' | translate}}">
+            <i class="upload-icons icons-statusgreen icon" (click)="showStatusDescription(uploadModel)"
+               [title]="uploadModel.getStatusMessage()"></i>
+        </div>
+        <div class="left-icon-wrapper waiting"
+             *ngIf="uploadModel.state=='waiting'||uploadModel.state=='restored'"
+             title="{{'upload.queue_state_wait' | translate}}">
+            <i class="upload-icons icons-duration icon" [title]="uploadModel.getStatusMessage()"></i>
+        </div>
+        <div class="left-icon-wrapper calculating"
+             *ngIf="uploadModel.state=='calculating'"
+             title="{{'upload.queue_state_calculating' | translate: {percent: uploadModel.getFormattedPercentValue()} }}">
+            <i class="upload-icons icons-calculating fa fa-cog" [title]="uploadModel.getStatusMessage()"></i>
+        </div>
+
+    </div>
+    <div class="common-block-area upload-fake">
+        <div class="upload-fake-class  item-name d-inline">
+            <div class="upload-fake" title="{{uploadModel.name}}">
+                {{uploadModel.name}}
+            </div>
+        </div>
+        <div class="item-details d-inline">
+            <div class="upload-fake-class item-file-size">
+                {{uploadModel.getFormattedSize()}}
+                <!--                {{ 'upload.mb' | translate }}-->
+            </div>
+        </div>
+
+        <div class="right-icons-area">
+            <button class="icon-button workflow"
+                    *ngIf="uploadModel.state=='success' && uploadModel.response?.WorkflowResult?.JobId"
+                    (click)="navFromUploadMenu('/workflow/detail', uploadModel.response.WorkflowResult.JobId)"
+                    title="{{'upload.open_created_workflow' | translate:{'jobRef': uploadModel.response.WorkflowResult.JobId} }}">
+                <i class="upload-icons icons-duration icon"></i>
+            </button>
+            <!--            <button class="icon-button workflow "-->
+            <!--                    *ngIf="uploadModel.state=='success' && uploadModel.response.WorkflowResult && !uploadModel.response.WorkflowResult.JobRef"-->
+            <!--                    title="{{'upload.open_created_workflow_error' | translate:{'errorMsg': uploadModel.response.WorkflowResult.ErrorDesc} }}">-->
+            <!--                <i class="upload-icons icons-duration icon wf-error-icon"></i>-->
+            <!--            </button>-->
+            <button class="icon-button media"
+                    (click)="navFromUploadMenu('/media/detail', uploadModel.response.MediaId)"
+                    *ngIf="(uploadModel.state==='success'  || uploadModel.state==='warning' ) && uploadModel.response.MediaId"
+                    title="{{'upload.open_created_media' | translate}}">
+                <i class="upload-icons icons-hide-empty icon"></i>
+            </button>
+            <button
+                *ngIf="uploadModel.state=='error' || uploadModel.state=='aborted'||uploadModel.state === 'restored'"
+                class="icon-button files"
+                (click)="retry(uploadModel)"
+                title="{{ 'common_hints.retry_upload' | translate }}">
+                <i class="upload-icons icons-upload icon"></i>
+            </button>
+
+
+            <!--                                ||uploadModel.state=='warning'-->
+            <button *ngIf="uploadModel.state=='error'||uploadModel.state=='aborted'"
+                    class="icon-button files"
+                    (click)="copyError(uploadModel)"
+                    title="{{ 'common_hints.copy_error' | translate }}">
+                <i class="upload-icons icons-files icon"></i>
+            </button>
+            <button class="icon-button delete" (click)="removeModel(uploadModel)"
+                    title="{{ 'common_hints.remove' | translate }}">
+                <i class="upload-icons icons-cross icon"></i>
+            </button>
+        </div>
+
+    </div>
+    <div class="upload-progress-bar">
+        <div class="progress-meter-work"
+             *ngIf="uploadModel.state == 'progress' ||uploadModel.state == 'calculating'">
+            <div class="progress-meter-line" [ngClass]="uploadModel.state"
+                 [ngStyle]="{'width': uploadModel.getPercentagePercentValue() + '%'}"></div>
+        </div>
+        <div class="progress-meter-end"
+             *ngIf="uploadModel.state != 'progress'"></div>
+    </div>
+</ng-template>
+
+
+<!--Native chunk template-->
+<ng-template #native_chunk_template let-uploadModel="uploadModel">
+    <div class="left-icons-area">
+        <div class="left-icon-wrapper default"
+             *ngIf="uploadModel.state=='paused'">
+            <i class="upload-icons icons-pause icon" (click)="showStatusDescription(uploadModel)"
+               [title]="uploadModel.getStatusMessage()"></i>
+        </div>
+        <div class="left-icon-wrapper error"
+             *ngIf="uploadModel.state=='error' || uploadModel.state =='aborted'">
+            <i class="upload-icons icons-statusred icon" (click)="showStatusDescription(uploadModel)"
+               [title]="uploadModel.getStatusMessage()"></i>
+        </div>
+        <div class="left-icon-wrapper warning"
+             *ngIf="uploadModel.state === 'warning'">
+            <i class="upload-icons icons-statusorange icon" (click)="showStatusDescription(uploadModel)"
+               [title]="uploadModel.getStatusMessage()"></i>
+        </div>
+        <div class="left-icon-wrapper success"
+             *ngIf="uploadModel.state=='success'"
+             title="{{'upload.queue_state_success' | translate}}">
+            <i class="upload-icons icons-statusgreen icon" (click)="showStatusDescription(uploadModel)"
+               [title]="uploadModel.getStatusMessage()"></i>
+        </div>
+        <div class="left-icon-wrapper success"
+             *ngIf="uploadModel.state=='completing'"
+             title="{{'upload.queue_state_completing' | translate}}">
+            <i class="upload-icons icons-statusgreen icon" (click)="showStatusDescription(uploadModel)"
+               [title]="uploadModel.getStatusMessage()"></i>
+        </div>
+        <div class="left-icon-wrapper waiting"
+             *ngIf="uploadModel.state=='waiting'||uploadModel.state=='restored'"
+             title="{{'upload.queue_state_wait' | translate}}">
+            <i class="upload-icons icons-duration icon" [title]="uploadModel.getStatusMessage()"></i>
+        </div>
+        <div class="left-icon-wrapper calculating"
+             *ngIf="uploadModel.state=='progress' || uploadModel.state=='calculating' && uploadModel.chunkingUploadPercent"
+             title="{{'upload.queue_state_progress' | translate: {percent: uploadModel.chunkingUploadPercent} }}">
+            <i class="upload-icons icons-calculating fa fa-cog" [title]="'upload.queue_state_progress' | translate: {percent: uploadModel.chunkingUploadPercent?.toFixed(2)}||0"></i>
+        </div>
+
+    </div>
+    <div class="common-block-area upload-fake">
+        <div class="upload-fake-class  item-name d-inline">
+            <div class="upload-fake" title="{{uploadModel.name }} ({{uploadModel.getStatusMessage()}})">
+                <span class="upload-span-name">{{uploadModel.name}}</span>
+                <span class="upload-span-msg">({{uploadModel.getStatusMessage()}})</span>
+            </div>
+        </div>
+        <div class="item-details d-inline">
+            <div class="upload-fake-class item-file-size">
+                {{uploadModel.getFormattedSize()}}
+                <!--                {{ 'upload.mb' | translate }}-->
+            </div>
+        </div>
+
+        <div class="upload-fake right-icons-area">
+            <button class="icon-button workflow"
+                    *ngIf="uploadModel.state=='success' && uploadModel.response?.WorkflowResult?.JobId"
+                    (click)="navFromUploadMenu('/workflow/detail', uploadModel?.response?.WorkflowResult?.JobId)"
+                    title="{{'upload.open_created_workflow' | translate:{'jobRef': uploadModel?.response?.WorkflowResult?.JobId} }}">
+                <i class="upload-icons icons-duration icon"></i>
+            </button>
+            <!--            <button class="icon-button workflow "-->
+            <!--                    *ngIf="uploadModel.state=='success' && uploadModel.response.WorkflowResult && !uploadModel.response.WorkflowResult.JobRef"-->
+            <!--                    title="{{'upload.open_created_workflow_error' | translate:{'errorMsg': uploadModel.response.WorkflowResult.ErrorDesc} }}">-->
+            <!--                <i class="upload-icons icons-duration icon wf-error-icon"></i>-->
+            <!--            </button>-->
+            <button class="icon-button media upload-fake"
+                    *ngIf="(uploadModel.state==='success'  || uploadModel.state==='warning' ) && uploadModel.response.MediaId"
+                    (click)="navFromUploadMenu('/media/detail', uploadModel.response.MediaId)"
+                    title="{{'upload.open_created_media' | translate}}">
+                <i class="upload-icons icons-hide-empty icon"></i>
+            </button>
+            <button
+                *ngIf="uploadModel.state=='error' || uploadModel.state=='aborted' || uploadModel.state === 'restored' || uploadModel.state === 'paused'"
+                class="icon-button files upload-fake"
+                (click)="retry(uploadModel)"
+                title="{{ 'common_hints.retry_upload' | translate }}">
+                <i class="upload-icons icons-upload icon"></i>
+            </button>
+            <button *ngIf="uploadModel.state=='error'||uploadModel.state=='aborted'"
+                    class="icon-button files upload-fake"
+                    (click)="copyError(uploadModel)"
+                    title="{{ 'common_hints.copy_error' | translate }}">
+                <i class="upload-icons icons-files icon"></i>
+            </button>
+            <button
+                *ngIf="uploadModel.state=='progress' || uploadModel.state=='calculating'"
+                class="icon-button files upload-fake"
+                (click)="pause(uploadModel)"
+                title="{{ 'common_hints.pause_upload' | translate }}">
+                <i class="upload-icons icons-pause icon"></i>
+            </button>
+            <button class="icon-button delete upload-fake" (click)="removeModel(uploadModel)"
+                    title="{{ 'common_hints.remove' | translate }}">
+                <i class="upload-icons icons-cross icon"></i>
+            </button>
+        </div>
+    </div>
+    <div class="upload-progress-bar">
+        <div class="progress-meter-work"
+             *ngIf="uploadModel.state == 'progress' || uploadModel.state == 'calculating' || uploadModel.state == 'paused'">
+            <div class="progress-meter-line" [ngClass]="'calculating'"
+                 [ngStyle]="{'width': uploadModel.chunkingCalculatingPercent + '%'}"></div>
+        </div>
+        <div style="margin-top: -7px;" class="progress-meter-work"
+             *ngIf="uploadModel.state == 'progress' || uploadModel.state == 'calculating' || uploadModel.state == 'paused'">
+            <div class="progress-meter-line" [ngClass]="'progress'"
+                 [ngStyle]="{'width': uploadModel.chunkingUploadPercent + '%'}"></div>
+        </div>
+        <div class="progress-meter-end"
+             *ngIf="uploadModel.state != 'progress' || uploadModel.state != 'calculating'"></div>
+    </div>
+</ng-template>
+
+

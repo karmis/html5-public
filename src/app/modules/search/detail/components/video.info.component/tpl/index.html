@@ -1,0 +1,5 @@
+<div class="video-info-wrapper">
+  <frame-selector #smudgeComp *ngIf="smudge" [config]="smudge" [title]="'Smudge'" (setPercent)="setPercent($event)"></frame-selector>
+  <frame-selector #sceneComp *ngIf="scene" [config]="scene" [title]="'Scene'" (setTimecode)="setTimecode($event)" [sceneMode]="true"></frame-selector>
+  <frame-selector #waveformComp *ngIf="waveform" [config]="waveform" [title]="'Waveform'" (setPercent)="setPercent($event)" [showScrollable]="true"></frame-selector>
+</div>

@@ -1,0 +1,18 @@
+<div class="global-settings-player-hotkeys-tabs-wrapper">
+
+        <tabset>
+<!--            (selectTab)="onActivate('html-player-hotkeys-v3')"-->
+            <tab heading="{{'global_settings.player_shortcuts.media' | translate}}">
+                <div class="hotkeys-container">
+                    <global-settings-html-player-hotkeys></global-settings-html-player-hotkeys>
+                </div>
+            </tab>
+<!--            (selectTab)="onActivate('html-player-hotkeys-media')"-->
+            <tab heading="{{'global_settings.player_shortcuts.workstation' | translate}}">
+                <div class="hotkeys-container">
+                    <global-settings-html-player-hotkeys [dataKey]="'mfx.playerhotkeys'"></global-settings-html-player-hotkeys>
+                </div>
+            </tab>
+        </tabset>
+
+</div>

@@ -1,0 +1,13 @@
+@import "../../base/styles/theme.scss";
+
+@each $key,
+$value in $common-themes {
+  main {
+    height: 100%;
+  }
+  .#{$key} {
+      search-form-branding {
+
+    }
+  }
+}

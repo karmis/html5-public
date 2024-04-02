@@ -1,0 +1,78 @@
+@import "../../../../../../../base/styles/theme";
+@each $key, $value in $common-themes {
+  .#{$key} {
+      responsibilities_tree {
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+
+          .resp-tree-wrapper {
+              height: 100%;
+              position: relative;
+              background: getThemeColor(4, $key);
+              padding: 5px;
+
+              .tree-group-permissions {
+                  .fancytree-lastsib, li {
+                      position: relative;
+
+                      .icon.icons-info.fancytree-info {
+                          top: 0!important;
+                      }
+                  }
+                  .additional-block {
+                      position: absolute;
+                      top: -5px;
+                      height: 28px;
+                      line-height: 15px;
+                      margin-top: 3px;
+                      margin-bottom: 3px;
+                      border-color: transparent;
+                      background: transparent;
+
+                      .fancytree-checkbox {
+                          top: -1px;
+                          position: relative;
+                      }
+                  }
+              }
+
+              .resp-tabs {
+                  height: 28px;
+                  line-height: 28px;
+                  margin-bottom: 5px;
+
+                  .resp-tab {
+                      height: 28px;
+                      line-height: 28px;
+                      display: inline-block;
+                      margin-right: 15px;
+                      cursor: pointer;
+                      border-bottom: 2px solid transparent;
+
+                      &.active {
+                          border-bottom: 2px solid getThemeColor(7, $key);
+                      }
+                  }
+              }
+              .tab {
+                  height: 100%;
+              }
+              .tree-filter {
+                  width: calc(100%);
+                  height: 28px;
+                  line-height: 28px;
+                  position: relative;
+              }
+              .resp-tree {
+                  background: getThemeColor(3, $key);
+                  width: 100%;
+                  overflow: auto;
+                  height: calc(100% - 61px);
+                  max-height: 252px;
+              }
+          }
+      }
+  }
+}
+

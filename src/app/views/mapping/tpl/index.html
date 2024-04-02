@@ -1,0 +1,275 @@
+<!--h4 class="block-header text">{{ 'version.title' | translate }}</h4-->
+<div class="full-height full-width mapping-wrapper">
+    <div class="container-fluid" style="position: relative; height:100%;z-index: 0;">
+        <!--Header-->
+        <div class="row-header" >
+            <nav>
+                <ul>
+                    <li class="search-input-wrapper">
+                        <search-form
+                            (drop)="onDrop($event)"
+                            [config]="searchFormConfig"
+                        ></search-form>
+                    </li>
+                    <li >
+                        <button type="button"
+                                [draggable]="true"
+                                class="icon-button test-advanced-searching-button"
+                                (click)="searchAdvancedConfig.options.provider.setStateForPanel(!searchAdvancedConfig.options.provider.getStateForPanel())"
+                                [ngClass]="{'active': searchAdvancedConfig.options.provider.getStateForPanel() }"
+                                title="{{ 'common_hints.adv_search' | translate }}">
+                        <span style="float:left;">
+                            <i class="icons-advanced-search icon"></i>
+                        </span>
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="icon-button"
+                                [ngClass]="{'active': isOpenFacets()}"
+                                (click)="toggleFacetsPanel(!isOpenFacets())"
+                                title="{{ 'common_hints.facets' | translate }}">
+                            <i class="icons-filters icon"></i>
+                        </button>
+                    </li>
+                    <li *ngIf="hasPermissionByName('views-options')" class="divider" [ngClass]="{'common-hidden': !flagHide}"></li>
+                    <li *ngIf="hasPermissionByName('views-options')" [ngClass]="{'common-hidden': (!flagHide || (slickGridComp.module.viewMode == 'tile'))}"><label>{{ 'common.view' | translate}}:</label></li>
+                    <li [hidden]="!hasPermissionByName('views-modify')" [ngClass]="{'common-hidden': (!flagHide || (slickGridComp && slickGridComp.module.viewMode == 'tile'))}">
+                        <search-views
+                            #viewsComp
+                            [config]="searchViewsConfig"
+                        ></search-views>
+                    </li>
+                    <li *ngIf="hasPermissionByName('views-options') || hasPermissionByName('export-options')" [ngClass]="{'common-hidden': (!flagHide || (slickGridComp.module.viewMode == 'tile'))}">
+                        <search-settings
+                            [config]="searchSettingsConfig"
+                        ></search-settings>
+                    </li>
+                </ul>
+            </nav>
+            <nav>
+                <ul>
+                    <li>
+                        <search-thumbs
+                            #searchThumbsComp
+                            [config]="searchThumbsConfig"
+                        ></search-thumbs>
+                    </li>
+                    <!--<li class="divider"></li>-->
+                    <li *ngIf="searchGridConfig.options.module.viewModeSwitcher">
+                        <button type="button"
+                                class="icon-button"
+                                [ngClass]="{'active': slickGridComp.module.viewMode == 'table'}"
+                                (click)="slickGridComp.provider.setViewMode('table')"
+                                title="{{ 'common_hints.grid' | translate }}">
+                                <span style="float:left;">
+                                    <i class="icons-list icon"></i>
+                                </span>
+                        </button>
+                    </li>
+                    <li *ngIf="searchGridConfig.options.module.viewModeSwitcher">
+                        <button type="button"
+                                class="icon-button"
+                                [ngClass]="{'active': slickGridComp.module.viewMode == 'tile'}"
+                                (click)="slickGridComp.provider.setViewMode('tile')"
+                                title="{{ 'common_hints.tiles' | translate }}">
+                                <span style="float:left;">
+                                    <i class="icons-tiles icon"></i>
+                                </span>
+                        </button>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <button type="button" class="icon-button"
+                                [ngClass]="{'active': infoPanelConfig.options.provider.getStateForPanel()}"
+                                (click)="toggleInfoPanel()"
+                                title="{{ 'common_hints.info' | translate }}">
+                      <span style="float:left;">
+                          <i class="icons-info icon"></i>
+                      </span>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!--Body-->
+        <div class="row-body">
+            <as-split
+                #split
+                [style.float]="'left'"
+                (dragEnd)="saveSplitSizes(0, $event);"
+                [direction]="'horizontal'">
+                <!--Adv search and recent search-->
+                <as-split-area
+                    #advAreaSplit
+                    [visible]="getSplitAreaVisible([0,0], searchAdvancedConfig.options.provider.getStateForPanel(), false, searchAdvancedConfig.options.provider, searchAdvancedConfig.options.provider.setStateForPanel, searchAdvancedConfig.options.provider.getIsReady())"
+                    [size]="getSplitAreaSize([0,0], 30)"
+                    [order]="0">
+                    <as-split
+                        (dragEnd)="saveSplitSizes(1, $event)"
+                        [direction]="'vertical'">
+                        <as-split-area
+                            #advSplit
+                            class="color-bkgd-mid"
+                            [size]="getSplitAreaSize([1,0], 50)"
+                            [order]="0">
+                            <search-advanced
+                                [config]="searchAdvancedConfig"
+                            ></search-advanced>
+                        </as-split-area>
+                        <as-split-area
+                            #advSplit
+                            class="color-bkgd-mid"
+                            [size]="getSplitAreaSize([1,1], 50)"
+                            [order]="1">
+                            <search-recent
+                                [config]="searchRecentConfig"
+                            ></search-recent>
+                        </as-split-area>
+                    </as-split>
+                </as-split-area>
+
+                <!--Facets-->
+                <as-split-area
+                    #facetsSplit
+                    [visible]="getSplitAreaVisible([0,1], isOpenFacets(), false, null, toggleFacetsPanel, getIsReadyFacets())"
+                    [size]="getSplitAreaSize([0,1], 20)"
+                    [order]="1"
+                    style="position: relative;"
+                >
+                    <h2 class="multi-facets-panel-header">
+                        {{ 'version.facets' | translate }}:
+                        <span
+                            (click)="toggleBetweenFacetsPanels('Versions')"
+                            [ngClass]="{'selected': getActiveFacetsPanelName() == 'Versions'}"
+                        >{{ 'base.versions' | translate }}</span> /
+                        <span
+                            (click)="toggleBetweenFacetsPanels('Media')"
+                            [ngClass]="{'selected': getActiveFacetsPanelName() == 'Media'}"
+                        >{{ 'base.media' | translate }}</span>
+                    </h2>
+                    <div class="multi-facets-panel-wrapper"
+                         [hidden]="!versionFacetsService.isOpenFacets"
+                    >
+                        <facets-page [config]="facetsConfig"></facets-page>
+                    </div>
+                    <div class="multi-facets-panel-wrapper"
+                         [hidden]="!mediaFacetsService.isOpenFacets"
+                    >
+                        <facets-page [config]="facetsConfigMedia"></facets-page>
+                    </div>
+                </as-split-area>
+
+
+                <!--Facets-->
+
+                <!--Table-->
+                <as-split-area
+                    #tableSplit
+                    [order]="2"
+                    [size]="getSplitFlexSize([0,2])">
+                    <div style="height: 100%">
+                        <as-split
+                            (dragEnd)="saveSplitSizes(2,$event);"
+                            [direction]="'vertical'">
+                            <as-split-area
+                                [size]="getSplitAreaSize([2,0], 50)"
+                                [order]="0">
+                                <div class="mapping-grid-wrapper" id="MappingGridWrapper">
+                                    <slick-grid
+                                        #slickGridComp
+                                        id="version-inside-mapping-grid"
+                                        class="version-grid mapping-grid vertical-align-row"
+                                        style="width: 100%;  height: 100%"
+                                        [config]="searchGridConfig"
+                                    ></slick-grid>
+                                </div>
+                            </as-split-area>
+                            <as-split-area
+                                [size]="getSplitAreaSize([2,1], 50)"
+                                [order]="1">
+                                <div class="no-padding" style="height: 100%">
+                                    <media-inside-mapping [store]="facetsConfigMedia.store" #mediaInsideMapping></media-inside-mapping>
+                                </div>
+                            </as-split-area>
+
+                        </as-split>
+                    </div>
+                </as-split-area>
+
+                <!--Detail-->
+                <as-split-area
+                    #infoPanelSplit
+                    [visible]="getSplitAreaVisible([0,3], infoPanelConfig.options.provider.getStateForPanel(), false, infoPanelConfig.options.provider, infoPanelConfig.options.provider.setStateForPanel, infoPanelConfig.options.provider.getIsReady())"
+                    [size]="getSplitAreaSize([0,3], 30)"
+                    [order]="3">
+                    <div class="search-details" style="height: 100%">
+                        <!--*ngIf="detailConfig.options.provider.config.options.data.detailInfo && openDetail"-->
+                        <search-info-panel
+                            #imfxInfoPanel
+                            [config]="infoPanelConfig"
+                            [infoConfigs]="variableInfoPanelOptions"
+                            [gridProviders]="getSlickGridProviders()"
+                        ></search-info-panel>
+                    </div>
+                </as-split-area>
+            </as-split>
+        </div>
+    </div>
+</div>
+
+<!--Settings dropdown-->
+<div *ngIf="slickGridComp.isGridReady" id="mapping" class="dropdown grid-settings-dropdown mappingSettingsPopup"
+     style="margin-top: 15px; margin-right: 15px; position: fixed; display: none;">
+    <ul
+        aria-labelledby="simple-btn-keyboard-nav"
+        style="display: block; top: 0%"
+        class="dropdown-menu"
+        role="menu"
+    >
+        <li role="menuitem" *ngIf="hasPermissionByName('media_upload')">
+            <a class="dropdown-item"
+               (click)="slickGridComp.provider.upload($event)"
+               aria-disabled="true">
+                {{ 'version.table.dropdown.row.upload' | translate }}
+            </a>
+        </li>
+        <li role="menuitem" *ngIf="hasPermissionByName('remote-media-login')">
+            <a class="dropdown-item"
+               (click)="slickGridComp.provider.remoteUpload($event)"
+               aria-disabled="true">
+                {{ 'remote_upload.title' | translate }}
+            </a>
+        </li>
+        <li role="menuitem" *ngIf="hasPermissionByName('preset-workflow')">
+            <a class="dropdown-item"
+               (click)="slickGridComp.provider.raiseTaskOnMedia()">
+                {{ 'version.table.dropdown.row.rw_wizard' | translate }}
+            </a>
+        </li>
+        <li role="menuitem" *ngIf="hasPermissionByName('preset-workflow')">
+            <a class="dropdown-item"
+               (click)="slickGridComp.provider.raiseTaskOnVersion()">
+                {{ 'version.table.dropdown.row.rw_wizard_version' | translate }}
+            </a>
+        </li>
+        <li role="menuitem" *ngIf="hasPermissionByName('clip-editor')">
+            <a class="dropdown-item"
+               (click)="slickGridComp.provider.clipEditor($event)">
+                {{ 'version.table.dropdown.row.clip_editor' | translate }}
+            </a>
+        </li>
+        <li role="menuitem" *ngIf="hasPermission('workflow')">
+            <a class="dropdown-item"
+               (click)="slickGridComp.provider.activeWorkflows($event)">
+                {{ 'version.table.dropdown.row.active_wf' | translate }}
+            </a>
+        </li>
+        <li role="menuitem" *ngIf="hasPermissionByName('create-subversion')">
+            <a class="dropdown-item"
+               (click)="slickGridComp.provider.createSubversion($event)">
+                {{ 'version.table.dropdown.row.create_subversion' | translate }}
+            </a>
+        </li>
+    </ul>
+</div>

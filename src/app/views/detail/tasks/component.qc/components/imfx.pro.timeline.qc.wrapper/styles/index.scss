@@ -1,0 +1,32 @@
+@import "../../../../../../../views/base/styles/theme.scss";
+@each $key, $value in $common-themes {
+  .#{$key} {
+      imfx-pro-timeline-qc-wrapper {
+          display: block;
+          height: 100%;
+          overflow: hidden;
+          .protimeline-additional-buttons {
+              height: 32px;
+              .add-clip {
+                  margin-left: 8px;
+              }
+              .replace-clip {
+                  margin-left: 8px;
+                  i {
+                      width: 20px;
+                      height: 32px;
+                      opacity: 0.6;
+                  }
+              }
+          }
+          .protimeline-additional-wrapper {
+              width: 100%;
+              height: calc(100% - 10px);
+
+              .pro-timeline-wrapper {
+                  margin-left: 0;
+              }
+          }
+      }
+    }
+  }

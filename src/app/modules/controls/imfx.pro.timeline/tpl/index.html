@@ -1,0 +1,150 @@
+<div class="pro-timeline-wrapper" [ngClass]="{'clip-mode':timelineData?.ClipsData}" #mainTimelineWrapper
+     (window:keydown)="checkKeyDown($event)"
+     (window:keyup)="checkKeyUp($event)"
+     (window:mousemove)="
+     checkRowResizeDrag($event);
+     checkTimeDrag($event);
+     checkSliderOrZoomDrag($event);
+     checkTimelineItemDrag($event);
+     checkClipDrag($event);"
+     (window:mouseup)="
+     endRowResizeDrag($event);
+     endTimeDrag($event);
+     endSliderOrZoomDrag($event);
+     endTimelineItemDrag($event);
+     endClipDrag($event);" *ngIf="!wrongRange && !!timelineData"> <!--(mouseleave)="endTimeDrag($event)"-->
+    <div #hoverTooltip class="canvas-hover-tooltip" [hidden]="hoveredKey == null && hoveredTimeKey == null" unselectable="on" onselectstart="return false;" dragstart="return false;">
+        <div>{{hoveredKey != null && hoveredKey.Type && isWaveCanvas(hoveredKey.Type) && hoveredKey.Value == 0 ? "SILENCE" : ""}}</div>
+        <div>{{hoveredKey != null ? "Frame: " + getTimecode(hoveredKey?.Frame) : ""}}</div>
+        <div>{{hoveredKey != null ? "Duration: " + getTimecode(hoveredKey?.Length, false) : ""}}</div>
+        <div>{{hoveredKey != null && hoveredKey.Data && hoveredKey.Data.Notes ? "Notes: " + hoveredKey.Data.Notes : ""}}</div>
+        <div>{{hoveredTimeKey}}</div>
+    </div>
+    <div #currentTime class="current-time-line-grab" [ngClass]="{'in-drag':timeDragActive}" unselectable="on" onselectstart="return false;" dragstart="return false;">
+        <div class="circle" unselectable="on" onselectstart="return false;" dragstart="return false;" (mousedown)="startTimeDrag($event)"></div>
+        <div class="line" unselectable="on" onselectstart="return false;" dragstart="return false;"></div>
+    </div>
+    <div #dragItemLine class="current-item-line-drag" [ngClass]="{'in-drag':itemDragMarkerShow || clipDragMarkerShow}" unselectable="on" onselectstart="return false;" dragstart="return false;">
+        <div class="line" unselectable="on" onselectstart="return false;" dragstart="return false;"></div>
+    </div>
+    <div class="group-wrapper" style="position: relative;z-index: 1;">
+        <div class="row-wrapper time">
+            <div class="row-name buttons">
+                <div class="leftarrow" (click)="prevFrame()" title="Previous Frame"></div>
+                <input type="text" disabled value="{{getTimecode(currentFrame)}}"/>
+                <div class="rightarrow" (click)="nextFrame()" title="Next Frame"></div>
+                <div class="clip-switcher" *ngIf="timelineData?.ClipsData">
+                    <div class="leftarrow" (click)="prevClip()" title="Previous Clip"></div>
+                    <div class="rightarrow" (click)="nextClip()" title="Next Clip"></div>
+                </div>
+            </div>
+            <div class="row-line" #currentTimeNumbersWrapper>
+                <canvas (click)="onClickTime($event)" (mouseleave)="clearHoverOnTimeCanvas($event)" (mousemove)="checkHoverInTimeCanvas($event)" #timeRowCanvas></canvas>
+                <canvas style="display: none" #timeRowCanvasBuffer></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="rows-wrapper" #rowsWrapper (wheel)="onScrollRows($event)">
+        <div class="scrollable-wrapper">
+            <div class="scrollable-area" #scrollableArea (mousedown)="startClipDrag($event)">
+                <div class="clip-boxes" *ngIf="timelineData?.ClipsData">
+                    <div class="clip-box-item" *ngFor="let item of timelineData.ClipsData" [ngClass]="{
+                'current':currentClipInDrag && currentClipInDrag.ClipId == item.ClipId || selectedClip && selectedClip.ClipId == item.ClipId,
+                'in-drag':clipDragMarkerShow
+                }"
+                         [ngStyle]="{'width':getClipWidth(item), 'left':getClipLeft(item)}"
+                    >
+                        <div class="filler"
+                             [ngStyle]="{'width': getFillerWidth(item),
+                             'left': timelineData.Groups[0].Rows[0].Data.CanvasImageFrameWidth + 'px'}"></div>
+                        <span class="clip-text" *ngIf="item.ClipText">
+                        {{item.ClipText}}
+                    </span>
+                    </div>
+                    <div class="clip-box" #clipBoxView [ngClass]="{'in-drag': clipDragMarkerShow}" unselectable="on" onselectstart="return false;" dragstart="return false;"></div>
+                </div>
+                <div class="group-wrapper" *ngFor="let group of timelineData.Groups; let groupIndex = index" [ngClass]="{'collapsed': group.Expandable && !group.Expanded, 'without-header':!group.WithHeader}">
+                    <div class="row-wrapper group" *ngIf="group.WithHeader">
+                        <div class="row-name" unselectable="on" onselectstart="return false;" title="{{group.Name}}">
+                            <span>
+                                {{group.Name}}
+                                <div class="gear" *ngIf="group.WithGearButton" (click)="gearClick(group)"></div>
+                                <div class="expander" *ngIf="group.Expandable" (click)="toggleGroup(group)"></div>
+                            </span>
+                        </div>
+                        <div class="row-line" title="{{group.HeaderAdditionalText}}" [style.padding]="group.HeaderAdditionalText && group.HeaderAdditionalText.length > 0 ? '0 5px' : null">
+                            {{group.HeaderAdditionalText}}
+                        </div>
+                    </div>
+                    <div class="row-wrapper" id="row-wrapper-{{groupIndex}}-{{rowIndex}}" *ngFor="let row of group.Rows; let rowIndex = index" [ngClass]="{'is-image': isImageCanvas(row.Type) || isWaveCanvas(row.Type), 'highlighted': row.Highlighted, 'highlighted-default': row.HighlightedDefault}"
+                         [ngStyle]="{'height': row.Height !== undefined ? row.Height+'px' : null, 'line-height': row.Height !== undefined ? row.Height+'px' : null }">
+                        <div class="row-name" unselectable="on" onselectstart="return false;"
+                             (click)="onClickRowHeader(row)"
+                             title="{{row.Name}}"
+                             [ngStyle]="{'height': row.Height !== undefined ? row.Height+'px' : null, 'line-height': row.Height !== undefined ? row.Height+'px' : null }">
+                            <span>
+                                {{row.Name}}
+                                <div *ngIf="!isImageCanvas(row.Type) && !isWaveCanvas(row.Type) && !timelineData?.ClipsData" class="arrows-wrapper">
+                                    <div class="markers-arrow leftarrow" title="Previous Marker" (click)="prevMarker(row)"></div>
+                                    <div class="markers-arrow rightarrow" title="Next Marker" (click)="nextMarker(row)"></div>
+                                </div>
+                                <div *ngIf="isWaveCanvas(row.Type) && !timelineData?.ClipsData" class="arrows-wrapper">
+                                    <div class="markers-arrow leftarrow" title="Previous Silence" (click)="prevSilence(row)"></div>
+                                    <div class="markers-arrow rightarrow" title="Next Silence" (click)="nextSilence(row)"></div>
+                                </div>
+                                <div *ngIf="isImageCanvas(row.Type) && row.Data.Timecodes && !timelineData?.ClipsData" class="arrows-wrapper">
+                                    <div class="markers-arrow leftarrow" title="Previous Scene" (click)="prevScene(row)"></div>
+                                    <div class="markers-arrow rightarrow" title="Next Scene" (click)="nextScene(row)"></div>
+                                </div>
+                                <div *ngIf="isImageCanvas(row.Type) && !row.Data.Timecodes && !timelineData?.ClipsData" class="arrows-wrapper">
+                                    <div class="markers-arrow collapse-thumb" title="Toggle Image Collapse" (click)="toggleCollapse(row)"></div>
+                                </div>
+                            </span>
+                        </div>
+                        <div class="row-line" unselectable="on" onselectstart="return false;" dragstart="return false;"
+                             [ngStyle]="{'height': row.Height !== undefined ? row.Height+'px' : null, 'line-height': row.Height !== undefined ? row.Height+'px' : null }">
+                            <div class="row-loader" *ngIf="isImageCanvas(row.Type)" id="{{'imageLoader' + rowIndex + '-' + groupIndex}}"
+                                 [ngStyle]="{'height': row.Height !== undefined ? row.Height+'px' : null, 'line-height': row.Height !== undefined ? row.Height+'px' : null }">
+                                <div class="spinner"></div>
+                            </div>
+                            <img *ngIf="isImageCanvas(row.Type)" style="display: none;" (load)="onImageLoad(rowIndex + '-' + groupIndex)" src="{{row.Keys}}" id="{{'imageSources' + rowIndex + '-' + groupIndex}}" #imageSources/>
+                            <canvas (click)="sendClickedFrame($event, row)"
+                                    (mouseleave)="clearHoverOnCanvas($event, row, (isImageCanvas(row.Type) ? rowIndex + '-' + groupIndex : undefined))"
+                                    (mousemove)="checkHoverInCanvas($event, row, (isImageCanvas(row.Type) ? rowIndex + '-' + groupIndex : undefined))"
+                                    (mousedown)="startTimelineItemDrag($event, row, groupIndex, rowIndex, (isImageCanvas(row.Type) ? rowIndex + '-' + groupIndex : undefined))"
+                                    *ngIf="isCanvasType(row.Type)" [ngClass]="{'collapsed': group.Expandable && !group.Expanded}" #timelineRow></canvas>
+                            <canvas style="display: none" *ngIf="isCanvasType(row.Type)" #timelineRowBuffer></canvas>
+                        </div>
+                        <div *ngIf="isWaveCanvas(row.Type)" class="row-resizer" (mousedown)="startRowResizeDrag($event, groupIndex, rowIndex)">
+                            <div class="row-resizer-handle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="timeline-scroll-wrapper" #timelineScrollWrapper>
+            <div class="timeline-scroll" #timelineScroll></div>
+        </div>
+    </div>
+    <div #zoomSliderWrapper class="slider-wrapper" [ngClass]="{'in-drag':sliderDragActive || zoomDragActive}" unselectable="on" onselectstart="return false;" dragstart="return false;">
+        <div #zoomSlider class="slider" unselectable="on" onselectstart="return false;" dragstart="return false;">
+            <div class="zoom-left" (mousedown)="startZoomDrag($event, 'L')" unselectable="on" onselectstart="return false;" dragstart="return false;"></div>
+            <div class="dragable-middle" (mousedown)="startSliderDrag($event)" unselectable="on" onselectstart="return false;" dragstart="return false;"></div>
+            <div class="zoom-right" (mousedown)="startZoomDrag($event, 'R')" unselectable="on" onselectstart="return false;" dragstart="return false;"></div>
+        </div>
+    </div>
+    <!--div>Current Frame: {{getTimecode(currentFrame)}}</div>
+    <div>Current Frame(RAW): {{currentFrame}}</div>
+    <div>Visible Frames: {{getTimecode(currentVisibleRange.From)}} - {{getTimecode(currentVisibleRange.To)}}</div>
+    <div>Visible Frames (RAW): {{currentVisibleRange.From}} - {{currentVisibleRange.To}}</div-->
+</div>
+
+<div class="pro-timeline-wrapper" *ngIf="wrongRange && !loading">
+    <div class="wrong"> {{"timeline.wrong-range" | translate}}</div>
+</div>
+
+<div class="pro-timeline-wrapper" *ngIf="loading && !wrongRange">
+    <div class="timeline-loader">
+        <div class="spinner"></div>
+    </div>
+</div>

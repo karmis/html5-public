@@ -1,0 +1,8 @@
+<div class="service-config-wrapper">
+  <div class="ugm-container" [hidden]="mode!='grid'">
+      <service-config-grid #settingsServiceConfigGrid [typeId]="typeId" (selectServiceConfig)="selectServiceConfig($event)"></service-config-grid>
+  </div>
+  <div class="ugm-container" *ngIf="mode=='details'">
+    <service-config-detail #settingsServiceConfigDetails [gridRef]="settingsServiceConfigGrid" (back)="toGrid()"></service-config-detail>
+  </div>
+</div>

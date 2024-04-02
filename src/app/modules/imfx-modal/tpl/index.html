@@ -1,0 +1,78 @@
+<div class="modal-header type-{{_data.modalOptions.type}}" #modalHeader>
+    <h4 id="dialog-sizes-name2" class="modal-title pull-left">
+        <span class="modal-title-text">{{_data.modalOptions.title|translate}} </span>
+        <span *ngIf="_data.modalOptions.subTitle" class="modal-subtitle-text"> {{_data.modalOptions.subTitle|translate}}</span>
+    </h4>
+    <div
+        *ngIf="_data.modalOptions.isCloseCross"
+        class="close" aria-label="Close" (click)="hide('hide', $event)">
+        <i class="icon icons-closedelete"></i>
+    </div>
+</div>
+<div class="modal-body type-{{_data.modalOptions.type}}" #modalBody [hidden]="_data.modalOptions.hideModalBody"></div>
+
+
+<!--Footer-->
+<div class="modal-footer modal-footer-container" #modalFooter *ngIf="(_data.modalOptions.footer && !_data.modalOptions.footerRef) || _data.modalOptions.footer == 'none'">
+    <!--'close'-->
+    <div *ngIf="_data.modalOptions.footer == 'close'" class="buttons">
+        <button type="button" class="btn btn-default" (click)="hide('hide', $event)">{{'common.close'| translate}}</button>
+    </div>
+
+    <!--'ok'-->
+    <div *ngIf="_data.modalOptions.footer == 'ok'" class="buttons">
+        <button type="button" class="btn btn-default primary" (click)="emitClickFooterBtn('ok', $event)">{{'common.ok'| translate}}</button>
+    </div>
+
+    <!--'close|ok'-->
+    <div *ngIf="_data.modalOptions.footer == 'close|ok'" class="buttons">
+        <button type="button" class="btn btn-default pull-left" (click)="hide('hide', $event)">{{'common.close'| translate}}</button>
+        <button type="button" class="btn btn-default primary" (click)="emitClickFooterBtn('ok', $event)">{{'common.ok'| translate}}</button>
+    </div>
+
+    <!--'close|checkbox|ok'-->
+    <!--<div *ngIf="_data.modalOptions.footer == 'close|checkbox|ok'" class="buttons">-->
+        <!--<button type="button" class="btn btn-default pull-left" (click)="hide('hide', $event)">{{'common.close'| translate}}</button>-->
+        <!--<div class="form-group">-->
+            <!--<label>-->
+                <!--<input type="checkbox" name="isDefault" (change)="isDefault = !isDefault" [checked]="isDefault">-->
+                <!--<span>As Default</span>-->
+            <!--</label>-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+            <!--<label>-->
+                <!--<input type="checkbox" name="isGlobal" (change)="isGlobal = !isGlobal" [checked]="isGlobal">-->
+                <!--<span>As Global</span>-->
+            <!--</label>-->
+        <!--</div>-->
+        <!--<button type="button" class="btn btn-default primary pull-right" (click)="emitClickFooterBtn('ok', $event)">{{'common.ok'| translate}}</button>-->
+    <!--</div>-->
+
+    <!--'cancel|ok'-->
+    <div *ngIf="_data.modalOptions.footer == 'cancel|ok'" class="buttons">
+        <button type="button" class="btn btn-default" (click)="hide('hide', $event)">{{'common.cancel'| translate}}</button>
+        <button type="button" class="btn btn-default primary" (click)="emitClickFooterBtn('ok', $event)">{{'common.ok'| translate}}</button>
+    </div>
+
+    <div *ngIf="_data.modalOptions.footer == 'cancel|save'" class="buttons">
+        <button type="button" class="btn btn-default" (click)="hide('hide', $event)">{{'common.cancel'| translate}}</button>
+        <button type="button" class="btn btn-default primary" (click)="emitClickFooterBtn('save', $event)">{{'common.save'| translate}}</button>
+    </div>
+</div>
+<div #footerHider class="footer-hider">
+    <div class="spinner"></div>
+</div>
+<!--Footer container-->
+<div class="modal-footer-container" *ngIf="_contentView">
+    <ng-container
+        #modalFooterContainer
+        *ngTemplateOutlet="footerRef; context: {'context':contentView}"
+    >
+        <!--  the view from other tpl components will be inserted here-->
+    </ng-container>
+</div>
+
+
+
+
+<overlay #overlayModal [zIndex]="250" (isError)="cancel()" [mode]="true"></overlay>

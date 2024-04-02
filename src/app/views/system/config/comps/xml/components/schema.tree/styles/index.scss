@@ -1,0 +1,91 @@
+@import "../../../../../../../base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+  .#{$key} {
+
+    .imfx-schema-tree-wrapper {
+        position: relative;
+        height: 100%;
+
+        .expand-collapse-buttons {
+            position: absolute;
+            right: 25px;
+            top: 35px;
+            z-index: 1;
+        }
+
+        .schema-tree-filter {
+            height: 32px;
+            line-height: 32px;
+            width: 100%;
+            display: block;
+            padding-right: 28px;
+        }
+        .clear-schema-tree-filter {
+            cursor: pointer;
+            opacity: 0.5;
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            &:hover {
+                opacity: 1;
+            }
+        }
+
+        .btns-row {
+            height: 32px;
+            line-height: 32px;
+            width: 100%;
+            display: block;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            font-size: 0;
+
+            .add-btn {
+                width: 100%;
+            }
+
+            .add-btn i, .remove-btn i, .icons-info {
+                position: relative;
+                top: -2px;
+            }
+
+            &.has-selected {
+                .add-btn, .edit-btn, .remove-btn {
+                    width: 33.33%;
+                }
+            }
+        }
+        .schema-tree-list-wrapper{
+            overflow-x: hidden;
+            overflow-y: auto;
+            width: 100%;
+            height: calc(100% - 64px);
+            padding-bottom: 5px;
+
+      .dock-header-row {
+        box-sizing: border-box;
+        padding: 5px 27px 5px 10px;
+        cursor: pointer;
+        position: relative;
+      }
+      .dock-item-row {
+        box-sizing: border-box;
+        padding: 5px 10px 5px 50px;
+        cursor: pointer;
+
+          .addtional-info {
+              opacity: 0.6;
+              padding-left: 8px;
+              display: inline;
+              margin: 0;
+          }
+      }
+      .selected {
+        border-bottom: 2px solid #D98A1C;
+      }
+    }
+  }
+}
+}

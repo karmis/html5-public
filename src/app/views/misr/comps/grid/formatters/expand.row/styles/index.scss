@@ -1,0 +1,132 @@
+@import "../../../../../../../views/base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+    .#{$key} {
+        .accordion-group-wrapper {
+            padding-left: 22px;
+            .sub-row-selectable {
+                background-color: getThemeColor(10, $key);
+            }
+            .accordion-header-row {
+                box-sizing: border-box;
+                cursor: pointer;
+                height: 30px;
+
+                .icon {
+                    color: getThemeColor(1, $key);
+                }
+            }
+
+            .accordion-item-row, .accordion-item-row-header {
+                padding: 0px 0px 0px 48px;
+                border-left: 1px solid getThemeColor(22, $key);
+                box-sizing: border-box;
+
+                > span {
+                    display: flex;
+                    align-items: center;
+
+                    .icon {
+                        flex: 0 0 25px;
+                    }
+                }
+
+                .row-item {
+                    min-width: 150px;
+                    max-width: 210px;
+                    display: inline-block;
+                    flex: 2;
+                    padding-top: 4px;
+                    padding-bottom: 4px;
+                    border-left: 1px solid getThemeColor(22, $key);
+                    box-sizing: border-box;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    &.code {
+                        max-width: 300px;
+                    }
+                    &.name {
+                        max-width: 300px;
+                    }
+                    &.num {
+                        flex: 0;
+                        min-width: 80px;
+                        max-width: 80px;
+                    }
+                    //&.type {
+                    //}
+                    //&.server {
+                    //}
+                    //&.pass {
+                    //}
+                    //&.format {
+                    //}
+                    &.popups {
+                        flex:1;
+                        max-width: 50px;
+                        min-width: 50px;
+                    }
+                }
+            }
+
+            .accordion-item-row-header {
+                .row-item {
+                    height: 22px;
+                    line-height: 18px;
+                    font-size: 11px;
+                    color: getThemeColor(2, $key);
+                }
+            }
+
+            .accordion-item-row {
+                //height: 30px;
+                &.selected-row {
+                    background-color: getThemeColor(10, $key);
+                    span {
+                        .icon {
+                            color: #fff!important;
+                        }
+                    }
+                }
+
+                &.pointer {
+                    cursor: pointer;
+                }
+
+                > span {
+                    &:hover {
+                        background-color: getThemeColor(10, $key);
+                    }
+                }
+
+                .row-item {
+                    height: 30px;
+                    //&.code {
+                    //}
+                    //&.name {
+                    //}
+                    //&.num {
+                    //}
+                    //&.type {
+                    //}
+                    //&.server {
+                    //}
+                    //&.pass {
+                    //}
+                    //&.format {
+                    //}
+                    //&.popups {
+                    //}
+                }
+            }
+        }
+        .misr-item-ctrls {
+            padding-left: 25px;
+        }
+        .raise-preview-workflow {
+            height: 25px;
+            margin-top: -5px;
+        }
+    }
+}

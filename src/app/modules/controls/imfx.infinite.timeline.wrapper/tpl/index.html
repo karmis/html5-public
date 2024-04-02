@@ -1,0 +1,43 @@
+<div class="infinite-timeline-wrapper">
+    <div class="controls-block" *ngIf="currentAnchorDate != null">
+        <div class="anchor-date-wrapper">
+            <imfx-controls-datetimepicker
+                #anchorDateTime
+                [locale]="'common.locale' | translate"
+                [format]="'common.date_full_format' | translate"
+                [formatDate]="'common.date_format' | translate"
+                [formatTime]="'common.time_format' | translate"
+                [allowBlank]="false"
+                [mask]="true"
+                [value]="this.currentAnchorDate"
+                [dayOfWeekStart]="'common.date_of_week_start' | translate"
+                [small]="true"
+                [timepicker]="true"
+                [clearButton]="false"
+                (onChangeDateTime)="onSelectDateTime($event)">
+            </imfx-controls-datetimepicker>
+        </div>
+        <div class="days-of-week-buttons">
+            <button class="day-of-week"
+                    [ngClass]="{'active': this.currentDayOfWeek == dayOfWeek.value}"
+                    *ngFor="let dayOfWeek of daysOfWeek"
+                    (click)="goToDayOfWeek(dayOfWeek.value)">
+                {{dayOfWeek.displayName}}
+            </button>
+        </div>
+        <div class="reset-timeline">
+            <button class="reset-date-btn"
+                    (click)="resetDate()">
+                {{"infinite_timeline.reset_timeline" | translate}}
+            </button>
+        </div>
+    </div>
+    <div class="timeline-container">
+        <imfx-infinite-timeline #timeline
+                                (onClickLayout)="onClickLayout.emit($event)"
+                                (onClickObject)="onClickObject.emit($event)"
+                                (onChangeVisibleRange)="onChangeVisibleRangeFromTimeline($event)"
+        ></imfx-infinite-timeline>
+    </div>
+
+</div>

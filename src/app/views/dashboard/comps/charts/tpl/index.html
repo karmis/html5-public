@@ -1,0 +1,44 @@
+<div #cahartwrapper class="full-height full-width">
+  <div *ngIf="lineChartOptions" class="full-height-width-block charts-wrapper-wf">
+    <div class="chart-btns-row" *ngIf="showButtons">
+      <button
+        class="btn imfx-btn"
+        [ngClass]="{'imfx-btn-active': lineChartType=='line'}"
+        type="button"
+        (click)="changeChartType('line')">
+        <i class="icons-area-chart icon" aria-hidden="true"></i>
+      </button>
+      <button
+        class="btn imfx-btn"
+        [ngClass]="{'imfx-btn-active': lineChartType=='bar'}"
+        type="button"
+        (click)="changeChartType('bar')">
+        <i class="icons-bar-chart icon" aria-hidden="true"></i>
+      </button>
+      <button
+        class="btn imfx-btn"
+        [ngClass]="{'imfx-btn-active': lineChartType=='radar'}"
+        type="button"
+        (click)="changeChartType('radar')">
+        <i class="icons-pie-chart icon" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="container-fluid" style="position: relative; height:100%;">
+      <div class="row" style="height:calc(100% - 40px);">
+        <div style="display: block;height: 100%;">
+          <canvas baseChart
+                  *ngIf="lineChartData"
+                  [datasets]="lineChartData"
+                  [labels]="lineChartLabels"
+                  [options]="lineChartOptions"
+                  [colors]="lineChartColors"
+                  [legend]="lineChartLegend"
+                  [chartType]="lineChartType"
+                  (chartHover)="chartHovered($event)"
+                  (chartClick)="chartClicked($event)"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<overlay #overlay [zIndex]="100"></overlay>

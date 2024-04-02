@@ -1,0 +1,122 @@
+<div class="modal-wrapper">
+    <div class="main-data">
+        <div class="field-wrapper">
+            <div class="inline-field-wrapper">
+                <div class="label">
+                    Timecode Format
+                    <!--                {{'misrmanager.components.modal' | translate}}-->
+                </div>
+                <imfx-controls-select2
+                    #timecodeFormatControl
+                    [width]="'100%'"
+                    [allowClear]="false"
+                    [data]="lookups.timecode"
+                    [value]="[itemChannelSchedule.TC_FORMAT]"
+                    [placeholder]="'base.selectOoo'|translate"
+                    [placeholderRefToTranslate]="'base.selectOoo'"
+                    (onSelect)="onUpdateControl('timecodeFormatControl', 'TC_FORMAT')"
+                    (onUnselect)="onUpdateControl('timecodeFormatControl', 'TC_FORMAT')"
+                ></imfx-controls-select2>
+            </div>
+
+            <div class="inline-field-wrapper">
+                <div class="label">
+                    Combo Channel
+                    <!--                {{'misrmanager.components.modal' | translate}}-->
+                </div>
+                <input type="checkbox"
+                       [(ngModel)]="comboChannel"
+                />
+            </div>
+        </div>
+        <div class="field-wrapper">
+            <div class="inline-field-wrapper">
+                <div class="label">
+                    Apply Requirements
+                    <!--                {{'misrmanager.components.modal' | translate}}-->
+                </div>
+                <imfx-controls-select2
+                    #requirementsControl
+                    [width]="'100%'"
+                    [validationEnabled]="false"
+                    [allowClear]="false"
+                    [firstEmpty]="false"
+                    [data]="lookups.applyRequirements"
+                    [value]="[itemChannelSchedule.REQ_MODE]"
+                    [placeholder]="'base.selectOoo'|translate"
+                    [placeholderRefToTranslate]="'base.selectOoo'"
+                    (onSelect)="onUpdateControl('requirementsControl', 'REQ_MODE')"
+                    (onUnselect)="onUpdateControl('requirementsControl', 'REQ_MODE')"
+                ></imfx-controls-select2>
+            </div>
+            <div class="inline-field-wrapper">
+                <div class="label">
+                    Reference ID
+                    <!--                {{'misrmanager.components.modal' | translate}}-->
+                </div>
+                <input type="text"
+                       [(ngModel)]="itemChannelSchedule.REF_ID"
+                />
+            </div>
+        </div>
+    </div>
+    <div class="rules-categories-wrapper">
+        <collection-lookups
+            #AudioRequirementsControl
+            [title]="('misrmanager.audio_subs.au_req'|translate)"
+            [controlColWidth]="'800px'"
+            [placeholder]="'base.selectOoo'|translate"
+            [placeholderRefToTranslate]="'base.selectOoo'"
+            [dbField]="'AudioRequirements'"
+            [lookupsObjects]="AR_LookupsObjects"
+            [count]="null"
+            [minLimit]="0"
+            [maxLimit]="1"
+            (onUpdateControl)="onUpdateControl($event)"
+            (onUpdateStructure)="onUpdateControl($event)"
+        ></collection-lookups>
+        <collection-lookups
+            #AudioRequirementsShortFormControl
+            [title]="('misrmanager.audio_subs.au_req_short'|translate)"
+            [controlColWidth]="'800px'"
+            [placeholder]="'base.selectOoo'|translate"
+            [placeholderRefToTranslate]="'base.selectOoo'"
+            [dbField]="'AudioShortFormRequirements'"
+            [lookupsObjects]="ARSF_LookupsObjects"
+            [count]="null"
+            [minLimit]="0"
+            [maxLimit]="1"
+            (onUpdateControl)="onUpdateControl($event)"
+            (onUpdateStructure)="onUpdateControl($event)"
+        ></collection-lookups>
+        <collection-lookups
+            class="subs-collection-lookups"
+            #SubsRequirementsControl
+            [title]="('misrmanager.audio_subs.sb_req'|translate)"
+            [controlColWidth]="'100%'"
+            [placeholder]="'base.selectOoo'|translate"
+            [placeholderRefToTranslate]="'base.selectOoo'"
+            [dbField]="'SubsRequirements'"
+            [lookupsObjects]="SR_LookupsObjects"
+            [count]="null"
+            [minLimit]="0"
+            [maxLimit]="1"
+            [maxLimitGroups]="1"
+            (onUpdateControl)="onUpdateControl($event)"
+            (onUpdateStructure)="onUpdateControl($event)"
+        ></collection-lookups>
+    </div>
+
+    <div class="overlay-wrapper" #modalWrapperEl>
+        <div class="spinner"></div>
+    </div>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div>
+            <button type="button" (click)="closeModal()">{{'common.cancel'| translate}}</button>
+            <button type="button primary" (click)="saveData()" [disabled]="!isValid()">{{'common.save'| translate}}</button>
+        </div>
+    </div>
+</ng-template>

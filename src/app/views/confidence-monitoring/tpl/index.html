@@ -1,0 +1,48 @@
+<div class="confidence-monitoring-wrapper" #ConfidenceMonitoring>
+<!--    <button (click)="initAudioBars()" class="stop-button primary" [disabled]="inited">Init</button>-->
+<!--    <button (click)="stopAllPlayers()" class="stop-button">Stop All</button>-->
+<!--    <button (click)="startAllPlayers()" class="stop-button">Start All</button>-->
+    <div class="demo-wrapper">
+        <div style="display: flex; flex-direction: column;  margin:auto; width: 100%; height: 100%;">
+            <div class="video-row" *ngFor="let row of videoArray; let i=index"  [ngStyle]="{'height':'calc('+row.row_h+'% - 20px)'}">
+                <div class="video-cell" *ngFor="let src of row.src; let j=index" [ngStyle]="{'width': src.width+'%'}">
+                    <div class="video-main-wrapper">
+                        <div class="video-canvas-wrapper">
+                            <div class="video-canvas-block" (click)="debug(i,j,src)">
+                                <div class="video-loader-overlay" [hidden]="!isVisibleLoading(i,j)"><div class="spinner" ></div></div>
+                                <div class="video-wrapper"
+                                     oncontextmenu="return false;"
+                                     style="pointer-events:none;"
+                                     [ngClass]="{'full-width': !src.url}"
+                                    id="video_wrapper_{{src.ind}}">
+                                    <video  #video_{{src.ind}} *ngIf="src.url"
+                                            preload="metadata"
+                                            playsinline="playsinline"
+                                            src='{{src.url}}'
+                                            id='video_{{src.ind}}'
+                                            class="demo-video"
+                                            disablePictureInPicture
+                                            controlsList="nofullscreen"
+                                            oncontextmenu="return false;"
+                                            style="pointer-events:none;"
+                                            [ngClass]="{'audio-player': src.type=='audio'}"
+                                            (click)="togglePause(src.ind)"></video>
+                                    <div *ngIf="src.type==='audio'" class="imfx-audio-icon">
+                                        <i class="icons-volume-high icon volume-high"></i>
+                                    </div>
+                                    <div *ngIf="!src.url" class="demo-video">
+                                        <div class="thumbnail-wrapper" style="width: 100%;height: 100%;">
+                                            <img oncontextmenu="return false;" class="thumbnail" src="./assets/img/default-thumb.PNG" style="width: 100%;height: 100%;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <canvas oncontextmenu="return false;" *ngIf="src.url" id="canvas_{{src.ind}}" width="25" height="{{src.height - 6}}" class="sound-canvas"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="video-title">{{src.title}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

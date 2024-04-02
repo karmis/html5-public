@@ -1,0 +1,23 @@
+@import "../../../../views/base/styles/theme.scss";
+
+$multilineheight: 300px;
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        add-custom-status-modal {
+            .fields {
+                display: flex;
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            .input-name {
+                height: 28px;
+                width: 100%;
+            }
+            .column-field {
+                width: 100%;
+            }
+        }
+    }
+}

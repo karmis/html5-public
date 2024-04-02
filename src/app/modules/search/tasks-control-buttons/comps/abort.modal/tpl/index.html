@@ -1,0 +1,36 @@
+<div class="assessment_abort">
+    <div class="wizard-steps">
+        <div class="">
+            <div class="form-group">
+                <label for="abort_reason">
+                    {{ 'common.message' | translate }}
+                </label>
+                <textarea class="form-control"
+                          id="abort_reason"
+                          [ngClass]="{'error': !valid}"
+                          rows="10"
+                          (keyup)="doTextareaValueChange($event)">{{reasonText}}</textarea>
+                <span *ngIf="!valid" class="notvalid_error">
+                    {{valid_error}}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div class="">
+            <div class="buttons">
+                <button (click)="closeModal()" style="float: left;margin-left:0px">
+                    {{ 'common.cancel' | translate }}
+                </button>
+                <button class="primary" (click)="sendReset()">
+                    {{ 'tasks.abort' | translate }}
+                </button>
+                <button class="fail" (click)="sendFail()" [disabled]="curretStatusIsFailed">
+                    {{ 'tasks.fail' | translate }}
+                </button>
+            </div>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,115 @@
+<div class="telestream-wrapper">
+    <div class="player"></div>
+    <div class="device-container">
+<!--        <label class="mr-sm-2">-->
+<!--            {{ 'lookups.devices' | translate }}-->
+<!--        </label>-->
+        <imfx-lookups-select2
+            #controlPlayoutDevices
+            [width]="'100%'"
+            [validationEnabled]="false"
+            [allowClear]="false"
+            [firstEmpty]="false"
+            [value]="'first'"
+            [lookupType]="'PlayoutDevices'"
+            [lookupUrl]="'/api/lookup/'"
+            [lookupGetParams]="(!!deviceGroupId) ? '?groupId=' + deviceGroupId : ''"
+            [placeholder]="'base.selectOoo'|translate"
+            [placeholderRefToTranslate]="'base.selectOoo'"
+            (onSelect)="onSelectDevice($event)"
+            (onUnselect)="onSelectDevice($event)"
+        ></imfx-lookups-select2>
+        <div class="remote-device-status">
+            <span>Status:</span>
+            <span>{{statusText}}</span>
+        </div>
+<!--        [filterResult]="filterResult"-->
+<!--        [compContext]="context"-->
+    </div>
+
+    <div *ngIf="hasPermissionByName('media-payout-control')" class="timecodes-row">
+        <div class="tc-wrapper">
+            <label>
+                {{ 'outgest.telestream_player.play_from' | translate }}
+            </label>
+            <timecode-input #playFromTimecodeElement
+                            [timecodeFormat]="item.TimecodeFormat"
+                            [displayGoToTimecodeBtn]="false"
+                            [(inputValue)]="inText"
+                            [som]="item.SOM"
+                            [eom]="item.EOM"
+                            [inputError]="getInputError()"
+                            (changedInputValue)="onChangedInputValue($event)"
+            >
+            </timecode-input>
+        </div>
+        <div class="tc-wrapper">
+            <label>
+                {{ 'outgest.telestream_player.play_to' | translate }}
+            </label>
+            <timecode-input #playToTimecodeElement
+                            [timecodeFormat]="item.TimecodeFormat"
+                            [displayGoToTimecodeBtn]="false"
+                            [(inputValue)]="outText"
+                            [inputError]="getInputError()"
+                            [som]="item.SOM"
+                            [eom]="item.EOM"
+                            (changedInputValue)="onChangedInputValue($event)"
+            >
+            </timecode-input>
+        </div>
+        <button class="reset-btn" (click)="onResetBtn($event)">
+            {{ 'outgest.telestream_player.reset_times' | translate }}
+        </button>
+    </div>
+
+
+
+    <div *ngIf="hasPermissionByName('media-payout-control')" class="buttons-row">
+        <button class="stop-btn"
+                [hidden]="!btnStop.visibility"
+                [disabled]="!btnStop.enabled || disabledBtns"
+                (click)="onStopBtn($event)">
+            {{ 'outgest.telestream_player.stop' | translate }}
+                <div class="spinner-wrapper">
+                    <div class="spinner" [hidden]="!btnStop.overlay"></div>
+                </div>
+        </button>
+        <button class="pause-btn"
+                [hidden]="!btnPause.visibility"
+                [disabled]="!btnPause.enabled || disabledBtns"
+                (click)="onPauseBtn($event)">
+            {{ 'outgest.telestream_player.pause' | translate }}
+            <div class="spinner-wrapper">
+                <div class="spinner" [hidden]="!btnPause.overlay"></div>
+            </div>
+        </button>
+        <button class="play-btn"
+                [hidden]="!btnPlay.visibility"
+                [disabled]="!btnPlay.enabled || disabledBtns"
+                (click)="onPlayBtn($event)">
+            {{ 'outgest.telestream_player.play' | translate }}
+            <div class="spinner-wrapper">
+                <div class="spinner" [hidden]="!btnPlay.overlay"></div>
+            </div>
+        </button>
+        <button class="back-btn"
+                [hidden]="!btnBack.visibility"
+                [disabled]="!btnBack.enabled || disabledBtns"
+                (click)="onBackBtn($event)">
+            {{ 'outgest.telestream_player.back' | translate }}
+            <div class="spinner-wrapper">
+                <div class="spinner" [hidden]="!btnBack.overlay"></div>
+            </div>
+        </button>
+        <button class="forward-btn"
+                [hidden]="!btnForward.visibility" [disabled]="!btnForward.enabled || disabledBtns"
+                (click)="onForwardBtn($event)">
+            {{ 'outgest.telestream_player.forward' | translate }}
+            <div class="spinner-wrapper">
+                <div class="spinner" [hidden]="!btnForward.overlay"></div>
+            </div>
+        </button>
+    </div>
+
+</div>

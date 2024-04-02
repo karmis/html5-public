@@ -1,0 +1,22 @@
+
+<div class="source-tab-col">
+    <div class="source-tab-col__title">
+        <div class="source-tab-col__title-right">
+
+            <search-views
+                    [rightSidePosition]="true"
+                    [config]="searchViewsConfig"
+            ></search-views>
+
+            <search-settings
+                    [config]="searchSettingsConfig"
+            ></search-settings>
+        </div>
+    </div>
+    <div class="source-tab-col__table">
+        <slick-grid #slickGridComp
+                    class="small-height-header"
+                    [config]="searchGridConfig">
+        </slick-grid>
+    </div>
+</div>

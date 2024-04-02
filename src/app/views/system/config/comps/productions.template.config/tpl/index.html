@@ -1,0 +1,166 @@
+<div class="productions-template-config-wrapper" #mainTemplateConfigWrapper>
+    <div class="templates-list-wrapper" #productionsTemplatesList>
+        <input type="text" #filterInput (keyup)="filterList($event)" placeholder="{{'system-config.xml.filter' | translate}}"/>
+        <i class="icons-cross icon" *ngIf="filterInput.value.length > 0" (click)="filterInput.value = ''; filterList()"></i>
+        <div class="template-items-list">
+            <div class="template-item-row" *ngFor="let template of templatesListFiltered"
+                 [ngClass]="{'selected': selectedTemplate && selectedTemplate.id == template.id}"
+                 (click)="selectTemplate(template)">{{template.name}}</div>
+        </div>
+        <div class="buttons-wrapper" [ngClass]="{'has-selected': selectedTemplate}">
+            <button class="add-btn" title="{{'production.template_config.add' | translate}}" (click)="addTemplate()"><i class="icons-add icon"></i></button>
+            <!--button class="edit-btn" title="{{'production.template_config.edit' | translate}}" *ngIf="selectedTemplate" (click)="editTemplate()"><i class="fa fa-edit"></i></button-->
+            <button class="remove-btn" title="{{'production.template_config.remove' | translate}}" *ngIf="selectedTemplate" (click)="removeTemplate()"><i class="icons-cross icon"></i></button>
+        </div>
+    </div>
+    <div class="select-message" [hidden]="selectedTemplate != null">
+        <div>
+            {{'production.template_config.select_message' | translate}}
+        </div>
+    </div>
+    <div class="productions-template-config" #productionsTemplateConfig [hidden]="selectedTemplate == null">
+        <ng-template #LayoutList
+                     let-list>
+            <!--optional placeholder element for dropzone-->
+            <!--will be removed from DOM on init-->
+            <div class="placeholder-ref"
+                 dndPlaceholderRef>
+            </div>
+
+            <div *ngFor="let item of list"
+                 [dndDraggable]="item"
+                 dndEffectAllowed="move"
+                 [dndType]="(item.children ? '0' : '1')"
+                 [dndDisableIf]="item.disable"
+                 (dndStart)="onDragStart($event)"
+                 (dndCopied)="onDragged(item, list, 'copy')"
+                 (dndLinked)="onDragged(item, list, 'link')"
+                 (dndMoved)="onDragged(item, list, 'move')"
+                 (dndCanceled)="onDragged(item, list, 'none')"
+                 (dndEnd)="onDragEnd($event)"
+                 [ngClass]="{'config-drag-field':!item.children, 'config-drag-group':item.children}">
+
+                <!--if [dndHandle] is used inside dndDraggable drag can only start from the handle-->
+                <div class="drag-handle" dndHandle>
+                </div>
+                <div *ngIf="item.children" class="remove-group" (click)="sccp.removeFieldGroup(fieldsList, layoutList, item, compare)" title="{{ 'production.template_config.remove_group' | translate }}">
+                    <i class="icon icons-closedelete"></i>
+                </div>
+                <div *ngIf="item.children" class="fld-title">
+                    {{'production.template_config.empty_fields_group' | translate}}
+                </div>
+                <div *ngIf="!item.children" class="flds-wrapper">
+                    <div *ngIf="item.data.IsMandatory" class="custom-label">
+                        <div class="letter" title="Mandatory">
+                            m
+                        </div>
+                    </div>
+                    <div  class="fld-title" [ngClass]="{'extended': this.initialData.Type < 0}">
+                        <div style="display: inline-block;padding: 0 5px;line-height: 32px;text-overflow: ellipsis;white-space: nowrap;max-width: 100%;overflow: hidden;"
+                             title="{{item.data.Title}}">{{item.data.Title}}</div>
+                    </div>
+                </div>
+
+                <div *ngIf="item.children"
+                     [dndDropzone]="['1']"
+                     (dndDrop)="onDrop($event, item.children)">
+
+                    <ng-container *ngTemplateOutlet="LayoutList; context:{ $implicit: item.children }"></ng-container>
+
+                </div>
+            </div>
+
+        </ng-template>
+
+        <div class="template-common-zone">
+            <input type="text" class="template-name" [(ngModel)]="itemForEdit.Name" placeholder="{{'production.template_config.template_name' | translate}}"/>
+            <select class="template-type" [(ngModel)]="selectedTemplateType" *ngIf="selectedTemplateType !== null" [attr.disabled]="!isNew ? '' : null" >
+                <option *ngFor="let t of templateConfigTypes" [value]="t.id">{{t.name}}</option>
+            </select>
+        </div>
+
+        <div class="tabs">
+            <button (click)="switchView(1)" [ngClass]="{'active': activeView == 1}" title="{{ 'production.template_config.tabs.fields' | translate }}">{{ 'production.template_config.tabs.fields' | translate }}</button>
+            <button (click)="switchView(2)" [ngClass]="{'active': activeView == 2}"  title="{{ 'production.template_config.tabs.tabs' | translate }}">{{ 'production.template_config.tabs.tabs' | translate }}</button>
+        </div>
+
+        <div class="tabs-zone" [hidden]="activeView != 2">
+            <div class="tabs-row-header">
+                <div class="title">{{ 'production.template_config.tabs.t_title' | translate }}</div>
+                <div><input type="checkbox" style="margin: -3px 4px;" title="{{allActive ? 'Uncheck' : 'Check'}} All"
+                            [checked]="allActive" (change)="toggleAll($event.target.checked)"/>{{ 'production.template_config.tabs.t_active' | translate }}</div>
+            </div>
+            <div class="tabs-rows">
+                <div *ngFor="let item of tabsList" class="tabs-row">
+                    <label>
+                        <div>{{item.Name}}</div>
+                        <input type="checkbox" [checked]="item.Active" (change)="changeTabState($event.target.checked, item)"/>
+                    </label>
+                </div>
+            </div>
+            <div class="config-buttons-zone">
+                <button (click)="saveLayout()" title="{{ 'production.template_config.save' | translate }}" class="save-layout-btn primary">
+                    {{ 'production.template_config.save' | translate }}
+                </button>
+            </div>
+        </div>
+
+        <div class="config-zone" [hidden]="activeView != 1">
+            <div class="center-wrapper">
+                <button (click)="addFieldGroup()" title="{{ 'production.template_config.add_field_group' | translate }}" class="add-field-group-btn">
+                    <i class="icons-add icon"></i>
+                </button>
+                <div dndDropzone
+                     class="config-drop-zone"
+                     [dndDropzone]="['0']"
+                     (dndDrop)="onDrop($event, layoutList)">
+
+                    <ng-container *ngTemplateOutlet="LayoutList; context:{ $implicit: layoutList }"></ng-container>
+                </div>
+            </div>
+            <div class="config-buttons-zone">
+                <button (click)="saveLayout()" title="{{ 'production.template_config.save' | translate }}" class="save-layout-btn primary">
+                    {{ 'production.template_config.save' | translate }}
+                </button>
+            </div>
+        </div>
+
+        <div class="fields-zone" [hidden]="activeView != 1">
+            <div class="fields-header">
+                <div class="title">{{'production.template_config.fields.title' | translate}}</div>
+                <div class="sub-title">{{'production.template_config.fields.sub_title' | translate}}</div>
+            </div>
+            <div class="fields-drag-zone"
+                 [dndDropzone]="['1']"
+                 dndEffectAllowed="move"
+                 (dndDrop)="onDrop($event, fieldsList)">
+                <div *ngFor="let item of fieldsList"
+                     [ngClass]="{'selected':item.selected}"
+                     (click)="item.selected = !item.selected"
+
+                     [dndDraggable]="item"
+                     [dndEffectAllowed]="item.effectAllowed"
+                     [dndDisableIf]="item.disable"
+                     [dndType]="'1'"
+                     (dndStart)="onDragStart($event)"
+                     (dndCopied)="onDragged(item, fieldsList, 'copy')"
+                     (dndLinked)="onDragged(item, fieldsList, 'link')"
+                     (dndMoved)="onDragged(item, fieldsList, 'move')"
+                     (dndCanceled)="onDragged(item, fieldsList, 'none')"
+                     (dndEnd)="onDragEnd($event)"
+                     class="config-drag-field">
+                    <div *ngIf="item.data.IsMandatory" class="custom-label">
+                        <div class="letter" title="Mandatory">
+                            m
+                        </div>
+                    </div>
+                    <div style="padding-left: 8px;">{{item.data.Title}}</div>
+                </div>
+                <div class="placeholder-ref"
+                     dndPlaceholderRef>
+                </div>
+            </div>
+        </div>
+    </div>
+    <overlay #productionsTabInfoConfigOverlay [mode]="true" [zIndex]="999"></overlay>
+</div>

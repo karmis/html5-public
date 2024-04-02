@@ -1,0 +1,33 @@
+@import "../../../../base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+    .#{$key} {
+        profile {
+            .indicator {
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                border: 1px solid #999999;
+                display: inline-block;
+            }
+
+            .pl-10p {
+                padding-left: 10px;
+            }
+
+            .like-disabled {
+                background: #000;
+                padding-top: 2px;
+                padding-bottom: 2px;
+            }
+
+            .red {
+                background: red;
+            }
+
+            .green {
+                background: green;
+            }
+        }
+    }
+}

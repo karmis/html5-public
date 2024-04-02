@@ -1,0 +1,466 @@
+<div class="upload" #overlayWrapper>
+    <overlay #overlayExport></overlay>
+    <div class="status-row">
+        <div class="step first" [ngClass]="{'done': currentStep >= 0, 'current': currentStep == 0}">
+            <span class="step-title">{{'upload.select_files_fo_upload'|translate}}</span>
+            <span class="step-circle"></span>
+            <span class="step-line"></span>
+        </div>
+        <div class="step third" [ngClass]="{'done': currentStep >= 1, 'last': currentStep == 1}">
+            <span class="step-title">{{'upload.set_params'|translate}}</span>
+            <span class="step-circle"></span>
+        </div>
+    </div>
+    <div class="version-details advanced" *ngIf="uploadProvider.selectedVersionDetail && uploadProvider.associateUploadMode === 'version'">
+        <span class="caption">Version Details:</span> <br>
+        <table>
+            <tbody>
+            <tr>
+                <td class="name">{{getColumnName('SER_TITLE')}}:</td>
+                <td>{{uploadProvider.selectedVersionDetail['SER_TITLE'] || '[none]'}}</td>
+            </tr>
+            <tr>
+                <td class="name">{{getColumnName('SER_NAME')}}:</td>
+                <td>{{uploadProvider.selectedVersionDetail['SER_NAME'] || '[none]'}}</td>
+            </tr>
+            <tr>
+                <td class="name">{{getColumnName('SER_NUM')}}:</td>
+                <td>{{uploadProvider.selectedVersionDetail['SER_NUM'] || '[none]'}}</td>
+            </tr>
+            <tr>
+                <td class="name">{{getColumnName('TITLE')}}:</td>
+                <td>{{uploadProvider.selectedVersionDetail['TITLE'] || '[none]'}}</td>
+            </tr>
+            <tr>
+                <td class="name">{{getColumnName('SER_EP_NUM')}}:</td>
+                <td>{{uploadProvider.selectedVersionDetail['SER_EP_NUM'] || '[none]'}}</td>
+            </tr>
+            <tr>
+                <td class="name">{{getColumnName('VERSIONID1')}}:</td>
+                <td>{{uploadProvider.selectedVersionDetail['VERSIONID1'] || '[none]'}}</td>
+            </tr>
+            <tr>
+                <td class="name">{{getColumnName('VERSION')}}:</td>
+                <td>{{uploadProvider.selectedVersionDetail['VERSION'] || '[none]'}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="wizard-steps" [hidden]="currentStep != 0">
+        <div class="step-content files">
+
+            <div class="files-wrapper">
+                <div class="form-group" id="rml-devices-block">
+                    <div class="col-md-9 p-0 mb-1">
+                        <label class="mr-sm-2">
+                            {{ 'lookups.devices' | translate }}
+                        </label>
+
+                        <imfx-lookups-select2
+                            #controlDevices
+                            [width]="'100%'"
+                            [validationEnabled]="false"
+                            [allowClear]="false"
+                            [firstEmpty]="false"
+                            [value]="'first'"
+                            [lookupType]="'Devices'"
+                            [filterResult]="filterResult"
+                            [compContext]="context"
+                            [placeholder]="'base.selectOoo'|translate"
+                            [placeholderRefToTranslate]="'base.selectOoo'"
+                            (onSelect)="onUpdateControl('controlDevices', 'Devices')"
+                            (onUnselect)="onUpdateControl('controlDevices', 'Devices')"
+                        ></imfx-lookups-select2>
+                    </div>
+                    <div class="col-md-3 p-0 mb-1">
+                        <label class="mr-sm-2 invisible">
+                            -
+                            <!--                            {{ 'lookups.devices' | translate }}-->
+                        </label>
+                        <button class="remote-browser-button primary"
+                                style="float: right;"
+                                (click)="openRemoteBrowser()">
+                            Select files
+                        </button>
+                    </div>
+                </div>
+
+                <label class="w-100 mr-sm-2 mb-0 pb-0">
+                    <div class="pull-left">
+                            <span [hidden]="uploadProvider.associateUploadMode === 'version'">
+                                {{ 'upload.title_for_title' | translate }}
+                            </span>
+
+                        <span [hidden]="uploadProvider.associateUploadMode === 'title'">
+                                {{ 'upload.title_for_version' | translate }}
+                            </span>
+                    </div>
+                    <div class="pull-right">
+                            <span
+                                    (click)="changeAssociateMode('version')"
+                                    [ngClass]="{'active': uploadProvider.associateUploadMode === 'version'}"
+                                    class="select-associate-mode">
+                                {{ 'upload.title_for_version' | translate }}
+                            </span>
+                        <span
+                                (click)="changeAssociateMode('title')"
+                                [ngClass]="{'active': uploadProvider.associateUploadMode === 'title', 'disabled': uploadProvider.mediaTabIsDisabled}"
+                                class="select-associate-mode ml-1">
+                                {{ 'upload.title_for_title' | translate }}
+                            </span>
+                    </div>
+                </label>
+
+
+                <div [hidden]="uploadProvider.associateUploadMode === 'title'">
+                    <div class="form-group">
+                        <input
+                            type="text" class="form-control" #controlVersionTitle
+                            spellcheck="false"
+                            placeholder="{{'upload.version_placeholder'|translate}}"
+                            [value]="uploadProvider.selectedVersion&&uploadProvider.selectedVersion.text?uploadProvider.selectedVersion.text + ' [ id: ' + uploadProvider.selectedVersion.id + ' ]':''"
+                            readonly
+                            (click)="uploadProvider.showVersions()"/>
+                    </div>
+                </div>
+
+                <div [hidden]="uploadProvider.associateUploadMode === 'version'">
+                    <div class="form-group">
+                        <input
+                            #controlTitle
+                            (keyup)="changeAssociateTitle($event)"
+                            [disabled]="(uploadProvider.getUploadModelsByStates('not_ready')|filter: ['method']: 'remote').length === 0"
+                            type="text" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="mr-sm-2">{{ 'lookups.owner' | translate }}</label>
+                        <imfx-lookups-select2
+                            #controlChannels
+                            [width]="'100%'"
+                            [validationEnabled]="false"
+                            [allowClear]="false"
+                            [firstEmpty]="false"
+                            [value]="'first'"
+                            [lookupType]="'Channels'"
+                            [placeholder]="'base.selectOoo'|translate"
+                            [placeholderRefToTranslate]="'base.selectOoo'"
+                            (onSelect)="onUpdateControl('controlChannels', 'Owner')"
+                            (onUnselect)="onUpdateControl('controlChannels', 'Owner')"
+                        ></imfx-lookups-select2>
+                    </div>
+                </div>
+
+                <div class="files-upload-area">
+                    <div class="files-block select-files-block-handler">
+                        <div class="files-block select-files-block-handler" (click)="simulateClick($event)">
+                            <table class="w-100">
+                                <tr class="row-item"
+                                    [ngClass]="{'active':uploadProvider.selectedUploadModel && um.getUniqValue()===uploadProvider.selectedUploadModel.getUniqValue()}"
+                                    (click)="onSelectUploadModel(um)"
+                                    *ngFor="let um of uploadProvider.getUploadModelsByStates('not_ready')|filter: ['method']: 'remote';">
+                                    <td class="td-name">
+                                        {{um.name}}
+                                    </td>
+                                    <td class="td-path">
+                                        <span [title]="um.meta.path">{{um.meta.path}}</span>
+                                    </td>
+                                    <td class="td-size">
+                                        {{(um.getFormattedSize())}}
+                                    </td>
+                                    <td class="td-medias">
+                                        <i  *ngIf="um.meta.medias && um.meta.medias.length > 0"
+                                            title="{{um.meta.medias.length||0}} media items with the same filename already exists"
+                                           class="icons-statusred icon status-red pointer"
+                                           (click)="showListOfMedias(um.meta.medias)">
+                                            <span class="breaktext">
+                                                {{um.meta.medias.length || 0}} potential duplicates
+                                            </span>
+                                        </i>
+                                    </td>
+                                    <td class="td-close">
+                                        <i (click)="removeModel(um)" class="icons-closedelete icon"></i>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div
+                                *ngIf="(uploadProvider.getUploadModelsByStates('not_ready')|filter: ['method']: 'remote').length == 0"
+                                class="click-me-for-upload-placeholder">
+                                <i class="icon upload-icon"></i>
+                                {{'upload.remote_upload_placeholder'|translate}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="step-content prepare" [hidden]="currentStep != 1">
+        <div class="prepare-wrapper">
+            <div class="prepare-top">
+                <div class="prepare-top-left"
+                     [ngClass]="{
+                        'class-width-60': !isHalfFullScreenForMeta(),
+                        'class-width-100': isHalfFullScreenForMeta()
+                        }">
+                    <div class="form-group" *ngIf="hasPermissionByName('preset-workflow')">
+                        <label>{{ 'lookups.workflow' | translate }}</label>
+                        <order-preset-grouped-input
+                            #controlWorkflow
+                            (onSelect)="clickByPresetItemEvent($event)"
+                            [allow_clear]="true"
+                            (onClear)="onClearPresetItem()"
+                            [dontLoadAfterViewInit]="false"
+                        ></order-preset-grouped-input>
+                    </div>
+                    <div class="files-notes-header">
+                        <label class="files-header">{{ 'upload.list_remote_upload_items' | translate }}</label>
+                        <label class="notes-header">{{ 'upload.notes' | translate }}</label>
+                    </div>
+                    <div class="files-wrapper">
+                        <div class="files-upload-area">
+                            <div class="files-block">
+                                <table class="w-100">
+                                    <tr class="row-item"
+                                        [ngClass]="{'active':uploadProvider.selectedUploadModel && um.getUniqValue()===uploadProvider.selectedUploadModel.getUniqValue(), 'error-upload-model': !uploadProvider.isValidField('MiType', um)}"
+                                        (click)="onSelectUploadModel(um)"
+                                        *ngFor="let um of uploadProvider.getUploadModelsByStates('not_ready')|filter: ['method']: uploadProvider.getUploadMethod();">
+                                        <td class="td-name-s">
+                                            {{um.name}}
+                                        </td>
+                                        <td class="td-size">
+                                            {{ um.getFormattedSize() }}
+                                        </td>
+                                        <td class="td-medias">
+                                            <i *ngIf="um.meta.medias && um.meta.medias.length > 0"
+                                                title="{{um.meta.medias.length||0}} media items with the same filename already exists"
+                                               class="icons-statusred icon status-red pointer"
+                                               (click)="showListOfMedias(um.meta.medias)">
+                                                <span class="breaktext">
+                                                    {{um.meta.medias.length || 0}} potential duplicates
+                                                </span>
+                                            </i>
+                                        </td>
+                                        <td class="td-close">
+                                            <i (click)="removeModel(um)" class="icons-closedelete icon"></i>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="notes-block pull-right">
+                        <div class="notes-header">
+                            <label>{{ 'upload.media_item_notes' | translate }}</label>
+                        </div>
+                        <textarea class="form-control field control-notes"
+                                  #controlNotes
+                                  [attr.rows]="10"
+                                  [attr.cols]="10"
+                                  [attr.wrap]="'soft'"
+                                  (change)="onChangeNotes()"></textarea>
+                        <!--                    </div>-->
+                        <!--                    <div class="notes-block pull-right">-->
+                        <div [hidden]="!this.uploadProvider.selectedPreset"
+                             style="margin-top: 0.5rem;"
+                             class="notes-header">
+                            <label>{{ 'upload.wf_notes' | translate }}</label>
+                        </div>
+                        <textarea class="form-control field control-notes"
+                                  #controlWorkflowNotes
+                                  [hidden]="!this.uploadProvider.selectedPreset"
+                                  [attr.rows]="10"
+                                  [attr.cols]="10"
+                                  [attr.wrap]="'soft'"
+                                  (change)="onChangeWorkflowNotes()"></textarea>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="upload-meta-data">
+                        <div class="row">
+                            <div class="fields-col" [ngClass]="{'full': !isAspectOrTV(), 'left': isAspectOrTV()}">
+                                <div class="form-group" [ngClass]="{'error-field': !uploadProvider.isValidField('MediaFormat')}">
+                                    <label class="mr-sm-2">{{ 'lookups.mediatype' | translate }}</label>
+                                    <imfx-lookups-select2
+                                        #controlMediaTypes
+                                        [width]="'100%'"
+                                        [lookupType]="'MediaFileTypes'"
+                                        [validationEnabled]="!uploadProvider.availableAllExt"
+                                        [placeholder]="'base.selectOoo'|translate"
+                                        [placeholderRefToTranslate]="'base.selectOoo'"
+                                        (onSelect)="onUpdateControl('controlMediaTypes', 'MediaFormat')"
+                                    ></imfx-lookups-select2>
+                                </div>
+                                <div class="form-group">
+                                    <label class="mr-sm-2">{{ 'lookups.usage' | translate }}</label>
+                                    <imfx-lookups-select2
+                                        #controlUsageTypes
+                                        [width]="'100%'"
+                                        [allowClear]="true"
+                                        [lookupType]="'UsageTypes'"
+                                        [placeholderRefToTranslate]="'base.selectOoo'"
+                                        (onSelect)="onUpdateControl('controlUsageTypes', 'Usage')"
+                                        (onUnselect)="onClearControl('Usage')"
+                                    ></imfx-lookups-select2>
+                                </div>
+                                <div class="form-group" [ngClass]="{'error-field': !uploadProvider.isValidField('MiType')}">
+                                    <label class="mr-sm-2">{{ 'lookups.itemtype' | translate }}</label>
+                                    <imfx-lookups-select2
+                                        #controlItemTypes
+                                        [width]="'100%'"
+                                        [allowClear]="true"
+                                        [lookupType]="'ItemTypes'"
+                                        [placeholder]="'base.selectOoo'|translate"
+                                        [placeholderRefToTranslate]="'base.selectOoo'"
+                                        (onSelect)="onUpdateControl('controlItemTypes', 'MiType')"
+                                        (onUnselect)="onClearControl('MiType')"
+                                    ></imfx-lookups-select2>
+                                </div>
+                            </div>
+                            <div class="fields-col right" [hidden]="!isAspectOrTV()">
+                                <div class="form-group"
+                                     [hidden]="uploadProvider.uploadGroupSettings && !uploadProvider.uploadGroupSettings.isTvStandard"
+                                >
+                                    <label class="mr-sm-2">{{ 'lookups.tvstandart' | translate }}</label>
+                                    <imfx-lookups-select2
+                                        #controlTvStandards
+                                        [width]="'100%'"
+                                        [allowClear]="true"
+                                        [lookupType]="'TvStandards'"
+                                        [placeholder]="'base.selectOoo'|translate"
+                                        [placeholderRefToTranslate]="'base.selectOoo'"
+                                        (onSelect)="onUpdateControl('controlTvStandards', 'TvStandard')"
+                                        (onUnselect)="onClearControl('TvStandard')"
+                                    ></imfx-lookups-select2>
+                                </div>
+                                <div class="form-group"
+                                     [hidden]="uploadProvider.uploadGroupSettings && !uploadProvider.uploadGroupSettings.isAspectRatio"
+                                >
+                                    <label class="mr-sm-2">{{ 'lookups.aspectratio' | translate }}</label>
+                                    <!--AspectRatioTypes-->
+                                    <imfx-lookups-select2
+                                        #controlAspectRatio
+                                        [width]="'100%'"
+                                        [allowClear]="true"
+                                        [lookupType]="'AspectRatioTypes'"
+                                        (onSelect)="onUpdateControl('controlAspectRatio', 'AspectRatio')"
+                                        (onUnselect)="onClearControl('AspectRatio')"
+                                        [placeholder]="'base.selectOoo'|translate"
+                                        [placeholderRefToTranslate]="'base.selectOoo'"
+                                    ></imfx-lookups-select2>
+                                </div>
+                                <div class="form-group"
+                                     [ngClass]="{'show-image': afdIcon != null}"
+                                     [hidden]="uploadProvider.uploadGroupSettings && !uploadProvider.uploadGroupSettings.isAspectRatio"
+                                >
+                                    <label class="mr-sm-2">{{ 'lookups.afd' | translate }}</label>
+                                    <!--AFDTypes-->
+                                    <imfx-lookups-select2
+                                        #controlAFD
+                                        [width]="'100%'"
+                                        [allowClear]="true"
+                                        [lookupType]="'AfdTypes'"
+                                        (onSelect)="onUpdateControl('controlAFD', 'AFD')"
+                                        (onUnselect)="onClearControl('AFD')"
+                                        [filterResult]="afdTypesFilter"
+                                        [placeholder]="'base.selectOoo'|translate"
+                                        [placeholderRefToTranslate]="'base.selectOoo'"
+                                    ></imfx-lookups-select2>
+                                    <div class="preview-icon">
+                                        <div class="image-preview" *ngIf="afdIcon != null"
+                                             [style.backgroundImage]="'url(./assets/aspect-images/'+ afdIcon +'.png)'"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="prepare-top-right"
+                     *ngIf="isReady && (isVisiblePresetXML() || isVisibleMetaXml()) && !(isVisiblePresetXML() && isVisibleMetaXml())">
+                    <!--XML-->
+                    <ng-container
+                            *ngTemplateOutlet="xmls;context:{uploadProvider: uploadProvider}"></ng-container>
+                </div>
+                <div class="prepare-bottom"
+                     *ngIf="isReady && (isVisiblePresetXML() && isVisibleMetaXml())">
+                    <!--XML-->
+                    <ng-container
+                            *ngTemplateOutlet="xmls;context:{uploadProvider: uploadProvider}"></ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #modalFooterTemplate>
+        <div class="modal-footer">
+            <div [hidden]="currentStep != 0" class="buttons">
+                <button class="back" style="float: left;" (click)="onCancel()">{{'common.cancel'|translate}}
+                </button>
+            </div>
+            <div [hidden]="currentStep != 1" class="buttons">
+                <button class="back" style="float: left;" (click)="goToPreviousStep()">{{'export.prev'|translate}}
+                </button>
+                <!--Common (grouping by wf)-->
+                <div id="upload-grouping" *ngIf="hasPermissionByName('preset-workflow')">
+                    <input type="checkbox" id="group_files_for_wf" [(ngModel)]="uploadProvider.groupFilesForOneWf"
+                           (change)="changeFlagToGroupFiles($event)">
+                    <label for="group_files_for_wf">Apply all files to one workflow</label>
+                </div>
+                <!-- grouping by wf-->
+                <button [disabled]="!uploadProvider.isValidSubmit()"
+                        (click)="upload()"
+                        class="primary"
+                        style="float: right;">
+                    {{'base.remote_upload'|translate}}
+                </button>
+            </div>
+            <div [hidden]="currentStep != 0" class="buttons">
+                <button class="next primary"
+                        [disabled]="!isValidForm"
+                        style="float: right;"
+                        (click)="goToNextStep()">
+                    {{'upload.next'|translate}}
+                </button>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template #xmls let-uploadProvider="uploadProvider">
+        <div class="xml-common-wrapper" style="position: relative">
+            <!--presets-->
+            <div class="xml-preset-wrapper"
+                 *ngIf="isVisiblePresetXML()"
+                 [ngClass]="{'absolute': isVisiblePresetXML() && isVisibleMetaXml()}">
+                <label style="height: 13px;"></label>
+                <div class="presets schema-wrapper">
+                    <imfx-xml-tree
+                        #xmlTreePresets
+                        [schemaModel]="uploadProvider.selectedSchemaModel"
+                        [xmlModel]="uploadProvider.selectedXmlModel"
+                    ></imfx-xml-tree>
+                </div>
+            </div>
+
+
+            <!--meta-->
+            <div class="xml-metadata-wrappers"
+                 *ngIf="isVisibleMetaXml()"
+                 [ngClass]="{'absolute': isVisiblePresetXML() && isVisibleMetaXml()}">
+                <label style="height: 13px;"></label>
+                <div class="xml schema-wrapper">
+                    <!--                            (onSelectDropdown)="onSelectDropdown($event)"
+                                                (onChange)="onChange($event)"
+                                                [expandAll]="true"-->
+                    <imfx-xml-tree
+                        #xmlTreeGroupSettings
+                        (onSelectNodes)="onSelectNodes($event)"
+                        [readonly]="isReadonlyXML()"
+                        [schemaModel]="getCurrentSchema()"
+                        [withNodeSelection]="false"
+                        [xmlModel]="getCurrentModel()">
+                    </imfx-xml-tree>
+                </div>
+            </div>
+        </div>
+
+    </ng-template>
+</div>

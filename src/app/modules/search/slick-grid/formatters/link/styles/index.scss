@@ -1,0 +1,17 @@
+@import "../../../../../../views/base/styles/theme";
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        link-formatter-comp{
+            a {
+                color: getThemeColor(16, $key);
+            }
+            .link-href {
+                text-decoration: underline;
+                color: getThemeColor(16, $key);
+                cursor: pointer;
+            }
+        }
+    }
+}

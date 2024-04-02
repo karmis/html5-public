@@ -1,0 +1,37 @@
+<div style="min-width: 160px;display: flex;width: 100%;">
+    <div style="float: left;">
+        <button class="btn-mode-toggle" (click)="switchMode()">{{modeAbs ? 'A' : 'R'}}</button>
+    </div>
+    <div [hidden]="!modeAbs" style="width: calc(100% - 24px);float: left;">
+        <imfx-controls-datetimepicker
+            #datetimepicker
+            [locale]="'common.locale' | translate"
+            [format]="'common.date_full_format' | translate"
+            [formatDate]="'common.date_format' | translate"
+            [formatTime]="'common.time_format' | translate"
+            [allowBlank]="true"
+            [value]="value"
+            [mask]="true"
+            [small]="true"
+            [timepicker]="false"
+            [clearButton]="true"
+            (onChangeDateTime)="onChangeDateTime($event)">
+        </imfx-controls-datetimepicker>
+    </div>
+    <div [hidden]="modeAbs" style="width: calc(100% - 24px);float: left;display: flex;">
+        <imfx-controls-select2
+            class="with-relative"
+            #select2
+            [minimumResultsForSearch]="-1"
+            [width]="'100%'"
+            [multiple]="false"
+            [data]="friendlyDates"
+            [sorter]="customSorter"
+            [placeholder]="'base.selectOoo'|translate"
+            [placeholderRefToTranslate]="'base.selectOoo'"
+            (onSelect)="onChangeDateTime($event)"
+            [wrapperClass]="'advanced'"
+            spellcheck="false"
+            style="float: left;flex:1;display: table;width: 100%;"></imfx-controls-select2>
+    </div>
+</div>

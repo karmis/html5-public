@@ -1,0 +1,28 @@
+<a href="#" (click)="toggleFPForm()">{{ 'login.forgot' | translate }}</a>
+<div class="forgot-password-container"
+     [ngClass]="{'visible': isVisibleFPForm}"
+>
+    <form class="forgot-password-form"
+          [formGroup]="fpFormGroup"
+          novalidate
+          (submit)="sendEmailFP(emailFPInput)">
+        <label class="">
+
+            <input #emailFPInput
+                   formControlName="email"
+                   class="field"
+                   spellcheck="false"
+                   placeholder="{{ 'login.forgot_pass_placeholder' | translate }}"
+                   required>
+        </label>
+        <button class="send-email-btn primary full-width"
+                type="submit"
+                id="forgot-pass-submit"
+                [disabled]="disabledSendEmailBtn || !fpFormGroup.valid"
+        >
+            <div *ngIf="loadingSendEmail" class="loader-login icon"></div>
+            Send Reset Email
+        </button>
+    </form>
+</div>
+

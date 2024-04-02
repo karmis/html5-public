@@ -1,0 +1,18 @@
+@import "../../../../../../views/base/styles/theme";
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .icons-info{
+            cursor: pointer;
+            .task-info-wrapper {
+                display: flex;
+                justify-content: center;
+            }
+            &:hover{
+                opacity: 1;
+            }
+        }
+    }
+}
+

@@ -1,0 +1,200 @@
+@import "../../../../../views/base/styles/theme.scss";
+@import "../../../../../views/base/styles/blocks/nav.scss";
+@import "../../../../../views/base/styles/blocks/nav.tabbed.scss";
+
+.lm_dropTargetIndicator {
+    transition: none !important;
+}
+
+@each $key,
+$value in $common-themes {
+  .#{$key} {
+      search-info-panel-events-manager {
+          .info-descr {
+              background-color: getThemeColor(4, $key);
+              padding: 5px;
+              table td {
+                  border: none;
+              }
+          }
+      }
+      search-info-panel {
+          .detail-sub-tabs-wrapper {
+              padding-left: 8px;
+              display: flex;
+              flex-direction: column;
+              flex-basis: 100%;
+              flex-grow: 1;
+              overflow: hidden;
+              .detail-sub-tabs-header {
+                  height: 32px;
+                  display: block;
+                  position: relative;
+                  font-size: 0;
+
+                  div {
+                      display: inline-block;
+                      span {
+                          display: inline-block;
+                          line-height: 32px;
+                          height: 32px;
+                          border-bottom: 2px solid transparent;
+                          font-size: 12px;
+                          padding: 0 10px;
+                          cursor: pointer;
+
+                          &:hover {
+                              background: getThemeColor(4, $key);
+                          }
+
+                          &.active {
+                              border-bottom: 2px solid getThemeColor(7, $key);
+                          }
+                      }
+                      .detil-subtab-overlay {
+                          position: absolute;
+                          position: absolute;
+                          left: 0;
+                          top: 0;
+                          right: 0;
+                          bottom: 0;
+                          background: getThemeColor(34, $key);
+                          text-align: center;
+
+                          .spinner {
+                              width: 20px;
+                              height: 20px;
+                              margin-top: 6px;
+                          }
+                      }
+                  }
+              }
+
+              .detail-sub-tabs-content {
+                  height: calc(100% - 32px);
+                  overflow-y: auto;
+                  overflow-x: hidden;
+                  min-height: 0px;
+                  display: flex;
+                  flex-direction: column;
+                  flex: 1 1 auto;
+                  background: getThemeColor(4, $key);
+
+                  .subtitles-accordions-content {
+                      position: relative;
+                      display: flex;
+                      flex-direction: column;
+                      subtitles-grid, subtitles-pac-grid {
+                          width: 100%;
+                          flex: 1 1 auto;
+                          position: relative;
+                          min-height: 200px;
+                      }
+                  }
+                  .pac-subs-wrapper {
+                      display: block;
+                      height: 100%;
+                  }
+                  .tagging-tab-wrapper, imfx-media-tagging-tab {
+                      height: 100%;
+
+                      .simple-detail-locator-hider {
+                          display: none;
+                          overflow: hidden;
+                          padding: 0;
+                          margin: 0;
+                          border: none;
+                      }
+                  }
+              }
+
+              .loadingoverlay {
+                  background-color: getThemeColor(3, $key) !important;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: center;
+                  z-index: 105;
+                  /* top: 507px; */
+                  /* left: 955.891px; */
+                  width: 100%;
+                  height: 100%;
+                  background-size: 80px;
+                  position: absolute;
+                  min-height: 100%;
+                  min-width: 100%;
+                  .spinner {
+                      &.small {
+                          width: 15px;
+                          height: 15px;
+                          border-width: 2px;
+                          display: inline;
+                          position: relative;
+                          margin-left: -150px;
+                      }
+                  }
+                  .overlay-text-inline {
+                      margin-top: -16px;
+                  }
+
+              }
+          }
+      }
+
+      .media-block, .subtitles-accordions-wrapper {
+          padding-left: 8px;
+      }
+      .media-block {
+          flex-grow: 1;
+          &.live {
+              height: 64px;
+          }
+      }
+      .media-block img {
+          max-height: 400px;
+          display: block;
+          margin: 0 auto;
+      }
+      .ovr-h-full,
+      .p-rel-h-full {
+          width: 100%;
+          height: 100%;
+      }
+      .just-subtitles {
+          display: flex;
+          flex-direction: column;
+      }
+      .prevent-player-from-scrolling {
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+      }
+
+      .search-details {
+          .ip-empty {
+              padding: 10px;
+              background: getThemeColor(26, $key);
+          }
+          .full-height-block {
+              left: 0;
+              right: 0;
+              padding-top: 0;
+              .media-block {
+                  &.max-height-50 {
+                      max-height: 50%;
+                      flex-basis: 0;
+                  }
+                  flex-grow: 1;
+                  .img-wrapper {
+                      height: 100%;
+                      overflow: hidden;
+                  }
+                  img.media-deteil-img {
+                      max-height: 100%; //250px;
+                      max-width: 100%;
+                      cursor: pointer;
+                  }
+              }
+          }
+      }
+  }
+}

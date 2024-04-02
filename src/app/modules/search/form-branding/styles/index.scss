@@ -1,0 +1,184 @@
+@import "../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        search-form-branding {
+            @keyframes suggestion {
+                to {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+            }
+            .search-form {
+                width: 100%;
+                position: relative;
+            }
+            .combined {
+                position: relative;
+                margin-bottom: 16px;
+                display: flex;
+                white-space: nowrap;
+                .button-back {
+                    padding-left: 1px;
+                    padding-right: 1px;
+                }
+                .field {
+                    max-width: 100%;
+                    flex: 1;
+                }
+                button {
+                    flex: 0 0 auto;
+                }
+                &.contributors-input,
+                &.series-input {
+                    .search-mode {
+                        position: absolute;
+                        height: 100%;
+                        padding: 6px 10px;
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        margin-left: 24px;
+                        span {
+                            font-size: 11px;
+                        }
+                        .icon {
+                            cursor: pointer;
+                            vertical-align: 0;
+                            &:hover {
+                                opacity: 1;
+                            }
+                        }
+                        .icons-closedelete {
+                            //position: relative;
+                            //top: -2px;
+                            //right: -2px;
+                            margin: auto;
+                            display: flex;
+                            position: static;
+                        }
+                    }
+                }
+                &.contributors-input {
+                    .search.field {
+                        padding-left: 100px;
+                    }
+                }
+                &.series-input {
+                    .search.field {
+                        padding-left: 65px;
+                    }
+                }
+            }
+            .dialog-searchdropdown {
+                z-index: 104;
+                position: absolute;
+                top: 32px;
+                min-height: 70px;
+                min-width: 100%;
+                margin: 0;
+                padding: 15px;
+                overflow: hidden;
+                transform: translateY(-20px);
+                transition: all 0.2s ease-in-out;
+                opacity: 0;
+                animation: suggestion 0.2s 0.2s ease-in-out forwards;
+                max-height: 550px;
+                //min-width: 530px;
+                width: 100%;
+                .angucomplete-overlay {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    z-index: 3;
+                    background: rgba(0,0,0,0.3);
+
+                    .suggestion-overlay {
+                        position: relative;
+                        width: 34px;
+                        height: 34px;
+                        display: block;
+                        margin: 0 auto;
+                        top: calc(50% - 17px);
+
+                        span {
+                            position: relative;
+                            width: 100%;
+                            height: 35px;
+                            display: block;
+                            margin: 0 auto;
+                            top: calc(50% - 25px);
+                            text-align: center;
+                        }
+                    }
+                }
+                h2 {
+                    color: getThemeColor(2, $key);
+                    font-size: 0.91rem;
+                    margin-bottom: 16px;
+                }
+                .angucomplete-result-block {
+                    flex: 1;
+                }
+                nav.angucomplete-column {
+                    flex: 1;
+                    margin: 0 6px;
+                    ul {
+                        display: block;
+                    }
+                    li {
+                        margin: 0;
+                        color: getThemeColor(1, $key);
+                        height: auto;
+                        cursor: pointer;
+                        border: none;
+                        border: 1px getThemeColor(6, $key) solid;
+                        padding: 2px;
+                        &:hover, &.selected {
+                            background-color: getThemeColor(21, $key);
+                            border: 1px getThemeColor(7, $key) solid;
+                            padding: 2px;
+                        }
+                    }
+                }
+                nav.people {
+                    li {
+                        margin-bottom: 16px;
+                    }
+                    div:not(.title) {
+                        display: flex;
+                        align-items: center;
+                    }
+                    .title {
+                        padding-left: 16px;
+                    }
+                }
+                .angucomplete-row {
+                    cursor: pointer;
+                    margin: 0 12px 12px 12px;
+                    background: getThemeColor(6, $key);
+                    display: flex;
+                    flex-direction: column;
+                    position: relative;
+                    overflow: hidden;
+                    flex: 1 0 calc(100% - 32px);
+                    padding: 0;
+                    max-width: 30rem;
+                    &.item {
+                        color: getThemeColor(1, $key);
+                        line-height: 32px;
+                    }
+                    .angucomplete-image {
+                        width: 100%;
+                        //height: 100%;
+                    }
+                    .angucomplete-contributer-image {
+                        max-height: 120px;
+                    }
+                }
+            }
+        }
+    }
+}

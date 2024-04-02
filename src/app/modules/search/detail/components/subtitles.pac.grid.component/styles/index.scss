@@ -1,0 +1,47 @@
+@import "../../../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .gl-layout .subtitles-pac-grid-wrapper {
+            padding: 10px;
+        }
+        .subtitles-pac-grid-wrapper {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            .subs-header-wrapper {
+                flex-grow: 0;
+            }
+            .external-wrapper-grid {
+                flex-grow: 1;
+                overflow: hidden;
+            }
+            slick-grid {
+                overflow-y: hidden;
+                &.standalone {
+                    height: 200px;
+                    width: 100%;
+                    padding-right: 0;
+                }
+            }
+            .slick-grid-wrapper {
+                .slick-header-column.ui-state-default {
+                    line-height: inherit;
+                    height: inherit;
+                }
+
+                .slick-row {
+                    &.hover-row {
+                        background: getThemeColor(3, $key);
+                    }
+                }
+            }
+        }
+    }
+}

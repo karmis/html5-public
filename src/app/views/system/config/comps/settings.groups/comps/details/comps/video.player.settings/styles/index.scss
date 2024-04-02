@@ -1,0 +1,62 @@
+@import "../../../../../../../../../base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .video-player-wrapper {
+            //height: 100%;
+            display: block;
+            flex-wrap: wrap;
+            flex-direction: column;
+            padding: 1rem;
+            height: 500px;
+            .video-player-row {
+                display: flex;
+                flex-direction: column;
+                width: 50%;
+                .bg-row {
+                    position: relative;
+                    input {
+                        width: 100%;
+                        padding-right: 32px;
+                    }
+                    .color-selector-field {
+                        position: relative;
+
+                        .color-icon {
+                            position: absolute;
+                            width: 20px;
+                            height: 20px;
+                            left: 6px;
+                            top: 7px;
+                            border: 1px solid black;
+                        }
+
+                        .color-input {
+                            padding-left: 10px;
+                            padding-right: 10px;
+                            width: 90px;
+                        }
+
+                        color-picker {
+                            .color-picker {
+                                position: fixed;
+                                background: getThemeColor(4, $key);
+
+                                div[_ngcontent-c31] {
+                                    color: getThemeColor(1, $key);
+                                }
+                            }
+                        }
+                    }
+                    .settings-btn {
+                        position: absolute;
+                        right: 8px;
+                        top: 0;
+                        line-height: $baseline*2;
+                    }
+                }
+            }
+
+        }
+    }
+}

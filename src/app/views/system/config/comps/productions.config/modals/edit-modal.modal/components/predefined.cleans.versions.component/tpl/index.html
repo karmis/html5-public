@@ -1,0 +1,88 @@
+<div class="production-predefined-cleans-versions-wrapper">
+    <div class="field-row prefixes">
+        <div class="field-label" style="width: 150px;">
+            {{"production.production_templates.edit_modal.clean-prefix" | translate}}<!--Clean Master Id Prefix-->
+        </div>
+        <div class="field-value">
+            <input type="text" class="" [(ngModel)]="data['MASTER_ID_PREFIX']" (ngModelChange)="onChange($event,'MASTER_ID_PREFIX')" autocomplete="off"/>
+        </div>
+        <!--        </div>-->
+        <!--        <div class="field-row">-->
+        <div class="field-label">
+            {{"production.production_templates.edit_modal.version-prefix" | translate}}<!--Version Id Prefix-->
+        </div>
+        <div class="field-value">
+            <input type="text" class="" [(ngModel)]="data['VER_ID_PREFIX']" (ngModelChange)="onChange($event,'VER_ID_PREFIX')" autocomplete="off"/>
+        </div>
+    </div>
+
+<!--    if config clean-versions-->
+    <div *ngIf="templateMode === 0"
+         class="field-row clean-versions">
+        <div class="clean-version-buttons">
+            <button (click)="addClean()">Add Clean</button>
+            <button [disabled]="!selectedItem" (click)="addVersion()">Add Version</button>
+        </div>
+        <div class="clean-version-table">
+            <div *ngFor="let item of data['DEFAULT_VERSIONS']; let i = index"
+                 class="clean-item-wrapper">
+                <div class="clean-item-content">
+                    <div class="expander" (click)="expandedStates[i].isOpened = !expandedStates[i].isOpened">
+                        <i class="icon" [ngClass]="{ 'icons-right': !expandedStates[i].isOpened, 'icons-down': expandedStates[i].isOpened }"></i>
+                    </div>
+                    <div class="clean-item"
+                         [ngClass]="{'selected': selectedItem === item}"
+                         (click)="setSelectedItem(item, i)">
+                        <input type="text" digitOnly [min]="0" class="duration" [(ngModel)]="item['DURATION']" (ngModelChange)="onChange($event,'DEFAULT_VERSIONS')">
+                        <input type="text" class="name" [(ngModel)]="item['NAME']" (ngModelChange)="onChange($event,'DEFAULT_VERSIONS')">
+                        <div class="delete-row">
+                            <span class="closebtn" (click)="deleteRow($event, i, null)" title="{{ 'common_hints.remove' | translate }}">
+                                <i class="icons-cross icon"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="expandedStates[i].isOpened"
+                     class="version-item-wrapper">
+                    <div *ngFor="let subItem of item.Children; let j = index"
+                         class="version-item"
+                         [ngClass]="{'selected': selectedItem === subItem}"
+                         (click)="setSelectedItem(subItem, i)">
+                        <input type="text" digitOnly [min]="0" class="duration" [(ngModel)]="subItem['DURATION']" (ngModelChange)="onChange($event,'DEFAULT_VERSIONS')">
+                        <input type="text" class="name" [(ngModel)]="subItem['NAME']" (ngModelChange)="onChange($event,'DEFAULT_VERSIONS')">
+                        <div class="delete-row">
+                            <span class="closebtn" (click)="deleteRow($event, i, j)" title="{{ 'common_hints.remove' | translate }}">
+                                <i class="icons-cross icon"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--    if config other cases: not null, not '0'-->
+    <div *ngIf="templateMode"
+         class="field-row other-cleans">
+        <div class="clean-version-buttons">
+            <button (click)="addClean()">Add Make</button>
+        </div>
+        <div class="clean-version-table">
+            <div *ngFor="let item of data['DEFAULT_VERSIONS']; let i = index"
+                 class="clean-item-wrapper">
+                <div class="clean-item-content">
+                    <div class="clean-item"
+                         (click)="setSelectedItem(item, i)">
+                        <input type="text" digitOnly [min]="0" class="duration" [(ngModel)]="item['DURATION']" (ngModelChange)="onChange($event,'DEFAULT_VERSIONS')">
+                        <input type="text" class="name" [(ngModel)]="item['NAME']" (ngModelChange)="onChange($event,'DEFAULT_VERSIONS')">
+                        <div class="delete-row">
+                            <span class="closebtn" (click)="deleteRow($event, i, null)" title="{{ 'common_hints.remove' | translate }}">
+                                <i class="icons-cross icon"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+@import "../../../../../styles/theme.scss";
+@each $key, $value in $common-themes {
+  .#{$key} {
+    .basket-dropdown {
+      .thumbnail-wrapper {
+        max-width: 100%!important;
+        max-height: 100%!important;
+        min-width: 0!important;
+      }
+    }
+    .media-basket-dropdown{
+      .media-basket-item {
+        padding: 0 10px;
+        position: relative;
+        border-bottom: 1px solid getThemeColor(28, $key);
+        background-color: getThemeColor(23, $key);
+        cursor: pointer;
+        padding: 10px;
+        margin: 0;
+        margin-top: -20px;
+        font-size: 0.8em;
+      }
+      .media-basket-item:hover {
+        background: getThemeColor(21, $key);
+      }
+
+      .media-basket-item .basket-thumbnail {
+        width: 100%;
+        height: 36px;
+        overflow: hidden;
+        background-color: #000000;
+        line-height: 32px;
+
+        img {
+          width: 100%;
+        }
+      }
+
+      .media-basket-item .title {
+        font-size: 1em;
+      }
+      .media-basket-item .title:hover {
+        text-decoration: underline;
+      }
+
+      .media-basket-item .close {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        font-style: 8px;
+      }
+    }
+  }
+}
+
+
+

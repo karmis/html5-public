@@ -1,0 +1,343 @@
+@import "../../../../views/base/styles/theme.scss";
+
+@mixin background-icon-expander() {
+  background-color: transparent;
+  background-image: none;
+  font-family: icons;
+}
+
+@each $key, $value in $common-themes {
+  .#{$key} {
+    imfx-controls-tree {
+      .tree-edit-panel {
+        button {
+          margin-top: 10px;
+          margin-left: 27px;
+        }
+      }
+
+      span.fancytree-checkbox {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        border: 2px solid getThemeColor(22, $key);
+        background-color: getThemeColor(6, $key);
+        width: 16px;
+        height: 16px;
+        margin-bottom: -0.2rem;
+        transition: all 0.2s ease-in-out;
+        box-sizing: border-box;
+        padding: 0;
+        background-position: center center;
+        background-image: none;
+        cursor: pointer;
+
+        &.fancytree-disabled {
+          opacity: 0.2;
+        }
+      }
+
+      span.fancytree-checkbox:hover {
+        background-position: center center !important;
+      }
+
+      span.fancytree-checkboxCheck {
+        background: getThemeColor(10, $key) url(assets/icons/check.svg) no-repeat center center;
+        border: 2px solid getThemeColor(10, $key);
+      }
+
+      span.fancytree-checkboxCheckUncheck {
+        background: getThemeColor(10, $key) url(assets/icons/svg/minus.svg) no-repeat center center;
+        border: 2px solid getThemeColor(10, $key);
+      }
+
+      i.fancytree-info:before {
+        font-size: 14px;
+        position: absolute;
+        top: 0px;
+      }
+
+      i.fancytree-info {
+        margin-left: 3px;
+        position: relative;
+        top: -3px
+      }
+
+      span.fancytree-checkbox:indeterminate,
+      span.fancytree-node.fancytree-partsel:not(.fancytree-selected) > span.fancytree-checkbox {
+        background: url(getThemeIcon(3, $key)) no-repeat center center;
+        border: 2px solid getThemeColor(22, $key);
+      }
+
+      span.fancytree-title.changed-data {
+        font-style: italic !important;
+        position: relative;
+
+        &:before {
+          content: "*";
+          position: absolute;
+          left: -5px;
+          top: 0;
+        }
+      }
+
+      span.fancytree-checkbox:active {
+        transform: scale(1.75);
+      }
+
+      // common
+      span.fancytree-title {
+        cursor: pointer;
+        display: inline-block;
+        vertical-align: top;
+        min-height: 16px;
+        padding: 0 3px;
+        margin: 0 0 0 3px;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        -ms-border-radius: 0;
+        -o-border-radius: 0;
+        font-size: 12px;
+        color: getThemeColor(28, $key) !important;
+        font-style: normal !important;
+        text-transform: uppercase;
+      }
+
+      .fancytree-ext-table {
+        width: 100%;
+      }
+
+      ul.ui-fancytree, ul.ui-fancytree ul {
+        display: block;
+        background-color: transparent;
+
+        li {
+          height: initial;
+          display: list-item;
+          line-height: 16px;
+        }
+      }
+
+      ul.fancytree-container {
+        border: none;
+        outline: none;
+        overflow: visible;
+      }
+
+      span.fancytree-node {
+        display: inherit;
+        width: 100%;
+        margin-top: auto;
+        min-height: 16px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+      }
+
+      reports span.fancytree-node {
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
+
+      span.fancytree-node.fancytree-active {
+        background: getThemeColor(10, $key);
+      }
+
+      .adv-modal-taxonomy {
+        span.fancytree-node.fancytree-selected {
+          background: lighten(getThemeColor(10, $key), 10);
+        }
+      }
+
+      span.fancytree-active span.fancytree-title {
+        outline: none;
+        background: transparent;
+        font-style: normal;
+        color: #ffffff !important;
+      }
+
+      span.fancytree-title {
+        outline: none !important;
+        background: transparent;
+        background-color: transparent !important;
+      }
+
+      .fancytree-active {
+        background-color: #f6f6f6;
+      }
+
+      .fancytree-active span.fancytree-expander {
+        //background: getThemeColor(10, $key);
+        background: inherit;
+        color: #ffffff;
+      }
+
+      .fancytree-ext-filter-hide span.fancytree-node.fancytree-match span.fancytree-title,
+      .fancytree-ext-filter-hide tr.fancytree-match span.fancytree-title {
+        color: getThemeColor(1, $key) !important;
+        background-color: transparent;
+      }
+
+      // icons
+      span.fancytree-expander {
+        cursor: pointer;
+      }
+
+      .fancytree-exp-n span.fancytree-expander,
+      .fancytree-exp-nl span.fancytree-expander {
+        background-image: none;
+        cursor: default;
+      }
+
+      .fancytree-expander.not-folder {
+        opacity: 0 !important;
+        cursor: default !important;
+      }
+
+      // closed
+      .fancytree-exp-c span.fancytree-expander:before,
+      .fancytree-exp-cl span.fancytree-expander:before,
+      .fancytree-exp-cd span.fancytree-expander:before,
+      .fancytree-exp-cdl span.fancytree-expander:before {
+        content: "\F130";
+        font-size: 20px;
+      }
+
+      .fancytree-exp-c span.folder-icon,
+      .fancytree-exp-cl span.folder-icon,
+      .fancytree-exp-cd span.folder-icon,
+      .fancytree-exp-cdl span.folder-icon {
+        &:before {
+          content: "\F07B";
+          font-size: 17px;
+        }
+
+        margin-left: 3px;
+        margin-right: 0px;
+        font-family: FontAwesome !important;
+      }
+
+      .fancytree-exp-nl span.folder-icon,
+      .fancytree-exp-n span.folder-icon {
+        &:before {
+          content: "\F114";
+          font-size: 17px;
+        }
+
+        margin-left: 3px;
+        margin-right: 0px;
+        font-family: FontAwesome !important;
+        opacity: 0.2;
+      }
+
+      .fancytree-exp-c span.fancytree-expander,
+      .fancytree-exp-cl span.fancytree-expander,
+      .fancytree-exp-cd span.fancytree-expander,
+      .fancytree-exp-cdl span.fancytree-expander {
+        @include background-icon-expander();
+        margin-right: 3px;
+        margin-top: 1px;
+        opacity: 0.6;
+      }
+
+      // opened
+      .fancytree-exp-e span.fancytree-expander:before,
+      .fancytree-exp-el span.fancytree-expander:before,
+      .fancytree-exp-edl span.fancytree-expander:before {
+        content: "\F112";
+        font-size: 20px;
+      }
+
+      .fancytree-exp-e span.folder-icon,
+      .fancytree-exp-el span.folder-icon,
+      .fancytree-exp-edl span.folder-icon {
+        &:before {
+          content: "\F07C";
+          font-size: 17px;
+        }
+
+        margin-left: 3px;
+        margin-right: 0px;
+        font-family: FontAwesome !important;
+      }
+
+      .fancytree-exp-e span.fancytree-expander,
+      .fancytree-exp-el span.fancytree-expander,
+      .fancytree-exp-edl span.fancytree-expander {
+        @include background-icon-expander();
+        margin-right: 3px;
+        margin-top: 1px;
+      }
+
+      .fancytree-exp-nl span.fancytree-expander,
+      .fancytree-exp-cl span.fancytree-expander,
+      .fancytree-exp-n span.fancytree-expander {
+        margin-right: 3px;
+        margin-top: 1px;
+      }
+
+      .fancytree-exp-c span.fancytree-expander:hover {
+        opacity: 1;
+      }
+
+      .fancytree-exp-cl span.fancytree-expander:hover {
+        opacity: 1;
+      }
+
+      .fancytree-exp-e span.fancytree-expander,
+      .fancytree-exp-ed span.fancytree-expander {
+        opacity: 0.6;
+      }
+
+      .fancytree-exp-e span.fancytree-expander:hover,
+      .fancytree-exp-ed span.fancytree-expander:hover {
+        opacity: 1;
+      }
+
+      .fancytree-drop-marker {
+        z-index: 30;
+      }
+
+      div.additional-block {
+        padding: 5px;
+        border-radius: 0;
+        border: 2px solid getThemeColor(22, $key);
+        background-color: getThemeColor(6, $key);
+        height: $baseline*2;
+        margin-left: 40px;
+        margin-top: 3px;
+        margin-bottom: 3px;
+        color: getThemeColor(16, $key);
+
+        &:focus {
+          border-color: getThemeColor(25, $key) !important;
+        }
+      }
+
+      .fancytree-hide {
+        display: none !important;
+      }
+
+      .setParsel {
+        background: url(getThemeIcon(3, $key)) no-repeat center center !important;
+        border: 2px solid getThemeColor(22, $key) !important;
+      }
+
+      .icons-add, .icons-cross {
+        float: right;
+        position: relative;
+        margin-top: 0;
+        opacity: 0.1;
+        cursor: pointer;
+        &:hover {
+          opacity: 1;
+        }
+      }
+
+      .fancytree-edit-input {
+        position: relative !important;
+        background-color: getThemeColor(18, $key);
+        height: 22px;
+        width: auto !important;
+      }
+    }
+  }
+}

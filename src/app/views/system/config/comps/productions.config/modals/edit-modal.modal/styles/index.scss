@@ -1,0 +1,143 @@
+@import "../../../../../../../base/styles/theme.scss";
+
+$multilineheight: 300px;
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        edit-production-template
+        {
+            .edit-production-template-wrapper {
+                min-height: 300px;
+                .main-data {
+                    padding-bottom: 10px;
+
+                    .main-block {
+                        display: flex;
+                        align-items: stretch;
+
+                        .tab-label {
+                            line-height: 24px;
+                            height: 24px;
+                            padding: 0 5px;
+                            color: getThemeColor(2, $key);
+                            margin-bottom: 5px;
+                            position: relative;
+
+                            span {
+                                border-bottom: 1px solid getThemeColor(9, $key);
+                            }
+                        }
+
+                        .left-block {
+                            flex: 50%;
+                            margin-right: 5px;
+                            height: 180px;
+                            padding: 5px;
+                            margin-bottom: 0;
+                        }
+
+                        .right-block {
+                            flex: 50%;
+                            height: 180px;
+                            padding: 0;
+                            margin-bottom: 0;
+                        }
+                    }
+
+                    .field-block {
+                        background: getThemeColor(4, $key);
+                        border: 1px solid getThemeColor(9, $key);
+                        padding: 5px;
+                        margin-bottom: 5px;
+                        flex: 1;
+
+                        &.tabs-block {
+                            padding: 5px;
+                            display: flex;
+                            height: 250px;
+                        }
+
+                        .field-item {
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+
+                            &:not(:last-child) {
+                                margin-bottom: 5px;
+                            }
+
+                            label {
+                                width: 100px;
+                                line-height: 28px;
+                                margin: 0;
+                            }
+
+                            .value-wrapper {
+                                flex: 1;
+
+                                &>input {
+                                    width: 100%;
+
+                                    //&[type="text"].input-error,
+                                    //&[type="number"].input-error{
+                                    //    border: 1px solid red !important;
+                                    //    //&:focus{
+                                    //    //    border: 2px solid red !important;
+                                    //    //}
+                                    //}
+                                }
+
+
+                                &.notvalid {
+                                    input[type="text"],
+                                    input[type="number"],
+                                    textarea,
+                                    .select2-wrapper,
+                                    :not(.select2-wrapper) select {
+                                        box-shadow: 0 0 7px red;
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+
+                    .select2-wrapper {
+                        border: 2px solid getThemeColor(9, $key);
+                        background: none;
+                    }
+                }
+            }
+            .overlay-wrapper {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: getThemeColor(3, $key);
+                overflow: hidden;
+                z-index: 5;
+
+                .spinner {
+                    width: 80px;
+                    height: 80px;
+                    border-width: 8px;
+                    margin: 0 auto;
+                    position: relative;
+                    top: calc(50% - 40px);
+                }
+            }
+        }
+
+        .productions-active-filed-wrapper {
+            float: left;
+            line-height: 32px;
+
+            span {
+                color: getThemeColor(1, $key);
+                padding-right: 10px;
+            }
+        }
+    }
+}

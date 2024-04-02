@@ -1,0 +1,60 @@
+@import "../../base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+    .#{$key} {
+        #events-timeline {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            overflow: auto;
+
+            .recording-lines-header {
+                display: flex;
+                flex-direction: row;
+                padding: 9px 15px;
+                flex: 0 0 50px;
+
+                .back-button-clause {
+                    padding: 0 4px;
+                    vertical-align: top;
+                    font-size: 0;
+                    .icon-button {
+                        vertical-align: top;
+                        height: 32px;
+                        line-height: 32px;
+                        .icons-left icon {
+                            display: block;
+                            height: 32px;
+                            line-height: 32px;
+                        }
+                    }
+
+                }
+
+                h1 {
+                    margin: 0;
+                    height: 32px;
+                    line-height: 32px;
+                }
+
+            }
+
+            div {
+                color: getThemeColor(16, $key);
+            }
+
+            .recording-lines-body {
+                display: flex;
+                flex-direction: row;
+                flex-grow: 1;
+                overflow: hidden;
+                padding: 0 15px 15px;
+                .as-init {
+                    float: left;
+                    background-color: getThemeColor(4, $key);
+                }
+            }
+        }
+    }
+}

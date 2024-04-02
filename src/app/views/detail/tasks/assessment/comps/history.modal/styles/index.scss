@@ -1,0 +1,20 @@
+@import "../../../../../../base/styles/theme.scss";
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        workflow-assessment-history-modal{
+            display: block;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            .container-fluid{
+                height: 100%;
+                position: relative;
+            }
+        }
+
+    }
+}

@@ -1,0 +1,53 @@
+<!--Markup for module-->
+<div class="full-height full-width" style="height:400px;">
+    <div class="container-fluid">
+        <!--Header-->
+        <div class="row-header">
+            <nav>
+                <ul>
+                    <li>
+                        <search-form
+                            [config]="searchFormConfig"
+                        ></search-form>
+                    </li>
+                    <li class="divider"></li>
+                    <li><label>{{ 'common.view' | translate}}:</label></li>
+                    <li>
+                        <search-views
+                            #viewsComp
+                            [config]="searchViewsConfig"
+                        ></search-views>
+                    </li>
+                    <li>
+                        <search-settings
+                            [config]="searchSettingsConfig"
+                        ></search-settings>
+                    </li>
+                </ul>
+            </nav>
+            <nav>
+                <ul>
+                    <li>
+                        <search-thumbs
+                            #searchThumbsComp
+                            [config]="searchThumbsConfig"
+                        ></search-thumbs>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!--Body-->
+        <div class="row-body">
+            <div style="height: 100%; width: 100%">
+                <slick-grid
+                    #slickGridComp
+                    class="media-search-modal-grid vertical-align-row"
+                    style="width: 100%;  height: 100%;"
+                    [config]="searchGridConfig"
+                ></slick-grid>
+            </div>
+        </div>
+    </div>
+</div>
+

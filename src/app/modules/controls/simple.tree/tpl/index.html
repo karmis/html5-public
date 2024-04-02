@@ -1,0 +1,27 @@
+<div class="simple-tree-wrapper js-scrollbar-target" [ngClass]="{'readonly': freeze}">
+    <div *ngFor="let group of groups; let i=index">
+        <!--<div class="dock-header-row" (click)="group.hideme = !group.hideme">-->
+            <!--<i class="fa fa-angle-right" [ngClass]="{ 'fa-angle-right': group.hideme, 'fa-angle-down': !group.hideme }"></i> {{group.Name}}-->
+        <!--</div>-->
+        <div class="dock-header-row" *ngIf="!group.hideme" (click)="freeze ? return : group.hideme = !group.hideme">
+          <i class="icons-down icon"></i>
+          {{group.Name}}
+        </div>
+        <div class="dock-header-row" *ngIf="group.hideme" (click)="freeze ? return : group.hideme = !group.hideme">
+          <i class="icons-right icon"></i>
+          {{group.Name}}
+        </div>
+        <div class="dock-item-row" [ngClass]="{ 'selected-item': item.selected }" [hidden]="group.hideme" *ngFor="let item of group.Children; let j=index" (click)="onSelect(group.Children, item.Id, item)">
+            <div class="inherited-icon" *ngIf="item.IsInherited && item.InheritedLevel != null"
+                 title="{{item.InheritedLevel == 'Version' ? 'Inherited From Version' : item.InheritedLevel == 'Title' ? 'Inherited From Title' : ''}}">
+                {{item.InheritedLevel == "Version" ? "V" : item.InheritedLevel == "Title" ? "T" : ""}}</div>
+            <div class="inherited-icon locked" *ngIf="item.IsLocked" [ngClass]="{'second':item.IsInherited && item.InheritedLevel != null}"
+                 title="Locked For Edit">
+                {{"L"}}</div>
+            <label style="cursor: pointer;" [ngClass]="{ 'active': item.selected }" title="{{item.Name + (item.CreatedDate != null ? ': ' + (item.CreatedDate  | localDate: datetimeFullFormatLocaldatePipe) : '') }}">
+
+                {{item.Name + (item.CreatedDate != null ? ': ' + (item.CreatedDate  | localDate: datetimeFullFormatLocaldatePipe) : '') }}
+            </label>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,96 @@
+<div #flowchartWrapper id="flowchartWrapper" style="width:100%; height: 100%; overflow:hidden; position: relative;" (wheel)="onScroll($event)">
+    <div class="flowchart-controls" *ngIf="enableControls">
+        <div class="zoom-controls">
+            <button class="zoom-min" (click)="zoomFlowchart(false)"><i class="icons-minus icon"></i></button>
+            <span class="zoom-current">{{currentZoom}}%</span>
+            <button class="zoom-max" (click)="zoomFlowchart(true)"><i class="icons-add icon"></i></button>
+        </div>
+        <button class="reset-flowchart" (click)="resetFlowChart(false)">{{'flowchart.reset_pos_zoom' | translate}}</button>
+        <button class="reset-flowchart" (click)="resetFlowChart(true)">{{'flowchart.reset_all' | translate}}</button>
+        <button class="reset-flowchart" *ngIf="enableMinimap" style="position: relative;">{{'flowchart.mini_view' | translate}}
+            <div (click)="minimapShowedManual = !minimapShowedManual" style="opacity: 0;position: absolute; top:0;left:0;right:0;bottom:0;"></div>
+            <input type="checkbox" style="margin-left: 5px;cursor:pointer!important;pointer-events: none;" checked="{{minimapShowedManual ? true : null}}" disabled /></button>
+    </div>
+    <div *ngIf="enableMinimap" [hidden]="!minimapShowed || !minimapShowedManual" class="flowchart-minimap-header">Mini view</div>
+    <div #minimpWrapper *ngIf="enableMinimap" [hidden]="!minimapShowed || !minimapShowedManual" class="flowchart-minimap"
+         (mouseleave)="OnDragMinimapEnd($event)"
+         (mousedown)="OnDragMinimapStart($event)"
+         (mousemove)="OnDragMinimap($event)"
+         (mouseup)="OnDragMinimapEnd($event)">
+        <div *ngFor="let item of blocks; let i=index" class="item" id="miniflowchart{{item.taskIndex}}"></div>
+        <div #minimpDrag class="visible-area"></div>
+    </div>
+    <div class="flowchart-controls" style="top: 0;bottom: auto;left: 0;" *ngIf="enableDebugControls">
+        <label>
+            nodesep
+            <input style="width: 60px;" type="text" [(ngModel)]="nodesep"/>
+        </label>
+        <label>
+            edgesep
+            <input style="width: 60px;" type="text" [(ngModel)]="edgesep"/>
+        </label>
+        <label>
+            ranksep
+            <input style="width: 60px;" type="text" [(ngModel)]="ranksep"/>
+        </label>
+        <label>
+            marginx
+            <input style="width: 60px;" type="text" [(ngModel)]="marginx"/>
+        </label>
+        <label>
+            marginy
+            <input style="width: 60px;" type="text" [(ngModel)]="marginy"/>
+        </label>
+        <button (click)="rebuildLayout(flowChartInstance)">REBUILD</button>
+    </div>
+    <!--div style="position: absolute; background: rgba(255,0,0,0.3);"
+         [ngStyle]="{
+             'left':'' +  minX + 'px',
+             'top':'' +  minY + 'px',
+             'width': '' + (maxX - minX) + 'px',
+             'height': '' + (maxY - minY) + 'px'
+             }"
+    ></div>
+    <div style="position: absolute; background: rgba(0,255,0,0.3);"
+         [ngStyle]="{
+             'left':'' +  minX + 'px',
+             'top':'' +  minY + 'px',
+             'width': '' + (maxX - minX) * coefW + 'px',
+             'height': '' + (maxY - minY) * coefH + 'px'
+             }"
+    ></div>
+    <div style="position: absolute; background: rgba(0,0,255,0.3);"
+         [ngStyle]="{
+             'left':'' +  minX + 'px',
+             'top':'' +  minY + 'px',
+             'width': '' + flowSizeWidth * coefW + 'px',
+             'height': '' + flowSizeHeight * coefH + 'px',
+             'transform':'scale('+ (defaultZoomMinimap / 5000) +')'
+             }"
+    ></div-->
+    <div #flowchartCanvas class="canvas-wide flowchart" id="flowchartCanvas">
+        <div style="position: absolute; width: 10000px; height: 10000px; left: calc(-5000px + 50%); top: calc(-5000px + 50%);"></div>
+        <div *ngFor="let item of blocks; let i=index" class="window rectangle jtk-node" id="flowchart{{item.taskIndex}}"
+             [ngClass]="{
+             'failed': item.status == 'Failed',
+             'ready': item.status.indexOf('In Progress') > -1 || item.status == 'Ready',
+             'completed': item.status.indexOf('Completed') > -1,
+             'pending': item.status.indexOf('Pending') > -1 || item.status.indexOf('Task Dependent') > -1,
+             'inactive': item.task.Inactive}" (click)="onBlockClick(item)" (dblclick)="onBlockDblClick(item)">
+            <div class="task-id">ID: {{item.task.ID}}</div>
+            <div class="task-name"><span title="{{item.task.FriendlyName && item.task.FriendlyName.length > 0 ? item.task.FriendlyName : item.label}}">{{(item.task.FriendlyName && item.task.FriendlyName.length > 0 ? item.task.FriendlyName : item.label)}}</span></div>
+            <div class="task-outputs-wrapper" *ngIf="item.task.Outputs && item.task.Outputs.length > 0">
+                <div class="task-output" *ngFor="let output of item.task.Outputs; let i=index" title="{{output}}">
+                    {{output}}
+                    <span *ngIf="output == 'Pass' || output == 'Fail'" [ngClass]="{'pass': output == 'Pass', 'fail': output == 'Fail'}"></span>
+                </div>
+            </div>
+            <div class="progressbar-wrapper">
+                <div class="progressbar-fill" *ngIf="item.status != 'Completed'" [ngStyle]="{'right' : (100 - item.progress) + '%'}"></div>
+                <div class="progressbar-percent">{{item.progress}}%</div>
+                <div class="status-text">{{item.status}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+

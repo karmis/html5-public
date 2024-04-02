@@ -1,0 +1,13 @@
+<div class="m-1 queue-id-block">
+    <label>{{ 'queue.table.dropdown.row.new_queue_id' | translate }}:</label>
+    <input class="text" type="text" [(ngModel)]="queueId">
+</div>
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div class="buttons">
+            <button class="next primary" (click)="apply()">
+                {{ 'common.ok' | translate }}
+            </button>
+        </div>
+    </div>
+</ng-template>

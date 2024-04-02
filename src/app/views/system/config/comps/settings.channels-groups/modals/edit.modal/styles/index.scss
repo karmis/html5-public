@@ -1,0 +1,219 @@
+@import "../../../../../../../base/styles/theme.scss";
+
+$multilineheight: 300px;
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        channel-groups-change-modal {
+            button {
+                border-radius: 0px;
+            }
+            .channel-groups-modal-wrapper {
+                width: 100%;
+                height: 100%;
+                max-height: 70vh;
+                position: relative;
+                overflow-x: hidden;
+                overflow-y: auto;
+                display: flex;
+                flex-direction: row;
+
+                .main-fields {
+                    overflow-x: hidden;
+                    overflow-y: auto;
+                    flex-direction: column;
+                    width: 100%;
+
+                    .field-wrapper {
+                        width: 100%;
+                        display: flex;
+                        margin-bottom: 5px;
+                        height: 38px;
+                        padding: 3px;
+
+                        &.multiline {
+                            height: $multilineheight;
+
+                            .filed-value {
+                                height: $multilineheight;
+                            }
+                        }
+
+                        .filed-label {
+                            flex: 0.3;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                            line-height: 32px;
+                            height: 32px;
+                        }
+                        .filed-value {
+                            flex: 0.7;
+                            line-height: 32px;
+                            height: 32px;
+                            max-width: 603px;
+                            //overflow: hidden;
+
+                            .color-selector-field {
+                                position: relative;
+
+                                .color-icon {
+                                    position: absolute;
+                                    width: 20px;
+                                    height: 20px;
+                                    left: 6px;
+                                    top: 7px;
+                                    border: 1px solid black;
+                                }
+
+                                .color-input {
+                                    padding-left: 30px;
+                                }
+
+                                color-picker {
+                                    .color-picker {
+                                        background: getThemeColor(4, $key);
+
+                                        div[_ngcontent-c31] {
+                                            color: getThemeColor(1, $key);
+                                        }
+                                    }
+                                }
+                            }
+
+                            &.notvalid {
+                                input,
+                                textarea,
+                                .CodeMirror,
+                                .select2-selection,
+                                select {
+                                    box-shadow: 0 0 7px red;
+                                }
+                            }
+
+                            .CodeMirror {
+                                height: $multilineheight !important;
+                                width: 100%;
+                                line-height: normal;
+                                background: getThemeColor(4, $key);
+                                .CodeMirror-scrollbar-filler {
+                                    background: getThemeColor(4, $key);
+                                }
+                                .CodeMirror-line {
+                                    [role="presentation"] {
+                                        color: getThemeColor(1, $key);
+                                    }
+                                    .cm-attribute {
+                                        color: getThemeColor(10, $key);
+                                    }
+                                    .cm-string {
+                                        color: getThemeColor(13, $key);
+                                    }
+                                    .cm-atom {
+                                        color: getThemeColor(7, $key);
+                                    }
+                                    .cm-tag {
+                                        color: getThemeColor(12, $key);
+                                    }
+                                }
+
+                                .CodeMirror-linenumber,
+                                .CodeMirror-gutters,
+                                .CodeMirror-linenumbers {
+                                    background: getThemeColor(5, $key);
+                                    color: getThemeColor(3, $key);
+                                    border-color: getThemeColor(3, $key);
+                                }
+                            }
+                            textarea {
+                                width: 100%;
+                                height: $multilineheight;
+                                resize: none;
+                                line-height: 18px;
+                                vertical-align: top;
+
+                                &[disabled] {
+                                    opacity: 0.5;
+                                    cursor: default;
+                                }
+                            }
+
+                            select {
+                                &[disabled] {
+                                    opacity: 0.5;
+                                    cursor: default;
+                                }
+                            }
+
+                            input {
+                                width: 100%;
+                                &[disabled] {
+                                    opacity: 0.5;
+                                    cursor: default;
+                                }
+                            }
+
+                            input[type="checkbox"] {
+                                width: 16px;
+                            }
+
+                            .select2-selection {
+                                height: 32px;
+                                background: getThemeColor(4, $key);
+                                border: 2px solid getThemeColor(9, $key);
+
+                                .select2-selection__arrow {
+                                    top: 2px;
+                                    right: 2px;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .channels-field-wrapper {
+                    width: 400px;
+                }
+            }
+
+            .overlay-wrapper {
+                display: none;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: getThemeColor(3, $key);
+                overflow: hidden;
+                z-index: 5;
+
+                .spinner {
+                    width: 80px;
+                    height: 80px;
+                    border-width: 8px;
+                    margin: 0 auto;
+                    position: relative;
+                    top: calc(50% - 40px);
+                }
+            }
+        }
+
+        .channel-groups-active-filed-wrapper {
+            float: left;
+            line-height: 32px;
+            height: 32px;
+
+            span {
+                color: getThemeColor(1, $key);
+                padding-right: 10px;
+            }
+
+            input {
+                vertical-align: middle;
+                position: relative;
+                top: -2px;
+            }
+        }
+    }
+}

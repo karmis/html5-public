@@ -1,0 +1,16 @@
+<div #frame class="frame-wrapper">
+    <iframe name="frame" width=100% height=100% style="position:absolute;z-index:-1;top:0;"></iframe>
+    <div>{{title}}</div>
+    <div class="elem-full-wrapper" (click)="clickOnTape($event)">
+        <div #cursor class="cursor"></div>
+        <div #cursorFrame [ngClass]="{'hide-cursor-frame': width}" class="cursor-frame imfx-allow-dnd"></div>
+        <img [src]="config.Url" class="elem elem-full imfx-allow-dnd" [ngClass]="{'one-frame': config.EventData.TotalFrames == 1 && !showScrollable}" #elemFull />
+    </div>
+    <div [ngClass]="{'hide-elem-scroll': width}" class="elem-scroll-wrapper" *ngIf="(config.EventData.TotalFrames > 1 || showScrollable)">
+        <div #cursorFrameScroll [ngClass]="{'hide-cursor-frame': width}" class="cursor-frame imfx-allow-dnd" *ngIf="title != 'Waveform'; else waveform"></div>
+        <ng-template #waveform>
+            <div #cursorScroll class="cursor imfx-allow-dnd"></div>
+        </ng-template>
+        <img [src]="config.Url" class="elem elem-scroll imfx-allow-dnd" (click)="clickOnFrameDirectly($event)" #elemScroll />
+    </div>
+</div>

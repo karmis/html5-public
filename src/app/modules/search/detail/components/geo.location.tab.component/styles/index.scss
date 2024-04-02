@@ -1,0 +1,18 @@
+@import "../../../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .geo-tab-wrapper {
+            height: 100%;
+            agm-map {
+                height: 100%;
+            }
+            .not-available {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+            }
+        }
+    }
+}

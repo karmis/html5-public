@@ -1,0 +1,5 @@
+<div class="delete-row-formatter" *ngIf="false === isDisabledDelete() && !this.disabled">
+    <span class="closebtn" (click)="deleteRow($event)" title="{{ 'common_hints.remove' | translate }}">
+        <i class="icons-cross icon"></i>
+    </span>
+</div>

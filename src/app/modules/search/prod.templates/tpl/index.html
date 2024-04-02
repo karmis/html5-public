@@ -1,0 +1,38 @@
+<div class="prod-templates-wrapper">
+    <div class="main-prod-templates-wrapper">
+        <input class="data-filter"
+               type="text"
+               placeholder="{{'common.just_filter_placeholder' | translate}}"
+               #dataFilter
+               (keyup)="filterData($event.target.value)"/>
+        <div class="clear-filter" (click)="clearFilter()">
+            <i class="icons-cross icon"></i>
+        </div>
+        <div #prodTemplatesTable class="prod-templates-table-wrapper">
+            <div *ngFor="let item of filteredRows; let i = index"
+                 class="tab-row"
+                 [ngClass]="{'selected': selectedRow && selectedRow[primaryKeyField] == item[primaryKeyField]}"
+                 (click)="onClickByItem(item, $event, i)"
+                 (dblclick)="onDblClickByItem(item, $event, i)"
+            >
+                <div class="item noselect" title="{{item[displayField]}}">{{item[displayField]}}</div>
+            </div>
+        </div>
+    </div>
+<!--    <div class="overlay-wrapper" #modalDataOverlayWrapper>-->
+<!--        <div class="spinner"></div>-->
+<!--    </div>-->
+</div>
+
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div>
+            <button type="button" style="float: left;" (click)="clearSelection()">{{'base.clear'| translate}}</button>
+            <button type="button"  (click)="closeModal()">{{'common.cancel'| translate}}</button>
+            <button type="button" (click)="onOk($event) ">{{'common.ok'| translate}}</button>
+        </div>
+    </div>
+</ng-template>
+
+

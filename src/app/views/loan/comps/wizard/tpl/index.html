@@ -1,0 +1,20 @@
+<div class="media-wizard" style="min-height: 400px;">
+    <wizard-name-table (onSave)="addMediaToList()" *ngIf="typeGrid === 'name'" #wizardMediaTableGrid></wizard-name-table>
+    <wizard-loan-table *ngIf="typeGrid !== 'name'" #wizardMediaTableGrid></wizard-loan-table>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div class="buttons">
+            <button class="next primary"
+                (click)="addMediaToList()">
+                {{ 'common.ok' | translate }}
+            </button>
+            <button class=""
+                (click)="closeModal()">
+                {{ 'views.cancel' | translate }}
+            </button>
+        </div>
+    </div>
+</ng-template>
+

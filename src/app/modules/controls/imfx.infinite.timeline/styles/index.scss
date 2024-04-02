@@ -1,0 +1,207 @@
+@import "../../../../views/base/styles/theme.scss";
+
+$leftsidewidth: 200px;
+$canvasHeight: 20px;
+$canvasTimeHeight: 32px;
+$canvasImageHeight: 40px;
+$canvasImageHeight: 40px;
+
+@each $key, $value in $common-themes {
+    .#{$key} {
+        imfx-infinite-timeline {
+            .infinite-timeline {
+                position: relative;
+                padding: 5px;
+                overflow: hidden;
+                height: 100%;
+                text-align: left;
+                display: flex;
+                flex-direction: column;
+
+                .canvas-hover-tooltip {
+                    position: absolute;
+                    display: inline-block;
+                    width: auto;
+                    max-width: 300px;
+                    height: auto;
+                    background: rgba(0, 0, 0, 0.7);
+                    color: #fff;
+                    padding: 10px;
+                    z-index: 11;
+                    user-select: none;
+                    div {
+                        width: 100%;
+                        overflow: hidden;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                        user-select: none;
+                    }
+                }
+
+                .header-row-wrapper {
+                    height: 48px;
+                    display: flex;
+                    width: calc(100% - 16px);
+                    border: 1px solid getThemeColor(9, $key);
+                    border-bottom: 0;
+
+                    .row-label {
+                        background: getThemeColor(4, $key);
+                        flex: 1;
+                        min-width: 200px;
+                        max-width: 250px;
+                        border-right: 1px solid getThemeColor(9, $key);
+                        user-select: none;
+
+                        &.with-labels:not(&.with-logos) {
+                            min-width: 100px;
+                            max-width: 150px;
+                        }
+
+                        &.with-logos:not(&.with-labels) {
+                            width: 100px;
+                            min-width: 100px;
+                            max-width: 100px;
+                        }
+                    }
+
+                    .row-canvas {
+                        flex: 3;
+                        overflow: hidden;
+                        display: flex;
+                        flex-direction: column;
+                        user-select: none;
+
+                        .month-year {
+                            height: 16px;
+                            background: getThemeColor(4, $key);
+                            width: 100%;
+                        }
+
+                        .week-day {
+                            height: 16px;
+                            background: getThemeColor(4, $key);
+                            width: 100%;
+                        }
+
+                        .hour-minutes {
+                            height: 16px;
+                            background: getThemeColor(4, $key);
+                            width: 100%;
+                        }
+                    }
+                }
+
+                .dynamic-rows-wrapper {
+                    width: 100%;
+                    padding-right: 16px;
+                    vertical-align: top;
+                    overflow: hidden;
+                    height: calc(100% - 48px);
+                    position: relative;
+                    border: 1px solid getThemeColor(9, $key);
+
+                    .scrollable-area {
+                        width: 100%;
+                        height: auto;
+                        position: relative;
+                        top: 0;
+
+                        .row-wrapper {
+                            height: 36px;
+                            overflow: hidden;
+                            line-height: 34px;
+                            display: flex;
+                            border-bottom: 1px solid getThemeColor(9, $key);
+
+                            .row-label {
+                                height: 100%;
+                                flex: 1;
+                                min-width: 200px;
+                                max-width: 250px;
+                                border-right: 1px solid getThemeColor(9, $key);
+                                user-select: none;
+
+                                &.with-labels:not(&.with-logos) {
+                                    min-width: 100px;
+                                    max-width: 150px;
+                                }
+
+                                &.with-logos:not(&.with-labels) {
+                                    width: 100px;
+                                    min-width: 100px;
+                                    max-width: 100px;
+                                }
+
+                                span {
+                                    height: 100%;
+                                    display: inline-block;
+                                    vertical-align: top;
+                                    line-height: 38px;
+                                    width: calc(100% - 100px);
+                                    padding: 5px;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    white-space: nowrap;
+                                    user-select: none;
+                                }
+
+                                img {
+                                    height: 100%;
+                                    width: 100px;
+                                    object-fit: contain;
+                                    padding: 5px;
+                                    user-select: none;
+                                }
+                            }
+                            .row-canvas {
+                                flex: 3;
+                                overflow: hidden;
+                                user-select: none;
+                                canvas {
+                                    width: 100%;
+                                    height: 100%;
+                                }
+                            }
+                        }
+                    }
+
+                    .timeline-scroll-wrapper {
+                        position: absolute;
+                        background: getThemeColor(5, $key);
+                        right: 0;
+                        top: 0;
+                        bottom: 0;
+                        width: 16px;
+                        border-left: 1px solid getThemeColor(9, $key);
+
+                        .timeline-scroll {
+                            position: absolute;
+                            top: 0;
+                            width: 100%;
+                            height: 50px;
+                            background: getThemeColor(3, $key);
+                        }
+                    }
+                }
+
+                .timeline-loader {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 10;
+                    background: getThemeColor(4, $key);
+
+                    .spinner {
+                        position: absolute;
+                        top: 50%;
+                        height: 32px;
+                        width: 32px;
+                        border-width: 3px;
+                        left: calc(50% - 16px);
+                    }
+                }
+            }
+        }
+    }
+}

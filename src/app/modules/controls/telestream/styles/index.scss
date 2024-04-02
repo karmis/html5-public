@@ -1,0 +1,132 @@
+@import "../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .telestream-wrapper {
+            height: 100%;
+            overflow: auto;
+            button {
+                //width: 18.4%;
+                //margin: 0 1%;
+                width: 100px;
+                position: relative;
+                margin: 0;
+                margin-right: 8px;
+                margin-bottom: 8px;
+                opacity: 0.9;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+
+                &:hover:not([disabled]) {
+                    opacity: 1;
+                }
+
+                &:first-child {
+                    margin-left: 0;
+                }
+                &:last-child {
+                    margin-right: 0;
+                }
+                &[disabled] {
+                    opacity: 0.6!important;
+                }
+            }
+
+            .device-container{
+                //width: 500px;
+                margin-bottom: 8px;
+
+                imfx-lookups-select2 {
+                    display: inline-block;
+                    width: 300px;
+                    margin-right: 1em;
+                }
+
+                .remote-device-status {
+                    display: inline-block;
+                    vertical-align: middle;
+                    line-height: 28px;
+                    span {
+                        margin-right: .5em;
+                    }
+                }
+            }
+            .buttons-row {
+                //width: 500px;
+                width: auto;
+                max-width: 532px;
+                position: relative;
+                font-size: 0;
+                padding-bottom: 0px !important;
+
+                .stop-btn, .stop-btn[disabled]:hover {
+                    background-color: getThemeColor(13, $key)!important;
+                    color: getThemeColor(1, $key);
+                }
+                .pause-btn, .pause-btn[disabled]:hover {
+                    //background-color: getThemeColor(10, $key)!important;
+                    color: getThemeColor(1, $key);
+                }
+                .play-btn, .play-btn[disabled]:hover {
+                    //background-color: getThemeColor(10, $key)!important;
+                    color: getThemeColor(1, $key);
+                }
+                .back-btn, .back-btn[disabled]:hover {
+                    background-color: getThemeColor(7, $key)!important;
+                    color: getThemeColor(1, $key);
+                }
+                .forward-btn, .forward-btn[disabled]:hover {
+                    background-color: getThemeColor(12, $key)!important;
+                    color: getThemeColor(1, $key);
+                }
+            }
+
+            .timecodes-row {
+                width: auto;
+                max-width: 532px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                position: relative;
+                .tc-wrapper {
+                    display: flex;
+                    align-items: center;
+                    margin-right: 1em;
+                    margin-bottom: 8px;
+                }
+                label {
+                    margin: 0;
+                    margin-right: 1em;
+                    white-space: nowrap;
+                }
+                .reset-btn {
+                    color: getThemeColor(1, $key);
+                }
+
+                .timecode-input-wrapper input {
+                    width: 110px;
+                }
+            }
+
+            .spinner-wrapper {
+                //display: flex;
+                //margin: auto;
+                //padding-bottom: 15px;
+                //width: 30px;
+                //line-height: 32px;
+                position: absolute;
+                top: 5px;
+                right: 4px;
+                .spinner {
+                    width: 22px;
+                    height: 22px;
+                    position: relative;
+                    margin: 0 auto;
+                    transform-origin: 50% 50% 15px;
+                }
+            }
+        }
+    }
+}

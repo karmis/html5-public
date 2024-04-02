@@ -1,0 +1,134 @@
+@import "../../base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+    .#{$key} {
+        .titles-view {
+
+            .slick-grid-wrapper .slick-row.ui-widget-content {
+                -webkit-box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.08);
+                -moz-box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.08);
+                box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.08);
+
+                &:not(.hover-row) {
+                    &.tree-row-level-1 {
+                        background: getThemeColor(41, $key);
+                    }
+                    &.tree-row-level-2 {
+                        background: getThemeColor(42, $key);
+                    }
+                    &.tree-row-level-title {
+                        background: getThemeColor(43, $key);
+                    }
+                }
+            }
+
+            .titles-grid {
+                .slick-grid-wrapper .slick-pane-top.slick-pane-left .slick-row.ui-widget-content {
+                    .tree-row-title-type:before {
+                        content: '';
+                        width: 12px;
+                        display: block;
+                        position: absolute;
+                        right: 0;
+                        top: 5px;
+                        bottom: 5px;
+                        border-radius: 5px 0 0 5px;
+                        z-index: 2;
+                    }
+
+                    .tree-row-title-type-title:before {
+                        background: #b13084;
+                    }
+
+                    .tree-row-title-type-series:before {
+                        background: #5d5bdc;
+                    }
+
+                    .tree-row-title-type-season:before {
+                        background: #58b6fb;
+                    }
+
+                    .tree-row-title-type-episode:before {
+                        background: #80ad4f;
+                    }
+                }
+            }
+
+            .slick-grid-wrapper .slick-viewport.slick-viewport-left {
+                overflow-x: auto !important;
+            }
+            .titles-grid, .inside-versions-grid, .inside-media-grid {
+                .slick-grid-wrapper .slick-header-column,
+                .slick-grid-wrapper .slick-group-header-column,
+                .slick-grid-wrapper .slick-header-column.ui-state-default,
+                .slick-grid-wrapper .slick-group-header-column.ui-state-default {
+                    height: 26px;
+                    line-height: 17px;
+                    margin: 0;
+                    padding: 3px;
+                }
+            }
+
+            slickgrid-info-comp .wrapper-info {
+                margin-top: 5px;
+            }
+
+            nav.slick-pager li {
+                height: 23px;
+            }
+            nav.slick-pager button.icon-button {
+                height: 23px;
+                line-height: 20px;
+                padding: 0 4px;
+            }
+            nav.slick-pager a {
+                text-decoration: none;
+                display: block;;
+                padding: 0 8px;
+                line-height: 20px;
+            }
+
+            media-inside-titles .submenu {
+                .submenu {
+                    top: inherit !important;
+                    bottom: 0 !important;
+                    right: 100% !important;
+                    left: inherit !important;
+                }
+            }
+
+            versions-inside-titles .submenu {
+                .submenu {
+                    top: inherit !important;
+                    bottom: 0 !important;
+                    right: 100% !important;
+                    left: inherit !important;
+                }
+            }
+            versions-inside-titles, media-inside-titles, .titles-row-header {
+                .select2-container {
+                    vertical-align: top;
+                    min-width: 165px;
+                    max-width: 200px;
+
+                    span {
+                        vertical-align: top;
+                        line-height: 32px !important;
+                    }
+
+                    .select2-selection {
+                        height: 32px;
+                    }
+                }
+            }
+            .titles-splitter {
+                position: relative;
+                overflow: visible !important;
+            }
+            .overflow-hidden-splitter{
+                overflow: hidden !important;
+            }
+
+        }
+    }
+}

@@ -1,0 +1,21 @@
+<div #uploadGridWrapper class="upload-screen-container">
+    <div class="filter-panel">
+        <input class="data-filter" #datasetFilter placeholder="{{'upload_screen.filter_data' | translate}}" type="text" (input)="updateDataset($event.target.value)"/>
+        <div class="clear-dataset-filter" (click)="clearDatasetFilter()">
+            <i class="icons-cross icon"></i>
+        </div>
+    </div>
+
+    <button *ngIf="uploadData" class="upload-new-media" (click)="openUpload()" title="{{'upload_screen.button_upload' | translate}}">
+        <i class="icons-upload icon"></i>
+    </button>
+    <div class="upload-grid-wrapper">
+        <div id="uploadSlickGridExternalWrapper" style="height: 100%;">
+            <slick-grid #slickGridComp
+                        [config]="slickGridConfig"
+                        class="vertical-align-row">
+            </slick-grid>
+        </div>
+    </div>
+</div>
+<overlay #overlay [mode]="true" [zIndex]="100"></overlay>

@@ -1,0 +1,75 @@
+<div class="event-request-details-wrapper" #eventRequest>
+    <div class="event-detail-btns">
+        <div class="btn-wrapper-left">
+            <div class="back-btn-wrapper"  *ngIf="!isFirstLocation()">
+                <button class="icon-button"
+                        title="{{ 'common.back_button' | translate }}" (click)="clickBack()">
+                    <i class="icons-left icon"></i>
+                </button>
+            </div>
+            <div class="event-title-wrapper">
+                <h1 title="{{ 'base.event_request' | translate }}" *ngIf="!isMulti">
+                    {{ 'base.event_request' | translate }}
+                </h1>
+                <h1 title="{{ 'base.event_request_multi' | translate }}" *ngIf="isMulti">
+                    {{ 'base.event_request_multi' | translate }}
+                </h1>
+            </div>
+        </div>
+        <div class="btn-wrapper-right" *ngIf="!error">
+            <button (click)="onAttachProduction()"
+                    [disabled]="!isNew && event.PROD_ID > 0"
+                    class="attach-prod"
+                    title="{{ 'events_detail.attach_prod' | translate }}" *ngIf="isMulti">{{ 'events_detail.attach_prod' | translate }}</button>
+            <button (click)="onSave()"
+                    title="{{ 'common.save' | translate }}">{{ 'common.save' | translate }}</button>
+        </div>
+    </div>
+
+    <div class="full-height-width-block">
+        <as-split *ngIf="!error"
+                  #split
+                  [style.float]="'left'"
+                  [direction]="'vertical'">
+            <as-split-area
+                #gridArea
+                [order]="1"
+                [size]="65">
+                        <div class="panel-flex-wrapper"  [ngClass]="{'multi-event': isMulti, 'single-event': !isMulti}">
+                            <production-info-tab #eventInfoComponent
+                                                 (onChangeItems)="changeDynamicFields($event)"
+                                                 (onChangeFieldValue)="changeDynamicField($event)"
+                            ></production-info-tab>
+                        </div>
+            </as-split-area>
+            <as-split-area
+                    [order]="2"
+                    [size]="35">
+                <div class="" style="width: 100%;height:100%;">
+                    <event-table
+                        #eventVersGrid
+                        *ngIf="!isMulti"
+                        [eventMode]="eventMode"
+                        (onChange)="changeVersions($event)"
+                        (onSelect)="selectRow($event)"
+                        (onCheckBox)="checkBoxVersion($event)"
+                        [data]="payload.listVersions"></event-table>
+                    <multi-event-table
+                        #multiEventGrid
+                        *ngIf="isMulti"
+                        (onChange)="changeEvent($event)"
+                        (onSelect)="selectRow($event)"
+                        (onSelectEvents)="onSelectEvents($event)"
+                        [data]="multiEvents"
+                        [isNew]="isNew"></multi-event-table>
+                </div>
+            </as-split-area>
+        </as-split>
+        <div class="text-center" *ngIf="error">
+            <h2>
+                {{text}}
+            </h2>
+        </div>
+    </div>
+</div>
+<overlay #overlay></overlay>

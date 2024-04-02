@@ -1,0 +1,22 @@
+@import "../../../../../../views/base/styles/theme";
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        validation-formatter-comp {
+            .validation-wrapper {
+
+            }
+        }
+
+        .selected {
+            validation-formatter-comp {
+                .validation-wrapper {
+                    .icon {
+                        color: white!important;
+                    }
+                }
+            }
+        }
+    }
+}

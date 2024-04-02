@@ -1,0 +1,89 @@
+@import "../../../../../../../views/base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+    .#{$key} {
+
+        div.accordion-row {
+            display: flex;
+            position: relative;
+            margin-left: 15px;
+            box-sizing: border-box;
+            align-items: center;
+            text-align: left;
+            //padding: 5px 5px 5px 30px;
+            cursor: pointer;
+
+            &:hover,
+            &:hover div {
+                //background: getThemeColor(19, $key)!important;
+            }
+
+            &.selected {
+                color: #fff;
+                background: getThemeColor(10, $key) !important;
+            }
+            &.captions {
+                font-weight: bold;
+                border-bottom: 1px getThemeColor(17, $key) solid;
+                padding: 2px;
+                padding-left: 10px;
+                font-weight: 100;
+                font-style: normal;
+                //color: #f5f5f594;
+                opacity: 0.8;
+            }
+
+            .ac-devices,
+            .ac-job-id,
+            .ac-locked,
+            .ac-status {
+                display: inline-block;
+                box-sizing: border-box;
+                flex-grow: 1;
+                max-width: 150px;
+                padding-right: 20px;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                font-size: 10px;
+            }
+            .ac-id {
+                flex-grow: 0;
+                flex-basis: 40px;
+                margin-left: 24px;
+                padding-right: 10px;
+            }
+            .ac-devices {
+                cm-status-comp > div > span {
+                    font-size: 10px;
+                }
+            }
+            .ac-status {
+                position: relative;
+                &:before {
+                    content: "";
+                    position: absolute;
+                    width: 8px;
+                    height: 8px;
+                    border-radius: 8px;
+                    top: 50%;
+                    margin-top: -4px;
+                    left: -10px;
+                }
+                &.ready:before {
+                    background: getThemeColor(12, $key) !important;
+                }
+                &.failed:before {
+                    background: getThemeColor(13, $key) !important;
+                }
+                &.completed:before {
+                    background: getThemeColor(12, $key) !important;
+                }
+                &.inprogress:before {
+                    //background: getThemeColor(10, $key) !important;
+                    background: getThemeColor(12, $key) !important;
+                }
+            }
+        }
+    }
+}

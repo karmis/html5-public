@@ -1,0 +1,97 @@
+<div class="modal-alert" style="padding-bottom: 15px;">
+    <div class="text-container"
+         [innerHTML]="text | translate:textParams"
+         style="white-space: pre-line;display: block; overflow: auto; max-height: 150px; margin-bottom: 15px;"
+    ></div>
+
+    <div class="version-details advanced">
+        <span class="caption">Version Details:</span> <br>
+        <table>
+            <tbody>
+            <tr>
+                <td class="name">{{getColumnName('SER_TITLE')}}:</td>
+                <td>{{row['SER_TITLE'] || '[none]'}}</td>
+            </tr>
+            <tr>
+                <td class="name">{{getColumnName('SER_NAME')}}:</td>
+                <td>{{row['SER_NAME'] || '[none]'}}</td>
+            </tr>
+            <tr>
+                <td class="name">{{getColumnName('SER_NUM')}}:</td>
+                <td>{{row['SER_NUM'] || '[none]'}}</td>
+            </tr>
+            <tr>
+                <td class="name">{{getColumnName('TITLE')}}:</td>
+                <td>{{row['TITLE'] || '[none]'}}</td>
+            </tr>
+            <tr>
+                <td class="name">{{getColumnName('SER_EP_NUM')}}:</td>
+                <td>{{row['SER_EP_NUM'] || '[none]'}}</td>
+            </tr>
+            <tr>
+                <td class="name">{{getColumnName('VERSIONID1')}}:</td>
+                <td>{{row['VERSIONID1'] || '[none]'}}</td>
+            </tr>
+            <tr>
+                <td class="name">{{getColumnName('VERSION')}}:</td>
+                <td>{{row['VERSION'] || '[none]'}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="files-wrapper" [ngClass]="{'w-100': !hasXml, 'has-xml': hasXml}" [style.width]="isVersionNameValid ? '50%' : '100%'">
+        <div class="files-block" [ngClass]="{'has-xml': hasXml}">
+            <table class="files-block-table w-100">
+                <tr class="row-item"
+                    [ngClass]="{'active': selectedMedia ? selectedMedia.ID === um.ID : false}"
+                    (click)="onSelect(um)"
+                    *ngFor="let um of media; let i=index">
+                    <td class="td-name">
+                        <div class="item-title">{{um.TITLE}}</div>
+                        <div class="item-descr">
+                            <table class="item-descr-table">
+                                <tbody>
+                                <tr>
+                                    <td class="name">Media Item Title:</td>
+                                    <td>{{um['FullTitle'] || '[none]'}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="name">Filename:</td>
+                                    <td>{{um['FILENAME'] || '[none]'}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="schema-wrapper" *ngIf="isVersionNameValid && (getCurrentModel() && hasXml)">
+        <div class="schema-block">
+            <imfx-xml-tree
+                #xmlTreePresets
+                (onSelectNodes)="onSelectNodes($event)"
+                [readonly]="isReadonlyXML()"
+                [schemaModel]="getCurrentSchema()"
+                [withNodeSelection]="false"
+                [xmlModel]="getCurrentModel()">
+            </imfx-xml-tree>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div class="buttons">
+            <button class="btn button" *ngIf="copyButton" (click)="copyError()">
+                {{ 'common_hints.copy_error' | translate }}
+            </button>
+            <button class="btn button primary" (click)="modalRef.emitClickFooterBtn('ok', $event)">
+                {{ 'common.ok' | translate }}
+            </button>
+        </div>
+    </div>
+</ng-template>

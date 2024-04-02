@@ -1,0 +1,19 @@
+<div class="custom-status-ctrl-comp-wrapper">
+    <label class="mr-sm-2">
+        {{cuStatLookupItem ? cuStatLookupItem['Name'] : ''}}
+    </label>
+    <imfx-controls-select2
+        #statusSelect
+        [width]="'100%'"
+        [clearFormat]="{
+                        showButton: true,
+                        defaultValue: null
+                    }"
+        [multiple]="cuStatSettingsItem?.isMultiSelect"
+        [withCheckboxes]="cuStatSettingsItem?.isMultiSelect"
+        [placeholder]="'base.selectOoo'|translate"
+        [placeholderRefToTranslate]="'base.selectOoo'"
+        (onSelect)="onUpdateStatusValue($event, statusSelect)"
+        (onUnselect)="onUpdateStatusValue($event, statusSelect)"
+    ></imfx-controls-select2>
+</div>

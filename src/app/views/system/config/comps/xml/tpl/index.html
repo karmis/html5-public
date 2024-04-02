@@ -1,0 +1,38 @@
+<div class="system-config-xml-wrapper" #systemConfig>
+  <div class="full-height">
+    <div class="full-height">
+      <!--<h4 class="block-header text">{{ 'system-config.title' | translate }} - {{ 'system-config.xml.title' | translate }}</h4>-->
+      <div *ngIf="schemas">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <imfx-schema-tree *ngIf="schemaTypes"
+                              [expandOnFilter]="true"
+                               [groups]="schemaTypes"
+                               (selected)="selectXml($event)"
+                                (reload)="reloadXMLS()">
+            </imfx-schema-tree>
+        </div>
+        <div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 main text ">
+          <div *ngIf="!xmlLoading && !xmlEmpty">
+            <!--button *ngIf="!xmlLoading && !xmlEmpty && selectedId != null" (click)="validate()">Validate</button-->
+            <imfx-xml-tree
+              #xmlTree
+              [schemaModel]="selectedSchemaModel"
+              [xmlModel]="selectedXmlModel"
+            ></imfx-xml-tree>
+          </div>
+          <!--<div *ngIf="xmlLoading">-->
+            <!--XML Loading-->
+            <!--<overlay #overlay></overlay>-->
+          <!--</div>-->
+          <div class="message-wrapper" *ngIf="xmlEmpty">
+              <span>{{ 'system-config.xml.empty' | translate }}</span>
+          </div>
+            <div class="message-wrapper" *ngIf="!xmlEmpty && selectedId == null">
+                <span>{{ 'system-config.xml.select' | translate }}</span>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<overlay #overlay [zIndex]="100"></overlay>

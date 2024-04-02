@@ -1,0 +1,280 @@
+<!--h4 class="block-header text">{{ 'queue.title' | translate }}</h4-->
+<!--<div class="recentSearch">-->
+<!--{{searchGridConfig.options.provider.getRecentSearches()}}-->
+<!--</div>-->
+<div class="full-height full-width" style="padding-top: 10px;">
+    <div class="container-fluid" style="position: relative; height:100%;">
+        <!--Header-->
+        <div class="row-header">
+            <nav>
+                <ul>
+                    <li>
+                        <search-form
+                                [config]="searchFormConfig"
+                        ></search-form>
+                    </li>
+                    <li>
+                        <button type="button"
+                                class="icon-button test-advanced-searching-button"
+                                (click)="searchAdvancedConfig.options.provider.setStateForPanel(!searchAdvancedConfig.options.provider.getStateForPanel())"
+                                [ngClass]="{'active': searchAdvancedConfig.options.provider.getStateForPanel() }"
+                                title="{{ 'common_hints.adv_search' | translate }}">
+                        <span style="float:left;">
+                          <i class="icons-advanced-search icon"></i>
+                        </span>
+                            <!--div *ngIf="searchAdvancedConfig.options.provider.isCriteriasforSearch"
+                                 class="circle circle-green"></div-->
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="icon-button"
+                                [ngClass]="{'active': isOpenQueueParams}"
+                                (click)="toggleQueueParams()"
+                                title="{{ 'common_hints.filters' | translate }}">
+                            <i class="icons-filters icon"></i>
+                        </button>
+                    </li>
+                    <li *ngIf="hasPermissionByName('views-options')" class="divider"></li>
+                    <li *ngIf="hasPermissionByName('views-options')"><label>{{ 'common.view' | translate}}:</label></li>
+                    <li [hidden]="!hasPermissionByName('views-modify')">
+                        <search-views
+                            #viewsComp
+                            [config]="searchViewsConfig"
+                        ></search-views>
+                    </li>
+                    <li *ngIf="hasPermissionByName('views-options') || hasPermissionByName('export-options') ">
+                        <search-settings
+                                [config]="searchSettingsConfig"
+                        ></search-settings>
+                    </li>
+                    <li>
+                        <div class="refresh-queue"
+                             (click)="doRefresh()"
+                             title="{{ 'queue.auto_refresh_queue' | translate }}">
+                                <span style="float:left;">
+                                  <input type="checkbox"
+                                         [(ngModel)]="refreshOn"
+                                         (change)="doRefresh();saveSettings()"/>
+                                    {{ 'queue.auto_refresh_queue' | translate }}
+                                </span>
+                            <div *ngIf="refreshStarted" class="queue-refresh-loader spinner"></div>
+                            <!--div *ngIf="searchAdvancedConfig.options.provider.isCriteriasforSearch"
+                                 class="circle circle-green"></div-->
+                        </div>
+                    </li>
+                    <li style="margin: 0;">
+                    <span style="float:left;">
+                      <select [(ngModel)]="daysOffset" (ngModelChange)="onSelectDaysOffset($event)">
+                          <option value="0">Without offset</option>
+                          <option value="1">1 day</option>
+                          <option value="2">2 days</option>
+                          <option value="5">5 days</option>
+                          <option value="7">7 days</option>
+                          <option value="14">14 days</option>
+                      </select>
+                    </span>
+
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!--Body-->
+        <div class="row-body">
+            <as-split
+                #split
+                (dragEnd)="saveSplitSizes(0, $event)"
+                [style.float]="'left'"
+                [direction]="'horizontal'">
+
+
+                <!--Adv search and recent search-->
+                <as-split-area
+                        [visible]="getSplitAreaVisible([0,0], searchAdvancedConfig.options.provider.getStateForPanel(), false, searchAdvancedConfig.options.provider, searchAdvancedConfig.options.provider.setStateForPanel, searchAdvancedConfig.options.provider.getIsReady())"
+                        [size]="getSplitAreaSize([0,0], 30)"
+                        [order]="0">
+                    <as-split (dragEnd)="saveSplitSizes(1, $event)"
+                              [direction]="'vertical'">
+                        <as-split-area
+                                class="color-bkgd-mid"
+                                #advSplit
+                                [order]="0">
+                            <search-advanced
+                                    [config]="searchAdvancedConfig"
+                            ></search-advanced>
+                        </as-split-area>
+                        <as-split-area
+                            #advSplit
+                            class="color-bkgd-mid"
+                            [order]="1">
+                            <search-recent
+                                    [config]="searchRecentConfig"
+                            ></search-recent>
+                        </as-split-area>
+                    </as-split>
+                </as-split-area>
+
+                <!--Queue params (services, etc)-->
+                <as-split-area
+                    #queueSplit
+                    [order]="2"
+                    [visible]="getSplitAreaVisible([0,2], isOpenQueueParams, false, null, toggleQueueParams, queueParamsPanel.isReady)"
+                    [size]="getSplitAreaSize([0,2], 30)">
+                    <div style="height: 100%">
+                        <queue-params-component
+                                style="width: 100%; height: 100%"
+                                #queueParamsPanel
+                                (onSelectParam)="selectQueueParam($event)"
+                        ></queue-params-component>
+                    </div>
+                </as-split-area>
+
+                <!--Table-->
+                <as-split-area
+                    #tableSplit
+                    [order]="1"
+                    [size]="getSplitFlexSize([0,1])">
+                    <div style="height: 100%">
+                        <slick-grid
+                                class="vertical-align-row"
+                                #slickGridComp
+                                style="width: 100%;  height: 100%"
+                                [config]="searchGridConfig"
+                        ></slick-grid>
+                    </div>
+                </as-split-area>
+            </as-split>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="slickGridComp.isGridReady"
+     class="dropdown grid-settings-dropdown queueSettingsPopup"
+     style="margin-top: 15px; margin-right: 15px; position: fixed; display: none;">
+    <!--<ul style="display: block;" class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">-->
+    <!--<li><a href="#">Some action</a></li>-->
+    <!--<li><a href="#">Some other action</a></li>-->
+    <!--<li class="divider"></li>-->
+    <!--<li class="dropdown-submenu">-->
+    <!--<a tabindex="-1" href="#">Hover me for more options</a>-->
+    <!--<ul class="dropdown-menu">-->
+    <!--<li><a tabindex="-1" href="#">Second level</a></li>-->
+    <!--<li class="dropdown-submenu">-->
+    <!--<a href="#">Even More..</a>-->
+    <!--<ul class="dropdown-menu">-->
+    <!--<li><a href="#">3rd level</a></li>-->
+    <!--<li><a href="#">3rd level</a></li>-->
+    <!--</ul>-->
+    <!--</li>-->
+    <!--<li><a href="#">Second level</a></li>-->
+    <!--<li><a href="#">Second level</a></li>-->
+    <!--</ul>-->
+    <!--</li>-->
+    <!--</ul>-->
+    <!---->
+
+
+    <ul
+            aria-labelledby="simple-btn-keyboard-nav"
+            style="display: block;"
+            class="dropdown-menu multi-level"
+            role="menu"
+    >
+        <!--[class.disabled]="!slickGridComp.provider.()"-->
+
+        <!--(click)="slickGridComp.provider.delete($event)"-->
+        <li role="menuitem" class="dropdown-submenu">
+            <a
+                    [class.disabled]="!slickGridComp.provider.hasPermissionsToPopup()"
+                    class="dropdown-item">
+                {{ 'queue.table.dropdown.row.set_priority' | translate }}
+            </a>
+            <ul role="menu" class="dropdown-menu">
+                <li role="menuitem">
+                    <a
+                            [class.disabled]="
+                        !slickGridComp.provider.hasPermissionsToPopup()
+                        ||
+                        slickGridComp.provider.isDisabledByStatus()"
+                            class="dropdown-item"
+                            (click)="slickGridComp.provider.setPriority(0)">
+                        {{ 'queue.table.dropdown.row.low' | translate }}
+                    </a>
+                </li>
+                <li role="menuitem">
+                    <a
+                            [class.disabled]="
+                        !slickGridComp.provider.hasPermissionsToPopup()
+                        ||
+                        slickGridComp.provider.isDisabledByStatus()"
+                            class="dropdown-item"
+                            (click)="slickGridComp.provider.setPriority(1)">
+                        {{ 'queue.table.dropdown.row.normal' | translate }}
+                    </a>
+                </li>
+                <li role="menuitem">
+                    <a
+                            [class.disabled]="
+                        !slickGridComp.provider.hasPermissionsToPopup()
+                        ||
+                        slickGridComp.provider.isDisabledByStatus()"
+                            class="dropdown-item"
+                            (click)="slickGridComp.provider.setPriority(2)">
+                        {{ 'queue.table.dropdown.row.high' | translate }}
+                    </a>
+                </li>
+                <li role="menuitem">
+                    <a
+                            [class.disabled]="
+                        !slickGridComp.provider.hasPermissionsToPopup()
+                        ||
+                        slickGridComp.provider.isDisabledByStatus()"
+                            class="dropdown-item"
+                            (click)="slickGridComp.provider.setPriority(3)">
+                        {{ 'queue.table.dropdown.row.immediate' | translate }}
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li role="menuitem">
+            <a class="dropdown-item"
+               [class.disabled]="!slickGridComp.provider.hasPermissionsToPopup()"
+               (click)="slickGridComp.provider.savePositionFirst()">
+                {{ 'queue.table.dropdown.row.move_to_the_beginning' | translate }}
+            </a>
+        </li>
+        <li role="menuitem">
+            <a class="dropdown-item"
+               [class.disabled]="!slickGridComp.provider.hasPermissionsToPopup()"
+               (click)="slickGridComp.provider.savePositionLast()">
+                {{ 'queue.table.dropdown.row.move_to_the_end' | translate }}
+            </a>
+
+        </li>
+        <li role="menuitem">
+            <a
+                    [class.disabled]="!slickGridComp.provider.hasPermissionsToPopup()"
+                    (click)="slickGridComp.provider.copyToClipboard()"
+                    class="dropdown-item">
+                {{ 'queue.table.dropdown.row.copy_details' | translate }}
+            </a>
+        </li>
+        <li role="menuitem" *ngIf="slickGridComp.provider.hasPermissionByName('clear-set-queue-id')">
+            <a
+                    (click)="slickGridComp.provider.setQueueId()"
+                    class="dropdown-item">
+                {{ 'queue.table.dropdown.row.set_queue_id' | translate }}
+            </a>
+        </li>
+        <li role="menuitem" *ngIf="slickGridComp.provider.hasPermissionByName('clear-set-queue-id')">
+            <a
+                    (click)="slickGridComp.provider.clearQueueId()"
+                    class="dropdown-item">
+                {{ 'queue.table.dropdown.row.clear_queue_id' | translate }}
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+

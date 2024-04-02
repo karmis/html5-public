@@ -1,0 +1,36 @@
+<div class="at-tab-wrapper" style="z-index: 0; position: relative;" unselectable="on" onselectstart="return false;" dragstart="return false;">
+    <div class="at-head-sub-tabs">
+        <ul class="at-tabs-wrapper">
+            <li class="at-sub-tab" [ngClass]="{'active': active == 1}" (click)="selectTab(1)" title='{{"simple_assessment.audiotracks_metadata" | translate}}'>
+                <span>{{'simple_assessment.audiotracks_metadata' | translate}}</span></li>
+            <li class="at-sub-tab" [ngClass]="{'active': active == 2}" (click)="selectTab(2)" title='{{"simple_assessment.audio_files" | translate}}'>
+                <span>{{'simple_assessment.audio_files' | translate}}</span></li>
+        </ul>
+    </div>
+    <div class="at-content" [hidden]="!(active == 1)" style="height: 100%; position: absoulte;">
+        <div class="metadata-wrapper" style="position: relative">
+            <button class="add-track" (click)="addEvent()" *ngIf="!config?.readOnly && !forceReadOnlyAudio">
+                <i class="icons-add icon"></i>
+                {{ 'simple_assessment.add_track' | translate }}
+            </button>
+            <slick-grid
+              #audioTracksGrid
+              class="audio-tracks-grid vertical-align-row small-height-header"
+              style="width: 100%; height: 100%"
+              [config]="audioTracksGridOptions"
+            ></slick-grid>
+        </div>
+    </div>
+    <div class="at-content" [hidden]="!(active == 2)" style="height: 100%;">
+        <div class="related-wrapper">
+            <slick-grid
+              #tracksGrid
+              class="tracks-grid vertical-align-row small-height-header"
+              style="width: 100%; height: 100%"
+              [config]="tracksGridOptions"
+            ></slick-grid>
+        </div>
+    </div>
+</div>
+
+

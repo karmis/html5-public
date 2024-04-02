@@ -1,0 +1,12 @@
+<button type="button" class="btn btn-default" (click)="showModal()" style="width: 100%; height: auto">
+    <span [hidden]="selectedNodes.length > 0">
+        {{ 'ng2_components.ag_grid.select_value' | translate }}
+    </span>
+    <div>
+                    <span
+                            style="width: 100% !important;float: left;"
+                            *ngFor="let node of selectedNodes; let i = index">
+            {{node.title}}
+        </span>
+    </div>
+</button>

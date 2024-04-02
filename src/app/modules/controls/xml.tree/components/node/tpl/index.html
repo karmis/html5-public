@@ -1,0 +1,189 @@
+<!--<div class="imfx-xml-node-wrapper text" [ngClass]="{'modal-node-selector':xmlNode?.UndefinedType, 'has-danger':!xmlNode?.valid}">-->
+<div class="imfx-xml-node-wrapper text" [ngClass]="{'has-danger':!xmlNode?.valid, 'selected-node': xmlNode?.selected}"
+     (click)="xmlNode.valid = true; sendSelectedField(xmlNode, node)">
+    <div class="table-wrapper">
+        <div class="cell-wrapper">
+            <div class="node-label" style="cursor: pointer" title="{{xmlNode?.Name}}"
+                 [ngClass]="{'parent-node-label': node?.hasChildren}"
+                 (click)="node.mouseAction('expanderClick', $event)">
+                <span
+                    *ngIf="!xmlNode?.SelectedChoice">{{ xmlNode?.DisplayName ? xmlNode?.DisplayName : xmlNode?.Name}}</span>
+                <span
+                    *ngIf="xmlNode?.SelectedChoice">{{ xmlNode?.DisplayName ? xmlNode?.DisplayName : xmlNode?.Name }}</span>
+                <span *ngIf="xmlNode?.UndefinedType">{{ 'xml.select_value' | translate }}</span>
+            </div>
+            <div class="node-control" [ngSwitch]="xmlNode?.Schema.SchemaItemType" *ngIf="!xmlNode?.UndefinedType"
+                 title="{{xmlNode.InvalidMessage}}">
+                <!-- IMPORTANT!!!!!!! If you need replace it to display:block - CALL SERGEY KLIMENKO FOR DISCUSSION     IMPORTANT!!!!!!! -->
+                <div *ngSwitchCase="schemaItemTypes.String" class="flex-container" style="display: flex;">
+          <textarea #textAreaEl class="form-control" type="text"
+                    placeholder="{{xmlNode?.Placeholder ? xmlNode?.Placeholder  : null}}"
+                    minlength="{{xmlNode?.MinLengthLimit ? xmlNode?.MinLengthLimit  : null}}"
+                    maxlength="{{xmlNode?.MaxLengthLimit ? xmlNode?.MaxLengthLimit  : null}}"
+                    pattern="{{xmlNode?.PatternLimit ? xmlNode?.PatternLimit  : null}}"
+                    [attr.disabled]="xmlNode?.Readonly || readonly? true  : null" [(ngModel)]="xmlNode.Value"
+                    (change)="onChangeValue($event)"></textarea>
+                    <button class="multiline-view-btn" *ngIf="xmlNode?.Multiline" (click)="openMultilineModal()">...
+                    </button>
+                </div>
+                <div class="number-box-icon-xml-wrp" *ngSwitchCase="schemaItemTypes.Number">
+                    <input class="form-control"
+                           type="text"
+                           digitOnly
+                           placeholder="{{xmlNode?.Placeholder ? xmlNode?.Placeholder  : null}}"
+                           min="{{xmlNode?.MinValueLimit ? xmlNode?.MinValueLimit : null}}"
+                           max="{{xmlNode?.MaxValueLimit ? xmlNode?.MaxValueLimit : null}}"
+                           [attr.disabled]="xmlNode?.Readonly || readonly? true  : null" [(ngModel)]="xmlNode.Value">
+                    <i class="icons number-box-icon-xml" title="Numbers only" aria-hidden="true"></i>
+                </div>
+                <div class="overflow-hidden" *ngSwitchCase="schemaItemTypes.Boolean">
+                    <input class="form-control" type="checkbox" tristate
+                           [tristateData]="{allow: allowTristate, currentValue: xmlNode.Value}"
+                           [attr.disabled]="xmlNode?.Readonly || readonly? true  : null" [(ngModel)]="xmlNode.Value"
+                           (ngModelChange)="xmlNode.Value == 'true' ? true : xmlNode.Value == 'false' ? false : xmlNode.Value">
+                </div>
+                <!--<select *ngSwitchCase="schemaItemTypes.Enumeration" class="form-control"-->
+                <!--[attr.disabled]="xmlNode?.Readonly || readonly? true  : null" [(ngModel)]="xmlNode.EnumValue"  (ngModelChange)="selectEnumValue()">-->
+                <!--<option value="" selected disabled>{{ 'xml.select_value' | translate }}</option>-->
+                <!--<option *ngFor="let item of xmlNode?.EnumItems" [ngValue]="item">{{ item.Value }}</option>-->
+                <!--</select>-->
+                <imfx-controls-select2
+                    #selectEnumItems
+                    *ngSwitchCase="schemaItemTypes.Enumeration"
+                    [readonly]="readonly"
+                    [width]="'100%'"
+                    [data]="[]"
+                    [placeholder]="(xmlNode?.Placeholder ? xmlNode?.Placeholder : 'xml.select_value')|translate"
+                    [placeholderRefToTranslate]="'xml.select_value'"
+                    [value]="[xmlNode.EnumValue]"
+                    [clearFormat]="{
+                    showButton: xmlNode?.Schema.Optional,
+                    defaultValue: null
+                }"
+                    (onSelect)="onSelectEnum($event)"></imfx-controls-select2>
+                <!--[value]="[xmlNode.Value]"--> <!--^^^ up-->
+                <div *ngSwitchCase="schemaItemTypes.Sequence">
+          <span *ngIf="debug">
+            Sequence
+          </span>
+                </div>
+                <div *ngSwitchCase="schemaItemTypes.Choice">
+                    <select *ngIf="!xmlNode?.SelectedChoice"
+                            [attr.disabled]="xmlNode?.Readonly || readonly? true  : null"
+                            [(ngModel)]="xmlNode.SelectedChoice"
+                            (ngModelChange)="onChoiceChange(xmlNode)">
+                        <option value="" selected
+                                disabled>{{(xmlNode?.Placeholder ? xmlNode?.Placeholder : 'xml.select_value') | translate }}</option>
+                        <!--option *ngFor="let item of xmlNode?.Schema?.Children" [ngValue]="item">{{ item.Name }}</option-->
+                        <option *ngFor="let item of xmlNode?.Schema?.Children" [ngValue]="item">{{ item.Name }}</option>
+                    </select>
+                    <!--<imfx-controls-select2-->
+                    <!--#selectChoice-->
+                    <!--*ngIf="!xmlNode?.SelectedChoice"-->
+                    <!--[attr.disabled]="xmlNode?.Readonly || readonly? true  : null"-->
+                    <!--[width]="'100%'"-->
+                    <!--[data]="[]"-->
+                    <!--[placeholder]="'xml.select_value'|translate"-->
+                    <!--[placeholderRefToTranslate]="'xml.select_value'"-->
+                    <!--(onSelect)="onSelectChoice($event)"></imfx-controls-select2>-->
+                    <div *ngIf="xmlNode?.SelectedChoice">
+                        <!--NOTHING-->
+                        <!--<imfx-xml-tree-node [node]="selectedChoice" [overrides]="overrides"-->
+                        <!--(onUpdate)="updateChoice($event)"></imfx-xml-tree-node>-->
+                    </div>
+                </div>
+                <div *ngSwitchCase="schemaItemTypes.DateTime">
+                    <imfx-controls-datetimepicker
+                        #control
+                        [locale]="'common.locale' | translate"
+                        [format]="'common.date_full_format' | translate"
+                        [formatDate]="'common.date_format' | translate"
+                        [formatTime]="'common.time_format' | translate"
+                        [allowBlank]="true"
+                        [mask]="true"
+                        [dayOfWeekStart]="'common.date_of_week_start' | translate"
+                        [timepicker]="true"
+                        [datepicker]="true"
+                        [readonly]="readonly"
+                        [value]="xmlNode.Value"
+                        (onChangeDateTime)="onSelectValue($event)"
+                        (onSelectDate)="onSelectValue($event)"
+                        (onSelectTime)="onSelectValue($event)"
+                    ></imfx-controls-datetimepicker>
+                </div>
+                <div *ngSwitchCase="schemaItemTypes.Date">
+                    <imfx-controls-datetimepicker
+                        #control
+                        [locale]="'common.locale' | translate"
+                        [format]="'common.date_format' | translate"
+                        [formatDate]="'common.date_format' | translate"
+                        [formatTime]="'common.time_format' | translate"
+                        [allowBlank]="true"
+                        [value]="dateForDatePicker"
+                        [mask]="true"
+                        [dayOfWeekStart]="'common.date_of_week_start' | translate"
+                        [timepicker]="false"
+                        [datepicker]="true"
+                        [readonly]="readonly"
+                        (onChangeDateTime)="onSelectValue($event)"
+                        (onSelectDate)="onSelectValue($event)"
+                        (onSelectTime)="onSelectValue($event)"
+                    ></imfx-controls-datetimepicker>
+                </div>
+                <div *ngSwitchCase="schemaItemTypes.Time">
+                    <imfx-controls-datetimepicker
+                        #control
+                        [locale]="'common.locale' | translate"
+                        [format]="'common.time_format_full' | translate"
+                        [formatDate]="'common.date_format' | translate"
+                        [formatTime]="'common.time_format_full' | translate"
+                        [allowBlank]="true"
+                        [value]="dateForTimePicker"
+                        [mask]="true"
+                        [dayOfWeekStart]="'common.date_of_week_start' | translate"
+                        [timepicker]="true"
+                        [datepicker]="false"
+                        [readonly]="readonly"
+                        (onChangeDateTime)="onSelectValue($event)"
+                        (onSelectDate)="onSelectValue($event)"
+                        (onSelectTime)="onSelectValue($event)"
+                    ></imfx-controls-datetimepicker>
+                </div>
+                <div *ngSwitchDefault>
+                    <span *ngIf="debug">Default: {{xmlNode?.Schema.SchemaItemType}}</span>
+                </div>
+            </div>
+            <div class="node-control" *ngIf="xmlNode?.UndefinedType">
+                <!--<select class="form-control" [(ngModel)]="xmlNode.Schema" (ngModelChange)="selectNodeType()">-->
+                <!--<option value="" selected disabled>{{ 'xml.select_value' | translate }}</option>-->
+                <!--<option *ngFor="let item of xmlNode?.Parent.AvailableChildren" [ngValue]="item">{{ item.Name }}</option>-->
+                <!--</select>-->
+                <imfx-controls-select2
+                    #selectChoice
+                    [width]="'100%'"
+                    [data]="[]"
+                    [readonly]="readonly"
+                    [placeholder]="'xml.select_value'|translate"
+                    [placeholderRefToTranslate]="'xml.select_value'"
+                    [clearFormat]="{
+                    showButton: xmlNode?.Schema.Optional,
+                    defaultValue: null
+                }"
+                    (onSelect)="onSelectChoice($event)"></imfx-controls-select2>
+            </div>
+            <div class="node-buttons" *ngIf="!xmlNode?.UndefinedType">
+                <div class="close node-icon" *ngIf="isMinusAvailable()" title="{{'common.remove' | translate}}">
+                    <i (click)="removeNode();" class="icons-closedelete icon"></i>
+                </div>
+                <div class="add node-icon" *ngIf="isPlusAvailable()" title="{{ 'common_hints.add' | translate }}">
+                    <i (click)="addChild(true);" class="icons-add icon"></i>
+                </div>
+            </div>
+            <div class="node-buttons" *ngIf="xmlNode?.UndefinedType">
+                <div class="close node-icon" title="{{'common.remove' | translate}}">
+                    <i (click)="removeNode();" class="icons-closedelete icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

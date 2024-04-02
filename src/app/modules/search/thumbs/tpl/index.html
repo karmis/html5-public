@@ -1,0 +1,10 @@
+<button type="button" class="icon-button test-button-thumbs"
+        [ngClass]="{'active': module.enabled }"
+        [disabled]="hide"
+        ngDefaultControl
+        (click)="onToggle($event)"
+        title="{{ 'common_hints.thumbs' | translate }}">
+    <span style="float:left;">
+        <i class="icons-thumbs icon"></i>
+    </span>
+</button>

@@ -1,0 +1,11 @@
+<div class="job-status-wrapper">
+    <i *ngIf="status=='off'" class="icons-statusred icon status-red"></i>
+    <i *ngIf="status=='on' && params.value.toLowerCase().indexOf('ready') > -1"
+       class="icons-statusgreen icon status-green"></i>
+    <i *ngIf="status=='on' && params.value.toLowerCase().indexOf('in progress') > -1"
+       class="icons-statusorange icon status-progress"></i>
+    <i *ngIf="status=='on' && params.value.toLowerCase().indexOf('completed') > -1"
+       class="icons-statusgreen icon"></i>
+    <i *ngIf="status!='on' && status!='off'" class="icons-statusorange icon status-orange"></i>
+    <span>{{params.value}}</span>
+</div>

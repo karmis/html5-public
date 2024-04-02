@@ -1,0 +1,294 @@
+@import "../../../../views/base/styles/theme.scss";
+
+$multilineheight: 300px;
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        add-custom-column-modal {
+            .add-custom-column-modal-wrapper {
+                .status-row {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    height: 50px;
+                    align-items: center;
+                    margin-bottom: 20px;
+
+                    .step {
+                        flex: 1;
+                        height: 50px;
+                        position: relative;
+
+                        .step-title {
+                            opacity: 0.4;
+                            display: block;
+                            text-align: center;
+                        }
+                        .step-circle {
+                            position: absolute;
+                            height: 20px;
+                            width: 20px;
+                            border: 5px solid getThemeColor(4, $key);
+                            background: getThemeColor(4, $key);
+                            border-radius: 20px;
+                            display: block;
+                            margin: 0 auto;
+                            bottom: 0;
+                            left: 0;
+                            right: 0;
+                            z-index: 1;
+                        }
+                        .step-line {
+                            background: getThemeColor(4, $key);
+                            height: 6px;
+                            width: 100%;
+                            bottom: 7px;
+                            position: absolute;
+                            left: 50%;
+                        }
+
+                        &.first {
+                            text-align: left;
+
+                            // .step-circle {
+
+                            // }
+                        }
+                        &.second {
+                            text-align: center;
+
+                            // .step-circle {
+
+                            // }
+                        }
+                        &.third {
+                            text-align: right;
+
+                            // .step-circle {
+
+                            // }
+                        }
+
+                        &.done {
+                            .step-title {
+                                opacity: 1;
+                            }
+                            .step-circle {
+                                border-color: getThemeColor(12, $key);
+                                background: getThemeColor(12, $key);
+                            }
+                            .step-line {
+                                background: getThemeColor(12, $key);
+                            }
+
+
+                            &.raise-failed {
+                                .step-circle {
+                                    border-color: getThemeColor(13, $key);
+                                    background: getThemeColor(13, $key);
+                                }
+                                .step-line {
+                                    background: getThemeColor(13, $key);
+                                }
+                            }
+
+                            &.current,
+                            &.last {
+                                .step-title {
+                                    font-size: 18px;
+                                    opacity: 1;
+                                }
+                                .step-circle {
+                                    border-color: getThemeColor(4, $key);
+                                    background: #fff;
+                                }
+                                .step-line {
+                                    background: getThemeColor(4, $key);
+                                }
+                            }
+                            &.last {
+                                .step-circle {
+                                    border-color: getThemeColor(12, $key);
+                                    background: #fff;
+                                }
+                                &.raise-failed {
+                                    .step-circle {
+                                        border-color: getThemeColor(13, $key);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .steps {
+                    height: calc(100% - 70px);
+
+                    .step-content {
+                        height: 100%;
+                        display: block;
+                        position: relative;
+                        width: 100%;
+
+                        &.xml {
+                            height: 50vh;
+                            overflow: hidden;
+                            display: flex;
+                            .schemas {
+                                height: 100%;
+                                flex: 1;
+                            }
+                            .selected-xml-tree {
+                                padding-left: 10px;
+                                flex: 2;
+                                overflow: auto;
+                            }
+                        }
+
+                        &.fields {
+                            max-height: 50vh;
+                            overflow-x: hidden;
+                            overflow-y: auto;
+                            .column-field {
+                                display: block;
+                                line-height: 32px;
+                                padding-bottom: 5px;
+
+                                .label{
+                                    width: 50%;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    white-space: nowrap;
+                                    display: inline-block;
+                                    vertical-align: top;
+                                }
+                                input{
+                                    width: 50%;
+                                    display: inline-block;
+                                    vertical-align: top;
+                                }
+                            }
+                        }
+
+                        &.result {
+                            display: block;
+                            align-items: center;
+
+                            .result-wrapper {
+                                display: flex;
+                                flex-direction: column;
+                                height: 100%;
+                                overflow: hidden;
+                                overflow-y: auto;
+                                //
+                                align-items: center;
+                                align-content: center;
+                                justify-content: center;
+                                font-size: 14px;
+                                font-weight: bold;
+                                line-height: 18px;
+                                word-wrap: break-word;
+                                word-break: break-word;
+                                text-align: center;
+                                white-space: pre-line;
+
+                                .result-task {
+                                    padding-top: 5px;
+                                }
+
+                                .task-status {
+                                    padding-top: 5px;
+                                    .tast-progress {
+                                        background: getThemeColor(4, $key);
+                                        height: 5px;
+                                        .progress-fill {
+                                            background: getThemeColor(12, $key);
+                                            height: 5px;
+                                        }
+                                    }
+                                }
+
+                                .updating-active-task {
+                                    padding-top: 7px;
+                                    font-weight: 100;
+                                    font-size: 12px;
+                                    opacity: 0.6;
+                                    position: absolute;
+                                    bottom: 6px;
+                                    .spinner {
+                                        width: 16px;
+                                        height: 16px;
+                                        display: inline-block;
+                                        margin: 0;
+                                        position: relative;
+                                        top: 4px;
+                                    }
+                                }
+
+                                .result-icon {
+                                    font-size: 150px;
+                                    opacity: 1;
+                                    vertical-align: top;
+                                    width: auto;
+                                    height: auto;
+                                    line-height: 150px;
+
+                                    &:before {
+                                        font-size: 150px;
+                                    }
+
+                                    &.icons-statusgreen {
+                                        color: getThemeColor(12, $key);
+                                    }
+                                    &.icons-statusred {
+                                        color: getThemeColor(13, $key);
+                                    }
+                                }
+
+                                .result-job {
+                                    font-size: inherit;
+                                    line-height: 26px;
+                                }
+
+                                span {
+                                    font-size: 16px;
+                                    line-height: 18px;
+                                    margin-top: 10px;
+                                    cursor: pointer;
+                                    //padding-bottom: 2px;
+                                    border-bottom: 1px solid getThemeColor(1, $key);
+                                    &.task-link {
+                                        font-size: 14px;
+                                        padding-bottom: 2px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .overlay-wrapper {
+                    display: none;
+                    position: absolute;
+                    top: 80px;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    background: getThemeColor(3, $key);
+                    overflow: hidden;
+                    z-index: 5;
+
+                    .spinner {
+                        width: 80px;
+                        height: 80px;
+                        border-width: 8px;
+                        margin: 0 auto;
+                        position: relative;
+                        top: calc(50% - 40px);
+                    }
+                }
+            }
+        }
+    }
+}

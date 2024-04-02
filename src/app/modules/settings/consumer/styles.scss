@@ -1,0 +1,107 @@
+@import "../../../views/base/styles/theme.scss";
+//
+@each $key, $value in $common-themes {
+  .#{$key} {
+    #consumer-settings, #consumer-search {
+      #box {
+        width: 100%;
+      }
+      .centred {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .thumbnail-wrapper {
+        max-height: initial;
+        max-width: initial;
+      }
+
+      div[ng-reflect-customid="thumb"] {
+        background: #000;
+      }
+      .thumbnail-container {
+        margin: 0px;
+        padding: 0px;
+      }
+      //      //#trash {
+      //      //  width: 50%;
+      //      //  height: 150px;
+      //      //  background: rgba(249, 18, 18, 0.28);
+      //      //  float: left;
+      //      //  border: 2px #f31414 dashed;
+      //      //}
+      //
+      //      // Gridstack
+      .grid-stack-item[data-custom-id="cart"] .grid-stack-item-content,
+      .grid-stack-item[data-custom-id="icons"] .grid-stack-item-content,
+      .grid-stack-item[data-custom-id="Duration"] .grid-stack-item-content {
+        @extend .centred
+      }
+      //
+      //      // Preview
+      #consumer-preview-detail,
+      #consumer-preview-item {
+        border: 1px solid transparent;
+        position: relative;
+        .grid-stack {
+          .grid-stack-item {
+            border: 1px solid transparent;
+          }
+          .grid-stack-item-content {
+            overflow: hidden;
+          }
+        }
+      }
+
+      // Builder
+      #consumer-builder-item, #consumer-builder-detail {
+        border: 1px #f63920 dotted;
+        .grid-stack-item {
+          //margin-left: 1px;
+          border: rgba(255, 30, 33, 0.5) 1px dotted;
+          cursor: move;
+          .grid-stack-item-content {
+            overflow: hidden;
+          }
+        }
+        .grid-stack-placeholder {
+          margin-left: 0px;
+          padding: 0px;
+          border: rgba(255, 30, 33, 0.2) 1px dotted;
+          //border: green 1px solid;
+          background-color: rgba(255, 96, 0, 0.2);
+          .placeholder-content {
+            left: 0;
+            right: 0;
+          }
+        }
+      }
+
+      #consumer-preview-detail,
+      #consumer-preview-item,
+      #consumer-builder-item, #consumer-builder-detail {
+        margin: 0 0 10px 0;
+        .grid-stack-item-content {
+          overflow: hidden;
+          position: relative;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 100%;
+          .thumbnail-wrapper {
+            margin: 0;
+          }
+          div.more-details-btn {
+            background-color: getThemeColor(5, $key);
+            padding: 0 12px;
+            transition: all 0.1s ease-in-out;
+            overflow: visible;
+            outline: none;
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+    }
+  }
+}

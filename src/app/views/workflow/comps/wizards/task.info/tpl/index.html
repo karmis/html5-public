@@ -1,0 +1,29 @@
+<div class="container-fluid">
+    <ul class="info-modal-title">
+        <li>{{ 'workflow.topPanel.wizard.info.task_id' | translate }}:</li>
+        <li>
+            <div>{{taskObj.ID}}</div>
+
+        </li>
+        <li>{{ 'workflow.topPanel.wizard.info.job_id' | translate }}:</li>
+        <li>
+            <div>{{taskObj.J_ID}}</div>
+        </li>
+    </ul>
+    <div class="info-sub-tabs-wrapper">
+        <div class="info-sub-tabs-header">
+            <div>
+                <span (click)="activeTab = 0; refreshGrid(0)" [ngClass]="{'active': activeTab == 0}">{{ 'workflow.topPanel.wizard.info.tabs.history_tab.header' | translate }}</span>
+            </div>
+            <div #subTitlesWrapperTab style="position: relative;" >
+                <span (click)="activeTab = 1; refreshGrid(1)" [ngClass]="{'active': activeTab == 1}">{{ 'workflow.topPanel.wizard.info.tabs.advanced_log_tab.header' | translate }}</span>
+            </div>
+        </div>
+        <div [hidden]="activeTab != 0" class="info-sub-tabs-content">
+            <imfx-history-grid #history [taskId]="taskObj.ID"></imfx-history-grid>
+        </div>
+        <div [hidden]="activeTab != 1" class="info-sub-tabs-content" style="position: relative; overflow: hidden;">
+            <imfx-task-advanced-log-grid #advancedLog [taskId]="taskObj.ID"></imfx-task-advanced-log-grid>
+        </div>
+    </div>
+</div>

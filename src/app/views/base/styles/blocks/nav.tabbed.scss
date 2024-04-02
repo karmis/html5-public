@@ -1,0 +1,91 @@
+@import "../../../../views/base/styles/theme.scss";
+// Tabbed Nav
+@each $key, $value in $common-themes {
+  .#{$key} {
+
+    nav.tabbed {
+      border-bottom: getThemeColor(22, $key) 1px solid;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    nav.tabbed ul {
+      display: flex;
+      margin-left: 0;
+      margin-right: 0;
+      justify-content: flex-start;
+    }
+
+    nav.tabbed li {
+      text-transform: uppercase;
+      letter-spacing: 0.1rem;
+    }
+
+    nav.tabbed ul li.more {
+      width: 3em;
+      text-align: center;
+    }
+
+    nav.tabbed ul li.more:hover ul#overflow {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    nav.tabbed #overflow {
+      opacity: 0;
+      visibility: hidden;
+      position: absolute;
+      text-align: left;
+    }
+
+    // Tabbed Nav - vertical
+
+    nav.tabbed.vertical {
+      border-right: getThemeColor(22, $key) 1px solid;
+      border-bottom: 0;
+      position: relative;
+      flex: 0 0;
+    }
+
+    .flip {
+      transform: scaleX(-1);
+    }
+
+
+    // Tabbed Nav - vertical
+
+    nav.tabbed.vertical {
+      border-right: getThemeColor(22, $key) 1px solid;
+      border-bottom: 0;
+      position: relative;
+      flex: 0 0;
+        .nav-header {
+           // position: absolute;
+            opacity: 0.6;
+            width: 100%;
+            line-height: $baseline*2;
+            padding: 0px 12px;
+        }
+    }
+
+    nav.tabbed.vertical ul {
+      flex-direction: column;
+      display: inline-block;
+      background: getThemeColor(2, $key);
+      padding: $baseline*2 0 $baseline 0;
+      transition: all 0.2s ease-in-out;
+    }
+
+    nav.tabbed.vertical li {
+     // margin: 0 -1px 0 0 ;
+    }
+    nav.tabbed.vertical li:hover {
+      background-color: getThemeColor(5, $key);
+    }
+
+    nav.tabbed.vertical li.active {
+      border-right: getThemeColor(7, $key) 2px solid;
+      border-bottom: 0;
+    }
+  }
+}

@@ -1,0 +1,141 @@
+@import "../../../../../../../../../base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .settings-groups-cf {
+            height: 100%;
+            padding: 1rem;
+            .ug-list-item {
+                margin: 5px 0;
+            }
+
+            .available-names-wrapper {
+                background: getThemeColor(4, $key);
+                display: inline-flex;
+                flex-direction: column;
+                width: 20%;
+                margin-right: 3%;
+                height: 100%;
+                overflow: hidden;
+                position: relative;
+                vertical-align: top;
+                .header {
+                    display: flex;
+                    align-items: center;
+                    padding: 0 10px;
+                    border-bottom: 1px solid getThemeColor(9, $key);
+                    width: 100%;
+                    justify-content: space-between;
+
+                    .buttons-row {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        i {
+                            cursor: pointer;
+                            opacity: 0.6;
+                            display: inline-block;
+
+                            &.add-item {
+                                transform: rotate(45deg) scale(0.9, 0.9);
+                            }
+
+                            &:hover {
+                                opacity: 1;
+                            }
+                            &.is-active {
+                                color: getThemeColor(7, $key);
+                            }
+
+                            &.disabled {
+                                opacity: 0.2;
+
+                                &:hover {
+                                    opacity: 0.2;
+                                    cursor: default;
+                                }
+                            }
+                        }
+                    }
+                }
+                .names-list {
+                    flex: 1;
+                    padding: 10px;
+                    //height: calc(100% - 32px);
+                    overflow-x: hidden;
+                    overflow-y: auto;
+                    .names-list-item {
+                        width: 100%;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                        align-items: center;
+                        display: flex;
+                        justify-content: space-between;
+                        height: 25px;
+                        cursor: pointer;
+                        overflow: hidden;
+                        &.active {
+                            background: getThemeColor(10, $key);
+                            border: none;
+                            color: #fff;
+                        }
+                    }
+
+                    .closebtn {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        opacity: 0.7;
+                        background-color: transparent;
+                        transition: all 0.2s ease-in-out;
+                        cursor: pointer;
+                        &:hover {
+                            //background-color: getThemeColor(13, $key);
+                            opacity: 1;
+                        }
+                        i.icon {
+                        }
+                    }
+
+                }
+            }
+            .devices {
+                imfx-controls-select2 {
+                    width: 100%;
+                }
+                .names-list-item {
+                    margin-bottom: 10px;
+                }
+                .placeholder-ref {
+                    background: getThemeColor(3, $key);
+                    height: 32px;
+                    border: 1px solid getThemeColor(10, $key);
+                    opacity: 0.5;
+                    margin-bottom: 5px;
+                }
+                .drag-handle {
+                    vertical-align: top;
+                    display: inline-block;
+                    width: 32px;
+                    height: 32px;
+                    transform: rotate(90deg);
+                    position: relative;
+                    cursor: grab;
+
+                    &:before {
+                        font-family: icons !important;
+                        font-style: normal;
+                        font-weight: normal !important;
+                        content: "\f129";
+                        top: 5px;
+                        left: 9px;
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+        }
+
+    }
+}

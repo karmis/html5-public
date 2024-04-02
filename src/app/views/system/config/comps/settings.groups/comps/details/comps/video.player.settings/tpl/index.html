@@ -1,0 +1,22 @@
+<div class="video-player-wrapper">
+    <div class="video-player-row">
+        <span class="pb-1">{{ 'settings_group.video_player.title' | translate }}</span>
+        <div class="bg-row">
+            <div class="color-selector-field">
+                <span class="pb-1 pr-1">{{ 'settings_group.video_player.bg_color' | translate }}</span>
+                <div
+                     (click)="pickerClick($event, 'bgColor')"
+                     class="d-inline-block"
+                     [cpAlphaChannel]="'disabled'"
+                     [cpPositionRelativeToArrow]="true"
+                     [cpPosition]="'auto'"
+                     [cpWidth]="'80px'"
+                     [colorPicker]="videoPlayerSettings.bgColor"
+                     (colorPickerChange)="onChangeColorField($event,  'bgColor')"
+                ></div>
+                <input [(ngModel)]="videoPlayerSettings.bgColor" [(colorPicker)]="videoPlayerSettings.bgColor" [style.background]="videoPlayerSettings.bgColor" class="color-input" type="text" (focusout)="onColorFocusOut($event, 'bgColor')" (click)="pickerClick($event, 'bgColor')"/>
+            </div>
+        </div>
+    </div>
+</div>
+

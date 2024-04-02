@@ -1,0 +1,47 @@
+<div #rfbwrapper>
+    {{currentPath}}
+
+    <div class="choosing-rows-wrapper">
+        <div class="main-choosing-rows-wrapper">
+            <input class="data-filter"
+                   type="text"
+                   placeholder="{{'common.just_filter_placeholder' | translate}}"
+                   #dataFilter
+                   (keyup)="filterData($event?.target?.value||'')"/>
+            <!--<div class="clear-filter" (click)="clearFilter()">-->
+            <!--<i class="icons-cross icon"></i>-->
+            <!--</div>-->
+            <div class="choosing-table-wrapper">
+                <table class="tab-row" *ngIf="!error">
+                    <tr *ngFor="let node of filteredRows; let i=index"
+                        (dblclick)="node.isFolder()?load(currentPath + node.getName(), node):execute(currentPath + node.getName(), node)"
+                        (click)="processRowClick(node, $event, i)"
+                        [ngClass]="{'selected': isSelectedNode(node)}"
+                        class="row-item noselect"
+                        [innerHTML]="render(node)|safeHTML">
+                    </tr>
+                </table>
+                <div class="error-msg" *ngIf="error">
+                    <p>{{error.Error}}</p>
+                    <p>{{error.ErrorDetails}}</p>
+                </div>
+            </div>
+        </div>
+        <!--<div class="overlay-wrapper" #modalDataOverlayWrapper>-->
+        <!--<div class="spinner"></div>-->
+        <!--</div>-->
+    </div>
+    <overlay #overlay></overlay>
+    <ng-template #modalFooterTemplate>
+        <div class="modal-footer">
+            <div class="buttons">
+                <button class="next primary"
+                        style="float: right;"
+                        (click)="ok()">
+                    Ok
+                </button>
+            </div>
+        </div>
+    </ng-template>
+
+</div>

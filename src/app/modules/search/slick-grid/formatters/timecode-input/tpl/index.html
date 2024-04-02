@@ -1,0 +1,18 @@
+<timecode-input #timecodeElement
+                [isDisabledTooltip]="isDisabledTooltip"
+                [timecodeFormat]="format"
+                [som]="som"
+                [eom]="eom"
+                [displayGoToTimecodeBtn]="isDisplayArrow"
+                [inputError]="inputError"
+                (onKeyUpEvent)="onKeyUp($event)"
+                [(inputValue)]="timecode"
+                (changedInputValue)="onChangedInputValue($event)"
+                [reloadSomEom]="reloadSomEom"
+                (goToTimecodeString)="goToTimecode()"
+                (onFocusEvent)="onFocusTimeCode($event)"
+                [rowId]="params.rowNumber"
+>
+</timecode-input>
+
+

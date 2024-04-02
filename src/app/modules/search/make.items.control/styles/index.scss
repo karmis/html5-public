@@ -1,0 +1,106 @@
+@import "../../../../views/base/styles/theme";
+@import "../../../../views/base/styles/blocks/inputs";
+@import "../../../../views/base/styles/blocks/buttons";
+@import "../../../../views/base/styles/blocks/nav";
+@import "../../../../views/base/styles/blocks/nav.tabbed";
+@import "../../../../views/base/styles/blocks/rows";
+
+
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+
+        .production-list-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height:35px;
+            width:35px;
+
+            .production-list {
+                z-index:1;
+                position:relative;
+                display: inline-block;
+            }
+            .production-list-ellipsed {
+                padding:10px;
+                background:transparent;
+                position:relative;
+            }
+            .production-list input:after {
+                content:"";
+                width:100%;
+                height:2px;
+                position:absolute;
+                display:block;
+                bottom:0;
+                left:0;
+            }
+            .production-list input {
+                top:0;
+                opacity:0;
+                display:block;
+                padding:0;
+                margin:0;
+                border:0;
+                position:absolute;
+                height:100%;
+                width:100%;
+            }
+            .production-list input:hover {
+                cursor:pointer;
+            }
+            //.production-list input:hover ~ .production-list-elipsed {
+            //    -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+            //    -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+            //    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+            //}
+            .production-list input:checked:after {
+                transform: scaleX(1);
+                -webkit-transform: scaleX(1);
+            }
+            .production-list input:checked ~ .production-list-shown {
+                transform: scaleY(1);
+                -webkit-transform: scaleY(1);
+            }
+            .production-list-shown{
+                display:block;
+                position: fixed;
+                background:getThemeColor(5, $key);
+                height:auto;
+                transform: scaleY(0);
+                transform-origin: top left;
+                transition-duration: 0.2s;
+                -webkit-transform: scaleY(0);
+                -webkit-transform-origin: top left;
+                -webkit-transition-duration: 0.2s;
+                margin-left: -50px;
+            }
+            .production-list-shown ul {
+                margin:0;
+                padding:0;
+                list-style-type: none;
+            }
+            .production-list-shown li {
+                margin-bottom:2px;
+                word-break: keep-all;
+                white-space:nowrap;
+                display:block;
+                position:relative;
+            }
+        }
+
+        .change-custom-status {
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 15px;
+            imfx-controls-select2 {
+                margin-bottom: 15px;
+            }
+            imfx-lookups-select2 {
+
+            }
+        }
+    }
+}

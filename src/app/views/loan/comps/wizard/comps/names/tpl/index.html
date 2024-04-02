@@ -1,0 +1,36 @@
+<div class="container-fluid media-wizzard-grid" style="position: relative; height:100%; min-height: 400px">
+    <div class="row-header">
+        <form class="test-search-form search-form" (ngSubmit)="onSearch(f)" #f='ngForm'>
+            <div class="combined titles-input">
+                <input class="search test-search-form-input titles-input"
+                       name="searchString"
+                       ngModel
+                       id="formTitleSearchString"
+                       required
+                       type="search"
+                       #elSearchString
+                       placeholder="Search..."
+                       autofocus
+                       style="min-width: 400px;">
+                <button class="no-label test-search-form-btn primary" title="Search">
+                    <i class="icons-search icon"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+    <div style="height: 100%; width: 100%;    min-height: 400px;" id="nameTab" class="panel card names-tree">
+        <imfx-controls-tree #tree
+                            [extensions]="['filter']"
+                            [ext_filter]="{autoExpand: true, mode: 'hide', highlight: false}"
+                            [checkbox]="false"
+                            [selectMode]="1"
+                            [icon]="false"
+                            [lazyLoadFn]="lazyLoadFn"
+                            [compContext]="compContext"
+                            [source]="treeData"
+                            (onClick)="onSelectTree($event)"
+                            (onDblClick)="onSelectTree($event, true)"
+        ></imfx-controls-tree>
+    </div>
+    <!--    </div>-->
+</div>

@@ -1,0 +1,53 @@
+<div class="infinite-timeline" #mainTimelineWrapper
+     (window:keydown)="checkKeyDown($event)"
+     (window:keyup)="checkKeyUp($event)"
+     (window:mousemove)="checkLayoutDrag($event)"
+     (window:mouseup)="endLayoutDrag($event)"
+     (wheel)="scrollLayout($event)">
+    <div #hoverTooltip class="canvas-hover-tooltip" [hidden]="hoveredItem == null" unselectable="on" onselectstart="return false;" dragstart="return false;">
+        <div>{{hoveredItem?.Title}}</div>
+        <div>{{hoveredItem?.Description}}</div>
+        <div>{{hoveredItem?.StartDateTime}}</div>
+        <div>{{hoveredItem?.EndDateTime}}</div>
+    </div>
+    <div class="header-row-wrapper">
+        <div class="row-label" [ngClass]="{'with-labels': data.ShowLabels, 'with-logos': data.ShowLogos}">
+            <!--div style="font-size: 7px;line-height: 8px;"> DEBUG
+                {{visibleRange.From}}
+                {{visibleRange.To}}
+            </div-->
+        </div>
+        <div  class="row-canvas">
+            <canvas class="month-year" (click)="clickTimeRow($event)"
+                    #timeRowMonthYearCanvas></canvas>
+            <canvas class="week-day" (click)="clickTimeRow($event)"
+                    #timeRowWeekDayCanvas></canvas>
+            <canvas class="hour-minutes" (click)="clickTimeRow($event)"
+                    #timeRowHourMinutesCanvas></canvas>
+        </div>
+    </div>
+    <div class="dynamic-rows-wrapper" #rowsWrapper>
+        <div class="scrollable-area" #scrollableArea>
+            <div class="row-wrapper" id="row-wrapper-{{rowIndex}}" *ngFor="let row of data.Rows; let rowIndex = index">
+                <div class="row-label" [ngClass]="{'with-labels': data.ShowLabels, 'with-logos': data.ShowLogos}">
+                    <span *ngIf="data.ShowLabels">{{row.Label}}</span>
+                    <img *ngIf="data.ShowLogos" src="{{row.ImageUrl}}" />
+                </div>
+                <div  class="row-canvas">
+                    <canvas (click)="clickLayout($event, row, rowIndex)"
+                            (mouseleave)="clearHoverOnCanvas($event, row, rowIndex)"
+                            (mouseenter)="checkHoverInCanvas($event, row, rowIndex)"
+                            (mousemove)="checkHoverInCanvas($event, row, rowIndex)"
+                            (mousedown)="startLayoutDrag($event, row, rowIndex)"
+                            #timelineRow></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="timeline-scroll-wrapper" #timelineScrollWrapper>
+            <div class="timeline-scroll" #timelineScroll></div>
+        </div>
+    </div>
+    <div class="timeline-loader" *ngIf="loading">
+        <div class="spinner"></div>
+    </div>
+</div>

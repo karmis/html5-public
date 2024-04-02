@@ -1,0 +1,17 @@
+<div class="events-tab-wrapper" style="z-index: 0;">
+    <slick-grid
+        class="vertical-align-row small-height-header"
+        #slickGridComp
+        [config]="searchGridConfig">
+    </slick-grid>
+    <button (click)="addEntry(false)"*ngIf="!config.readOnly" title="{{ 'simple_assessment.add_event' | translate }}">
+        <i class="icons-add icon"></i>
+        {{ 'simple_assessment.add_event' | translate }}
+    </button>
+    <button (click)="addEntry(true)"*ngIf="!config.readOnly" [disabled]="disableReplaceBnt()" style="margin-left: 5px;" title="{{ 'media_logger.replace_in_out_hint' | translate }}">
+        <i class="fa fa-edit" style="width: 20px;height: 32px;opacity: 0.6;"></i>
+        {{ 'media_logger.replace_in_out' | translate }}
+    </button>
+    <label class="total-duration">Total Duration: {{totalDuration}}</label>
+</div>
+

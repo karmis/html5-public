@@ -1,0 +1,69 @@
+@import "../../../../views/base/styles/theme.scss";
+.panel {
+    margin-bottom: 0;
+    border: 0;
+    border-radius: 0px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.panel-group .panel-heading {
+    border-bottom: 0;
+}
+
+.panel-heading {
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.panel-title {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 16px;
+    color: inherit;
+}
+
+.panel-heading.card-header {
+    padding: 0;
+}
+
+.panel-body.card-block {
+    padding: 0 2rem !important;
+}
+
+.panel.card .card-block {
+    padding: 0;
+    .card-row {
+        word-wrap: break-word;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        .card-col {
+            width: 50%;
+            padding: 4px;
+        }
+    }
+}
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .panel.card,
+        .panel-heading.card-header {
+            background: getThemeColor(4, $key)!important;
+        }
+        .panel-heading.card-header:hover .icon {
+            opacity: 1;
+        }
+        .card-row.selected {
+            background-color: getThemeColor(5, $key);
+            border-right: 2px solid getThemeColor(7, $key);
+        }
+        .panel {
+            .prop-name {
+                color: getThemeColor(2, $key);
+            }
+        }
+    }
+}

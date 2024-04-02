@@ -1,0 +1,24 @@
+<div class="locator-wrapper">
+    <tabset #staticTabs>
+        <tab heading="Black Detected" (select)="selectTab('Blackdetect')">
+            <imfx-media-tagging-tab [config]="locatorTabConfig.blackdetect"
+                                    (onSetTaggingNode)="mediaTagging_onSetNode($event)"
+                                    (onSetTimecodeString)="setTimecodeString($event)"></imfx-media-tagging-tab>
+        </tab>
+        <tab [heading]="customLabels.comments" (select)="selectTab('Comments')">
+            <imfx-media-tagging-tab [config]="locatorTabConfig.comments"
+                                    (onSetTaggingNode)="mediaTagging_onSetNode($event)"
+                                    (onSetTimecodeString)="setTimecodeString($event)"></imfx-media-tagging-tab>
+        </tab>
+        <tab [heading]="customLabels.legal" (select)="selectTab('Legal')">
+            <imfx-media-tagging-tab [config]="locatorTabConfig.legal"
+                                    (onSetTaggingNode)="mediaTagging_onSetNode($event)"
+                                    (onSetTimecodeString)="setTimecodeString($event)"></imfx-media-tagging-tab>
+        </tab>
+        <tab [heading]="customLabels.cuts" (select)="selectTab('Cuts')">
+            <imfx-media-tagging-tab [config]="locatorTabConfig.cuts"
+                                    (onSetTaggingNode)="mediaTagging_onSetNode($event)"
+                                    (onSetTimecodeString)="setTimecodeString($event)"></imfx-media-tagging-tab>
+        </tab>
+    </tabset>
+</div>

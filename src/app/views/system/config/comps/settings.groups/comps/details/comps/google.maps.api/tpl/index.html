@@ -1,0 +1,20 @@
+<div class="maps-api-wrapper">
+    <div class="maps-api-row">
+        <span class="pb-1">{{ 'settings_group.google_maps_api.api_key' | translate }}</span>
+        <div class="maps-key-api">
+            <input class="text"
+                   type="password" [(ngModel)]="apiKey"
+                   id="api-key"
+                   autocomplete="new-password"
+                   placeholder="{{'settings_group.google_maps_api.api_key_placeholder' | translate}}"
+                   #apiKeyElem
+                   (change)="onChangeGoogleMapsApiSettings()"/>
+            <button *ngIf="apiKeyIsVisible" (click)="showHideApiKey($event)" class="settings-btn icon-button" title="{{ 'settings_group.google_maps_api.hide_api_key' | translate }}">
+                <i class="icons-hide-empty icon"></i>
+            </button>
+            <button *ngIf="!apiKeyIsVisible" (click)="showHideApiKey($event)" class="settings-btn icon-button" title="{{ 'settings_group.google_maps_api.show_api_key' | translate }}">
+                <i class="icons-empty-hidden icon"></i>
+            </button>
+        </div>
+    </div>
+</div>

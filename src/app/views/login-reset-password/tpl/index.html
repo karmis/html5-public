@@ -1,0 +1,85 @@
+<div class="full-height full-width login-screen" style="display: table;">
+    <div style="display: table-cell; vertical-align: middle">
+        <div class="dialog-reset-pass">
+
+            <form class="form-grid"
+                  [formGroup]="loginResetForm"
+                  novalidate
+                  (submit)="resetAndLogin($event, loginResetForm.value, loginResetForm.valid)"
+                  autocomplete="off">
+                <div *ngIf="isError" class="error" role="alert">
+                    {{(errorTextObj.inTranslateList) ? (errorTextObj.type | translate) : errorTextObj.type}}
+                    <div *ngIf="isErrorMoreInfo" class="err-more-btn" (click)="toggleMoreInfoPopup($event)"> {{ 'login.learn_more' | translate }}
+                        <div class="err-info-popup">
+                            <p *ngFor="let item of errorMoreInfoText.split('\n')">{{item}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-grid-row">
+                    <label [attr.for]="username" class="">
+                        {{ 'login.username' | translate }}
+                    </label>
+                    <div>
+                        <input class="field"
+                               formControlName="username"
+                               spellcheck="false"
+                               required
+                               disabled
+                               autofocus
+                               id="login-username">
+                    </div>
+                </div>
+                <div class="form-grid-row">
+                    <label [attr.for]="newPassword" type="password" class="">
+                        {{ 'login_reset.new_password' | translate }}
+                    </label>
+                    <div class="form-grid-group">
+                        <input #newPasswordEl class="field"
+                               type="password"
+                               formControlName="newPassword"
+                               required
+                               id="new-password">
+                        <div *ngIf="capsLockNotification && isActiveElem(newPasswordEl)" class="error" role="alert" style="padding-right: 10px;">
+                            {{ 'login.capsLockNotificationText' | translate }}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-grid-row">
+                    <label [attr.for]="confirmPassword" type="password" class="" >
+                        {{ 'login_reset.confirm_password' | translate }}
+                    </label>
+                    <div class="form-grid-group">
+                        <input #confirmPasswordEl
+                               class="field"
+                               type="password"
+                               formControlName="confirmPassword"
+                               required
+                               id="confirm-password">
+                        <div *ngIf="capsLockNotification && isActiveElem(confirmPasswordEl)" class="error" role="alert" style="padding-right: 10px;">
+                            {{ 'login.capsLockNotificationText' | translate }}
+                        </div>
+                        <button class="primary full-width" type="submit"
+                                [disabled]="(disabledResetPassBtn|| !loginResetForm.valid)" id="reset=pass-submit">
+                          <div *ngIf="loading" class="loader-login icon"></div>
+                          {{ 'login_reset.save_and_login' | translate }}
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+
+
+        </div>
+    </div>
+</div>
+
+<!--<footer>-->
+<!--    <p>Copyright © 2015-{{currentYear}} TMD. All rights reserved-->
+<!--        <br>Build: {{appVersion}}-->
+<!--        <br/>Server Version: {{serverVersion}}-->
+<!--    </p>-->
+<!--&lt;!&ndash;    <nav>&ndash;&gt;-->
+<!--&lt;!&ndash;        <imfx-language-switcher [asLink]="true"></imfx-language-switcher>&ndash;&gt;-->
+<!--&lt;!&ndash;    </nav>&ndash;&gt;-->
+<!--    <p></p>-->
+<!--</footer>-->

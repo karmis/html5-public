@@ -1,0 +1,47 @@
+<div class="modal-wrapper">
+    <div class="main-data">
+        <div class="field-wrapper">
+            <div class="label">{{'cachemanager.sd.device_name' | translate}}</div>
+            <imfx-lookups-select2
+                    #devicesControl
+                    [width]="'100%'"
+                    [validationEnabled]="false"
+                    [allowClear]="false"
+                    [firstEmpty]="false"
+                    [value]="null"
+                    [lookupType]="'Devices'"
+                    [compContext]="self"
+                    [placeholder]="'base.selectOoo'|translate"
+                    [placeholderRefToTranslate]="'base.selectOoo'"
+                    (onSelect)="onUpdateControl('devicesControl', 'DEVICE_ID')"
+                    (onUnselect)="onUpdateControl('devicesControl', 'DEVICE_ID')"
+            ></imfx-lookups-select2>
+        </div>
+        <div class="field-wrapper">
+            <div class="label">{{'cachemanager.sd.active' | translate}}</div>
+            <input type="checkbox"
+                   title="If this value is set to FALSE it will be unavailable to the CM engine. Any template that uses this destination will not raise a job - instead the CM engine will skip to the next destination device in the template. This would be set FALSE if a particular achieve went off line."
+                   style="width: 16px;"
+                   [(ngModel)]="itemData.SOURCE_STATUS"/>
+        </div>
+        <div class="field-wrapper">
+            <div class="label">{{'cachemanager.sd.priority' | translate}}</div>
+            <input type="text"
+                   title="Used on Archive devices to set the priority of the restore within the archive device."
+                   digitOnly
+                   [(ngModel)]="itemData.SOURCE_PRIOITY"/>
+        </div>
+        <div class="overlay-wrapper" #modalWrapperEl>
+            <div class="spinner"></div>
+        </div>
+    </div>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div>
+            <button type="button" (click)="closeModal()">{{'common.cancel'| translate}}</button>
+            <button type="button primary" (click)="saveData()" [disabled]="!isValid()">{{'common.save'| translate}}</button>
+        </div>
+    </div>
+</ng-template>

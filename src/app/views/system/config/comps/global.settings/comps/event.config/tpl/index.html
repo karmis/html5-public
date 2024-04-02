@@ -1,0 +1,107 @@
+<div class="settings-groups-event-config-wrapper">
+    <div class="detail-view-metadata-config-wrapper" #eventConfigWrapper>
+        <div class="detail-view-metadata-config" [hidden]="false">
+            <ng-template #LayoutList
+                         let-list>
+                <!--optional placeholder element for dropzone-->
+                <!--will be removed from DOM on init-->
+                <div class="placeholder-ref"
+                     dndPlaceholderRef>
+                </div>
+
+                <div *ngFor="let item of list"
+                     [dndDraggable]="item"
+                     dndEffectAllowed="move"
+                     [dndType]="(item.children ? '0' : '1')"
+                     [dndDisableIf]="item.disable"
+                     (dndStart)="onDragStart($event)"
+                     (dndCopied)="onDragged(item, list, 'copy')"
+                     (dndLinked)="onDragged(item, list, 'link')"
+                     (dndMoved)="onDragged(item, list, 'move')"
+                     (dndCanceled)="onDragged(item, list, 'none')"
+                     (dndEnd)="onDragEnd($event)"
+                     [ngClass]="{'config-drag-field':!item.children, 'config-drag-group':item.children}">
+
+                    <!--if [dndHandle] is used inside dndDraggable drag can only start from the handle-->
+                    <div class="drag-handle" dndHandle>
+                    </div>
+                    <div *ngIf="item.children && item.data.GroupID != 0" class="remove-group" (click)="sccp.removeFieldGroup(fieldsList, layoutList, item, compare)" title="{{ 'details_view_metadata.remove_group' | translate }}">
+                        <i class="icon icons-closedelete"></i>
+                    </div>
+
+                    <div *ngIf="item.children && item.data.GroupID != 0" type="text" class="fld-title">{{item.data.GroupName}}</div>
+                    <div *ngIf="!item.children" class="flds-wrapper">
+                        <div  class="fld-title" [ngClass]="{'extended': this.initialData.Type < 0}">
+                            <div style="display: inline-block;padding: 0 5px;line-height: 32px;text-overflow: ellipsis;white-space: nowrap;max-width: 100%;overflow: hidden;"
+                                 title="{{item.data.Title}}">{{item.data.Title}}</div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="item.children"
+                         [dndDropzone]="['1']"
+                         (dndDrop)="onDrop($event, item.children)">
+
+                        <ng-container *ngTemplateOutlet="LayoutList; context:{ $implicit: item.children }"></ng-container>
+
+                    </div>
+                </div>
+
+            </ng-template>
+
+            <div class="config-zone">
+                <div class="center-wrapper">
+                    <button (click)="addFieldGroup()" title="{{ 'details_view_metadata.add_field_group' | translate }}" class="add-field-group-btn">
+                        <i class="icons-add icon"></i>
+                    </button>
+                    <div dndDropzone
+                         class="config-drop-zone"
+                         [dndDropzone]="['0']"
+                         (dndDrop)="onDrop($event, layoutList)">
+
+                        <ng-container *ngTemplateOutlet="LayoutList; context:{ $implicit: layoutList }"></ng-container>
+                    </div>
+                </div>
+                <div class="config-buttons-zone">
+                    <button (click)="saveLayout()" title="{{ 'details_view_metadata.save' | translate }}" class="save-layout-btn primary">
+                        {{ 'details_view_metadata.save' | translate }}
+                    </button>
+                </div>
+
+            </div>
+
+            <div class="fields-zone">
+                <div class="fields-header">
+                    <div class="title">{{'details_view_metadata.fields.title' | translate}}</div>
+                    <div class="sub-title">{{'details_view_metadata.fields.sub_title' | translate}}</div>
+                </div>
+                <div class="fields-drag-zone"
+                     [dndDropzone]="['1']"
+                     dndEffectAllowed="move"
+                     (dndDrop)="onDrop($event, fieldsList)">
+                    <div *ngFor="let item of fieldsList"
+                         [ngClass]="{'selected':item.selected}"
+                         (click)="item.selected = !item.selected"
+
+                         [dndDraggable]="item"
+                         [dndEffectAllowed]="item.effectAllowed"
+                         [dndDisableIf]="item.disable"
+                         [dndType]="'1'"
+                         (dndStart)="onDragStart($event)"
+                         (dndCopied)="onDragged(item, fieldsList, 'copy')"
+                         (dndLinked)="onDragged(item, fieldsList, 'link')"
+                         (dndMoved)="onDragged(item, fieldsList, 'move')"
+                         (dndCanceled)="onDragged(item, fieldsList, 'none')"
+                         (dndEnd)="onDragEnd($event)"
+                         class="config-drag-field">
+                        <div>{{item.data.Title}}</div>
+                    </div>
+                    <div class="placeholder-ref"
+                         dndPlaceholderRef>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <overlay #eventConfigOverlay [mode]="true" [zIndex]="999"></overlay>
+    </div>
+
+</div>

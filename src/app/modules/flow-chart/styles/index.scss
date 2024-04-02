@@ -1,0 +1,383 @@
+@import "../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+  .#{$key} {
+      flow-chart{
+          .flowchart-controls {
+              position: absolute;
+              padding: 5px;
+              bottom: 0;
+              right: 0;
+              z-index: 11;
+              background: getThemeColor(33, $key);
+
+              .zoom-controls{
+                  position: relative;
+                  width: 135px;
+                  display: inline-block;
+                  vertical-align: top;
+                  font-size: 12px;
+
+                  .zoom-min {
+                      position: absolute;
+                      left: 0;
+                      top: 0;
+                  }
+                  .zoom-current {
+                      width: 100%;
+                      height: 32px;
+                      line-height: 32px;
+                      text-align: center;
+                      display: block;
+                  }
+                  .zoom-max {
+                      position: absolute;
+                      right: 0;
+                      top: 0;
+                  }
+              }
+              .reset-flowchart {
+                  width: 115px;
+                  vertical-align: top;
+              }
+          }
+          .flowchart-minimap-header {
+              position: absolute;
+              padding: 0;
+              top: 0px;
+              right: 5px;
+              width: 200px;
+              height: 20px;
+              z-index: 12;
+              line-height: 20px;
+              text-align: center;
+              color: getThemeColor(1, $key);
+          }
+          .flowchart-minimap {
+              position: absolute;
+              padding: 0;
+              top: 20px;
+              right: 5px;
+              width: 200px;
+              height: 200px;
+              z-index: 12;
+              background: getThemeColor(3, $key);
+              overflow: hidden;
+              border: 2px solid getThemeColor(4,$key);
+              box-shadow: 0 0 15px rgba(0,0,0,0.3);
+
+              .item {
+                  position: absolute;
+                  padding: 0;
+                  top: 0;
+                  left: 0;
+                  width: 20px;
+                  height: 20px;
+                  z-index: 10;
+                  background: getThemeColor(2, $key);
+              }
+              .visible-area {
+                  position: absolute;
+                  padding: 0;
+                  top: 0;
+                  left: 0;
+                  width: 100px;
+                  height: 100px;
+                  z-index: 11;
+                  background: getThemeColor(37, $key);
+
+                  -webkit-user-select: none;
+                  /* Safari 3.1+ */ -moz-user-select: none;
+                  /* Firefox 2+ */ -ms-user-select: none;
+                  /* IE 10+ */ user-select: none;
+                  /* Standard syntax */ user-drag: none;
+                  -webkit-user-drag: none;
+              }
+          }
+          .flowchart {
+              z-index: 10;
+              position: relative;
+              cursor: move;
+              cursor: -moz-grab;
+              cursor: -webkit-grab;
+              touch-action: none;
+              height: 100%;
+              width: 100%;
+              //max-height: 700px;
+              display: flex;
+              flex-grow: 1;
+              overflow: visible !important;
+              cursor: default;
+
+              .source-endpoint {
+                  svg {
+                      top: -4px!important;
+                      left: 4px!important;
+                  }
+              }
+
+              .window.rectangle {
+                  border: 1px solid getThemeColor(35, $key);
+                  //-moz-border-radius: 0.5em;
+                  //border-radius: 0.5em;
+                  opacity: 1;
+                  min-width: 180px;
+                  max-width: 250px;
+                  //height: 120px;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  cursor: pointer;
+                  text-align: center;
+                  z-index: 20;
+                  position: absolute;
+                  background-color: getThemeColor(36, $key);
+                  font-family: helvetica, sans-serif;
+                  padding: 0px;
+                  font-size: 0.9em;
+                  -webkit-transition: -webkit-box-shadow 0.15s ease-in;
+                  -moz-transition: -moz-box-shadow 0.15s ease-in;
+                  -o-transition: -o-box-shadow 0.15s ease-in;
+                  transition: box-shadow 0.15s ease-in;
+                  flex-direction: column;
+
+                  div {
+                      display: block;
+                  }
+
+                  .progressbar-wrapper {
+                      height: 22px;
+                      width: 100%;
+                      position: relative;
+                      left: 0;
+                      margin-top: 4px;
+                      //border-radius: 0 0 5px 5px;
+                      overflow: hidden;
+
+                      .progressbar-fill {
+                          background-color: getThemeColor(12, $key);
+                          position: absolute;
+                          left: 0;
+                          bottom: 0;
+                          height: 4px;
+                      }
+                      .progressbar-percent {
+                          width: 100%;
+                          height: 16px;
+                          position: absolute;
+                          line-height: 16px;
+                          position: absolute;
+                          text-align: right;
+                          padding-right: 5px;
+                      }
+                      .status-text {
+                          width: 100%;
+                          height: 16px;
+                          line-height: 16px;
+                          position: absolute;
+                          text-align: left;
+                          padding-left: 5px;
+                      }
+                  }
+
+                  .task-id {
+                      position: absolute;
+                      top: -20px;
+                      width: 100%;
+                      text-align: center;
+                      opacity: 0.6;
+                  }
+
+                  .task-name {
+                      display: block;
+                      line-height: 20px;
+                      height: 26px;
+                      width: 100%;
+                      padding: 4px;
+                      background: getThemeColor(35, $key);
+                      span {
+                          display: block;
+                          width: 100%;
+                          opacity: 0.6;
+                          white-space: nowrap;
+                          text-overflow: ellipsis;
+                          overflow: hidden;
+                      }
+                  }
+
+                  .task-outputs-wrapper {
+                      width: 100%;
+
+                      .task-output {
+                          display: block;
+                          line-height: 20px;
+                          height: 26px;
+                          width: 100%;
+                          padding: 4px;
+                          border-top: 1px solid getThemeColor(35, $key);
+                          white-space: nowrap;
+                          text-overflow: ellipsis;
+                          overflow: hidden;
+                          position: relative;
+
+                          span {
+                              display: block;
+                              height: 100%;
+                              position: absolute;
+                              right: 0;
+                              width: 10px;
+                              top: 0;
+                              bottom: 0;
+
+                              &.pass {
+                                  background: getThemeColor(12, $key);
+                              }
+                              &.fail {
+                                  background: getThemeColor(13, $key);
+                              }
+                          }
+                      }
+                      .task-output:last-child {
+                          border-bottom: 1px solid getThemeColor(35, $key);
+                          height: 24px;
+                          line-height: 16px;
+                      }
+                  }
+
+                  &.jtk-connected {
+                      border: 1px solid getThemeColor(35, $key);
+
+                      .task-output {
+                          border-top: 1px solid getThemeColor(35, $key);
+                      }
+                      .task-output:last-child {
+                          border-bottom: 1px solid getThemeColor(35, $key);
+                      }
+                  }
+
+                  &:hover {
+                      border: 1px solid mediumpurple;
+                      box-shadow: 0 0 15px mediumpurple;
+
+                      //.task-output {
+                      //    border-top: 1px solid mediumpurple;
+                      //}
+                      //.task-output:last-child {
+                      //    border-bottom: 1px solid mediumpurple;
+                      //}
+                  }
+
+                  &.failed {
+                      border: 1px solid getThemeColor(13, $key);
+
+                      .status-text {
+                          color: getThemeColor(13, $key);
+                      }
+                      //
+                      //.task-output {
+                      //    border-top: 1px solid getThemeColor(13, $key);
+                      //}
+                      //.task-output:last-child {
+                      //    border-bottom: 1px solid getThemeColor(13, $key);
+                      //}
+                  }
+
+                  &.ready {
+                      border: 1px solid getThemeColor(12, $key);
+
+                      .task-name {
+                          background: getThemeColor(12, $key);
+                          color: getThemeColor(14, $key);
+                          font-weight: bold;
+                      }
+
+                      .status-text {
+                          color: getThemeColor(12, $key);
+                      }
+                  }
+
+                  &.pending {
+                      border: 1px solid getThemeColor(7, $key);
+
+                      .status-text {
+                          color: getThemeColor(7, $key);
+                      }
+                  }
+
+                  &.completed {
+                      .progressbar-wrapper {
+                          opacity: 0.5;
+                      }
+                  }
+
+                  &.selected {
+                      border: 1px solid getThemeColor(10, $key);
+                      box-shadow: 0 0 15px getThemeColor(10, $key);
+                      opacity: 1;
+
+                      //.task-output {
+                      //    border-top: 1px solid getThemeColor(10, $key);
+                      //}
+                      //.task-output:last-child {
+                      //    border-bottom: 1px solid getThemeColor(10, $key);
+                      //}
+                  }
+
+                  &.inactive {
+                      opacity: 0.5;
+                  }
+              }
+
+              .jtk-connector {
+                  z-index: 4;
+              }
+
+              .jtk-endpoint, .endpointTargetLabel, .endpointSourceLabel {
+                  z-index: 21;
+                  cursor: pointer;
+              }
+
+              .aLabel {
+                  background-color: white;
+                  padding: 0.4em;
+                  font: 12px sans-serif;
+                  color: #fff;
+                  z-index: 21;
+                  border: 1px dotted gray;
+                  opacity: 0.8;
+                  cursor: pointer;
+
+                  &.jtk-hover {
+                      background-color: #5C96BC;
+                      color: white;
+                      border: 1px solid white;
+                  }
+              }
+
+              .active {
+                  border: 1px dotted getThemeColor(12, $key);
+              }
+
+              .hover {
+                  border: 1px dotted getThemeColor(13, $key);
+              }
+
+              .jtk-drag {
+                  outline: 1px dashed getThemeColor(13, $key) !important;
+              }
+
+              path, .jtk-endpoint {
+                  cursor: pointer;
+              }
+
+              .jtk-overlay {
+                  background-color:transparent;
+              }
+
+              .jtk-drag {
+                  display: inline-table!important;
+              }
+          }
+      }
+  }
+}

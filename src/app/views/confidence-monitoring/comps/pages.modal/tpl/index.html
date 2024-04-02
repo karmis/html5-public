@@ -1,0 +1,27 @@
+<div class="pages-wrapper">
+    <label>{{ 'confidence-monitoring.select_page' | translate }}:</label>
+    <div class="form-check page-row" *ngFor="let page of pageNumbers; let i = index">
+        <div>
+            <input type="radio"
+                   id="page_{{i}}"
+                   (change)="onRadioChange(i)"
+                   [checked]="pageNumber == i"
+                   [value]="i"
+                   name="{{i}}">
+        </div>
+        <div class="label-wrapper">
+            <label for="page_{{i}}" title="{{page}}">
+                {{page}}
+            </label>
+        </div>
+    </div>
+</div>
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div class="buttons">
+            <button class="next primary" (click)="apply()">
+                {{ 'common.ok' | translate }}
+            </button>
+        </div>
+    </div>
+</ng-template>

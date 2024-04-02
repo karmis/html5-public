@@ -1,0 +1,45 @@
+<div class="titles-tab-wrapper">
+    <!--Header-->
+    <div class="row-header">
+        <nav>
+            <ul>
+                <li [hidden]="!hasPermissionByName('views-modify')"><label>{{ 'common.view' | translate}}:</label></li>
+                <li [hidden]="!hasPermissionByName('views-modify')">
+                    <search-views
+                        #viewsComp
+                        [config]="searchViewsConfig"
+                    ></search-views>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <!--Body-->
+    <div style="height: calc(100% - 32px);margin-top:0;">
+        <div style="height: 100%;width: 100%;" id="externalWrapperSlickGridForTitlesTab">
+            <slick-grid
+                #slickGridComp
+                class="titles-grid vertical-align-row small-height-header"
+                style="width: 100%;  height: 100%"
+                [config]="searchGridConfig"
+            ></slick-grid>
+        </div>
+    </div>
+    <!--Settings dropdown-->
+    <div *ngIf="slickGridComp.isGridReady" class="dropdown grid-settings-dropdown titleSettingsPopup"
+         style="margin-top: 15px; margin-right: 15px; position: fixed; display: none;">
+        <ul
+            aria-labelledby="simple-btn-keyboard-nav"
+            style="display: block; top: 0%"
+            class="dropdown-menu"
+            role="menu"
+        >
+            <li role="menuitem" *ngIf="hasPermissionByName('create-subversion')">
+                <!--createVersion($event)-->
+                <a class="dropdown-item"
+                   (click)="slickGridComp.provider.createSubversion($event)">
+                    {{ 'version.table.dropdown.row.create_subversion' | translate }}
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

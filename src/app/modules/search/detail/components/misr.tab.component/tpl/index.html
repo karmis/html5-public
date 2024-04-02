@@ -1,0 +1,28 @@
+<div class="h-tab-wrapper" #misrDetailWrapper>
+    <div class="row-header">
+        <nav>
+            <ul>
+                <li><label>{{ 'common.view' | translate}}:</label></li>
+                <li>
+                    <search-views
+                        #viewsComp
+                        [config]="searchViewsConfig"
+                    ></search-views>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="row-body">
+
+                <div style="height: 100%;width: 100%;">
+                    <slick-grid
+                        #slickGridComp
+                        class="misr-grid vertical-align-row small-height-header"
+                        style="width: 100%;  height: 100%"
+                        [config]="searchGridConfig"
+                    ></slick-grid>
+                </div>
+    </div>
+</div>
+
+<overlay #overlay></overlay>

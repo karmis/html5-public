@@ -1,0 +1,13 @@
+<div class="full-height-block demo-video">
+  <div style="display: block; height: 90%;">
+    <html-player #video [file]="file" [src]="src"
+                [type]="file.MEDIA_TYPE" [id]="file.ID" style="width: 100%;"
+                [externalDownload]="true"></html-player>
+  </div>
+  <div style="    margin-top: 35px;">
+      <button (click)="initPlayer(116465, 100)">INIT PLAYER</button>
+      <button (click)="updateAudio('http://192.168.90.39/proxy_testing/SDAUDIO001 english.wav')">audio 1</button>
+      <button (click)="updateAudio('http://192.168.90.39/proxy_testing/SDAUDIO001 russian.wav')">audio 2</button>
+      <button (click)="updateAudio(undefined)">Clear audio</button>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<div class="dropdown-container">
+    <select (change)="selectXmlDoc($event.target.value)">
+        <option selected disabled>{{ 'tabs.dropdown_default' | translate }}</option>
+        <optgroup *ngFor="let group of groups; let i=index" label="{{group.Name}}">
+            <option *ngFor="let item of group.Children; let j=index" value="{{item.Id}}">
+              {{ 'tabs.metadata_id' | translate }}: {{item.Id}}
+            </option>
+        </optgroup>
+    </select>
+</div>

@@ -1,0 +1,116 @@
+@import "../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+  .#{$key} {
+    .xml-grid {
+      height: 400px;
+    }
+    .xml-schema {
+      height: 400px;
+      input {
+        //margin-bottom: 5px;
+        width: 100%;
+      }
+      .js-scrollbar-target-modal-one {
+        height: 100%;
+        display: block;
+        max-height: 400px;
+        min-height: 400px;
+
+          .modal-overlay {
+              position: absolute;
+              top: 0;
+              right: 0;
+              bottom: -40px;
+              left: 0;
+              background: getThemeColor(3, $key);
+
+              .spinner {
+                  width: 50px;
+                  height: 50px;
+                  position: relative;
+                  margin: 0 auto;
+                  top: calc(50% - 25px);
+              }
+          }
+
+        //.table-wrapper {
+        //  // 37px - height input plus margin-bottom
+        //  height: calc(100% - 37px);
+        //  max-height: 400px;
+        //  // overflow: auto;
+        //  overflow-y: auto;
+        //  overflow-x: auto;
+        //  .table {
+        //    border: none;
+        //    td,tr:not(.active) {
+        //      border: none;
+        //    }
+        //    thead {
+        //      td {
+        //        border-bottom: 1px solid getThemeColor(9, $key);
+        //        color: getThemeColor(2, $key);
+        //      }
+        //    }
+        //  }
+        //}
+
+          .schema-wrapper {
+              height: 100%;
+              position: relative;
+
+              .schema-header, .schema-item {
+                  display: flex;
+                  padding: .75rem;
+                  vertical-align: top;
+              }
+
+              .schema-header {
+                  width: calc(100% - 17px);
+                  position: absolute;
+                  background-color: getThemeColor(3, $key);
+                  border-bottom: 1px solid getThemeColor(9, $key);
+              }
+
+              .schema-container {
+                  height: 100%;
+                  padding-top: 3rem;
+                  overflow: auto;
+              }
+
+              .schema-item {
+                  cursor: pointer;
+                  border-bottom: 2px solid transparent;
+                  &.active {
+                      border-bottom-color: getThemeColor(7, $key);
+                  }
+                  &:hover {
+                      background-color: #00000013;
+                  }
+              }
+
+              .header-cell {
+                  color: getThemeColor(2, $key);
+              }
+
+              .item-cell {
+                  //&:not(.active) {
+                  //    border: none;
+                  //}
+              }
+
+              .cell-name {
+                  flex: 2 0;
+              }
+
+              .cell-description {
+                  flex: 3 0;
+              }
+          }
+        .ag-body-viewport {
+          overflow-x: hidden;
+        }
+      }
+    }
+  }
+}

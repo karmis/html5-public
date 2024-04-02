@@ -1,0 +1,231 @@
+@import "../../../views/base/styles/theme.scss";
+@import "../../../views/base/styles/blocks/inputs.scss";
+@import "../../../views/base/styles/blocks/buttons.scss";
+@import "../../../views/base/styles/blocks/nav.scss";
+@import "../../../views/base/styles/blocks/nav.tabbed.scss";
+@import "../../../views/base/styles/blocks/rows.scss";
+
+@each $key,
+$value in $common-themes {
+  .#{$key} {
+    .export {
+      height: 100%;
+      .notification {
+        max-width: initial;
+        height: auto;
+        margin-bottom: 15px;
+        padding: 10px;
+        padding-bottom: inherit;
+        max-width: 100%;
+        p {
+          font-size: 11px;
+          //font-weight: 600;
+        }
+      }
+
+      .wizard-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        align-items: center;
+        justify-content: center;
+        background: getThemeColor(3, $key);
+        z-index: 10;
+        opacity: 0;
+        display: none;
+        transition: all ease-in 0.3s;
+
+        &.showed {
+          opacity: 1;
+          transition: all ease-in 0.3s;
+        }
+
+        &.active-overlay {
+          display: flex;
+        }
+      }
+
+      .status-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        height: 50px;
+        align-items: center;
+        margin-bottom: 20px;
+
+        .step {
+          flex: 1;
+          height: 50px;
+          position: relative;
+
+          .step-title {
+            opacity: 0.4;
+            display: block;
+            text-align: center;
+          }
+          .step-circle {
+            position: absolute;
+            height: 20px;
+            width: 20px;
+            border: 5px solid getThemeColor(4, $key);
+            background: getThemeColor(4, $key);
+            border-radius: 20px;
+            display: block;
+            margin: 0 auto;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1;
+          }
+          .step-line {
+            background: getThemeColor(4, $key);
+            height: 6px;
+            width: 100%;
+            bottom: 7px;
+            position: absolute;
+            left: 50%;
+          }
+
+          &.first {
+            text-align: left;
+
+            // .step-circle {
+
+            // }
+          }
+          &.second {
+            text-align: center;
+
+            // .step-circle {
+
+            // }
+          }
+          &.third {
+            text-align: right;
+
+            // .step-circle {
+
+            // }
+          }
+
+          &.done {
+            .step-title {
+              opacity: 1;
+            }
+            .step-circle {
+              border-color: getThemeColor(12, $key);
+              background: getThemeColor(12, $key);
+            }
+            .step-line {
+              background: getThemeColor(12, $key);
+            }
+
+            &.current,
+            &.last {
+              .step-title {
+                font-size: 16px;
+                opacity: 1;
+              }
+              .step-circle {
+                border-color: getThemeColor(4, $key);
+                background: #fff;
+              }
+              .step-line {
+                background: getThemeColor(4, $key);
+              }
+            }
+            &.last {
+              .step-circle {
+                border-color: getThemeColor(12, $key);
+                background: #fff;
+              }
+            }
+          }
+        }
+      }
+
+      .wizard-steps {
+        height: calc(100% - 118px);
+        overflow: auto;
+        .step-content {
+          height: 100%;
+          display: block;
+          padding-bottom: 22px;
+          position: relative;
+          width: 100%;
+
+          &.formats {
+              display: block;
+              align-items: center;
+              .formats-wrapper {
+                  height: calc(100% - 20px);
+                  overflow: hidden;
+                  overflow-y: auto;
+                  margin-left: 10px;
+                  padding-left: 10px;
+                  .format-item {
+                      margin-bottom: 0.5rem;
+                      display: flex;
+                      input[type='radio'] {
+                          margin-right: 5px;
+                      }
+                  }
+              }
+          }
+
+          &.result {
+            display: block;
+            align-items: center;
+
+            .result-wrapper {
+              display: flex;
+              flex-direction: column;
+              height: 195px;
+              overflow: hidden;
+              overflow-y: auto;
+              //
+              align-items: center;
+              align-content: center;
+              justify-content: center;
+              font-size: 14px;
+              font-weight: bold;
+              line-height: 18px;
+              word-wrap: break-word;
+              word-break: break-all;
+              padding-bottom: 24px;
+
+              .result-icon {
+                width: auto;
+                height: auto;
+
+                &.icons-statusgreen {
+                  color: getThemeColor(12, $key);
+                }
+                &.icons-statusred {
+                  color: getThemeColor(13, $key);
+                }
+              }
+              .result-icon:before {
+                font-size: 150px;
+              }
+
+              span {
+                font-size: 18px;
+                line-height: 18px;
+                margin-top: 10px;
+                cursor: pointer;
+                padding-bottom: 2px;
+                border-bottom: 1px solid getThemeColor(1, $key);
+              }
+            }
+          }
+        }
+      }
+      .buttons {
+        padding: 15px 0 15px 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+<div class="profile-settings-personal" #personalSettingsWrapper>
+    <div class="mute-thumb-container">
+      <label for="mute-checkbox-label" (click)="SavePersonal()">Mute thumbnail</label>
+      <input [checked]="personalData.Mute" [disabled]="!ready" (click)="SavePersonal()" id="mute-checkbox-label" type="checkbox" />
+    </div>
+</div>

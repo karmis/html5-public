@@ -1,0 +1,23 @@
+@import "../../../../../../views/base/styles/theme";
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .queues-formatter-wrapper {
+            .disabled {
+                opacity: 0.5;
+            }
+            span {
+                padding-right: 8px;
+                display: inline-block;
+
+                &.name {width: auto;}
+                &.id {width: 50px;}
+                &.size {width: 60px;}
+                &.enabled {
+                    width: 60px;
+                }
+            }
+        }
+    }
+}

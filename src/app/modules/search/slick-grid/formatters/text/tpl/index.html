@@ -1,0 +1,5 @@
+<div class="text-formatter-wrapper" #textControlWrap>
+    <input #textControl *ngIf="!multiline" type="text" class="field" [disabled]="readOnly">
+    <textarea #textareaControl *ngIf="multiline" type="text" class="textarea-field" [disabled]="readOnly"></textarea>
+    <div class="invalid-triangle"></div>
+</div>

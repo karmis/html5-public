@@ -1,0 +1,12 @@
+<div class="tile-wrapper">
+  <div *ngIf="isThumb">
+    <thumbnail-formatter-comp colid="THUMBURL"></thumbnail-formatter-comp>
+  </div>
+  <div *ngFor="let field of showingFields; let i=index">
+    <div class="tile-field" attr.colid="{{field}}">{{params.data[field]}}</div>
+  </div>
+  <div class="icons-wrapper" *ngIf="isIcons">
+    <settings-formatter-comp></settings-formatter-comp>
+    <basket-formatter-comp></basket-formatter-comp>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="tab-data-wrapper">
+    <div class="main-tab-data-wrapper">
+        <input class="data-filter"
+               type="text"
+               placeholder="{{'user_management.groups.filter_data' | translate}}"
+               #dataFilter
+               (keyup)="filterData($event.target.value)"/>
+        <div class="clear-filter" (click)="clearFilter()">
+            <i class="icons-cross icon"></i>
+        </div>
+        <div class="tab-table-wrapper">
+            <div class="tab-row" [ngClass]="{'selected': selectedRows.indexOf(item) > -1}" *ngFor="let item of filteredRows; let i = index"
+                 (click)="processRowClick(item, $event, i)">
+                <span class="left-span-id noselect" title="{{item.USER_ID}}">{{item.USER_ID}}</span>
+                <span class="left-span-forename noselect" title="{{item.FORENAME}} {{item.SURNAME}}" [innerHTML]="(item.FORENAME || '&nbsp') + ' ' + (item.SURNAME || '&nbsp')"></span>
+            </div>
+        </div>
+    </div>
+    <div class="overlay-wrapper" #modalDataOverlayWrapper>
+        <div class="spinner"></div>
+    </div>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div>
+            <button type="button" (click)="saveData()" [disabled]="selectedRows.length == 0">{{'common.save'| translate}}</button>
+            <button type="button"  (click)="closeModal()">{{'common.cancel'| translate}}</button>
+        </div>
+    </div>
+</ng-template>

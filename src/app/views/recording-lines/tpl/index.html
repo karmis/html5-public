@@ -1,0 +1,87 @@
+<div id="events-timeline" #recordingLines>
+    <div class="imfx-detail-btns recording-lines-header">
+        <div *ngIf="!error" class="back-button-clause">
+            <button *ngIf="!isFirstLocation()" class="icon-button"
+                    title="{{ 'common.back_button' | translate }}" (click)="clickBack()">
+                <i class="icons-left icon"></i>
+            </button>
+        </div>
+        <div *ngIf="!error" class="detail-title">
+            <h1 title="{{ 'recording_lines.title' | translate }}">
+                {{ 'recording_lines.title' | translate }}
+            </h1>
+        </div>
+        <div *ngIf="error &&!isFirstLocation()">
+            <button class="icon-button" title="{{ 'common.back_button' | translate }}" (click)="clickBack()">
+                <i class="icons-left icon"></i>
+                {{'common.back_button' | translate}}
+            </button>
+        </div>
+    </div>
+    <div class="recording-lines-body">
+        <as-split
+            [style.float]="'left'"
+            [direction]="'horizontal'">
+            <as-split-area
+                [order]="1"
+                [size]="70">
+                <as-split
+                    [direction]="'vertical'">
+                    <as-split-area
+                        [order]="1"
+                        [size]="70">
+                        <div class="timeline-wrapper" style="height: 100%;">
+                            <imfx-infinite-timeline-wrapper></imfx-infinite-timeline-wrapper>
+                        </div>
+                    </as-split-area>
+                    <as-split-area [order]="2"
+                                   [size]="30">
+                        <div class="full-height" style="display: flex; flex-direction: column; padding: 10px;">
+                            <div class="row-header">
+                                <nav>
+                                    <ul>
+                                        <li *ngIf="hasPermissionByName('views-options')">
+                                            <label>{{
+                                                'common.view' | translate}}:</label></li>
+                                        <li [hidden]="!hasPermissionByName('views-modify')">
+                                            <search-views
+                                                #viewsComp
+                                                [config]="searchViewsConfig"
+                                            ></search-views>
+                                        </li>
+                                        <li *ngIf="hasPermissionByName('views-options') || hasPermissionByName('export-options') ">
+                                            <search-settings
+                                                [config]="searchSettingsConfig"
+                                            ></search-settings>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <div style="flex-grow: 1; height: 100%;">
+                                <slick-grid
+                                    #slickGridComp
+                                    [config]="searchGridConfig"
+                                    class="media-grid vertical-align-row small-height-header"
+                                    style="width: 100%;  height: 100%"
+                                ></slick-grid>
+                            </div>
+                        </div>
+                    </as-split-area>
+                </as-split>
+            </as-split-area>
+            <as-split-area
+                [order]="2"
+                [size]="30">
+                <div class="full-height">
+                    <event-info></event-info>
+                </div>
+            </as-split-area>
+        </as-split>
+        <div style="margin: auto;" *ngIf="error">
+            <h2>
+                {{text}}
+            </h2>
+        </div>
+    </div>
+    <overlay #overlay></overlay>
+</div>

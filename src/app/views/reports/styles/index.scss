@@ -1,0 +1,24 @@
+@import "../../base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+    .#{$key} {
+        .reports {
+            .report-left-side-panel {
+                min-width: 30%;
+                width: 30%;
+                border-right: 2px getThemeColor(9, $key) solid;
+                overflow: auto;
+                height: 100%;
+            }
+            .report-right-side-panel {
+                height: 100%;
+                width: calc(70% - 20px);
+                .viewer-wrapper-pdf.notFullSize {
+                    margin: 0;
+                    margin-right: -1.25rem;
+                }
+            }
+        }
+    }
+}
+

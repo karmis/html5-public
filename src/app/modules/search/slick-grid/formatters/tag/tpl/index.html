@@ -1,0 +1,27 @@
+<div class="tags-formatter-wrapper">
+    <div *ngFor="let tag of tags; let i=index" class="chip">
+        <div style="display: table">
+            <p>{{tag.TaxonomyText}}</p>
+            <span class="closebtn" (click)="deleteTag(i)" *ngIf="editable"
+                  title="{{ 'common_hints.remove' | translate }}">
+                <i class="icons-cross icon small"></i>
+            </span>
+        </div>
+    </div>
+    <div *ngIf="editable">
+        <imfx-controls-select2
+            #select
+            *ngIf="editable"
+            [multiple]="false"
+            [placeholder]="'base.selectOoo'|translate"
+            [placeholderRefToTranslate]="'base.selectOoo'"
+            [data]="select2Tags"
+            [width]="'100%'"
+            (onSelect)="onSelect()"
+            [tags]="true"
+            [tokenSeparators]="[',', ';']"
+            [tokenSeparatorsKeys]="[13]"
+            [dropdownParent]="dropdownParent"
+        ></imfx-controls-select2>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+.truncate-string {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  max-width: 600px;
+}

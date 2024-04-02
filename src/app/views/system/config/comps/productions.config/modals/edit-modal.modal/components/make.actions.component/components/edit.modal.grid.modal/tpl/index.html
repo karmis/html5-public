@@ -1,0 +1,55 @@
+<div class="production-config-make-actions-edit-modal-grid-modal-wrapper">
+    <div class="main-fields">
+        <div class="field-wrapper">
+            <span class="field-label">Description</span>
+            <div class="field-value" [ngClass]="{'notvalid': (okAttepmt && !validateField('DESCRIPTION'))}">
+                <input type="text" [(ngModel)]="itemToSave['DESCRIPTION']"/>
+
+<!--                <textarea [(ngModel)]="itemToSave['DESCRIPTION']"></textarea>-->
+
+            </div>
+        </div>
+
+        <div class="field-wrapper">
+            <span class="field-label">Schema</span>
+            <div class="field-value">
+                <imfx-controls-select2
+
+                    class="field-value"
+                    [clearFormat]="{
+                        showButton: false,
+                        defaultValue: null
+                    }"
+                    [width]="'100%'"
+                    [data]="lookups['SCHEMA_ID']"
+                    [value]="[{Id: itemToSave['SCHEMA_ID']}]"
+                    [placeholder]="'xml.select_value'|translate"
+                    [placeholderRefToTranslate]="'xml.select_value'"
+                    [withOptionMouseEnter]="true"
+                    (onSelect)="onSelect($event, 'SCHEMA_ID')"
+                ></imfx-controls-select2>
+            </div>
+        </div>
+
+        <div class="field-wrapper">
+            <span class="field-label">Mandatory</span>
+            <div class="field-value"
+                 style="flex-grow: 0;"
+            >
+                <input type="checkbox"
+                       [checked]="itemToSave['MANDATORY'] === true"
+                       (change)="$event.target.checked ? itemToSave['MANDATORY'] = true : itemToSave['MANDATORY'] = false"
+                />
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div>
+            <button type="button" (click)="clickOk()">{{'common.ok'| translate}}</button>
+            <button type="button" (click)="closeModal()">{{'common.cancel'| translate}}</button>
+        </div>
+    </div>
+</ng-template>

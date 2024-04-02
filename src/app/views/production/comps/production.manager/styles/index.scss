@@ -1,0 +1,19 @@
+@import "../../../../base/styles/theme.scss";
+@import "../../../../../modules/controls/progress/styles/index";
+
+@each $key, $value in $common-themes {
+    .#{$key} {
+        .approve-item {
+            display: flex;
+        }
+        .not-approve-help {
+            position: absolute;
+            right: 20px;
+            & i {
+                cursor: pointer;
+                color: getThemeColor(10, $key);
+                opacity: 1;
+            }
+        }
+    }
+}

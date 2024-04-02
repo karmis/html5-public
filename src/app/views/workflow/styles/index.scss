@@ -1,0 +1,77 @@
+@import "../../base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+  .#{$key} {
+    .workflow-view {
+      .slick-cell.l0.r0.selected { //dnd formatter style
+        background: transparent !important;
+          border: none;
+          overflow: visible;
+          z-index: 1;//for extending clickable area
+      }
+      //.slick-cell.l3.r3 {
+      //  border: none;
+      //}
+        .workflow-top-buttons {
+            li {
+                white-space: nowrap;
+            }
+        }
+        .hide-on-big-screen {
+            display: none;
+        }
+        @media (max-width: 1890px)
+        {
+                .hide-on-small-screen {
+                    display: none;
+                    overflow: hidden;
+                }
+                .hide-on-big-screen {
+                    display: initial;
+                }
+                .dropdown.dropdown-hiddens {
+                    width: 32px;
+                    text-align: center;
+                    cursor: pointer;
+
+                    a {
+                        text-decoration: none;
+                        display: block;
+                        color: getThemeColor(2, $key);
+                        padding: 0px 12px;
+                        line-height: 32px;
+                        text-align: left;
+                    }
+
+                    .submenu {
+                        right: 0;
+                        z-index: 105;
+                        .disabled {
+                            opacity: 0.5;
+                        }
+
+                        button {
+                            width: 100%;
+                        }
+                        span {
+                            padding-left: 10px;
+                        }
+                        .subdropdown {
+                            width: 100%;
+                            position: relative;
+
+                            .submenu {
+                                top: 0;
+                                left: 100%;
+                            }
+                        }
+                    }
+                }
+        }
+
+        .allow-hiding {
+
+        }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+<div class="save-default-layout-wrapper" style="padding: 10px 10px 25px 10px;">
+    {{ 'details_item.save_layout_modal_part_one' | translate:{'mediaType': mediaTypeName} }}
+    <br>
+    {{ 'details_item.save_layout_modal_part_two' | translate:{'exampleMediaType1': exampleMediaType1, 'exampleMediaType2': exampleMediaType2} }}
+</div>
+
+<ng-template #modalFooterTemplate>
+<div class="modal-footer">
+<div>
+    <button type="button" (click)="closeModal()">{{'common.cancel'| translate}}</button>
+    <button type="button" class="primary" (click)="saveData()">{{'common.save'| translate}}</button>
+</div>
+</div>
+</ng-template>

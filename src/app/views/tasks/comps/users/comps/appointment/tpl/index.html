@@ -1,0 +1,22 @@
+<div class="appointment">
+    <div style="overflow: auto; height: 90%;">
+        <button class="btn-full" (click)="assign(nodeObj.Id, nodeObj.NodeType, jobs, 'pass')">
+            Share Job with: {{nodeObj.NodeName}}
+        </button>
+        <br/>
+        <button class="btn-full" (click)="assign(nodeObj.Id, nodeObj.NodeType, jobs, 'share')">
+            Pass Job To: {{nodeObj.NodeName}}
+        </button>
+        <br/>
+        <button class="btn-full" (click)="assign(nodeObj.Id, nodeObj.NodeType, jobs, 'passclear')">
+            Pass Job To: {{nodeObj.NodeName}} & Clear from all
+        </button>
+        <br/>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="primary" (click)="data.refs.modal.hide()">
+        {{ 'common.ok' | translate }}
+    </button>
+</div>
+

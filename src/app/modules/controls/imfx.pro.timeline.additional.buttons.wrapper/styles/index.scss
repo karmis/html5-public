@@ -1,0 +1,32 @@
+@import "../../../../views/base/styles/theme.scss";
+@import "../../../../views/base/styles/blocks/mixins";
+
+@each $key, $value in $common-themes {
+  .#{$key} {
+      imfx-pro-timeline-additional-buttons-wrapper {
+          display: block;
+          height: 100%;
+          .protimeline-additional-buttons {
+              height: 32px;
+              button {
+                  @include no-select();
+              }
+              .add-clip {
+                  margin-left: 8px;
+              }
+              .replace-clip {
+                  margin-left: 8px;
+                  i {
+                      width: 20px;
+                      height: 32px;
+                      opacity: 0.6;
+                  }
+              }
+          }
+          .protimeline-additional-wrapper {
+              width: 100%;
+              height: calc(100% - 40px);
+          }
+      }
+    }
+  }

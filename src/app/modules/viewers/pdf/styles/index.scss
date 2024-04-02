@@ -1,0 +1,122 @@
+@import "../../../../views/base/styles/theme.scss";
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        preview-files-formatter-comp {
+            .viewer-wrapper {
+                //text-align: left;
+
+                &.fullSize {
+                    .max-min-btn {
+                        display: none;
+                    }
+                }
+            }
+        }
+        .height_100 {
+            height: 100%;
+        }
+        .overflow_auto {
+            overflow: auto;
+        }
+        .viewer-wrapper-pdf {
+            //overflow: auto;
+            text-align: center;
+            position: relative;
+            .max-min-btn {
+                position: absolute;
+                bottom: 0px;
+                left: 16px;
+                z-index: 1;
+            }
+            .viewer-pdf {
+                p {
+                    margin-top: 25px;
+                }
+                //overflow: auto;
+            }
+        }
+        .viewer-wrapper-pdf.notFullSize {
+            //position: absolute;
+            //width: 100%;
+            height: 100%;
+            //height: calc(100% + 1.75rem);
+            //z-index: 0;
+            margin: -.75rem -.35rem;
+        }
+        .viewer-wrapper-pdf.fullSize {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            z-index: 150;
+
+            .viewer-pdf {
+                position: absolute;
+                left: 0;
+                top: 0;
+                right: 0;
+                bottom: 0;
+
+                .full-preview-overlay {
+                    position: absolute;
+                    width: 100%;
+                    height: 50px;
+                    top: calc(50% - 50px);
+                    z-index: -1;
+
+                    .spinner {
+                        position: absolute;
+                        height: 50px;
+                        width: 50px;
+                        border-width: 8px;
+                        left: calc(50% - 25px);
+                    }
+                }
+            }
+        }
+
+        .viewer-wrapper-pdf.onlyButton:not(.fullSize) {
+            width: 100%;
+            height: 100%;
+            //z-index: 2000;
+            margin: 0;
+            .max-min-btn {
+                position: relative;
+                //z-index: 3000;
+                left: 0;
+                background: none;
+                opacity: 1;
+                color: getThemeColor(1, $key);
+                transition: none;
+
+                i {
+                    position: relative;
+                    top: -2px;
+                }
+            }
+            .download-btn {
+                @extend .max-min-btn;
+                left: inherit;
+                right: 0px;
+            }
+            .viewer-pdf {
+                display: none;
+            }
+        }
+        .viewer-wrapper-pdf.onlyButton:not(.notFullSize) {
+            .max-min-btn {
+                bottom: 32px;
+            }
+            .viewer-pdf {
+                position: absolute;
+                left: 0;
+                top: 0;
+                right: 0;
+                bottom: 0;
+            }
+        }
+    }
+}

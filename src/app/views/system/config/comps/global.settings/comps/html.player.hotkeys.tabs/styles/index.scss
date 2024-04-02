@@ -1,0 +1,39 @@
+@import "../../../../../../../base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+    .#{$key} {
+        .global-settings-player-hotkeys-tabs-wrapper {
+            height: 100%;
+            overflow: auto;
+
+            .nav-tabs {
+                border-bottom: 0 !important;
+            }
+            .nav-link {
+                padding: 5px !important;
+                span {
+                    font-size: 13px !important;
+                }
+            }
+
+            .tab-content {
+                padding: 1rem 0 0 1rem;
+                height: calc(100% - 28px);
+                .tab-pane {
+                    height: 100%;
+                    overflow: auto;
+                    .grafana-container {
+                        height: 100%;
+                    }
+                    .logger-container {
+                        height: auto;
+                    }
+                    .mapping-adv-container, .error-setup-container {
+                        height: auto;
+                    }
+                }
+
+            }
+        }
+    }
+}

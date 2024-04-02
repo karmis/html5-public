@@ -1,0 +1,220 @@
+<div #detailWrapper
+     [ngClass]="{'detail-page-wrapper': config.options.showInDetailPage, 'full-height': !config.options.showAccordions || (config.options.mediaParams.addMedia && config.options.mediaParams.mediaType != 'image')}" style="overflow: hidden;">
+    <div #detailPage class="full-height-block full-height detail">
+        <!--<div class="detail-overlay-empty" *ngIf="config.options.showInDetailPage" [hidden]="!isEmptyOverlay()">-->
+            <!--{{getEmptyOverlayText()}}-->
+        <!--</div>-->
+        <div class="imfx-detail-btns" *ngIf="config.options.showInDetailPage">
+            <nav>
+                <ul>
+                    <li *ngIf="!error" class="back-button-clause">
+                        <button *ngIf="!isFirstLocation()"  class="icon-button" title="{{ 'common.back_button' | translate }}"
+                                (click)="clickBack()">
+                            <i class="icons-left icon"></i>
+                        </button>
+                    </li>
+                    <li *ngIf="!error" class="detail-title">
+                        <h1 title="{{config.options.file.TITLE}}" *ngIf="checkDetailExistance(config.options.file)">
+                            {{ config.options.typeDetailsLocal+'.title' | translate }}
+                            <span *ngIf="config.options.file.TITLE">-</span> {{ config.options.file.TITLE }}
+                        </h1>
+                    </li>
+
+                    <li *ngIf="((!error) && (provider.inducingComponent == 'media'))" class="actions-button dropdown" dropdown>
+                        <a>
+                            {{ config.options.typeDetailsLocal+'.actions_button' | translate }}
+                        </a>
+
+                        <!--Settings dropdown-->
+
+                        <ul
+                            aria-labelledby="simple-btn-keyboard-nav"
+                            class="submenu"
+                            role="menu"
+                        >
+                            <li role="menuitem" *ngIf="hasPermissionByName('media-basket')">
+                                <a
+                                    *ngIf="!isOrdered()"
+                                    class="dropdown-item" (click)="addToBasket($event, 'Media')">
+                                    {{ 'media.table.dropdown.row.add_to_basket' | translate }}
+                                </a>
+                                <a
+                                    *ngIf="isOrdered()"
+                                    class="dropdown-item" (click)="removeFromBasket($event)">
+                                    {{ 'media.table.dropdown.row.remove_from_basket' | translate }}
+                                </a>
+                            </li>
+                            <li role="menuitem" *ngIf="hasPermissionByName('preset-workflow')">
+                                <a class="dropdown-item" (click)="showRaiseWorkflowWizzard($event, 'Media')">
+                                    {{ 'media.table.dropdown.row.rw_wizard' | translate }}
+                                </a>
+                            </li>
+                            <li role="menuitem" *ngIf="isMediaLoggerShow()">
+                                <a class="dropdown-item" (click)="goToMediaLogger($event)"
+                                   [class.disabled]="!isMediaLoggerEnable()">
+                                    {{ 'media.table.dropdown.row.media_logger' | translate }}
+                                </a>
+                            </li>
+                            <li role="menuitem" *ngIf="hasPermissionByName('clip-editor')">
+                                <a class="dropdown-item" [class.disabled]="!clipEditorEnabled()" (click)="clipEditor($event)">
+                                    {{ 'media.table.dropdown.row.clip_editor' | translate }}
+                                </a>
+                            </li>
+
+                            <!--<li role="menuitem"><a class="dropdown-item"-->
+                            <!--(click)="openInRCE($event)">-->
+                            <!--{{ 'media.table.dropdown.row.open_in_rce' | translate }}-->
+                            <!--</a></li>-->
+                            <!--*ngIf="hasPermissionByName('media-change-status')"-->
+                            <li role="menuitem"><a class="dropdown-item"
+                                                   (click)="changeStatus(false)">
+                                {{ 'media.table.dropdown.row.change_status' | translate }}
+                            </a></li>
+                            <li role="menuitem"  *ngIf="hasPermissionByName('can-edit-som-eom')">
+                                <a class="dropdown-item"
+                                   [class.disabled]="!isEditSomEomEnabled()"
+                                   (click)="editSomEom($event)">
+                                    {{ 'media.table.dropdown.row.edit_som_eom' | translate }}
+                                </a>
+                            </li>
+                            <li role="menuitem"
+                                [hidden]="!hasPermissionByName('unattach-media')"
+                            >
+                                <a class="dropdown-item disabled"
+                                   (click)="unbind($event)"
+                                   [class.disabled]="canUnbindMedia()" aria-disabled="true">
+                                    {{ 'mapping.unbind' | translate }}
+                                </a>
+                            </li>
+                            <li role="menuitem" *ngIf="hasPermission('workflow')"><a class="dropdown-item"
+                                                                                     (click)="activeWorkflows($event, 'Media')"
+                                                                                     aria-disabled="true">
+                                {{ 'misr.table.dropdown.active_wf' | translate }}
+                            </a></li>
+                            <li role="menuitem" *ngIf="hasPermissionByName('download-file-to-desktop')">
+                                <a class="dropdown-item"
+                                   [attr.download]="getDownloadLink() ? '' : null"
+                                   [attr.disabled]="!getDownloadLink() ? '' : null"
+                                   [class.disabled]="!getDownloadLink()"
+                                   [href]="getDownloadLink()"
+                                   [ngStyle]="{'text-decoration':'none'}"
+                                   aria-disabled="true">
+                                    {{ 'media.table.dropdown.row.download' | translate }}
+                                </a></li>
+                        </ul>
+                    </li>
+
+<!--                    <li *ngIf="((!error) && (provider.inducingComponent == 'version'))" class="actions-button dropdown" dropdown>-->
+<!--                        <a>-->
+<!--                            {{ config.options.typeDetailsLocal+'.actions_button' | translate }}-->
+<!--                        </a>-->
+
+<!--                        &lt;!&ndash;Settings dropdown&ndash;&gt;-->
+
+<!--                        <ul-->
+<!--                            aria-labelledby="simple-btn-keyboard-nav"-->
+<!--                            class="submenu"-->
+<!--                            role="menu"-->
+<!--                        >-->
+<!--                            <li role="menuitem" *ngIf="hasPermissionByName('media-basket')">-->
+<!--                                <a-->
+<!--                                    *ngIf="!isOrdered()"-->
+<!--                                    class="dropdown-item" (click)="addToBasket($event, 'Version')">-->
+<!--                                    {{ 'media.table.dropdown.row.add_to_basket' | translate }}-->
+<!--                                </a>-->
+<!--                                <a-->
+<!--                                    *ngIf="isOrdered()"-->
+<!--                                    class="dropdown-item" (click)="removeFromBasket($event)">-->
+<!--                                    {{ 'media.table.dropdown.row.remove_from_basket' | translate }}-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                            <li role="menuitem" *ngIf="hasPermissionByName('preset-workflow')">-->
+<!--                                <a class="dropdown-item" (click)="showRaiseWorkflowWizzard($event, 'VersionOnVersion')">-->
+<!--                                    {{ 'version.table.dropdown.row.rw_wizard_version' | translate }}-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                            <li role="menuitem" *ngIf="hasPermissionByName('preset-workflow')">-->
+<!--                                <a class="dropdown-item" (click)="showRaiseWorkflowWizzard($event, 'VersionOnMedia')">-->
+<!--                                    {{ 'version.table.dropdown.row.rw_wizard' | translate }}-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                            <li role="menuitem" *ngIf="hasPermission('change-custom-version-status')">-->
+<!--                                <a class="dropdown-item" (click)="onChangeCustom()"-->
+<!--                                   [class.disabled]="!isMediaLoggerEnable()">-->
+<!--&lt;!&ndash;                                    {{ 'media.table.dropdown.row.media_logger' | translate }}&ndash;&gt;-->
+<!--                                    Change Custom Status-->
+<!--                                </a>-->
+<!--                            </li>-->
+
+<!--                        </ul>-->
+<!--                    </li>-->
+
+
+                    <li *ngIf="((!error) && (provider.inducingComponent == 'carrier'))" class="actions-button dropdown" dropdown>
+                        <a>
+                            {{ config.options.typeDetailsLocal+'.actions_button' | translate }}
+                        </a>
+
+                        <!--Settings dropdown-->
+
+                        <ul
+                            aria-labelledby="simple-btn-keyboard-nav"
+                            class="submenu"
+                            role="menu"
+                        >
+                            <li role="menuitem" *ngIf="hasPermissionByName('media-basket')">
+                                <a
+                                    *ngIf="!isOrdered()"
+                                    class="dropdown-item" (click)="addToBasket($event, 'Tape')">
+                                    {{ 'media.table.dropdown.row.add_to_basket' | translate }}
+                                </a>
+                                <a
+                                    *ngIf="isOrdered()"
+                                    class="dropdown-item" (click)="removeFromBasket($event)">
+                                    {{ 'media.table.dropdown.row.remove_from_basket' | translate }}
+                                </a>
+                            </li>
+                            <li role="menuitem" *ngIf="hasPermissionByName('preset-workflow')">
+                                <a class="dropdown-item" (click)="showRaiseWorkflowWizzard($event, 'Tape')">
+                                    {{ 'media.table.dropdown.row.rw_wizard' | translate }}
+                                </a>
+                            </li>
+                            <li role="menuitem" *ngIf="hasPermission('workflow')">
+                                <a class="dropdown-item"
+                                   (click)="activeWorkflows($event, 'Tape')"
+                                   aria-disabled="true">
+                                    {{ 'misr.table.dropdown.active_wf' | translate }}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li *ngIf="((!error) && (provider.inducingComponent == 'title')) && hasPermissionByName('title-deadline-date')">
+                        <div>
+                            <button class="" style="margin-right: 8px;" (click)="provider.changeDeadlineDate()" title="{{config.options.typeDetailsLocal+'.change_deadline_date'|translate}}">
+                                {{ config.options.typeDetailsLocal+'.change_deadline_date'|translate}}</button>
+                        </div>
+                    </li>
+                    <li *ngIf="error  && !isFirstLocation()">
+                        <button class="icon-button" title="{{ 'common.back_button' | translate }}"
+                                (click)="clickBack()">
+                            <i class="icons-left icon"></i>
+                            {{'common.back_button' | translate}}
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="golden-layout-detail" *ngIf="config.options.showInDetailPage && !error">
+            <golden-layout
+                    *ngIf="checkDetailExistance(config.options.file) || isPopout"
+                    [config]="config.options.provider.goldenConfig" #gl>Loading...
+            </golden-layout>
+        </div>
+        <div style="margin: auto;" *ngIf="error">
+            <h2 style="text-align: center">
+                {{text}}
+            </h2>
+        </div>
+    </div>
+</div>

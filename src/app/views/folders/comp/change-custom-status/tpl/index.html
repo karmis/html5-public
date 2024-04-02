@@ -1,0 +1,51 @@
+<div class="change-custom-status">
+    <label>
+        Status
+    </label>
+    <imfx-controls-select2
+        class="with-relative"
+        #firstSelector
+        [minimumResultsForSearch]="-1"
+        [width]="'100%'"
+        [multiple]="false"
+        [data]="selectAdvanced"
+        [placeholder]="'base.selectOoo'|translate"
+        [placeholderRefToTranslate]="'base.selectOoo'"
+        (onSelect)="onSelectType($event, 'first')"
+        [wrapperClass]="'advanced'"
+        spellcheck="false"
+        [allowClear]="true"
+        (onUnselect)="onSelectType(null, 'first')"
+        style="float: left;flex:1;display: table;width: 100%;"></imfx-controls-select2>
+    <label>
+        Value
+    </label>
+    <imfx-lookups-select2
+        #secondSelector
+        [multiple]="false"
+        [placeholder]="'base.selectOoo'|translate"
+        [lookupUrl]="'/api/lookup/'"
+        [placeholderRefToTranslate]="'base.selectOoo'"
+        [width]="'100%'"
+        [allowClear]="true"
+        (onSelect)="onSelectType($event, 'second')"
+        (onUnselect)="onSelectType(null, 'second')"
+    ></imfx-lookups-select2>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div class="buttons">
+            <button class="next"
+                    (click)="closeModal()">
+                {{ 'views.cancel' | translate }}
+            </button>
+            <button class="next primary"
+                    (click)="save()"
+                [disabled]="!isFormValid">
+                {{ 'common.save' | translate }}
+            </button>
+        </div>
+    </div>
+</ng-template>
+

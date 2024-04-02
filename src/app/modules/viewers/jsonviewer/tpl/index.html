@@ -1,0 +1,9 @@
+<div class="json-viewer-wrapper" [ngClass]="{'fullSize': fullSize}">
+    <codemirror [(ngModel)]="jsonString"
+                [config]="{'readOnly':true, 'lineNumbers': true,'mode':{'name': 'javascript', 'json': true}}">
+    </codemirror>
+    <button class="btn imfx-btn min-max-btn" (click)="toggleFullSize()">
+        <span>{{(fullSize === false ? 'viewers.full_display_mode_enable' : 'viewers.full_display_mode_disable') | translate }}</span>
+    </button>
+    <div *ngIf="showOverlay" class="modal-overlay"><div class="spinner"></div></div>
+</div>

@@ -1,0 +1,35 @@
+<div class="imfx-schema-tree-wrapper">
+    <input type="text" class="schema-tree-filter" #treeFilter (input)="filterTree($event.target.value)" placeholder="{{'system-config.xml.filter' | translate}}"/>
+    <div class="clear-schema-tree-filter" (click)="clearTreeFilter()">
+        <i class="icons-cross icon"></i>
+    </div>
+    <div class="expand-collapse-buttons">
+        <div (click)="toggleExpandAll(false)"
+             *ngIf="expandedAll"
+             class="icon"
+             title="{{'common_hints.collapse_all' | translate}}">
+            <i class="imfx-icon collapse-all"></i>
+        </div>
+        <div (click)="toggleExpandAll(true)"
+             *ngIf="!expandedAll"
+             class="icon"
+             title="{{'common_hints.expand_all' | translate}}">
+            <i class="imfx-icon expand-all"></i>
+        </div>
+    </div>
+    <div id="treeWrap" class="schema-tree-list-wrapper" [ngStyle]="{'height': (!returnSchema ? 'calc(100% - 64px)' : 'calc(100% - 37px)')}">
+        <div *ngFor="let group of filteredGroups; let i=index">
+            <div class="dock-header-row" (click)="onClickTree(group, i)">
+                <i class="icons-right icon" [ngClass]="{ 'icons-right': group.hideme, 'icons-down': !group.hideme }"></i> {{group.Name}}
+            </div>
+            <div class="dock-item-row" [hidden]="group.hideme" [ngClass]="{ 'selected': item.Id == selectedItemId }" *ngFor="let item of group.Children; let j=index" (click)="onSelect(group, item.Id, item)">
+                {{item.Name}} <span *ngIf="item.Additional" class="addtional-info">{{item.Additional}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="btns-row" *ngIf="!returnSchema" [ngClass]="{'has-selected': selectedItemId != null}">
+        <button class="add-btn" title="{{'system-config.xml.add' | translate}}" (click)="showModal(true)"><i class="icons-add icon"></i></button>
+        <button class="edit-btn" title="{{'system-config.xml.view' | translate}}" *ngIf="selectedItemId != null" (click)="showModal(false)"><i class="icons-info icon"></i></button>
+        <button class="remove-btn" title="{{'system-config.xml.remove' | translate}}" *ngIf="selectedItemId != null" (click)="removeXML()"><i class="icons-cross icon"></i></button>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="sectors-channels-formatter-comp-wrapper">
+    <div #field
+         class="field"
+         [title]="selectedValue.join(', ')"
+         [ngClass]="{'locked': locked}"
+         (click)="onClickField($event)">
+        {{selectedValue.join(', ')}}
+    </div>
+    <div #tooltip
+         *ngIf="visibleFlag"
+         (mousedown)="onMouseDownTooltip($event)"
+         (click)="onclickTooltip($event)"
+         class="sectors-channels-multi-select-tooltip-wrapper">
+        <div class="select-all-button"
+             (click)="selectAll($event)">
+            {{
+            (selectedValue.length !== values.length)
+                ? 'Select All'
+                : 'Deselect All'
+            }}
+        </div>
+        <ng-container *ngFor="let item of values; let i = index">
+            <div class="multi-select-item"
+                 [ngClass]="{'active': selectedValue.indexOf(item) > -1 }"
+                 (click)="onClickTootlipItem($event,item)">
+                {{chPrefix}}{{item}}
+            </div>
+            <br *ngIf="(i + 1) % inLine == 0"/>
+        </ng-container>
+    </div>
+</div>

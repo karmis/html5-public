@@ -1,0 +1,21 @@
+@import "../../../../../../views/base/styles/theme";
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .slick-cell {
+            .task-status-wrapper {
+                .status-progress {
+                    color: getThemeColor(10, $key);
+                }
+                i:before {
+                    font-size: 18px;
+                }
+                span {
+                    vertical-align: top;
+                    line-height: 18px;
+                }
+            }
+        }
+    }
+}

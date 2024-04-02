@@ -1,0 +1,10 @@
+<div class="pgm-media-status-formatter-comp-wrapper">
+    <span *ngIf="!backColour || !textValue" class="value">{{textValue}}</span>
+    <div *ngIf="backColour && textValue" class="custom-tag"
+         [ngStyle]="{'background-color': backColour, 'color': colour}"
+    >
+        {{textValue}}
+<!--        <div class="dot-bg"-->
+<!--        ></div>-->
+    </div>
+</div>

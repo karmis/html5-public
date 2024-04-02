@@ -1,0 +1,52 @@
+@import "../../../../../../views/base/styles/theme";
+@each $key, $value in $common-themes {
+    .#{$key} {
+        .sectors-channels-formatter-comp-wrapper {
+            position: relative;
+            .field {
+                cursor: text;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                line-height: 30px;
+                //white-space: pre-wrap;
+                &.locked{
+                    cursor: not-allowed;
+                }
+            }
+        }
+        //declare outside formatter wrapper because element replace in app > div
+        .sectors-channels-multi-select-tooltip-wrapper {
+            position: absolute;
+            z-index: 3;
+            padding: 2px;
+            background: getThemeColor(4, $key);
+            border: 1px solid getThemeColor(9, $key);
+            color: #FFFFFF;
+
+            .select-all-button, .multi-select-item {
+                height: 20px;
+                line-height: 20px;
+                text-align: center;
+                margin: 2px;
+                border: 1px solid getThemeColor(9, $key);
+                cursor: pointer;
+                box-shadow: 0 5px 10px 0 getThemeColor(33, $key);
+                &:hover {
+                    background: getThemeColor(21, $key);
+                }
+                &.active {
+                    background: getThemeColor(10, $key);
+                }
+            }
+
+            .select-all-button {
+
+            }
+
+            .multi-select-item {
+                width: 50px;
+                display: inline-block;
+            }
+        }
+    }
+}

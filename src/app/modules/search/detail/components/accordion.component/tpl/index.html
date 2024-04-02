@@ -1,0 +1,115 @@
+<div style="overflow: auto;" class="js-scrollbar-target accordions-wrapper" *ngIf="showComponent">
+    <div *ngIf="!groups?.length" class="panel">
+        <div class="card-row">
+            <span class="prop-name">{{'common.no_info' | translate}}</span>
+        </div>
+    </div>
+    <div *ngFor="let _group of groups; let i=index">
+        <accordion>
+            <accordion-group #group [isOpen]="_open">
+                <div accordion-heading class="imfx-header text"
+                     style="-webkit-user-select: none;
+                            -moz-user-select: none;
+                            -ms-user-select: none;
+                            -o-user-select: none;
+                            user-select: none;"
+                     (click)="afterContentLoaded();$event.preventDefault();">
+                    <h2>
+                        <i *ngIf="group?.isOpen" class="icons-down icon"></i>
+                        <i *ngIf="!group?.isOpen" class="icons-right icon"></i>
+                        {{_group?.GroupName?.length > 0 ? _group?.GroupName : "OTHER"}}
+                    </h2>
+                    <nav>
+                        <button *ngIf="i == 0 && params.showAllProperties" (click)="clickShowAllProperties($event)" class="settings-btn icon-button" title="{{ 'common_hints.hide_empty' | translate }}">
+                            <i class="icons-hide-empty icon"></i>
+                        </button>
+                        <button *ngIf="i == 0 && !params.showAllProperties" (click)="clickShowAllProperties($event)" class="settings-btn icon-button" title="{{ 'common_hints.empty_hidden' | translate }}">
+                            <i class="icons-empty-hidden icon"></i>
+                        </button>
+                    </nav>
+                </div>
+                <div class="card-block">
+                    <div *ngFor="let col of _group?.Columns">
+                        <div class="card-row" *ngIf="checkCol(col); else notesCustomCase">
+                            <div *ngIf="col.Id.indexOf('Dynamic') == -1" class="card-col prop-name">{{getFriendlyNamebyId(col.Id)}}</div>
+                            <div *ngIf="col.Id.indexOf('Dynamic') > -1" class="card-col prop-name">{{col.Title}}</div>
+                            <div class="card-col" [ngSwitch]="getTypeOf(file[col.Id], col.Id)">
+                                <span *ngSwitchCase="'boolean'">
+                                    <input type="checkbox" value="{{col.Id}}" [checked]="file[col.Id]" disabled>
+                                </span>
+                                <span *ngSwitchDefault>
+                                    <span [ngSwitch]="col.Id">
+                                        <span *ngSwitchCase="columnWithDate(col.Id)"
+                                              [style.padding]="(col.Background != null && col.Background.length > 0) ? '0 5px' : null"
+                                              [style.background]="col.Background" [style.color]="col.Foreground" [style.font-weight]="col.IsBold ? 'bold': null"
+                                        >{{file[col.Id] | localDate: datetimeFullFormatLocaldatePipe}}</span>
+                                        <span *ngSwitchCase="'Status_text'">
+                                            <!--<grid-column-status-component [params]="statusConfig"></grid-column-status-component>  @TODO CHECK_AG_GRID -->
+                                        </span>
+                                        <span *ngSwitchCase="'THUMBID'">
+                                            <div class="thumbnail-wrapper">
+                                                <img [src]="file['THUMBURL'] || './assets/img/default-thumb.PNG'" class="thumbnail" />
+                                            </div>
+                                        </span>
+                                        <span *ngSwitchCase="'DESCRIPTION_NOBREAKS'"
+                                              [style.padding]="(col.Background != null && col.Background.length > 0 && !isEmpty(file['DESCRIPTION'])) ? '0 5px' : null"
+                                              [style.background]="(col.Background && !isEmpty(file['DESCRIPTION'])) ? col.Background : null"
+                                              [style.color]="(col.Foreground && !isEmpty(file['DESCRIPTION'])) ? col.Foreground : null"
+                                              [style.font-weight]="(col.IsBold && !isEmpty(file['DESCRIPTION'])) ? 'bold': null">
+                                            {{(!isEmpty(file['DESCRIPTION'])) ? file['DESCRIPTION'] : '-'}}
+                                        </span>
+                                        <span *ngSwitchCase="col.Id.indexOf('Dynamic') > -1 ? col.Id : ''">
+                                            <span *ngIf="!isEmpty(file['DynamicFields'] === undefined ? null : file['DynamicFields'][col.Id])&&!showDynamicFieldsOverlay"
+                                                  [style.padding]="(col.Background != null && col.Background.length > 0) ? '0 5px' : null"
+                                                  [style.background]="col.Background" [style.color]="col.Foreground" [style.font-weight]="col.IsBold ? 'bold': null">
+                                                {{file['DynamicFields'][col.Id]}}
+                                            </span>
+                                            <div *ngIf="(isEmpty(file['DynamicFields'] === undefined ? null : file['DynamicFields'][col.Id]) && !showDynamicFieldsOverlay)">
+                                                  -
+                                            </div>
+                                            <div class="spinner-wrapper">
+                                                <div class="spinner" [hidden]="!showDynamicFieldsOverlay"></div>
+                                            </div>
+                                        </span>
+                                        <span *ngSwitchDefault>
+                                            <!--linking properties are defined in const linkProps-->
+                                            <a *ngIf="linkProps[col.Id] && linkProps[col.Id].link; else simpleView"
+                                               [routerLink]="[linkProps[col.Id].link]"
+                                               [style.padding]="(col.Background != null && col.Background.length > 0) ? '0 5px' : null"
+                                               [style.background]="col.Background" [style.color]="col.Foreground" [style.font-weight]="col.IsBold ? 'bold': null">
+                                                {{file[col.Id]}}
+                                            </a>
+                                            <ng-template #simpleView>
+                                            <span *ngIf="!isEmpty(file[col.Id])"
+                                                  [style.padding]="(defineOverrideBackColour(col.Id,file[col.Id]) || (col.Background != null && col.Background.length > 0)) ? '0 5px' : null"
+                                                  [style.background]="defineOverrideBackColour(col.Id,file[col.Id]) || col.Background"
+                                                  [style.color]="defineOverrideColour(col.Id,file[col.Id]) || col.Foreground"
+                                                  [style.font-weight]="col.IsBold ? 'bold': null">
+                                                {{file[col.Id]}}
+                                            </span>
+                                            <span *ngIf="isEmpty(file[col.Id])">-</span>
+                                            </ng-template>
+                                        </span>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        <!--need for display 'description' field data in 'Notes' column-->
+                        <ng-template #notesCustomCase>
+                            <!--(col.Id == 'DESCRIPTION_NOBREAKS' || col.Id == 'PPR_ID') && -->
+                            <!--<div class="card-row" *ngIf="((!!file['DESCRIPTION'] || file['DESCRIPTION'] === false) || file['DESCRIPTION'] === 0)">-->
+                            <div class="card-row" *ngIf="(col.Id == 'DESCRIPTION_NOBREAKS' || col.Id == 'PPR_ID') && ((!!file['DESCRIPTION'] || file['DESCRIPTION'] === false) || file['DESCRIPTION'] === 0)">
+                                <div class="card-col prop-name">{{getFriendlyNamebyId(col.Id)}}</div>
+                                <div class="card-col">
+                                    <span *ngIf="!isEmpty(file['DESCRIPTION'])" [style.padding]="(col.Background != null && col.Background.length > 0) ? '0 5px' : null"
+                                          [style.background]="col.Background" [style.color]="col.Foreground" [style.font-weight]="col.IsBold ? 'bold': null">{{file['DESCRIPTION']}}</span>
+                                    <span *ngIf="isEmpty(file['DESCRIPTION'])">-</span>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+</div>

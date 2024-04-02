@@ -1,0 +1,309 @@
+<script src="../base.top.menu.component.ts"></script>
+<ul class="top-menu" style="height: inherit">
+    <li class="top-menu-title" style="margin-right: 12px;">
+        <ul>
+            <li class="active">
+                <a *ngIf="activeItem.m">
+                    {{"base." + getActiveName('media') | translate}}
+                </a>
+                <a *ngIf="activeItem.w">
+                    {{"base." + getActiveName('wf')  | translate}}
+                </a>
+                <a *ngIf="activeItem.a">
+                    {{"base." + getActiveName() | translate }}
+                </a>
+                <a *ngIf="activeItem.s">
+                    {{"base." + getActiveName() | translate }}
+                </a>
+                <a *ngIf="activeItem.e">
+                    {{"base." + getActiveName("events") | translate }}
+                </a>
+                <a *ngIf="activeItem.p">
+                    {{"base." + getActiveName() | translate }}
+                </a>
+                <a *ngIf="activeItem.aq">
+                    {{"base." + getActiveName() | translate }}
+                </a>
+                <a *ngIf="!(activeItem.e || activeItem.m || activeItem.w || activeItem.a || activeItem.s || activeItem.p || activeItem.aq ) && (getActiveName('other'))">
+                    {{"base." + getActiveName('other') | translate }}
+                </a>
+                <a *ngIf="activeItem.loans">
+                    {{ 'loans.' + getActiveName('loans') | translate }}
+                </a>
+                <a *ngIf="activeItem.production">
+                    {{ 'production.' + getActiveName('production') | translate }}
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li class="menu-separator" *ngIf="activeItem.e || activeItem.m || activeItem.w || activeItem.a || activeItem.s || activeItem.p || activeItem.aq || activeItem.loans || activeItem.production || getActiveName('other')">
+        <ul>
+            <li>
+                <a> </a>
+            </li>
+        </ul>
+    </li><!-- [routerLinkActive]="['active']" -->
+    <li class="dropdown test-base-dropdown" dropdown routerLinkActive #rlaSearch="routerLinkActive"
+        *ngIf="hasPermissions(['media','titles','versions','carrier','consumer']) && hasPermissionByName('main-search')">
+        <span *ngIf="menuActive(rlaSearch.isActive, 'm')"></span>
+        <a>
+            {{ 'base.search' | translate }}
+            <i class="icons-down icon"></i>
+        </a>
+        <ul class="submenu">
+
+            <li role="menuitem" *ngIf="hasPermission('media')"><a href
+                                   [routerLink]="['media']">{{ 'base.media' | translate }}</a></li>
+            <li role="menuitem" *ngIf="hasPermission('titles')"><a href
+                                   [routerLink]="['titles']">{{ 'base.titles' | translate }}</a></li>
+            <li role="menuitem" *ngIf="hasPermission('version')"><a href
+                                   [routerLink]="['version']">{{ 'base.version' | translate }}</a></li>
+            <li role="menuitem" href *ngIf="hasPermission('carrier')"><a
+                                   [routerLink]="['carrier']">{{ 'base.carrier' | translate }}</a></li>
+            <!--<li role="menuitem"><a href *ngIf="hasPermission('simple')"  [routerLink]="[(ConsumerAvailable() ? 'simple' : 'search'), (shouldSetStaticSearch() ? staticSearchType : '')]">{{ 'base.simple' | translate }}</a></li>-->
+            <li role="menuitem" *ngIf="hasPermission('consumer')"><a href [routerLink]="['consumer']">{{
+                'base.consumer' | translate }}</a></li>
+            <!--*ngIf="hasPermission('carrier')"-->
+            <li role="menuitem" *ngIf="hasPermissionByName('folders')"><a
+                    [routerLink]="['folders']">{{ 'base.folders' | translate }}</a></li>
+
+            <!-- FAKE ITEMS FOR PAGE TITLE! -->
+<!--            <li role="menuitem" style="display: none;" [routerLink]="['consumer']"></li>-->
+<!--            <li role="menuitem" style="display: none;" [routerLink]="['branding']"></li>-->
+            <li role="menuitem" style="display: none;" [routerLink]="['consumer', staticSearchType]"></li>
+            <li role="menuitem" style="display: none;" [routerLink]="['consumer']"></li>
+            <!--for detail page-->
+            <li role="menuitem" style="display: none;" [routerLink]="['title']"></li>
+            <li role="menuitem" style="display: none;" [routerLink]="['versions']"></li>
+            <li role="menuitem" style="display: none;" [routerLink]="['carriers']"></li>
+            <li role="menuitem" style="display: none;" [routerLink]="['folders']"></li>
+            <!-- FAKE ITEMS FOR PAGE TITLE! -->
+
+        </ul>
+    </li>
+    <li class="dropdown test-wf-dropdown" dropdown routerLinkActive #rlaWF="routerLinkActive"
+        *ngIf="hasPermissions(['workflow','queues','tasks','my-tasks','task'])">
+        <span *ngIf="menuActive(rlaWF.isActive, 'w')"></span>
+        <a>
+            {{ 'base.workflow' | translate }}
+            <i class="icons-down icon"></i>
+        </a>
+        <ul class="submenu">
+            <li role="menuitem" *ngIf="hasPermission('workflow')"><a href
+                                   [routerLink]="['workflow']">{{ 'workflow.title' | translate }}</a></li>
+            <li role="menuitem" *ngIf="hasPermission('queues')"><a href
+                                   [routerLink]="['queues']">{{ 'base.queues' | translate }}</a></li>
+            <li role="menuitem" *ngIf="hasPermission('tasks')"><a href
+                                   [routerLink]="['tasks']">{{ 'base.tasks' | translate }}</a></li>
+            <li role="menuitem" *ngIf="hasPermission('my-tasks')"><a href
+                                   [routerLink]="['my-tasks']">{{ 'base.my-tasks' | translate }}</a></li>
+            <li role="menuitem" style="display: none;" [routerLink]="['component-qc']"></li>
+            <li role="menuitem" style="display: none;" [routerLink]="['task']"></li>
+            <li role="menuitem" style="display: none;" [routerLink]="['assessment']"></li>
+            <li role="menuitem" style="display: none;" [routerLink]="['media-logger-task']"></li>
+        </ul>
+    </li>
+    <li class="dropdown"
+        *ngIf="hasPermission('loans')"
+        dropdown
+        routerLinkActive
+        #rlaLoans="routerLinkActive">
+        <span *ngIf="menuActive(rlaLoans.isActive, 'loans')"></span>
+        <a>
+            {{'loans.title' | translate}}
+            <i class="icons-down icon"></i>
+        </a>
+        <ul class="submenu">
+            <li role="menuitem">
+                <a [routerLink]="['loans']">
+                    {{ 'loans.search_loans' | translate }}
+                </a>
+            </li>
+            <li role="menuitem">
+                <a [routerLink]="['loans', 'create']">{{ 'loans.new_loan' | translate }}</a>
+            </li>
+        </ul>
+    </li>
+    <li class="dropdown"
+        dropdown
+        routerLinkActive
+        #rlaLoans="routerLinkActive"
+        *ngIf="hasPermissionByName('production')">
+        <span *ngIf="menuActive(rlaLoans.isActive, 'production')"></span>
+        <a>
+            {{'production.title' | translate}}
+            <i class="icons-down icon"></i>
+        </a>
+        <ul class="submenu">
+            <li role="menuitem" *ngIf="hasPermissionByName('production-search')">
+                <a [routerLink]="['production']">{{ 'production.search_production' | translate }}</a>
+            </li>
+            <li role="menuitem" *ngIf="hasPermissionByName('production-detail')">
+                <a [routerLink]="['production-detail', 'create']">{{ 'production.new_production' | translate }}</a>
+            </li>
+            <li role="menuitem"  *ngIf="hasPermissionByName('production-manager')">
+                <a [routerLink]="['production', 'manager']">{{ 'base.production_manager' | translate }}</a>
+            </li>
+            <li role="menuitem" *ngIf="hasPermissionByName('my-production')">
+                <a [routerLink]="['production', 'my-productions']">{{ 'base.my_productions' | translate }}</a>
+            </li>
+            <li role="menuitem" *ngIf="hasPermissionByName('made-items-search')">
+                <a [routerLink]="['production', 'made-items-search']">{{ 'base.made_items_search' | translate }}</a>
+            </li>
+        </ul>
+    </li>
+    <li class="dropdown test-apps-dropdown" dropdown routerLinkActive #rlaAps="routerLinkActive"
+        *ngIf="hasPermissions(['misr','reports','mediaproxy-logplayer','associate','cachemanager', 'work-orders','supplier-portal']) ||
+        hasPermissionByName('media_upload') ||
+        hasPermissionByName('remote-media-login') ||
+        hasPermissionByName('confidence-monitoring')">
+        <span *ngIf="menuActive(rlaAps.isActive, 'a')"></span>
+        <a>
+            {{ 'base.apps' | translate }}
+            <i class="icons-down icon"></i>
+        </a>
+        <ul class="submenu">
+            <li role="menuitem" *ngIf="hasPermission('misr')">
+                <a [routerLink]="['misr']" href="#">{{ 'base.misr' | translate }}</a></li>
+            <li role="menuitem" *ngIf="hasPermission('reports')">
+                <a [routerLink]="['reports']" href="#">{{ 'base.reports' | translate }}</a></li>
+            <li role="menuitem" *ngIf="hasPermissionByName('media_upload')">
+                <a (click)="callMediaUpload($event);toClickEvent($event)">{{ 'base.media_upload' | translate }}</a></li>
+            <li role="menuitem" *ngIf="hasPermissionByName('remote-media-login')">
+                <a (click)="callMultiMediaUpload($event);toClickEvent($event)">{{ 'remote_upload.title' | translate }}</a></li>
+            <li role="menuitem" *ngIf="hasPermission('mediaproxy-logplayer')">
+                <a [routerLink]="['mediaproxy-logplayer']">{{ 'base.mediaproxy-logplayer' | translate }}</a></li>
+            <li role="menuitem" *ngIf="hasPermission('associate')">
+                <a [routerLink]="['associate']"> {{ 'base.associate' | translate}}</a></li>
+            <li role="menuitem" *ngIf="hasPermission('associate-media')">
+                <a [routerLink]="['associate-media']"> {{ 'base.associate-media' | translate}}</a></li>
+            <li role="menuitem" *ngIf="hasPermission('cachemanager')">
+                <a href [routerLink]="['cachemanager']">{{ 'base.cachemanager' | translate }}</a>
+            </li>
+            <li role="menuitem" *ngIf="hasPermission('work-orders')">
+                <a href [routerLink]="['work-orders']">{{ 'base.work-orders' | translate }}</a>
+            </li>
+            <li role="menuitem" *ngIf="hasPermission('upload')">
+                <a href [routerLink]="['upload']">{{ 'base.upload' | translate }}</a></li>
+            <li role="menuitem" [ngClass]="{'disabled': !umsUrl}" *ngIf="hasPermissionByName('ums-manager-link')">
+                <a target="_blank" href="{{umsUrl}}" [ngStyle]="{'pointer-events': (umsUrl) ? 'auto' : 'none'}">UMS Manager</a>
+            </li>
+            <li role="menuitem" [ngClass]="{'disabled': !videoBrowserUrl}" *ngIf="hasPermissionByName('video-browser-link')">
+                <a target="_blank" href="{{videoBrowserUrl}}" [ngStyle]="{'pointer-events': (videoBrowserUrl) ? 'auto' : 'none'}">Video Browser</a>
+            </li>
+        </ul>
+    </li>
+    <li class="dropdown" dropdown routerLinkActive #rlaProv="routerLinkActive"
+        *ngIf="hasPermissions(['names'])">
+        <span *ngIf="menuActive(rlaProv.isActive, 'p')"></span>
+        <a>
+            {{ 'base.provenance' | translate }}
+            <i class="icons-down icon"></i>
+        </a>
+        <ul class="submenu">
+            <li role="menuitem"><a href *ngIf="hasPermission('names')"
+                                   [routerLink]="['names']">{{ 'base.names' | translate }}</a></li>
+        </ul>
+    </li>
+    <li class="dropdown" dropdown routerLinkActive #rlaAcq="routerLinkActive"
+        *ngIf="hasPermissions(['acquisitions'])">
+        <span *ngIf="menuActive(rlaAcq.isActive, 'aq')"></span>
+        <a>
+            {{ 'base.acquisitions' | translate }}
+            <i class="icons-down icon"></i>
+        </a>
+        <ul class="submenu">
+            <li role="menuitem" *ngIf="hasPermission('acquisitions')">
+                <a>{{ 'base.acquisitions_new' | translate }}</a></li>
+            <li role="menuitem" *ngIf="hasPermission('acquisitions')">
+                <a>{{ 'base.acquisitions_from_template' | translate }}</a></li>
+            <li role="menuitem" *ngIf="hasPermission('acquisitions')">
+                <a href [routerLink]="['acquisitions']">{{ 'base.acquisitions_search' | translate }}</a></li>
+        </ul>
+    </li>
+    <li class="dropdown test-system-dropdown" dropdown routerLinkActive #rlaEvents="routerLinkActive"
+        *ngIf="hasPermissionByName('events-manager')">
+        <span *ngIf="menuActive(rlaEvents.isActive, 'e')"></span>
+        <a>
+            {{ 'base.events' | translate }}
+            <i class="icons-down icon"></i>
+        </a>
+        <ul class="submenu">
+            <li role="menuitem" *ngIf="hasPermission('events-manager')" >
+                <a [routerLink]="['events-manager']">
+                    {{ 'base.events_manager' | translate }}
+                </a>
+            </li>
+            <li role="menuitem" *ngIf="hasPermissionByName('new-event-request')">
+                <a [routerLink]="['events', 'single', 'create']">
+                    {{ 'base.event_new' | translate }}
+                </a>
+            </li>
+            <li role="menuitem" *ngIf="hasPermissionByName('new-event-request')">
+                <a [routerLink]="['events', 'multi', 'create']">
+                    {{ 'base.event_new_multi' | translate }}
+                </a>
+            </li>
+            <li role="menuitem" *ngIf="isDevMode">
+                <a [routerLink]="['recording-lines']">
+                    {{ 'recording_lines.title' | translate }} [dev]
+                </a>
+            </li>
+            <li role="menuitem" *ngIf="hasPermissionByName('confidence-monitoring')">
+                <a href [routerLink]="['confidence-monitoring']">
+                    {{ 'base.confidence-monitoring' | translate }}
+                </a>
+            </li>
+        </ul>
+    </li>
+
+    <li class="dropdown test-system-dropdown" dropdown routerLinkActive #rlaSystem="routerLinkActive"
+        *ngIf="hasPermissionByName('system-menu')">
+        <span *ngIf="menuActive(rlaSystem.isActive, 's')"></span>
+        <a>
+            {{ 'base.system' | translate }}
+            <i class="icons-down icon"></i>
+        </a>
+        <ul class="submenu">
+            <li role="menuitem" *ngIf="hasPermission('system')">
+                <a href [routerLink]="['system/config']">{{ 'base.system_configuration' | translate }}</a>
+            </li>
+            <li role="menuitem" href *ngIf="hasPermission('dashboard')">
+                <a [routerLink]="['dashboard']">{{ 'base.dashboard' | translate }}</a></li>
+            <li role="menuitem" (click)="onOpenSystemAbout()" *ngIf="hasPermission('dashboard')">
+                <a>
+                    {{ 'base.system_about_dialog' | translate }}
+                </a>
+            </li>
+            <li role="menuitem" *ngIf="isCloudServer">
+                <a href [routerLink]="['demo-player']">
+                    Demo Player
+                </a>
+            </li>
+            <li role="menuitem" *ngIf="hasPermissionByName('helpdesk') && getHelpdeskUrl().length > 0">
+                <a [href]="getHelpdeskUrl()" target="_blank">{{ 'base.helpdesk' | translate }}</a>
+            </li>
+            <li role="menuitem" *ngIf="isDevMode">
+            <a href (click)="clearStorages();toClickEvent($event)">[dev] Clear storages</a></li>
+<!--            -->
+        </ul>
+    </li>
+
+    <li class="dropdown test-system-dropdown" dropdown routerLinkActive #rlaSystem="routerLinkActive"
+        *ngIf="mainMenuSettings && mainMenuSettings.length">
+        <span *ngIf="menuActive(rlaSystem.isActive, 'urls')"></span>
+        <a>
+            {{ 'base.urls' | translate }}
+            <i class="icons-down icon"></i>
+        </a>
+        <ul class="submenu">
+            <ng-container *ngFor="let obj of mainMenuSettings; let j=index">
+                <li role="menuitem" *ngIf="obj.title && obj.ref">
+                    <a href="{{getRef(obj.ref)}}" target="_blank">
+                        {{obj.title}}
+                    </a>
+                </li>
+            </ng-container>
+        </ul>
+    </li>
+</ul>

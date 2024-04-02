@@ -1,0 +1,86 @@
+@import "../../../../../../../base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+    .#{$key} {
+
+        loading-icons {
+            height: 100%;
+            .loading-icons-wrapper {
+                height: 100%;
+                //padding: 1rem 1rem 0;
+
+                .loading-icons-list {
+                    height: 100%;
+                    display: flex; //same as inline-style
+                    flex-direction: column;
+
+                    .loading-icons-grid-wrapper {
+                        flex-grow: 1;
+                        padding-left: 10px;
+                        //height: calc(100% - 40px);
+                    }
+                }
+
+                .add-btn-wrapper {
+                    display: flex;
+
+                    .form-input {
+                        position: relative;
+                        margin-left: 15px;
+                        width: 100%;
+                    }
+
+                    .clear-dataset-filter {
+                        position: absolute;
+                        top: 5px;
+                        right: 10px;
+
+                        &:hover {
+                            cursor: pointer;
+                        }
+                    }
+
+                    .input {
+                        width: 100%;
+                    }
+
+                }
+
+                .spinner-icons {
+                    background-color: getThemeColor(3, $key) !important;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 105;
+                    /* top: 507px; */
+                    /* left: 955.891px; */
+                    width: 100%;
+                    height: 100%;
+                    background-size: 80px;
+                    position: absolute;
+                    min-height: 100%;
+                    min-width: 100%;
+                    top: 40px;
+                    display: flex;
+                    left: 0;
+
+                    .spinner {
+                        &.small {
+                            width: 100px;
+                            height: 100px;
+                            border-width: 12px;
+                            display: inline;
+                            position: relative;
+                            margin-left: -150px;
+                        }
+                    }
+
+                    .overlay-text-inline {
+                        margin-top: -16px;
+                    }
+
+                }
+            }
+        }
+    }
+}

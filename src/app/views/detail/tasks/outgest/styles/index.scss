@@ -1,0 +1,120 @@
+@import "../../../../base/styles/theme.scss";
+@import "../../../../../modules/controls/progress/styles/index.scss";
+
+@each $key, $value in $common-themes {
+  .#{$key} {
+      .outgest-details-wrapper {
+          padding: 0 15px;
+          height: 100%;
+          .drag-btns-wraper {
+              overflow: hidden;
+              flex-direction: column;
+              .layout-manager-wrapper {
+                  width: 100%;
+              }
+              .layout-manager-menu {
+                  width: 100%;
+              }
+          }
+          .tasks-control-buttons-wrap {
+              margin-left: 20px;
+              flex: 1;
+          }
+          .full-height-width-block {
+              padding-left: 15px;
+              padding-right: 15px;
+              padding-bottom: 15px;
+              overflow: hidden;
+              box-sizing: border-box;
+          }
+          .imfx-logger-btns {
+              display: flex;
+              flex-direction: row;
+              .btn-wrapper-left {
+                  display: flex;
+                  flex-basis: 100%;
+                  flex-grow: 1;
+                  position: relative;
+                  flex-direction: row;
+                  margin: auto;
+                  .back-btn-wrapper {
+                      width: 28px;
+                      height: 32px;
+                      line-height: 32px;
+                      padding: 0 4px;
+                      border-bottom: 2px solid transparent;
+                      .icon-button {
+                          height: 32px;
+                          line-height: 32px;
+                      }
+                  }
+                  .title-wrapper {
+                      margin-left: 15px;
+                  }
+              }
+              .btn-wrapper-right {
+                  display: flex;
+                  flex-grow: 0;
+                  white-space: nowrap;
+              }
+          }
+          .panel-flex-wrapper {
+              display: flex;
+              flex-direction: column;
+              height: 100%;
+          }
+          h1 {
+              margin: 0;
+              line-height: 32px;
+          }
+          .imfx-detail-btns {
+              display: flex;
+              .btn-wrapper-left {
+                  flex-grow: 1;
+              }
+              ul {
+                  height: 50px;
+                  display: flex;
+                  align-items: center;
+                  li {
+                      height: 32px;
+                  }
+                  .detail-title {
+                      min-width: 0;
+                      h1 {
+                          white-space: nowrap;
+                          overflow: hidden;
+                          text-overflow: ellipsis;
+                      }
+                  }
+              }
+          }
+
+          .stick-bottom {
+              position: absolute;
+              bottom: 0;
+              width: 100%;
+          }
+
+          .workflow-details-wrapper {
+              border-top: 1px solid #eeeeee;
+          }
+
+          .block-header.text {
+              display: inline-block;
+              vertical-align: middle;
+          }
+
+
+          .details-wrapper {
+
+          }
+          .graph-wrapper {
+              background-color: getThemeColor(4, $key);
+              padding: 12px 0px 12px 12px;
+          }
+
+
+      }
+  }
+}

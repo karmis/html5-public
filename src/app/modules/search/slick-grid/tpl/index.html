@@ -1,0 +1,56 @@
+<div class="slick-grid-wrapper" style="position: relative; width: 100%" #slickGridWrapper [hidden]="isError"
+     [ngClass]="{'tile-mode': module.viewMode == 'tile',
+                'is-thumbnail': module.isThumbnails}">
+
+    <!--*ngIf="provider.createAdditionalPanel()"-->
+    <!--[hidden]="!provider.showAdditionalPanel()"-->
+    <slickgrid-top-panel #slickGridTopPanel
+                         *ngIf="module.topPanel.enabled"
+                         [hidden]="false"
+                         [provider]="provider"
+                         class="slick-grid-panel slick-grid-top-panel">
+    </slickgrid-top-panel>
+    <!--Top panel-->
+    <div class="slick-grid-block-wrapper" style="position: relative; width: 100%; height: 100%;" [ngClass]="{'focused': module.isFocused}">
+        <div #grid
+             id="{{provider.uid}}"
+             class="slick-grid-block">
+        </div>
+
+        <div id="overlayErrorRepeatMessage" [hidden]="!overlayErrorRepeatMessage" style="height: 100%">
+            <h2 style="display: flex; align-items: center; justify-content: center;">
+                {{'slick_grid.error' | translate}}</h2>
+            <button style="margin: 0 auto;display: flex;justify-content: center;align-items: center;" (click)="onClickRepeat()">{{'settings_group.repeat' | translate}}</button>
+        </div>
+    </div>
+    <!--<div class="slick-grid-total-in-pager" [hidden]="module.pager.enabled === true && module.pager._pages <= 1">-->
+    <!--TOTAL: {{provider.getData()?.length?provider.getData()?.length:0}}-->
+    <!--</div>-->
+
+
+    <!--[hidden]="!provider?.PanelProvider?._showAdditionalBottomPanel()"-->
+    <!--*ngIf="module.bottomPanel.enabled"-->
+    <!--Bottom panel-->
+    <!--Panel enabled: {{module.bottomPanel.enabled}}-->
+    <!--Panel hidden: {{}}-->
+    <slickgrid-bottom-panel #slickGridBottomPanel
+                            [hidden]="!module.bottomPanel.enabled"
+                            [provider]="provider"
+                            class="slick-grid-panel slick-grid-bottom-panel">
+    </slickgrid-bottom-panel>
+
+</div>
+<!--<div [hidden]="!isError" style="height: 100%">-->
+    <!--<h2 style="height: 100%; display: flex; align-items: center; justify-content: center;">-->
+        <!--{{'slick_grid.not_have_column' | translate}}</h2>-->
+<!--</div>-->
+
+<!--<div class="slick-grid-total-out-pager" [hidden]="module.pager.enabled === false || module.pager._pages >= 2">-->
+<!--TOTAL: {{provider.getData()?.length?provider.getData()?.length:0}}-->
+<!--</div>-->
+
+
+
+<overlay #slickGridOverlay [zIndex]="module.overlay.zIndex" [mode]="true" (isError)="onClickCancelInOverlay()"></overlay>
+
+<!--<iframe name="frame" id="iframe-{{provider.uid}}" width=100% height=100% style="position:absolute; z-index:-1; top:0;"></iframe>-->

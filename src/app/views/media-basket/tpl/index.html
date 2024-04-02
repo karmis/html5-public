@@ -1,0 +1,112 @@
+<div class="full-height-block media-basket-wrapper">
+    <div class="imfx-basket-btns">
+        <div class="btn-wrapper-left">
+            <div *ngIf="!error" class="back-btn-wrapper back-button-clause">
+                <button *ngIf="!isFirstLocation()" class="icon-button" title="Back" (click)="clickBack()">
+                    <i class="icons-left icon"></i>
+                </button>
+            </div>
+            <div class="title-wrapper">
+                <h1>{{'basket.title' | translate}}</h1>
+            </div>
+            <div class="btn-wrapper-center">
+                <button *ngIf="items.length > 0" title="Remove All" style="" (click)="clearAll()">
+                    {{"basket.remove_all" | translate}}
+                </button>
+                <button *ngIf="items.length > 0 && checkSelected()" title="Remove Selected" style="" (click)="clearSelected()">
+                    {{"basket.remove_selected" | translate}}
+                </button>
+            </div>
+        </div>
+        <div class="btn-wrapper-right">
+            <div class="checkbox" >
+                <input id="keepBasketAfterwardsElem" style="margin-right: 5px;" type="checkbox" [(ngModel)]="keepBasketAfterwards"/>
+                <label for="keepBasketAfterwardsElem">{{ 'basket.keep_basket_afterwards' | translate }}</label>
+            </div>
+        </div>
+    </div>
+  <div class="p-rel-h-full grid">
+    <div class="media-basket-content" style="position: relative">
+      <!--<div *ngFor="let item of items; let i = index" class="basket-item" (click)="itemClick($event)">-->
+      <div *ngFor="let item of items; let i = index" class="basket-item">
+        <media-basket-item-component [item]="item"></media-basket-item-component>
+      </div>
+    </div>
+    <div class="media-basket-order sidebar" *ngIf="hasPermissionByName('preset-workflow')">
+      <h2>{{ 'basket.order' | translate }}</h2>
+      <div class="padding-default">
+        <!--<select [(ngModel)]="selectedPreset" (ngModelChange)="onPresetChange()" class="full-width">-->
+          <!--<option value="{{ 'basket.choose_preset' | translate }}" selected disabled>{{ 'basket.choose_preset' | translate }}</option>-->
+          <!--<option *ngFor="let preset of presets" [ngValue]="preset">{{preset.Name}}</option>-->
+        <!--</select>-->
+          <div class="pb-1">
+<!--              <label for="selectwf">Media Preset</label>-->
+              <order-preset-grouped-input
+                  #orderPresetGroupedInputComponent
+                  (onSelect)="onSelect($event)"
+                  [dontLoadAfterViewInit]="true"
+              ></order-preset-grouped-input>
+          </div>
+          <div class="">
+              <label for="datepicker">{{ 'basket.date' | translate }}</label>
+              <imfx-controls-datetimepicker
+                  id="datepicker"
+                  #datetimepicker
+                  [locale]="'common.locale' | translate"
+                  [format]="'common.date_full_format' | translate"
+                  [formatDate]="'common.date_format' | translate"
+                  [formatTime]="'common.time_format' | translate"
+                  [minDate]="minDate"
+                  [yearStart]="yearStart"
+                  [allowBlank]="true"
+                  [value]="null"
+                  [mask]="true"
+                  [dayOfWeekStart]="'common.date_of_week_start' | translate"
+                  [timepicker]="true"
+                  [datepicker]="true"
+                  [readonly]="false"
+                  [clearButton]="true"
+                  (onChangeDateTime)="onSelectDate($event)"
+                  (onSelectDate)="onSelectDate($event)"
+                  (onSelectTime)="onSelectDate($event)"
+              ></imfx-controls-datetimepicker>
+          </div>
+          <div *ngIf="items && items.length > 1"
+               class="per-item-wrapper mt-1"
+          >
+              <label for="perItem"
+                     style="user-select: none;"
+              >
+                  {{ 'basket.apply_all_to_one_workflow' | translate }}
+              </label>
+              <input type="checkbox"
+                     [(ngModel)]="applyAllToOneWF"
+                     id="perItem"
+                     class="per-item-checkbox"
+              />
+
+          </div>
+        <div class="js-basket-items-scroll">
+        <textarea [rows]="this.selectedPreset && this.selectedPreset.SchemaId?3:7" cols="35" name="text" placeholder="{{ 'basket.message' | translate }}" [(ngModel)]="message"
+                  class="media-message full-width"></textarea>
+        </div>
+        <button [disabled]="!isPlaceOrderEnabled()" *ngIf="orderStatus != 2" class="primary full-width" (click)="placeOrder()">
+          <div *ngIf="loading" class="loader-login icon" style="display: inline-block;"></div>
+          <i class="icons-basket icon"></i>
+          <span>{{ 'basket.place_order' | translate }}</span>
+        </button>
+        <span *ngIf="orderStatus == 2" class="pull-right">{{ 'basket.placing_order_message' | translate }}</span>
+        <!--<span *ngIf="orderStatus == 3" class="pull-right">{{ 'basket.success_message' | translate }}</span>-->
+        <!--<span *ngIf="orderStatus == 4" class="pull-right">{{ 'basket.error_message' | translate }}</span>-->
+      </div>
+      <div class="padding-default preset-settings-wrapper">
+      <imfx-xml-tree
+        #xmlTree
+        *ngIf="this.selectedPreset && this.selectedPreset.SchemaId"
+        [schemaModel]="selectedSchemaModel"
+        [xmlModel]="selectedXmlModel"
+      ></imfx-xml-tree>
+    </div>
+    </div>
+  </div>
+</div>

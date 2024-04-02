@@ -1,0 +1,87 @@
+<div class="search-layout-wrapper" #searchLayoutForm schemaSelectionMode="'media'">
+    <div class="section-wrapper" [hidden]="schemaSelectionActive">
+        <div class="section-title">{{ 'settings_group.search_layout.media_search.title' | translate }}</div>
+        <div class="section-area">
+            <div class="title">{{ 'settings_group.search_layout.media_search.schema' | translate }}</div>
+            <div class="selection-button-wrapper">
+                <button (click)="schemaSelectionActive = true; searchLayoutForm.schemaSelectionMode = 'media'; openSchemaSelection(searchLayoutForm.schemaSelectionMode)">{{media_defaultSchema != null ? media_defaultSchema.Name : 'Click to select schema'}}</button>
+                <div class="icons-cross-wrapper">
+                    <i class="icons-cross icon" *ngIf="media_defaultSchema != null" title="Clear" (click)="cleanSchema('media')"></i>
+                </div>
+            </div>
+        </div>
+        <div class="section-area">
+            <div class="title">{{ 'settings_group.search_layout.media_search.order' | translate }}</div>
+            <ngx-sortable [items]="media_tabsOrder"
+                          [name]="'List1'"
+                          [listStyle]="{
+                                width:'200px',
+                                height: 'auto',
+                                dropZoneHeight: '30px'
+                            }"
+                          (listSorted)="listSorted($event, 'media')">
+                <ng-template let-item>
+                    <div class="sortable-list-item">
+                        <input name="media-default-tab" type="radio" value="{{item.Id}}"
+                           [checked]="item.Id == media_defaultTab" (change)="$event.target.checked ? changeDefaultTab(item.Id, 'media') : false"/>
+                        {{item.Name}} <span class="default-marker">{{(item.Id == media_defaultTab ? ' (default)' : '')}}</span>
+                    </div>
+                </ng-template>
+            </ngx-sortable>
+        </div>
+    </div>
+    <div class="section-wrapper" [hidden]="schemaSelectionActive">
+        <div class="section-title">{{ 'settings_group.search_layout.associated.title' | translate }}</div>
+        <div class="section-area">
+            <div class="title">{{ 'settings_group.search_layout.associated.schema' | translate }}</div>
+            <div class="selection-button-wrapper">
+                <button (click)="schemaSelectionActive = true; searchLayoutForm.schemaSelectionMode = 'associate'; openSchemaSelection(searchLayoutForm.schemaSelectionMode)">{{associate_defaultSchema != null ? associate_defaultSchema.Name : 'Click to select schema'}}</button>
+                <div class="icons-cross-wrapper">
+                    <i class="icons-cross icon" *ngIf="associate_defaultSchema != null" title="Clear" (click)="cleanSchema('associate')"></i>
+                </div>
+            </div>
+        </div>
+        <div class="section-area">
+            <div class="title">{{ 'settings_group.search_layout.associated.order' | translate }}</div>
+            <ngx-sortable [items]="associate_tabsOrder"
+                          [name]="'List2'"
+                          [listStyle]="{
+                                width:'200px',
+                                height: 'auto',
+                                dropZoneHeight: '30px'
+                            }"
+                          (listSorted)="listSorted($event,'associate')">
+                <ng-template let-item>
+                    <div class="sortable-list-item">
+                        <input name="associate-default-tab" type="radio" value="{{item.Id}}"
+                           [checked]="item.Id == associate_defaultTab" (change)="$event.target.checked ? changeDefaultTab(item.Id, 'associate') : false"/>
+                        {{item.Name}} <span class="default-marker">{{(item.Id == associate_defaultTab ? ' (default)' : '')}}</span>
+                    </div>
+                </ng-template>
+            </ngx-sortable>
+        </div>
+    </div>
+    <div class="schemas-selection" [hidden]="!schemaSelectionActive">
+        <button (click)="schemaSelectionActive = false">BACK</button>
+        <div class="tree-wrapper">
+            <imfx-schema-tree
+                #SchemasTree
+                [expandOnFilter]="true"
+                [groups]="originSchemaTypes"
+                [returnSchema]="true"
+                (selected)="onSelectSchema($event, searchLayoutForm.schemaSelectionMode)">
+            </imfx-schema-tree>
+        </div>
+
+        <!--imfx-controls-tree #SchemasTree
+                            [extensions]="['filter']"
+                            [ext_filter]="{autoExpand: true, mode: 'hide', highlight: false}"
+                            [checkbox]="false"
+                            [icon]="false"
+                            [source]="[]"
+                            [unselectableLevels]="1"
+                            [allowChangedBold]="true"
+                            (onClick)="onSelectSchema($event, searchLayoutForm.schemaSelectionMode)"
+        ></imfx-controls-tree-->
+    </div>
+</div>

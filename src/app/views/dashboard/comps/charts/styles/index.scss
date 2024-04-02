@@ -1,0 +1,24 @@
+@import "../../../../base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+  .#{$key} {
+          .full-height-width-block.charts-wrapper-wf {
+              overflow: hidden;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              position: absolute;
+              padding: 10px;
+              padding-bottom: 0;
+
+              .chart-header {
+                  font-size: $basefontsize*2;
+                  text-align: center;
+                  padding-bottom: 10px;
+                  color: getThemeColor(1,$key);
+              }
+          }
+      }
+}
+

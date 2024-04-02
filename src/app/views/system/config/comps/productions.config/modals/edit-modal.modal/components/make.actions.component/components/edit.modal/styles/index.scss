@@ -1,0 +1,197 @@
+@import "../../../../../../../../../../../base/styles/theme.scss";
+
+$multilineheight: 300px;
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        production-config-make-actions-edit-modal {
+            button {
+                border-radius: 0px;
+            }
+            .production-config-make-actions-edit-modal-wrapper {
+                width: 100%;
+                height: 100%;
+                max-height: 70vh;
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                //overflow-x: hidden;
+                //overflow-y: auto;
+                overflow: visible;
+
+                .main-fields {
+                    display: flex;
+                    flex-direction: column;
+                    flex-grow: 0;
+                    //overflow-x: hidden;
+                    //overflow-y: auto;
+                    overflow: visible;
+
+                    .field-wrapper {
+                        //width: 100%;
+                        display: flex;
+                        height: 32px;
+                        flex-grow: 1;
+                        margin-bottom: 5px;
+                        align-items: center;
+                        .field-label {
+                            //flex: 0;
+                            height: 32px;
+                            width: 120px;
+                            line-height: 32px;
+                            margin-right: 1rem;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                        }
+                        .field-value {
+                            flex: 1;
+                            //line-height: 32px;
+                            height: 32px;
+                            width: 150px;
+                            //overflow: hidden;
+
+
+                            input {
+                                width: 100%;
+                                &[disabled] {
+                                    opacity: 0.5;
+                                    cursor: default;
+                                }
+                            }
+
+                            input[type="checkbox"] {
+                                margin-top: 8px;
+                                width: 16px;
+                            }
+
+                            .select2-selection {
+                                height: 32px;
+                                background: getThemeColor(4, $key);
+                                border: 2px solid getThemeColor(9, $key);
+
+                                .select2-selection__arrow {
+                                    top: 2px;
+                                    right: 2px;
+                                }
+
+                                &.select2-selection--multiple {
+                                    .select2-selection__rendered {
+                                        padding: 0;
+
+                                        .select2-search__field {
+                                            margin-top: 2px;
+                                        }
+                                    }
+                                }
+                            }
+
+                            //&.notvalid {
+                            //    input[type="text"],
+                            //    input[type="number"],
+                            //    textarea,
+                            //    .select2-wrapper,
+                            //    .preset-wrapper,
+                            //    :not(.select2-wrapper) select {
+                            //        box-shadow: 0 0 7px red;
+                            //    }
+                            //}
+                        }
+
+                        &.stretch {
+                            height: auto;
+
+                            .field-value {
+                                line-height: inherit;
+                                height: auto;
+                                max-width: 603px;
+
+                                .select2-selection {
+                                    min-height: 32px;
+                                    height: auto;
+                                }
+                            }
+                        }
+                    }
+                }
+                .grid-wrapper {
+                    //height: 100%;
+                    height: 200px;
+                    position: relative;
+                    flex-grow: 1;
+                    margin-top: 2.5rem;
+                    margin-bottom: 1rem;
+                    border: 1px solid getThemeColor(9, $key);
+                    background: getThemeColor(4, $key);
+                    .add-new-item {
+                        width: 28px;
+                        height: 28px;
+                        line-height: 28px;
+                        position: absolute;
+                        padding: 0;
+                        z-index: 2;
+                        left: -1px;
+                        top: -28px;
+                        background: getThemeColor(4, $key);
+                        border: 1px solid getThemeColor(9, $key);
+                        border-bottom: 0;
+
+                        &:hover {
+                            background: getThemeColor(5, $key);
+                            .icon {
+                                opacity: 1;
+                            }
+                        }
+
+                        i {
+                            transform: rotate(45deg);
+                            display: block;
+                            width: 100%;
+                        }
+                    }
+                }
+
+                .preset-wrapper {
+                    height: 300px;
+                    margin-bottom: 1rem;
+                    background-color: getThemeColor(4, $key);
+                }
+
+                .field-value {
+                    &.notvalid {
+                        input[type="text"],
+                        input[type="number"],
+                        textarea,
+                        .select2-wrapper,
+                        .preset-wrapper,
+                        :not(.select2-wrapper) select {
+                            box-shadow: 0 0 7px red;
+                        }
+                    }
+                }
+
+                .grid-wrapper.notvalid {
+                    box-shadow: 0 0 7px red;
+                }
+
+                .slick-grid-wrapper {
+                    .slick-header-column,
+                    .slick-group-header-column,
+                    .slick-header-column.ui-state-default,
+                    .slick-group-header-column.ui-state-default {
+                        height: 28px;
+                        line-height: inherit;
+                    }
+
+                    .slick-header-columns-left .slick-header-column:last-child, .grid-canvas-left .slick-cell:last-child {
+                        border-right: none;
+                    }
+                }
+
+            }
+
+
+        }
+    }
+}

@@ -1,0 +1,50 @@
+<div class="branding-search-background"
+     [ngStyle]="{'background-image': (backgrounds[selectedBackground]?.url) ? 'url(' + backgrounds[selectedBackground]?.url + ')' : 'none', 'opacity': selectedOpacity }"></div>
+<div id="start-search" class="branding-search-screen">
+    <div class="start-search-block">
+        <div class="search-row-wrapper consumer-search">
+            <img #imageLogo
+                 *ngIf="bigLogo"
+                 class="search-form-logo imfx-allow-dnd"
+                 [src]="bigLogo" alt="">
+            <label *ngIf="title" class="fake-label title">{{title}}</label>
+            <label *ngIf="subtitle" class="fake-label subtitle">{{subtitle}}</label>
+            <search-form-branding
+                    [isReady]="isReadySearchForm"
+                    [config]="searchFormConfig"
+                    [builderMode]="builderMode"
+                    class="combined"
+                    #searchForm
+            ></search-form-branding>
+            <div *ngIf="(isConsumerSearch() || targetSearch === consumerPath) && !builderMode" class="panel-buttons">
+                <button (click)="changeRecentMode('thumb-recent')"
+                        [ngClass]="{'active': recentMode === 'thumb-recent'}">Recent Media
+                </button>
+                <button (click)="changeRecentMode('media-recent')"
+                        [ngClass]="{'active': recentMode === 'media-recent'}">Recent Searches
+                </button>
+                <button *ngIf="recentItems && recentItems.length > 0 && !builderMode && recentMode == 'thumb-recent'"
+                        class="recent-ctrl-panel button clearBtn" [hidden]="recentItems.length==0"
+                        (click)="clearRecent()">
+                    {{ 'base.clear' | translate }}
+                </button>
+            </div>
+            <div class="empty" style="height: 350px">
+                <div class="recent-files" *ngIf="recentItems && recentItems.length > 0 && recentMode == 'thumb-recent'">
+                    <div class="item" *ngFor="let item of recentItems">
+                        <div class="recent-thumbnail">
+                            <thumb-component [mediaInfoType]="'version'" [params]="item"></thumb-component>
+                        </div>
+                        <div class="title" (click)="showFromRecent(item)">{{item.Title}}</div>
+                    </div>
+                </div>
+                <search-recent
+                        *ngIf="searchRecentConfig && !builderMode && recentMode == 'media-recent'"
+                        [externalMode]="true"
+                        [config]="searchRecentConfig"
+                        (onSelect)="selectRecentSearch($event)"
+                ></search-recent>
+            </div>
+        </div>
+    </div>
+</div>

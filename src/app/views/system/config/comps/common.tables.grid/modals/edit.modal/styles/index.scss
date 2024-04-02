@@ -1,0 +1,307 @@
+@import "../../../../../../../base/styles/theme.scss";
+$multilineheight: 300px;
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        config-tables-change-modal {
+            button {
+                border-radius: 0px;
+            }
+            .config-table-modal-wrapper {
+                width: 100%;
+                height: 100%;
+                max-height: 70vh;
+                position: relative;
+                overflow-x: hidden;
+                overflow-y: auto;
+                display: flex;
+                flex-direction: column;
+
+                .main-fields {
+                    overflow-x: hidden;
+                    overflow-y: auto;
+                    flex-direction: column;
+
+                    .field-wrapper {
+                        width: 100%;
+                        display: flex;
+                        margin-bottom: 5px;
+                        height: 38px;
+                        padding: 3px;
+
+                        &.multiline {
+                            height: $multilineheight;
+
+                            .filed-value {
+                                height: $multilineheight;
+                            }
+                        }
+
+                        .filed-label {
+                            flex: 0.3;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                            line-height: 32px;
+                            height: 32px;
+                        }
+                        .filed-value {
+                            flex: 0.7;
+                            line-height: 32px;
+                            height: 32px;
+                            max-width: 603px;
+                            //overflow: hidden;
+
+                            .color-selector-field {
+                                position: relative;
+
+                                .color-icon {
+                                    position: absolute;
+                                    width: 20px;
+                                    height: 20px;
+                                    left: 6px;
+                                    top: 7px;
+                                    border: 1px solid black;
+                                }
+
+                                .color-input {
+                                    padding-left: 30px;
+                                }
+
+                                color-picker {
+                                    .color-picker {
+                                        background: getThemeColor(4, $key);
+
+                                        div[_ngcontent-c31] {
+                                            color: getThemeColor(1, $key);
+                                        }
+                                    }
+                                }
+                            }
+
+                            &.notvalid {
+                                input,
+                                textarea,
+                                .CodeMirror,
+                                .select2-selection,
+                                select {
+                                    box-shadow: 0 0 7px red;
+                                }
+                            }
+
+                            .CodeMirror {
+                                height: $multilineheight !important;
+                                width: 100%;
+                                line-height: normal;
+                                background: getThemeColor(4, $key);
+                                .CodeMirror-scrollbar-filler {
+                                    background: getThemeColor(4, $key);
+                                }
+                                .CodeMirror-line {
+                                    [role="presentation"] {
+                                        color: getThemeColor(1, $key);
+                                    }
+                                    .cm-attribute {
+                                        color: getThemeColor(10, $key);
+                                    }
+                                    .cm-string {
+                                        color: getThemeColor(13, $key);
+                                    }
+                                    .cm-atom {
+                                        color: getThemeColor(7, $key);
+                                    }
+                                    .cm-tag {
+                                        color: getThemeColor(12, $key);
+                                    }
+                                }
+
+                                .CodeMirror-linenumber,
+                                .CodeMirror-gutters,
+                                .CodeMirror-linenumbers {
+                                    background: getThemeColor(5, $key);
+                                    color: getThemeColor(3, $key);
+                                    border-color: getThemeColor(3, $key);
+                                }
+                            }
+                            textarea {
+                                width: 100%;
+                                height: $multilineheight;
+                                resize: none;
+                                line-height: 18px;
+                                vertical-align: top;
+
+                                &[disabled] {
+                                    opacity: 0.5;
+                                    cursor: default;
+                                }
+                            }
+
+                            select {
+                                &[disabled] {
+                                    opacity: 0.5;
+                                    cursor: default;
+                                }
+                            }
+
+                            input {
+                                width: 100%;
+                                &[disabled] {
+                                    opacity: 0.5;
+                                    cursor: default;
+                                }
+                            }
+
+                            input[type="checkbox"] {
+                                width: 16px;
+                            }
+
+                            .select2-selection {
+                                height: 32px;
+                                background: getThemeColor(4, $key);
+                                border: 2px solid getThemeColor(9, $key);
+
+                                .select2-selection__arrow {
+                                    top: 2px;
+                                    right: 2px;
+                                }
+
+                                &.select2-selection--multiple {
+                                    .select2-selection__rendered {
+                                        padding: 0;
+
+                                        .select2-search__field {
+                                            margin-top: 2px;
+                                        }
+                                    }
+                                }
+                            }
+
+                            .toggle-fullscreen-button {
+                                position: absolute;
+                                right: 20px;
+                                bottom: 20px;
+                                z-index: 15;
+                                padding: 0;
+                                height: 22px;
+                                line-height: 17px;
+                                width: 28px;
+                            }
+
+                            .flags-wrapper {
+                                label {
+                                    margin: 2px 0;
+                                    vertical-align: top;
+                                    width: 50%;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    cursor: pointer;
+
+                                    input {
+
+                                    }
+                                    span {
+                                        padding: 0 5px;
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;
+                                        white-space: nowrap;
+                                        width: calc(100% - 32px);
+                                        display: inline-block;
+                                    }
+                                }
+                            }
+
+                            &.show-image {
+                                position: relative;
+                                .image-preview {
+                                    background-position: 0 0;
+                                    background-size: contain;
+                                    width: 0px;
+                                    height: 0px;
+                                    display: none;
+                                    position: absolute;
+                                    z-index: 1;
+                                    top: 32px;
+                                    left: 0;
+                                    transition: all 0.5s ease-in;
+                                }
+
+                                .image-preview-dropdown {
+                                    background-position: 0 0;
+                                    background-size: contain;
+                                    width: 120px;
+                                    height: 80px;
+                                    display: block;
+                                    position: absolute;
+                                    z-index: 1;
+                                    top: 32px;
+                                    left: -120px;
+                                }
+
+                                &:hover {
+                                    .image-preview {
+                                        width: 120px;
+                                        height: 80px;
+                                        display: block;
+                                    }
+                                }
+                            }
+                        }
+
+                        &.stretch {
+                            height: auto;
+
+                            .filed-value {
+                                line-height: inherit;
+                                height: auto;
+                                max-width: 603px;
+
+                                .select2-selection {
+                                    min-height: 32px;
+                                    height: auto;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .overlay-wrapper {
+                display: none;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: getThemeColor(3, $key);
+                overflow: hidden;
+                z-index: 5;
+
+                .spinner {
+                    width: 80px;
+                    height: 80px;
+                    border-width: 8px;
+                    margin: 0 auto;
+                    position: relative;
+                    top: calc(50% - 40px);
+                }
+            }
+        }
+
+        .configtable-active-filed-wrapper {
+            float: left;
+            line-height: 32px;
+            height: 32px;
+
+            span {
+                color: getThemeColor(1, $key);
+                padding-right: 10px;
+            }
+
+            input {
+                vertical-align: middle;
+                position: relative;
+                top: -2px;
+            }
+        }
+    }
+}

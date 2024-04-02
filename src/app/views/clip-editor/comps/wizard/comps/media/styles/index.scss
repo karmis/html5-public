@@ -1,0 +1,16 @@
+@import "../../../../../../base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+      .media-wizzard-grid {
+        .search-field {
+          min-width: 400px;
+        }
+        .media-grid {
+          .tile-view {
+
+          }
+        }
+      }
+    }
+}

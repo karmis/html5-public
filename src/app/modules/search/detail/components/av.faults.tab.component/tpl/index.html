@@ -1,0 +1,17 @@
+<div class="faults-tab-wrapper">
+    <slick-grid
+        #slickGridComp
+        class="attachment-grid vertical-align-row small-height-header"
+        style="width: 100%;  height: 100%"
+        [config]="gridConfig"
+    ></slick-grid>
+    <button (click)="addEntry(false)"*ngIf="!config.readOnly" title="{{ 'simple_assessment.add_fault' | translate }}">
+        <i class="icons-add icon"></i>
+        {{ 'simple_assessment.add_fault' | translate }}
+    </button>
+    <button (click)="addEntry(true)"*ngIf="!config.readOnly" [disabled]="disableReplaceBnt()" style="margin-left: 5px;" title="{{ 'media_logger.replace_in_out_hint' | translate }}">
+        <i class="fa fa-edit" style="width: 20px;height: 32px;opacity: 0.6;"></i>
+        {{ 'media_logger.replace_in_out' | translate }}
+    </button>
+    <label class="total-duration">Total Duration: {{totalDuration}}</label>
+</div>

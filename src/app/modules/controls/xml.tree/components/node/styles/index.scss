@@ -1,0 +1,134 @@
+@import "../../../../../../views/base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+  .#{$key} {
+
+    .imfx-xml-node-wrapper {
+        padding-left: 5px;
+        &.selected-node {
+            background: getThemeColor(10, $key);
+        }
+      .multiline-view-btn {
+        height: 26px;
+        line-height: 24px;
+      }
+      .parent-node-label {
+        color: getThemeColor(1, $key);
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 1rem;
+        letter-spacing: 0.1rem;
+        font-family: sinkin_sans500_medium, Roboto, sans-serif;
+        font-weight: normal;
+        padding: 0;
+          overflow: visible!important;
+      }
+
+      &.modal-node-selector {
+        position: absolute;
+        opacity: 0.9; // TODO: prevent input opacity
+        top: 0;
+        height: 100%;
+        width: 100%;
+        left: 0;
+      }
+
+      .table-wrapper {
+        height: 100%;
+        width: 100%;
+          padding: 0px 0;
+          overflow: hidden!important;
+        .cell-wrapper {
+          display: flex;
+          .node-label {
+            flex: 1;
+              min-width: 120px;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              overflow: hidden;
+          }
+          .node-control {
+            flex: 2;
+              overflow: hidden;
+              padding: 3px;
+          }
+          .node-buttons {
+            float:right;
+            width:80px;
+          }
+        }
+      }
+
+      .node-icon {
+        margin: 6px;
+        cursor: pointer;
+        float: none!important;
+        margin: 0px!important;
+        display: inline-block;
+        position: relative;
+        vertical-align: top;
+        margin-top: 5px!important; //IF YOU NEED CHANGE IT TO -3px OR SOMETHING ELSE - CALL SERGEY KLIMENKO FOR DISCUSSION
+
+        &.close {
+          opacity: 0.7;
+          width: 20px;
+          height: 20px;
+          &:hover {
+            opacity: 1;
+            .icon {
+              background: #e67339;
+              color: #ffffff;
+              opacity: 1;
+              padding-bottom: 3px;
+            }
+          }
+          .icons-closedelete {
+            top: auto;
+            right: auto;
+          }
+          .icons-closedelete:before {
+            vertical-align: 0px;
+          }
+        }
+
+        &.add {
+          float: right;
+          font-size: 1.5rem;
+          font-weight: 700;
+          line-height: 1;
+          color: #000;
+          text-shadow: 0 1px 0 #fff;
+          opacity: .7;
+        }
+
+      }
+
+      .flex-container {
+        //display: flex;
+        display: block;
+        //flex-direction: row;
+          position: relative;
+      }
+
+        .number-box-icon-xml-wrp {
+            display: flex;
+            .form-control {
+                padding-right: 25px;
+            }
+            .number-box-icon-xml {
+                line-height: 27px;
+                font-size: 9px;
+                position: absolute;
+                right: 94px;
+                opacity: 0.5;
+                font-family: monospace;
+                font-style: normal;
+                color: getThemeColor(16, $key);
+            }
+            .number-box-icon-xml:before {
+                content: "123";
+            }
+        }
+    }
+  }
+}

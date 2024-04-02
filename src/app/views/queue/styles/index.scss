@@ -1,0 +1,40 @@
+@import "../../base/styles/theme.scss";
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        queue {
+            .slick-grid-wrapper .slick-viewport.slick-viewport-left {
+                overflow-x: auto !important;
+            }
+
+            .slick-grid-wrapper {
+                overflow: hidden;
+                .border-hidden {
+                    border-right: 0 !important;
+                    padding-right: 1px !important;
+                }
+            }
+        }
+
+        .queue-refresh-loader {
+            width: 18px;
+            height: 18px;
+            display: inline-block;
+            line-height: 32px;
+            margin-left: 5px;
+            float: none;
+            position: relative;
+            top: 4px;
+        }
+
+        .refresh-queue {
+            cursor: pointer;
+            height: 100%;
+            width: 130px;
+            input {
+                cursor: pointer;
+            }
+        }
+    }
+}

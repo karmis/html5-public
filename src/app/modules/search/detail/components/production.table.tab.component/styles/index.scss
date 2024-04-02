@@ -1,0 +1,20 @@
+@import "../../../../../../views/base/styles/theme.scss";
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .source-tab-col {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            &__title {
+
+            }
+            &__table {
+                height: 100%;
+            }
+        }
+    }
+
+
+}

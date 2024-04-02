@@ -1,0 +1,14 @@
+@import "../../../../../base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+  .#{$key} {
+      .system-settings-wrapper {
+          height: 100%;
+          display: flex;
+
+          system-settings-grid {
+              width: 100%;
+          }
+      }
+  }
+}

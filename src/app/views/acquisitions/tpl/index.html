@@ -1,0 +1,34 @@
+<div class="full-height full-width acquisitions-wrapper" #overlayWrapper>
+  <div class="header-wrapper">
+    <input type="text" placeholder="Search..." (keypress)="searchFakeData($event)" [(ngModel)]="searchValue"/>
+    <button class="no-label primary" (click)="searchFakeData()" [disabled]="!searchValue.trim().length > 0"><i class="icons-search icon"></i></button>
+  </div>
+  <div class="body-wrapper">
+    <table #tableHeader class="header-fake-table imfx-table">
+      <thead>
+      <th>ID</th>
+      <th>Origin</th>
+      <th>Description</th>
+      <th>Status</th>
+      <th>Updated</th>
+      <th>Updated by</th>
+      </thead>
+    </table>
+    <div #tableBody class="content-table"  *ngIf="data.length !== 0">
+        <div class="fake-rows" *ngFor="let i of data" (click)="goToWorkspace(i.ID)">
+        <div class="fake-cell" title="{{i.ID}}">{{i.ID}}</div>
+        <div class="fake-cell" title="{{i.ORIGIN}}">{{i.ORIGIN}}</div>
+        <div class="fake-cell" title="{{i.DESCRIPTION}}">{{i.DESCRIPTION}}</div>
+        <div class="fake-cell" title="{{i.SYS_STATUS}}">{{i.SYS_STATUS}}</div>
+        <div class="fake-cell" title="{{i.UPDATED | localDate: datetimeFullFormatLocaldatePipe}}">{{i.UPDATED | localDate: datetimeFullFormatLocaldatePipe}}</div>
+        <div class="fake-cell" title="{{i.UPDATED_BY}}">{{i.UPDATED_BY}}</div>
+        </div>
+    </div>
+      <div class="no-rows" *ngIf="data.length == 0 && noResults">
+          <span class="overlay-indicator">
+              <label>{{'ng2_components.ag_grid.noRowsToShow' | translate}}</label>
+          </span>
+      </div>
+  </div>
+  <overlay #overlay></overlay>
+</div>

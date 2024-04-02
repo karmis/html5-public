@@ -1,0 +1,141 @@
+<div class="prod-conf-edit-modal-tabs-wrapper" #tabsHeader>
+    <div class="head-sub-tabs">
+        <ul class="sub-tabs-wrapper">
+            <li class="sub-tab" [ngClass]="{'active': activeTab == tabs.MakeWorkflows}" (click)="activateTab(tabs.MakeWorkflows)"
+                title="{{'production.production_templates.edit_modal.tabs.make_wf' | translate}}">
+                <i *ngIf="!getTabValid(tabs.MakeWorkflows)" class="valid-flag"></i>
+                <span>
+                    {{'production.production_templates.edit_modal.tabs.make_wf' | translate}}
+                </span>
+            </li>
+            <li class="sub-tab" [ngClass]="{'active': activeTab == tabs.MadeActions}" (click)="activateTab(tabs.MadeActions)"
+                title="{{'production.production_templates.edit_modal.tabs.made_act' | translate}}">
+                <i *ngIf="!getTabValid(tabs.MadeActions)" class="valid-flag"></i>
+                <span>
+                    {{'production.production_templates.edit_modal.tabs.made_act' | translate}}
+                </span>
+            </li>
+            <li class="sub-tab" [ngClass]="{'active': activeTab == tabs.PredefinedCleansVersions}" (click)="activateTab(tabs.PredefinedCleansVersions)"
+                title="{{'production.production_templates.edit_modal.tabs.predefined_cleans_versions' | translate}}">
+                <i *ngIf="!getTabValid(tabs.PredefinedCleansVersions)" class="valid-flag"></i>
+                <span>
+                    {{'production.production_templates.edit_modal.tabs.predefined_cleans_versions' | translate}}
+                </span>
+            </li>
+            <li class="sub-tab" [ngClass]="{'active': activeTab == tabs.Audio}" (click)="activateTab(tabs.Audio)"
+                title="{{'production.production_templates.edit_modal.tabs.audio' | translate}}">
+                <i *ngIf="!getTabValid(tabs.Audio)" class="valid-flag"></i>
+                <span>
+                    {{'production.production_templates.edit_modal.tabs.audio' | translate}}
+                </span>
+            </li>
+            <li class="sub-tab" [ngClass]="{'active': activeTab == tabs.PartsSegments}" (click)="activateTab(tabs.PartsSegments)"
+                title="{{'production.production_templates.edit_modal.tabs.parts_segments' | translate}}">
+                <i *ngIf="!getTabValid(tabs.PartsSegments)" class="valid-flag"></i>
+                <span>
+                    {{'production.production_templates.edit_modal.tabs.parts_segments' | translate}}
+                </span>
+            </li>
+            <li class="sub-tab" [ngClass]="{'active': activeTab == tabs.SubsCaptions}" (click)="activateTab(tabs.SubsCaptions)"
+                title="{{'production.production_templates.edit_modal.tabs.subs_captions' | translate}}">
+                <i *ngIf="!getTabValid(tabs.SubsCaptions)" class="valid-flag"></i>
+                <span>
+                    {{'production.production_templates.edit_modal.tabs.subs_captions' | translate}}
+                </span>
+            </li>
+            <li class="sub-tab" [ngClass]="{'active': activeTab == tabs.CustomMetadata}" (click)="activateTab(tabs.CustomMetadata)"
+                title="{{'production.production_templates.edit_modal.tabs.custom_meta' | translate}}">
+                <i *ngIf="!getTabValid(tabs.CustomMetadata)" class="valid-flag"></i>
+                <span>
+                    {{'production.production_templates.edit_modal.tabs.custom_meta' | translate}}
+                </span>
+            </li>
+            <li class="sub-tab" [ngClass]="{'active': activeTab == tabs.Notifications}" (click)="activateTab(tabs.Notifications)"
+                title="{{'production.production_templates.edit_modal.tabs.notifications' | translate}}">
+                <i *ngIf="!getTabValid(tabs.Notifications)" class="valid-flag"></i>
+                <span>
+                    {{'production.production_templates.edit_modal.tabs.notifications' | translate}}
+                </span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="tab-content" [hidden]="activeTab != tabs.MakeWorkflows">
+        <production-make-workflows
+            [data]="itemData"
+            [lookups]="lookups"
+            (updateData)="onUpdateData($event)"
+            (isDataValid)="onUpdateDataValid($event, tabs.MakeWorkflows)"
+        ></production-make-workflows>
+    </div>
+    <div class="tab-content" [hidden]="activeTab != tabs.MadeActions">
+        <production-make-actions
+            *ngIf="presetGroups"
+            [data]="itemData"
+            [lookups]="lookups"
+            [presetGroups]="presetGroups"
+            (updateData)="onUpdateData($event)"
+            (isDataValid)="onUpdateDataValid($event, tabs.MadeActions)"
+        ></production-make-actions>
+    </div>
+    <div class="tab-content" [hidden]="activeTab != tabs.PredefinedCleansVersions">
+        <production-predefined-cleans-versions
+            [data]="itemData"
+            [templateMode]="templateMode"
+            (updateData)="onUpdateData($event)"
+            (isDataValid)="onUpdateDataValid($event, tabs.PredefinedCleansVersions)"
+        ></production-predefined-cleans-versions>
+    </div>
+    <div class="tab-content" [hidden]="activeTab != tabs.Audio">
+        <production-config-edit-modal-tab-grid
+            [field]="'AudioTracks'"
+            [itemData]="itemData"
+            [columnsDict]="columnsDict"
+            [lookups]="lookups"
+            (updateGridRows)="onUpdateData($event)"
+            (isDataValid)="onUpdateDataValid($event, tabs.Audio)"
+        ></production-config-edit-modal-tab-grid>
+    </div>
+    <div class="tab-content" [hidden]="activeTab != tabs.PartsSegments">
+        <production-config-edit-modal-tab-grid
+            [field]="'Segments'"
+            [itemData]="itemData"
+            [itemArrayData]="itemData['Segments']"
+            [columnsDict]="columnsDict"
+            [lookups]="lookups"
+            (updateGridRows)="onUpdateData($event)"
+            (isDataValid)="onUpdateDataValid($event, tabs.PartsSegments)"
+        ></production-config-edit-modal-tab-grid>
+    </div>
+    <div class="tab-content" [hidden]="activeTab != tabs.SubsCaptions">
+        <production-config-edit-modal-tab-grid
+            [field]="'Subtitles'"
+            [itemData]="itemData"
+            [columnsDict]="columnsDict"
+            [lookups]="lookups"
+            (updateGridRows)="onUpdateData($event)"
+            (isDataValid)="onUpdateDataValid($event, tabs.SubsCaptions)"
+        ></production-config-edit-modal-tab-grid>
+    </div>
+    <div class="tab-content" [hidden]="activeTab != tabs.CustomMetadata">
+        <production-config-edit-modal-tab-grid
+            [field]="'XmlSchemas'"
+            [itemData]="itemData"
+            [columnsDict]="columnsDict"
+            [lookups]="lookups"
+            (updateGridRows)="onUpdateData($event)"
+            (isDataValid)="onUpdateDataValid($event, tabs.CustomMetadata)"
+        ></production-config-edit-modal-tab-grid>
+    </div>
+    <div class="tab-content" [hidden]="activeTab != tabs.Notifications">
+        <production-config-edit-modal-tab-grid
+            [field]="'Notifications'"
+            [itemData]="itemData"
+            [columnsDict]="columnsDict"
+            [lookups]="lookups"
+            (updateGridRows)="onUpdateData($event)"
+            (isDataValid)="onUpdateDataValid($event, tabs.Notifications)"
+        ></production-config-edit-modal-tab-grid>
+    </div>
+</div>
+

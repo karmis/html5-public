@@ -1,0 +1,25 @@
+@import "../../../../../../../../views/base/styles/theme.scss";
+@import "../../../../../../../../views/base/styles/blocks/inputs.scss";
+@import "../../../../../../../../views/base/styles/blocks/buttons.scss";
+@import "../../../../../../../../views/base/styles/blocks/nav.scss";
+@import "../../../../../../../../views/base/styles/blocks/nav.tabbed.scss";
+@import "../../../../../../../../views/base/styles/blocks/rows.scss";
+
+
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .change-custom-status {
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 15px;
+            imfx-controls-select2 {
+                margin-bottom: 15px;
+            }
+            imfx-lookups-select2 {
+
+            }
+        }
+    }
+}

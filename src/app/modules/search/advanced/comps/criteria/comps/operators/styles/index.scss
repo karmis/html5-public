@@ -1,0 +1,20 @@
+@import "../../../../../../../../../components/base/styles/theme";
+
+@each $key, $value in $common-themes {
+  .#{$key} {
+    .remove-criteria {
+      margin-top: 5px;
+    }
+    .adv-criteria-select-column {
+      width: 100px;
+      margin: 0 0 0 5px;
+    }
+    .adv-criteria-select-comparison {
+      width: 125px;
+    }
+    .adv-criteria-input {
+      padding: 0 5px;
+      overflow: hidden;
+    }
+  }
+}

@@ -1,0 +1,114 @@
+<div class="clearfix wrapper">
+    <div class="title-col pull-left" [ngStyle]="{width: titleColWidth}">
+        {{title}}
+        <div class="wrapper-buttons">
+            <button class="button" [ngClass]="{'readonly': readonly}" [disabled]="!isValid||readonly"
+                    (click)="_setCount(_countCollection.length)">Add
+            </button>
+        </div>
+    </div>
+    <div class="control-col">
+        <div class="wrapper-controls" [ngStyle]="{width: controlColWidth}">
+            <table>
+                <tbody>
+                <!-- Fake block; -->
+                <!-- https://stackoverflow.com/questions/43947963/querylist-not-updated-with-dynamic-component -->
+                <tr [hidden]="true">
+                    <ng-container
+                            *ngTemplateOutlet="controlsWrapper;context:{
+                                width: width,
+                                validationEnabled: validationEnabled,
+                                allowClear: allowClear,
+                                firstEmpty: firstEmpty,
+                                value: null,
+                                lookupType: lookupType,
+                                compContext: compContext,
+                                placeholder: placeholder,
+                                placeholderRefToTranslate: placeholderRefToTranslate,
+                                i: -9999,
+                                readonly: true
+                            }"></ng-container>
+                </tr>
+                <tr *ngFor="let i of _countCollection">
+                    <ng-container
+                            *ngTemplateOutlet="controlsWrapper;context:{
+                                width: width,
+                                validationEnabled: validationEnabled,
+                                allowClear: allowClear,
+                                firstEmpty: firstEmpty,
+                                value: value,
+                                lookupType: lookupType,
+                                compContext: compContext,
+                                placeholder: placeholder,
+                                placeholderRefToTranslate: placeholderRefToTranslate,
+                                i: i,
+                                readonly: readonly
+                            }"></ng-container>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<ng-template #controlsWrapper
+             let-width="width"
+             let-validationEnabled="validationEnabled"
+             let-allowClear="allowClear"
+             let-firstEmpty="firstEmpty"
+             let-value="value"
+             let-lookupType="lookupType"
+             let-compContext="compContext"
+             let-placeholder="placeholder"
+             let-placeholderRefToTranslate="placeholderRefToTranslate"
+             let-i="i"
+             let-readonly="readonly"
+
+>
+
+    <td style="width: 250px;">
+
+        <imfx-lookups-select2
+                *ngIf="i > 0"
+                #controls
+                [width]="'100%'"
+                [validationEnabled]="validationEnabled"
+                [allowClear]="allowClear"
+                [firstEmpty]="firstEmpty"
+                [value]="null"
+                [lookupType]="lookupType"
+                [compContext]="self"
+                [placeholder]="placeholder"
+                [placeholderRefToTranslate]="'base.selectOoo'"
+                [readonly]="readonly"
+                [dbField]="idField"
+                (onSelect)="_onUpdateControl($event, i)"
+                (onUnselect)="_onUpdateControl($event, i)"
+        ></imfx-lookups-select2>
+
+        <div [hidden]="true" *ngIf="i == 0">
+            <imfx-lookups-select2
+                    #controls
+                    [width]="'100%'"
+                    [validationEnabled]="validationEnabled"
+                    [allowClear]="allowClear"
+                    [firstEmpty]="firstEmpty"
+                    [value]="null"
+                    [lookupType]="lookupType"
+                    [compContext]="self"
+                    [placeholder]="placeholder"
+                    [placeholderRefToTranslate]="'base.selectOoo'"
+                    [readonly]="readonly"
+                    [dbField]="idField"
+            ></imfx-lookups-select2>
+        </div>
+
+    </td>
+    <td>
+        <button *ngIf="i > 0" class="button" [disabled]="readonly" [ngClass]="{'readonly': readonly}"
+                (click)="_setCount(_countCollection.length-1, i)">X
+        </button>
+    </td>
+
+</ng-template>

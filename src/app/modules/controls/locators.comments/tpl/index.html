@@ -1,0 +1,21 @@
+<div class="h-tab-wrapper locator-comments-wrapper" #mediaTagging>
+    <div id="locatorsCommentsSlickGridextErnalWrapper{{config.id}}" style="height: calc(100% - 32px);">
+        <slick-grid
+            #slickGridComp
+            class="vertical-align-row small-height-header"
+            [config]="locatorsCommentsSlickGridConfig"
+            style="    width: 100%;">
+        </slick-grid>
+    </div>
+    <div *ngIf="!config.readOnly">
+        <button (click)="addEntry(false)" title="{{'media_logger.add_locator' | translate }}">
+            <i class="icons-add icon"></i>
+            {{ 'media_logger.add_locator' | translate }}
+        </button>
+        <button (click)="addEntry(true)" style="margin-left: 5px;" [disabled]="disableReplaceBnt()" title="{{'media_logger.replace_in_out_hint' | translate }}">
+            <i class="fa fa-edit" style="width: 20px;height: 32px;opacity: 0.6;"></i>
+            {{ 'media_logger.replace_in_out' | translate }}
+        </button>
+        <label class="total-duration">Total Duration: {{totalDuration}}</label>
+    </div>
+</div>

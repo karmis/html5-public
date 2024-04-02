@@ -1,0 +1,69 @@
+@import "../../../../views/base/styles/theme.scss";
+@each $key, $value in $common-themes {
+  .#{$key} {
+    .cssload-container {
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      background-color: getThemeColor(5,$key);
+      position: absolute;
+      display: table;
+
+      .cssload-container-cell {
+        display: table-cell;
+        vertical-align: middle;
+
+        .cssload-speeding-wheel {
+          width: 119px;
+          height: 119px;
+          margin: 0 auto;
+          border: 14px solid #535353;
+          border-radius: 50%;
+          border-left-color: transparent;
+          border-right-color: transparent;
+          animation: cssload-spin 1500ms infinite linear;
+          -o-animation: cssload-spin 1500ms infinite linear;
+          -ms-animation: cssload-spin 1500ms infinite linear;
+          -webkit-animation: cssload-spin 1500ms infinite linear;
+          -moz-animation: cssload-spin 1500ms infinite linear;
+        }
+      }
+    }
+    .chart-filters-wrapper {
+      position: relative;
+      box-sizing: border-box;
+      padding: 5px;
+      text-align: center;
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+      height: 40px;
+
+      .chart-select {
+        width: 40%;
+      }
+    }
+
+
+
+    @keyframes cssload-spin {
+      100%{ transform: rotate(360deg); transform: rotate(360deg); }
+    }
+
+    @-o-keyframes cssload-spin {
+      100%{ -o-transform: rotate(360deg); transform: rotate(360deg); }
+    }
+
+    @-ms-keyframes cssload-spin {
+      100%{ -ms-transform: rotate(360deg); transform: rotate(360deg); }
+    }
+
+    @-webkit-keyframes cssload-spin {
+      100%{ -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+    }
+
+    @-moz-keyframes cssload-spin {
+      100%{ -moz-transform: rotate(360deg); transform: rotate(360deg); }
+    }
+  }
+}

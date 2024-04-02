@@ -1,0 +1,79 @@
+@import "../../../../../../../base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .settings-service-config-details {
+            height: 100%;
+            .tab-pane {
+                margin-top: 5px;
+            }
+            .ug-header {
+                li {
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+                h1 {
+                    margin-bottom: 0;
+                }
+            }
+            .spinner.icon {
+                display: inline-block;
+                margin: 0 5px;
+            }
+            tab {
+                height: 100%;
+            }
+            .tab-content {
+                height: calc(100% - 64px);
+            }
+
+            .config-fields-wrapper {
+                padding-top: 10px;
+                padding-bottom: 10px;
+                margin-bottom: 10px;
+                border-bottom: 1px solid getThemeColor(9, $key);
+                border-top: 1px solid getThemeColor(9, $key);
+height: 220px;
+
+                div {
+                    display: flex;
+                    vertical-align: top;
+                    padding: 5px 0;
+
+                    span {
+                        width: 200px;
+                    }
+                    input, textarea {
+                        flex: 1;
+                        &.invalid {
+                            outline: none;
+                            -webkit-box-shadow: 0px 0px 5px getThemeColor(13, $key);
+                            box-shadow: 0px 0px 5px getThemeColor(13, $key);
+                        }
+                    }
+
+                    textarea {
+                        resize: none;
+                        height: 120px;
+                    }
+
+                    label {
+                        margin: 0;
+                        display: flex;
+                        width: 100%;
+
+                        input {
+                            flex: none;
+                        }
+                    }
+                }
+            }
+
+            .config-xml-wrapper {
+                height: calc(100% - 280px);
+                display: block;
+                overflow: auto;
+            }
+        }
+    }
+}

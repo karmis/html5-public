@@ -1,0 +1,470 @@
+@import "../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .video-js {
+            .vjs-loading-spinner-wrapper{
+                position: relative;
+                pointer-events: none;
+                width: 100%;
+                height: calc(100% - 60px);
+            }
+            &.vjs-seeking .vjs-loading-spinner-wrapper .vjs-loading-spinner,
+            &.vjs-waiting .vjs-loading-spinner-wrapper .vjs-loading-spinner {
+                display: none;
+            }
+            &.vjs-seeking .vjs-loading-spinner-wrapper .vjs-loading-spinner.show-loader,
+            &.vjs-waiting .vjs-loading-spinner-wrapper .vjs-loading-spinner.show-loader {
+                display: block;
+            }
+
+            .icon-set-thumbnail-select {
+                width: 20px;
+                opacity: 0.6;
+                vertical-align: middle;
+                transition: all 0.2s ease-in-out;
+                text-align: center;
+                white-space: pre-wrap;
+                &:hover {
+                    opacity: 1;
+                }
+                &.disabled {
+                    opacity: 0.3;
+                    pointer-events: none;
+                }
+            }
+        }
+        .player-wrapper {
+            position: relative;
+            height: 100%;
+            border: 1px solid transparent;
+            padding: 5px;
+            background: getThemeColor(4, $key);
+            &.focused {
+                border: 1px solid getThemeColor(10, $key);
+            }
+        }
+        .gl-layout .player-wrapper {
+            margin: -5px;
+        }
+        .clip-canvas, .empty-canvas {
+            position: absolute;
+            width: 683px;
+            height: 384px;
+            opacity: 0;
+            top: 0;
+            z-index: -1;
+        }
+        .vjs-seek-to-live-control {
+            display: none !important;
+        }
+
+        .video-js .vjs-current-time,
+        .video-js .vjs-duration,
+        .vjs-live .vjs-time-control,
+        .vjs-live .vjs-time-divider,
+        .vjs-no-flex .vjs-current-time,
+        .vjs-no-flex .vjs-duration {
+            display: block !important;
+        }
+        .vjs-seeking.vjs-rewind .vjs-loading-spinner{
+            display: none;
+        }
+        .video-js {
+            margin: auto;
+            width: 100%;
+            height: 100%;
+            color: getThemeColor(16, $key);
+            .vjs-volume-level:before,
+            .vjs-play-progress:before,
+            .ui-slider-handle {
+                content: "";
+                width: 12px;
+                height: 12px;
+                background: white;
+                border-radius: 50%;
+                cursor: pointer;
+                right: -4px;
+                position: absolute;
+                z-index: 10;
+                top: -2px;
+                outline: none;
+                box-shadow: 0 0 0 2px rgba(18, 22, 26, 0.2), 0 4px 4px 0 rgba(18, 22, 26, 0.2);
+            }
+            &.vjs-user-inactive {
+                .vjs-control-bar {
+                    opacity: 1!important;
+                }
+            }
+            .vjs-control-bar, #sub_control_bar {
+                background-color: transparent;// getThemeColor(4, $key)!important;
+                height: auto;
+                display: flex;
+                flex-wrap: wrap;
+                align-items: flex-start;
+                justify-content: space-between;
+                margin-top: 10px;
+                .sub-control-bar {
+                    display: flex;
+                    align-items: center;
+                    order: 0;
+                }
+                .sub-bottom-control-bar{
+                    width: 100%;
+                    height: 25px;
+                    box-sizing: border-box;
+                    border-top: 1px solid #546878;
+                    z-index: 10;
+                }
+                .icon-button .icon:hover {
+                    opacity: 1;
+                }
+                #center_control_bar {
+                    margin: auto;
+                }
+            }
+            #sub_control_bar {
+                width: 100%;
+                z-index: 10;
+                padding-bottom: 10px;
+            }
+            .vjs-time-controls.vjs-timecode {
+                color: getThemeColor(16, $key);
+                font-family: 'sinkin_sans400_regular', 'Roboto', sans-serif!important;
+                font-size: 10px;
+                div {
+                    font-size: 13px;
+                }
+            }
+            button:hover:not(.large),
+            button:focus,
+            div.icon-button:hover,
+            div.icon-button:focus{
+                box-shadow: 0 8px 16px rgba(51, 60, 69, 0.08);
+            }
+            div.icon-button {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                cursor: pointer;
+            }
+            .vjs-menu {
+                margin-bottom: 0;
+                bottom: 0;
+                .vjs-menu-content {
+                    bottom: 30px;
+                }
+                li {
+                    color: getThemeColor(15, $key);
+                    opacity: 0.8;
+                    &.vjs-selected {
+                        background-color: #2a8cea;
+                        color: getThemeColor(15, $key);
+                        opacity: 1;
+                        &:focus, &:hover {
+                            background-color: #2a8cea;
+                            color: getThemeColor(15, $key);
+                        }
+                    }
+                    &:focus, &:hover {
+                        outline: 0;
+                        background-color: #73859f;
+                        background-color: rgba(115, 133, 159, 0.5);
+                    }
+                }
+            }
+            .vjs-menu-button {
+                transform: none;
+            }
+            .vjs-resize-manager {
+                border: none;
+            }
+            .imfx-audio-icon {
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 50px;
+                right: 0;
+                text-align: center;
+                overflow: hidden;
+                pointer-events: none;
+                display: none;
+                i {
+                    width: 100px;
+                    height: 100px;
+                    display: block;
+                    font-size: 100px;
+                    margin: auto;
+                    position: relative;
+                    top: calc(50% - 50px);
+                    background: rgb(150, 150, 150);
+                    border-radius: 50px;
+                    opacity: 1;
+
+                    &:before {
+                        font-size: 80px;
+                    }
+                }
+            }
+            &.vjs-has-started .imfx-audio-icon {
+                display: block;
+            }
+            .vjs-error-display {
+                .vjs-control-text {
+                    clip: unset;
+                    height: auto;
+                    text-align: center;
+                    width: 100%;
+                    padding-top: 10px;
+                    padding-bottom: 10px;
+                }
+                p:first-letter {
+                    text-transform: capitalize;
+                }
+            }
+            .stretch-video {
+                object-fit: fill;
+            }
+        }
+        .simple-mode {
+            .video-js {
+                .vjs-control-bar, #sub_control_bar {
+                    margin-top: 10px;
+                    padding: 0;
+                }
+            }
+        }
+        .vjs-segment-position {
+            background: #d43636; // like at the poster
+            width: 3px;
+            height: 100%;
+            position: absolute;
+            z-index: 1; // actually >= 1 and < 10
+        }
+        .imfx-video-dimensions {
+            width: 100% !important;
+            height: 100% !important;
+        }
+        .search-details .video-js:not(.vjs-fullscreen),
+        .search-details .imfx-video-dimensions:not(.vjs-fullscreen) {
+            height: 400px !important;
+        }
+        .vjs-poster {
+            display: none;
+            background-position: 50% 30%;
+            background-size: 100%!important;
+            margin: 0 30px;
+        }
+        .video-js .vjs-control {
+            width: 28px;
+        }
+        .vjs-menu li {
+            text-transform: capitalize!important;
+            font-size: 14px;
+            span {
+                font-size: 14px;
+            }
+        }
+        .vjs-menu-button-popup .vjs-menu {
+            right: 0;
+            left: auto;
+        }
+        .video-js .vjs-control.vjs-timecode {
+            width: 200px;
+            margin-top: 4px;
+            font-size: 12px;
+            padding: 6px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .currentTimecode {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                div {
+                    width: 17px;
+                }
+                .separator {
+                    font-size: 13px;
+                }
+            }
+        }
+        video.vjs-tech {
+            display: flex;
+            margin: auto;
+            //position: relative!important;
+        }
+        .vjs-marker.tags-marker {
+            width: 3px!important;
+            background-color: getThemeColor(7, $key)!important;
+            height: 9px;
+            top: 0px;
+            z-index: 2;
+            position: absolute;
+            display: inline-block;
+            border-radius: 0!important;
+            margin-left: 0!important;
+        }
+        .vjs-marker.interval-tags-marker {
+            border-radius: 0!important;
+            background-color: getThemeColor(7, $key) !important;
+            height: 3px;
+            top: 9px;
+            z-index: 2;
+            position: absolute;
+            display: inline-block;
+            margin-left: 0!important;
+        }
+        .vjs-marker.in-marker,
+        .vjs-marker.out-marker {
+            height: 100%;
+            display: inline-block;
+            top: 0;
+            width: 4px;
+            //z-index: 2;
+            position: absolute;
+            border-radius: 0!important;
+            background-color: getThemeColor(12, $key)!important;
+        }
+        .vjs-marker:before, .vjs-marker:after {
+            position: absolute;
+            top: 7px;
+            //font-weight: bold;
+            font-size: 16px;
+            z-index: 10;
+        }
+        .vjs-marker.in-marker {
+            &:before {
+                content: '{';
+                left: -2px;
+            }
+        }
+        .vjs-marker.out-marker {
+            &:after {
+                content: '}';
+                right: -2px;
+            }
+        }
+        .vjs-marker.out-marker {
+            //display: none;
+        }
+        .vjs-marker.in-marker {
+            margin: 0 0.4em 0 0!important;
+        }
+        .vjs-marker.media-som-eom {
+            background-color: transparent!important;
+            top: 9px;
+            width: 0px!important;
+            margin-left: -9px!important;
+            &.fa-caret-up {
+                color: getThemeColor(10, $key);
+            }
+            &.fa-caret-up:hover {
+                color: getThemeColor(12, $key);
+            }
+        }
+        .vjs-marker.media-som-eom:before {
+            font-size: 18px!important;
+            line-height: 10px;
+            width: 18px;
+        }
+        .vjs-tip {
+            top: 8px;
+            background: getThemeColor(35, $key);;
+            position: absolute;
+            margin-left: -39px;
+            visibility: hidden;
+            width: 80px;
+            padding: 5px;
+            z-index: 12;
+            text-align: center;
+        }
+        .vjs-mouse-display,
+        .vjs-play-progress {
+            font-size: 20px!important;
+        }
+        .vjs-texttrack-settings {
+            display: none;
+        }
+        .vjs-waveform {
+            wave {
+                background: #fff;
+            }
+        }
+        .vjs-button:before {
+            content: none!important;
+        }
+        .vjs-text-track-display {
+            div {
+                font-size: 1.02em !important;
+            }
+        }
+        .audio-track-overlay {
+            display: none;
+            background-repeat: no-repeat;
+            background-position: center;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            background-size: contain;
+            pointer-events: none;
+            left: 0px;
+            text-align: right;
+            padding: 5px;
+            text-transform: capitalize;
+        }
+        .png-overlay {
+            margin: 5px 0;
+        }
+        .png-overlay, .timecode-overlay {
+            background-repeat: no-repeat;
+            background-position: center;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            background-size: contain;
+            pointer-events: none;
+            left: 0px;
+        }
+        .timecode-overlay{
+            display: none;
+            padding: 40px;
+            text-shadow: 1px 1px 2px black, 0 0 1em black;
+            font-size: 2em;
+            color: #F5F5F5;
+        }
+        .vjs-time-tooltip {
+            display: none!important;
+        }
+
+        .vjs-full-window .video-js.vjs-fullscreen{
+            z-index: 160;
+        }
+        .opening-overlay {
+            display: flex;
+            background-repeat: no-repeat;
+            background-position: center;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            background-size: contain;
+            left: 0px;
+            justify-content: center;
+            align-items: center;
+            color: #F5F5F5;
+            z-index: 1;
+        }
+    }
+    #not-available {
+        font-size: 20px;
+        opacity: 0.5;
+        position: absolute;
+        top: calc(50% - 20px);
+        width: 100%;
+        text-align: center;
+        right: 0;
+    }
+}

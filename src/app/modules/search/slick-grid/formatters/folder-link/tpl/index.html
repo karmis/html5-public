@@ -1,0 +1,14 @@
+<span *ngIf="params.data.IsFolder; else simpleView"
+      class='folder-link'
+      (click)="goToFolder($event)"
+>
+        {{!isEmpty(params.data.Name) ? params.data.Name : ''}}
+</span>
+
+<ng-template #simpleView>
+    <ng-container *ngIf="!isEmpty(params.data.Name)"
+    >
+        {{params.data.Name}}
+    </ng-container>
+</ng-template>
+

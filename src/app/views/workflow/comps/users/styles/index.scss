@@ -1,0 +1,112 @@
+@import "../../../../../views/base/styles/theme.scss";
+@import "../../../../../views/base/styles/blocks/inputs.scss";
+@import "../../../../../views/base/styles/blocks/buttons.scss";
+@import "../../../../../views/base/styles/blocks/nav.scss";
+@import "../../../../../views/base/styles/blocks/nav.tabbed.scss";
+@import "../../../../../views/base/styles/blocks/rows.scss";
+
+.default {
+    .workflow-view {
+        .ui-fancytree {
+            .custom-style {
+                &.User {
+                    background: #c4cfda;
+                    .fancytree-title {
+                        color: #F5F5F5 !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.dark {
+    .workflow-view {
+        .ui-fancytree {
+            .custom-style {
+                &.User {
+                    background: #1472cd;
+                    .fancytree-title {
+                        color: #F5F5F5 !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .workflow-view {
+            .ui-fancytree {
+                span.fancytree-node {
+                    border: 1px solid transparent;
+                    box-sizing: border-box;
+                    padding-top: 3px;
+                    padding-bottom: 3px;
+                }
+                span.fancytree-node.tree-dragging {
+                    border: 1px getThemeColor(7, $key) solid;
+                }
+                .tree-dragging {
+                    &.custom-style {
+                        &.User {
+                            background: #219c47;
+                        }
+                    }
+                }
+                .custom-style {
+                    display: flex;
+                    flex-direction: row;
+                    &.Area {
+                        //background: getThemeColor(1, $key);
+                    }
+                    &.Site {
+                        //background: getThemeColor(9, $key);
+                        //background-color: #ffeb0d;
+                    }
+                    &.User {
+                        background: getThemeColor(20, $key);
+                        border: 1px getThemeColor(20, $key) solid;
+                        border-radius: 8px;
+                        margin-top: 4px;
+                        margin-left: 16px;
+                        padding-left: 6px;
+                        width: 85%;
+                        min-width: 180px;
+                        //.fancytree-title {
+                        //  color: getThemeColor(8, $key) !important;
+                        //}
+                        .fancytree-expander {
+                            display: none;
+                        }
+                    }
+                    .fancytree-title {
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        flex: 2;
+                    }
+                }
+                &.fancytree-selected {
+                    background: getThemeColor(10, $key);
+                    border-radius: 8px;
+                    margin-top: 4px;
+                    margin-left: 16px;
+                    padding-left: 6px;
+                }
+            }
+
+            .btn-full {
+                width: 100%;
+                margin-bottom: 5px;
+            }
+
+            .appointment {
+                height: calc(100% - 50px);
+                overflow: auto;
+            }
+        }
+    }
+}

@@ -1,0 +1,66 @@
+@import "../../../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        #settings-modal-wrapper {
+            background-repeat: no-repeat;
+            background-position: center;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            background-size: contain;
+            left: 0px;
+            pointer-events: none;
+        }
+        #settings-modal-wrapper {
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        .settings-modal {
+            pointer-events: auto;
+            padding: 20px 20px;
+            background-color: rgba(43, 51, 63, .7);
+            background-repeat: no-repeat;
+            background-position: center;
+            position: absolute;
+            background-size: contain;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            &.media {
+                padding: 10px 20px;
+                padding-top: 40px;
+                height: 200px;
+                width: 300px;
+            }
+            .segment {
+                display: flex;
+                //justify-content: center;
+                input[type="range"] {
+                    margin-left: 10px;
+                    -webkit-appearance: none !important;
+                    background-color: #555;
+                    box-shadow: 0 -1px 1px rgba(255, 255, 255, 0.5) inset;
+                    border-radius: 10px;
+                    height: 8px;
+                }
+                input[type="range"]::-webkit-slider-thumb {
+                    -webkit-appearance: none !important;
+                    width: 20px;
+                    height: 8px;
+                    box-shadow: 1px 1px 5px rgba(0, 0, 0, 1);
+                    cursor: pointer;
+                    border-top: 1px solid #fff;
+                    background: #ccc -webkit-linear-gradient(top, rgb(240, 240, 240), rgb(210, 210, 210));
+                }
+                span {
+                    color: #F5F5F5;
+                }
+            }
+        }
+    }
+}

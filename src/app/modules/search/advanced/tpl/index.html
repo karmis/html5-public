@@ -1,0 +1,125 @@
+<div *access="'advsearch'"
+     class="advanced sidebar test-advanced-searching-div-advanced-search-block"
+     (keyup.enter)="sendSubmit()">
+    <nav class="tabbed" *ngIf="config.options.enabledQueryBuilder && config.options.enabledQueryByExample">
+        <ul>
+            <li class="test-adv-qba-btn" (click)="setAdvSearchMode('builder')" *access="'advsearch-builder'"
+                [ngClass]="{'active': config.options.advancedSearchMode=='builder'}">
+                <a>
+                    {{ 'advanced.query_builder_btn' | translate }}
+                </a>
+            </li>
+            <li class="test-adv-qbe-btn" (click)="setAdvSearchMode('example')" *access="'advsearch-example'"
+                [ngClass]="{'active': config.options.advancedSearchMode=='example'}">
+                <a>
+                    {{ 'advanced.query_example_btn' | translate }}
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div #sidebarContent
+         class="sidebar-content-wrapper">
+        <div class="sidebar-content">
+            <div class="row-header" style="margin-top: 12px;margin-bottom: 12px;">
+                <nav [hidden]="!config.options.enabledSavedSearches">
+                    <!--saved searches-->
+                    <search-saved
+                            #searchSavedModule
+                            [config]="searchSavedConfig"
+                            [hidden]="config.options.advancedSearchMode != 'builder'"
+                            [clearCache]="clearCacheSavedSearch"
+                    ></search-saved>
+                </nav>
+            </div>
+
+            <!--controls-->
+            <!--Builder-->
+            <div *ngIf="config.options.enabledQueryBuilder"
+                 class="test-advanced-searching-div-advanced-group qba-wrapper">
+                <div *access="'advsearch-builder'">
+                    <div [hidden]="config.options.advancedSearchMode!='builder'" style="width: 100%; overflow: auto">
+                        <div *ngFor="let group of config.options.builderData.groups; let i=index">
+                            <advanced-group-builder
+                                    (onAddCriteria)="addCriteria($event)"
+                                    (onUpdateCriteria)="updateCriteria($event)"
+                                    (onRemoveCriteria)="removeCriteria($event)"
+                                    (onRemoveGroup)="removeGroup($event)"
+                                    [mode]="'builder'"
+                                    [common]="config.options.commonData"
+                                    [group]="group">
+                            </advanced-group-builder>
+                        </div>
+
+                        <div *ngIf="config.options.enabledAddMultipleGroups || config.options.builderData.groups.length == 0" class="or-divider">
+                            <button (click)="addGroup()" class="test-advanced-searching-button-add-group">
+                                {{'advanced.add_group'|translate}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Example-->
+            <div *ngIf="config.options.enabledQueryByExample" class="qbe-wrapper">
+                <div *access="'advsearch-example'">
+                    <div [hidden]="config.options.advancedSearchMode!='example'" style="width: 100%; overflow: auto">
+                        <div *ngFor="let group of config.options.exampleData.groups; let i=index">
+                            <advanced-group-example
+                                    (onUpdateCriteria)="updateCriteria($event)"
+                                    [mode]="'example'"
+                                    [common]="config.options.commonData"
+                                    [group]="group">
+                            </advanced-group-example>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end controls-->
+        </div>
+        <div
+                id="adv-controls-block"
+                class="btn-adv"
+                style="margin-top: 20px; margin-bottom: 1em;"
+        >
+            <div class="adv-controls-block-left">
+                <button
+                        [hidden]="config.options.builderData.groups.length == 0&&config.options.advancedSearchMode == 'builder' "
+                        *ngIf="config.options.allowClearSearchParams"
+                        class="test-advanced-searching-button-clear btn-adv btn-adv-left"
+                        (click)="clearParams()">
+                    {{ 'base.clear' | translate }}
+                </button>
+
+                <button
+                        class="test-advanced-searching-button-remove-builder btn-adv btn-adv-left"
+                        *ngIf="config.options.allowSaveSearchParams"
+                        [hidden]="!isVisibleRemoveSearchButton"
+                        (click)="removeSearch()">
+                    {{ 'common.remove' | translate }}
+                </button>
+
+                <button class="test-advanced-searching-button-new-builder btn-adv btn-adv-left"
+                        *ngIf="config.options.allowSaveSearchParams"
+                        [hidden]="!isVisibleCreateSearchButton"
+                        (click)="createSearch()">
+                    {{ 'common.createNew' | translate }}
+                </button>
+                <button (click)="saveSearch()"
+                        class="test-advanced-searching-button-save-builder btn-adv btn-adv-left"
+                        *ngIf="config.options.allowSaveSearchParams && config.options.advancedSearchMode == 'builder' && config.options.builderData.groups.length > 0">
+                    {{ 'base.save' | translate }}
+                </button>
+            </div>
+
+            <!-- <div class="adv-controls-block-right">
+            </div> -->
+        </div>
+    </div>
+    <div class="angucomplete-overlay" *ngIf="!isDataLoaded"><!---->
+        <div class="spinner small suggestion-overlay"></div>
+        <!--span>{{'common.searching_placeholder' | translate}}</span-->
+    </div>
+</div>
+
+
+

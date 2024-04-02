@@ -1,0 +1,111 @@
+@import "../../../../../../../base/styles/theme.scss";
+@each $key, $value in $common-themes {
+  .#{$key} {
+      user-groups-tab {
+        width: 100%;
+        height: 100%;
+        background: getThemeColor(4, $key);
+
+          .tab-wrapper {
+              width: 100%;
+              height: 100%;
+              overflow: hidden;
+
+              .tab-content-wrapper {
+                  height: calc(100% - 35px);
+                  position: relative;
+                  padding: 0 5px 5px 5px;
+
+                  .tab-table-wrapper {
+                      background: getThemeColor(3, $key);
+                      width: 100%;
+                      overflow-x: hidden;
+                      overflow-y: auto;
+                      height: 100%;
+
+                      .tab-row {
+                          height: 24px;
+                          line-height: 24px;
+                          width: 100%;
+                          font-size: 0;
+                          border-bottom: 1px solid getThemeColor(4, $key);
+
+                          .item {
+                              height: 24px;
+                              line-height: 24px;
+                              white-space: nowrap;
+                              overflow: hidden;
+                              text-overflow: ellipsis;
+                              display: inline-block;
+                              cursor: pointer;
+                              padding: 0 5px;
+                              vertical-align: top;
+
+                              &.name {
+                                  width: 100px;
+                                  border-right: 1px solid getThemeColor(4, $key);
+                              }
+
+                              &.description {
+                                  width: calc(100% - 100px);
+                              }
+                          }
+
+                          &.selected {
+                              background: getThemeColor(10, $key);
+                              color: #fff;
+                          }
+
+                          &:hover {
+                              background: getThemeColor(4, $key);
+                              color: getThemeColor(1, $key);
+                              .item {
+                                  &.name {
+                                      border-right: 1px solid getThemeColor(3, $key);
+                                  }
+                              }
+                          }
+                      }
+                  }
+              }
+
+              .buttons-row {
+                  position: absolute;
+                  width: 70px;
+                  top: 2px;
+                  right: 5px;
+                  text-align: right;
+                  height: 24px;
+                  line-height: 24px;
+
+                  i {
+                      cursor: pointer;
+                      opacity: 0.6;
+                      display: inline-block;
+
+                      &.add-item {
+                          transform: rotate(45deg) scale(0.9, 0.9);
+                      }
+
+                      &:hover {
+                          opacity: 1;
+                      }
+                      &.is-active {
+                          color: getThemeColor(7, $key);
+                      }
+
+                      &.disabled {
+                          opacity: 0.2;
+
+                          &:hover {
+                              opacity: 0.2;
+                              cursor: default;
+                          }
+                      }
+                  }
+              }
+          }
+      }
+  }
+}
+

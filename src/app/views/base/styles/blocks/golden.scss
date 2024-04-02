@@ -1,0 +1,52 @@
+.lm_dragProxy {
+    .lm_header {
+        border-bottom: 0;
+        margin: 0 12px;
+        font-size: 11px;
+        white-space: nowrap;
+        height: 35px!important;
+        ul.lm_tabs {
+            margin-left: 0;
+            margin-right: 0;
+            margin-top: 4px;
+            li {
+                text-transform: uppercase;
+                letter-spacing: 0.1rem;
+            }
+        }
+        .lm_tab {
+            background: #c6ced5; // because element are in body, has no theme class
+            border: 0;
+            box-shadow: none!important;
+            padding: 0 10px 3px 10px!important;
+            height: 25px !important;
+            display: flex;
+            align-items: center;
+            .lm_title {
+                display: inline-block;
+                overflow: hidden;
+                font-weight: normal;
+                text-overflow: ellipsis;
+                font-family: 'sinkin_sans500_medium', 'Roboto', sans-serif;
+            }
+        }
+    }
+    .lm_content {
+        display: none;
+    }
+}
+.lm_header {
+    .lm_tab {
+        .lm_close_tab {
+            button.icon-button, button.icon-button:active {
+                transform: none;
+            }
+        }
+    }
+}
+.golden-layout-detail {
+    button {
+        text-overflow: ellipsis;
+        overflow: hidden!important;
+    }
+}

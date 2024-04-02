@@ -1,0 +1,11 @@
+<div #grafanawrapper class="full-height full-width">
+  <div class="full-height-width-block grafana-wrapper">
+    <div class="container-fluid" style="position: relative; height:100%;">
+      <iframe *ngIf="!error" [src]="targetWidget + (theme == 'default' ? '&theme=light' : '&theme=dark') | safe" style="width: 100%; height: 100%" frameborder="0"></iframe>
+      <div *ngIf="error">
+        <h2>{{'dashboard.error' | translate}}</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<overlay #overlay [zIndex]="100" ></overlay>

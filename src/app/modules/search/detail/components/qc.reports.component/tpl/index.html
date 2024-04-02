@@ -1,0 +1,127 @@
+<div class="qc-reports-wrapper">
+    <as-split>
+        <as-split-area>
+            <as-split [direction]="'horizontal'">
+                <as-split-area
+                        [order]="1"
+                        [size]="20"
+                        style="overflow: hidden">
+                    <div class="qc-tree-block-split">
+                        <input #filterInput type="text" (keyup)="filterData($event)"
+                               placeholder="{{'system-config.xml.filter' | translate}}"/>
+                        <i class="icons-cross icon" *ngIf="filterInput.value.length > 0"
+                           (click)="filterInput.value = ''; filterTree($event)"></i>
+                        <div class="qc-list-reports">
+                            <div *ngFor="let report of filteredQcReport; let i=index"
+                                 (click)="onSelectReport(report)"
+                                 class="format-item"
+                                 [ngClass]="{'selected': selectedId && report.Id === selectedId}">
+                                <p>
+                                    {{report.ReportName}}
+                                </p>
+                            </div>
+                        </div>
+                        <!--                        <imfx-controls-tree #tree-->
+                        <!--                                            [extensions]="['filter']"-->
+                        <!--                                            [selectMode]="4"-->
+                        <!--                                            [clickFolderMode]="2"-->
+                        <!--                                            [ext_filter]="{autoExpand: true, mode: 'hide', highlight: false}"-->
+                        <!--                                            [checkbox]="false"-->
+                        <!--                                            [icon]="false"-->
+                        <!--                                            (onActivate)="onSelectReport($event)">-->
+                        <!--                        </imfx-controls-tree>-->
+                    </div>
+                </as-split-area>
+                <as-split-area
+                        [order]="2"
+                        [size]="80">
+                    <div class="please-select-overlay" *ngIf="!data">
+                        Please select report
+                    </div>
+                    <as-split *ngIf="data"
+                              [direction]="'vertical'">
+                        <as-split-area
+                                [order]="1"
+                                [size]="40">
+                            <div class="qc-detail-block-split">
+                                <div class="qc-title-file pull-right">
+                                    <!--<h1 style="padding: 10px 20px 0 20px">Assisted QC Reports</h1>-->
+                                    <div class="card-row">
+                                        <div class="card-col">Result:</div>
+                                        <div class="card-col prop-name">{{data?.headers?.reportResult}}</div>
+                                    </div>
+                                </div>
+                                <div style="display: flex; flex-direction: column">
+                                    <div class="card-block-one">
+                                        <div class="card-row">
+                                            <div class="card-col">Summary:</div>
+                                            <div class="card-col prop-name">{{data?.headers?.reportSummary}}</div>
+                                        </div>
+                                        <div class="card-row">
+                                            <div class="card-col">Product Name:</div>
+                                            <div class="card-col prop-name">{{data?.headers?.productName}}</div>
+                                        </div>
+                                        <div class="card-row">
+                                            <div class="card-col">Product Version:</div>
+                                            <div class="card-col prop-name">{{data?.headers?.productVersion}}</div>
+                                        </div>
+                                        <div class="card-row">
+                                            <div class="card-col">Template Name:</div>
+                                            <div class="card-col prop-name">{{data?.headers?.templateName}}</div>
+                                        </div>
+                                        <div class="card-row">
+                                            <div class="card-col">Date:</div>
+                                            <div class="card-col prop-name">{{data?.headers?.reportDate}}</div>
+                                        </div>
+                                        <div class="card-row">
+                                            <div class="card-col">Media File:</div>
+                                            <div class="card-col prop-name">{{data?.headers?.fileName}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div style="display: flex; flex-direction: column">
+                                    <div class="card-block-one" style="margin-top: 10px;">
+                                        <ng-container *ngFor="let report of data.events; let a=index">
+                                            <ng-container *ngFor="let errors of report.errors; let b=index">
+                                                <ng-container *ngFor="let errorType of errors.errorType; let c=index">
+                                                    <ng-container *ngFor="let error of errorType.error; let d=index">
+                                                        <div
+                                                                class="qc-block"
+                                                                [ngClass]="{'selected': selectedErrorId && selectedErrorId === error.errorIdx}"
+                                                                [ngStyle]="{'border-left': '3px solid ' + error.colour + ''}"
+                                                                (click)="qcReportClick(error)"
+                                                        >
+                                                            <div class="qc-block-syn">
+                                                                <!--{{selectedErrorId}} - {{error.errorIdx}} {{selectedErrorId === error.errorIdx}} //-->
+                                                                <span class="qc-block-cap">Details: </span>
+                                                                <span>{{error.detail||'-'}}</span>
+                                                            </div>
+                                                            <div class="qc-block-time">
+                                                                <span class="qc-block-cap">Time: </span>
+                                                                <span *ngIf="error.inTC && error.outTC">{{error.inTC}} - {{error.outTC}}</span>
+                                                                <span *ngIf="!error.inTC || !error.outTC">none</span>
+
+                                                                <div class="qc-block-check">
+                                                                    <span class="qc-block-cap">Severity: </span>
+                                                                    <span>{{error.severity}}</span>
+                                                                </div>
+                                                            </div>
+
+                                                            <hr style="margin-top: 10px;">
+                                                        </div>
+                                                    </ng-container>
+                                                </ng-container>
+                                            </ng-container>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </as-split-area>
+                    </as-split>
+                </as-split-area>
+            </as-split>
+        </as-split-area>
+    </as-split>
+
+</div>

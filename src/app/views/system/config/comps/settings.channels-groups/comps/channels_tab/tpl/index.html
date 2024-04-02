@@ -1,0 +1,22 @@
+<div class="tab-wrapper edit-mode">
+    <div class="tab-label">
+        <span>{{"channels-groups.channels_tab" | translate}}</span>
+        <div class="buttons-row">
+            <i title="{{'channels-groups.add_channel' | translate}}"
+               (click)="addItems()"
+               class="icons-cross icon add-item"></i>
+            <i title="{{'channels-groups.remove_channel' | translate}}" class="icons-cross icon"
+               (click)="deleteItems()"
+               [ngClass]="{'disabled': selectedRows.length == 0}"></i>
+        </div>
+    </div>
+    <div class="tab-content-wrapper">
+        <div class="color-back-wrapper">
+            <div class="tab-content-row" [ngClass]="{'selected': selectedRows.indexOf(item) > -1}" *ngFor="let item of data; let i = index"
+                 title="{{item}}" (click)="processRowClick(item, $event, i)">
+                <span class="left-span noselect">{{item}}</span>
+                <span class="noselect">{{getFriendlyName(item)}}</span>
+            </div>
+        </div>
+    </div>
+</div>

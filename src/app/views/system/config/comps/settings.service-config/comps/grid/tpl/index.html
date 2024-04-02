@@ -1,0 +1,22 @@
+<div #serviceConfig class="service-config">
+    <div class="add-btn-wrapper">
+        <button *ngIf="!error" (click)="addServiceConfig()" title="{{ 'common_hints.add' | translate }}" class="add-btn">
+            <i class="icons-add icon"></i>
+            {{"common.add" | translate}}
+        </button>
+    </div>
+
+    <div class="service-config-grid-wrapper">
+        <div id="externalWrapperServiceConfig" style="height: 100%;">
+            <slick-grid #serviceConfigGrid
+                        [config]="serviceConfigGridOptions" class="small-height-header">
+            </slick-grid>
+        </div>
+    </div>
+
+    <div *ngIf="error" class="repeat-btn-wrapper">
+        <h2>{{'service_config.error' | translate}}</h2>
+        <button (click)="clickRepeat()">{{'service_config.repeat' | translate}}</button>
+    </div>
+</div>
+<overlay #overlayGroup [mode]="true" (isError)="isError($event)" [zIndex]="100"></overlay>

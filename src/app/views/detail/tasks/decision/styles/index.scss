@@ -1,0 +1,22 @@
+@import "../../../../base/styles/theme.scss";
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        wf-decision {
+            .job-notes-wrapper, .wrapper-info {
+                padding-left: 10px;
+            }
+            .tasks-control-buttons-wrap {
+                display: flex;
+            }
+            //.tcb .buttons-row {
+            //    width: 500px;
+            //}
+
+            slick-grid .dropdown.button.select2-wrapper {
+                width: 180px;
+            }
+        }
+    }
+}

@@ -1,0 +1,7 @@
+<div #docx class="docx-wrapper">
+    <div [ngStyle]="{'height': height}" *ngIf="error">
+        <h2 [ngStyle]="{'line-height': height}" style="text-align: center">{{text}}</h2>
+    </div>
+    <div *ngIf="!error" class="viewer-doc" #target [innerHTML]="innerHTML"></div>
+    <iframe name="frame" width=100% height=100% style="position:absolute;z-index:-1;top:0;"></iframe>
+</div>

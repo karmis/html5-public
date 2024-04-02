@@ -1,0 +1,75 @@
+<!--New grid-->
+<div class="setup-columns-modal">
+    <div class="modal-row ms-search ">
+        <input type="text"
+               spellcheck="false"
+               autocomplete="off"
+               name="search" style="height: 36px !important; min-height: 36px;"
+               placeholder="{{ 'common.search_placeholder' | translate }}"
+               class="form-control" [(ngModel)]="searchText"
+               autofocus focus="true"/></div>
+    <div class="js-scrollbar-target-modal-one" #columnsWrapper>
+        <div *ngFor="let col of columns | orderBy : ['name'] | byName : [searchText]">
+<!--        <div *ngFor="let col of columns | orderBy : ['name'] | byName : [searchText]">-->
+            <div class="modal-row">
+                <div class="modal-col">
+                    <input type="checkbox" value="{{col.name}}" style="cursor:pointer"
+                           (change)="setCheckbox($event, col)"
+                           [checked]="isActiveColumn(col)">
+                </div>
+                <div (click)="setCheckbox($event, col)" class="modal-col">{{col.name}}
+                    <span *ngIf="isXMLColumn(col)" class="custom-label" title="{{getXPath(col)}}">custom</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+
+        <div class="form-inline pull-left">
+            <button type="button" (click)="hide()" style="float: left;margin-right: 3px;">
+                {{ 'views.cancel' | translate }}
+            </button>
+            <button *ngIf="!selectedAll" type="button left" (click)="selectAll()"
+                    style="float: left;margin-right: 3px;">
+                {{ 'views.select_all' | translate }}
+            </button>
+            <button *ngIf="selectedAll" type="button left" (click)="selectAll()" style="float: left;margin-right: 3px;">
+                {{ 'views.deselect_all' | translate }}
+            </button>
+            <button *ngIf="showCustomColumnsButton" type="button" (click)="addCustomColumns()" style="float: left;margin-right: 3px;">
+                {{ 'views.add_custom' | translate }}
+            </button>
+        </div>
+
+
+        <div class="form-inline pull-right">
+            <!--<div class="form-group">-->
+            <!--<label>-->
+            <!--<input type="checkbox" name="isDefault" (change)="isDefault = !isDefault" [checked]="isDefault">-->
+            <!--As Default-->
+            <!--</label>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label>-->
+            <!--<input type="checkbox" name="isGlobal" (change)="isGlobal = !isGlobal" [checked]="isGlobal">-->
+            <!--As Global-->
+            <!--</label>-->
+            <!--</div>-->
+            <div class="form-group" *ngIf="isNew">
+                <button type="button"
+                        class="primary right"
+                        (click)="onOkAndSave()">
+                    {{ 'views.apply_and_save' | translate }}
+                </button>
+            </div>
+
+            <div class="form-group" *ngIf="!isNew">
+                <button type="button"
+                        class="primary right"
+                        (click)="onOk()">
+                    {{ 'common.ok' | translate }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

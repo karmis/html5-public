@@ -1,0 +1,6 @@
+<input
+        class="multi-selected"
+        type="checkbox"
+        [(ngModel)]="selected"
+        [disabled]="disabled"
+        (ngModelChange)="onChangeStatus($event)">

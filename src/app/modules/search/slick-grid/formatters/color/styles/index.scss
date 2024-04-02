@@ -1,0 +1,21 @@
+@import "../../../../../../views/base/styles/theme";
+
+@each $key,
+$value in $common-themes {
+  .#{$key} {
+      color-formatter-comp {
+            .hex-color-wrapper {
+                position: relative;
+                padding-left: 25px;
+                div {
+                    position: absolute;
+                    width: 20px;
+                    height: 20px;
+                    border: 1px solid black;
+                    left: 0;
+                    top: -3px;
+                }
+            }
+        }
+  }
+}

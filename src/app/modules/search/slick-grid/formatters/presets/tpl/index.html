@@ -1,0 +1,6 @@
+<div class="presets-formatter-wrapper" title="{{totalList}}">
+    <div *ngFor="let item of data | slice:0:3; let i=index" [ngClass]="{'disabled':!item.IsEnabled}">
+        <span>{{item.Value}}</span>
+    </div>
+    <span *ngIf="data && data.length > 3">And {{data.length - 3}} more</span>
+</div>

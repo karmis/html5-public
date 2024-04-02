@@ -1,0 +1,14 @@
+<li dropdown class="dropdown basket-dropdown" [ngClass]="{'updated': shectChanges}">
+  <a class="no-label basket-btn" [routerLink]="['media-basket']">
+    <i class="icons-basket icon"></i>
+    {{ getCount() }}
+  </a>
+  <div *ngIf="items.length" class="dialog dialog-basket submenu">
+    <div class="item">
+      <div class="row-item" *ngFor="let item of items; let i = index" (click)="itemClick($event)">
+        <media-basket-panel-item-component [item]="item"></media-basket-panel-item-component>
+      </div>
+    </div>
+    <button class="primary full-width" [routerLink]="['media-basket']" (click)="closeBasket()">{{ 'base.go_to_basket' | translate}}</button>
+  </div>
+</li>

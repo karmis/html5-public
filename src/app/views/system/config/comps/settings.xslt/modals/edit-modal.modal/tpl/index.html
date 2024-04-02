@@ -1,0 +1,58 @@
+<div class="cm-dd-modal-wrapper">
+    <div class="main-data">
+        <div class="field-wrapper">
+            <div class="label">{{'system-config.xslt.fields.name' | translate}}</div>
+            <input type="text" *ngIf="data" [(ngModel)]="data.NAME"/>
+        </div>
+        <div class="field-wrapper">
+            <div class="label">{{'system-config.xslt.fields.descr' | translate}}</div>
+            <input type="text" *ngIf="data" [(ngModel)]="data.DESCRIPTION"/>
+        </div>
+        <div class="field-wrapper">
+            <div class="label">{{'system-config.xslt.fields.naming_format' | translate}}</div>
+            <input type="text" *ngIf="data" [(ngModel)]="data.FILE_NAMING"/>
+        </div>
+        <div class="field-wrapper" style="width: 77%; display: inline-block;">
+            <div class="label">{{'system-config.xslt.fields.schema' | translate}}</div>
+            <imfx-controls-select2
+                *ngIf="schemasLookup && data"
+                [width]="'100%'"
+                [data]="schemasLookup"
+                [value]="[{Id: data.SCHEMA_ID}]"
+                [placeholder]="'xml.select_value'|translate"
+                [placeholderRefToTranslate]="'xml.select_value'"
+                [clearFormat]="{
+                    showButton: true,
+                    defaultValue: null
+                }"
+                (onSelect)="onSelectSchema($event)"></imfx-controls-select2>
+        </div>
+        <div class="field-wrapper" style="width: 23%; display: inline-block; line-height: 32px;">
+            <div class="label" style="padding-left: 10px;">{{'system-config.xslt.fields.exports' | translate}}</div>
+            <input type="checkbox" style="width: 16px;" *ngIf="data" [(ngModel)]="data.SAVE_EXPORTS_IN_DB"/>
+        </div>
+        <div class="field-wrapper schema">
+            <div class="label">{{'system-config.xslt.fields.schema_text' | translate}}</div>
+            <codemirror *ngIf="data" [(ngModel)]="data.XSLDATA"
+                        [config]="{'readOnly':false, 'lineNumbers': true }">
+            </codemirror>
+        </div>
+    </div>
+    <div class="overlay-wrapper" #modalEditXsltOverlayWrapper>
+        <div class="spinner"></div>
+    </div>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div>
+            <button type="button" (click)="saveData()">{{'common.save'| translate}}</button>
+            <button type="button" (click)="closeModal()">{{'common.cancel'| translate}}</button>
+            <div class="select-file-xml" *ngIf="isNew">
+                <button type="button browse">{{'system-config.xml.modal.transform'| translate}}</button>
+                <input type='file' accept='text/xml' (change)='openFile($event)'>
+            </div>
+
+        </div>
+    </div>
+</ng-template>

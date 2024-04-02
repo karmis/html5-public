@@ -1,0 +1,299 @@
+<div class="loan-details-wrapper workflow-details-wrapper">
+    <div class="imfx-detail-btns">
+        <nav>
+            <ul>
+                <li *ngIf="!error" class="back-button-clause">
+                    <button
+                        *ngIf="!isFirstLocation()"
+                        class="icon-button"
+                        title="{{ 'common.back_button' | translate }}"
+                        (click)="clickBack()">
+                        <i class="icons-left icon"></i>
+                    </button>
+                </li>
+                <li *ngIf="!error" class="detail-title">
+                    <h1 title="{{ (isEditMode ? 'loans.new_loan' : 'loans.title') | translate }}">
+                        {{ (isEditMode ? 'loans.new_loan' : 'loans.title') | translate }}
+                    </h1>
+
+                    <div class="tasks-control-buttons-wrap">
+                        <button class="refresh-flowchart-and-grid-btn"
+                                *ngIf="isEditMode"
+                                (click)="submit()"
+                                [disabled]="!isFormValid()">
+                            {{ 'loans.raise_request' | translate }}
+
+                        </button>
+                        <button class="refresh-flowchart-and-grid-btn"
+                                *ngIf="!isEditMode"
+                                (click)="saveNotes()"
+                                [title]="'loans.save_notes' | translate">{{'loans.save_notes' | translate }}</button>
+                    </div>
+                </li>
+                <li *ngIf="error &&!isFirstLocation()">
+                    <button class="icon-button" title="{{ 'common.back_button' | translate }}" (click)="clickBack()">
+                        <i class="icons-left icon"></i>
+                        {{'common.back_button' | translate}}
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="full-height-width-block">
+
+        <as-split *ngIf="!error"
+               #split
+               [style.float]="'left'"
+               [direction]="'vertical'">
+
+            <as-split-area
+                [order]="1"
+                [size]="38">
+                <div class="panel-flex-wrapper">
+                    <div class="panel card panel-default">
+                        <div class="panel-heading card-heading">
+                            <h2>{{'loans.loan_details' | translate}}</h2>
+                        </div>
+                        <form class="panel-body"
+                              *ngIf="details !== null"
+                              [formGroup]="form"
+                              (ngSubmit)="submit()">
+
+                            <div class="card-block">
+                                <div class="card-row" *ngIf="payloadForm.Id !== null">
+                                    <div class="card-col label">{{'loans.booking' | translate}}</div>
+                                    <div class="card-col prop-name">{{payloadForm.Id}}</div>
+                                </div>
+                                <div class="card-row">
+                                    <div class="card-col label">{{'loans.type' | translate}}</div>
+                                    <div class="card-col prop-name">
+                                        <imfx-controls-select2
+                                            #bookingTypeSelectEl
+                                            [width]="'100%'"
+                                            [multiple]="false"
+                                            [data]="[bookingTypeSelect.data]"
+                                            [selected]="bookingTypeSelect.selectedId"
+                                            [readonly]="bookingTypeSelect.readonly"
+                                            [placeholder]="'base.selectOoo'|translate"
+                                            (onSelect)="onChangeSelect($event, 'bookingTypeSelect')"
+                                            [placeholderRefToTranslate]="'base.selectOoo'"></imfx-controls-select2>
+                                    </div>
+
+                                </div>
+                                <div class="card-row">
+                                    <div class="card-col label">{{'loans.for' | translate}}</div>
+                                    <div class="card-col prop-name">
+                                        <input
+                                            [hidden]="isUserLookupSelect"
+                                            class="input-popup"
+                                            formControlName="naDeliverTo"
+                                            type="text"
+                                            readonly
+                                            [title]="form.get('naDeliverTo').value"
+                                            (click)="onOpenPopupName()"
+                                        />
+                                        <imfx-controls-select2
+                                            [hidden]="!isUserLookupSelect"
+                                            #userLookupSelectEl
+                                            [width]="'100%'"
+                                            [multiple]="false"
+                                            [data]="[userLookupSelect.data]"
+                                            [selected]="userLookupSelect.selectedId"
+                                            [readonly]="userLookupSelect.readonly"
+                                            [placeholder]="'base.selectOoo'|translate"
+                                            (onSelect)="onChangeSelect($event, 'userLookupSelect')"
+                                            [placeholderRefToTranslate]="'base.selectOoo'"></imfx-controls-select2>
+                                    </div>
+                                </div>
+                                <div class="card-row">
+                                    <div class="card-col label">{{'loans.required_date' | translate}}</div>
+                                    <div
+                                        class="card-col prop-name">
+                                        <ng-container *ngIf="!isEditMode; else dateReq">
+                                            <input
+                                                type="text"
+                                                [value]="payloadForm.RequiredFromDate | localDate: datetimeFullFormatLocaldatePipe"
+                                                readonly>
+                                        </ng-container>
+                                        <ng-template #dateReq>
+                                            <imfx-controls-datetimepicker
+                                                #requiredDatePickerEl
+                                                [locale]="'common.locale' | translate"
+                                                [format]="'common.date_full_format' | translate"
+                                                [formatDate]="'common.date_format' | translate"
+                                                [formatTime]="'common.time_format' | translate"
+                                                [allowBlank]="true"
+                                                [mask]="true"
+                                                [yearStart]="dateNow.getFullYear()"
+                                                [dayOfWeekStart]="'common.date_of_week_start' | translate"
+                                                [timepicker]="true"
+                                                [datepicker]="true"
+                                                [readonly]="false"
+                                                (onChangeDateTime)="onSelectDate($event, 'requiredFromDate')"
+                                            ></imfx-controls-datetimepicker>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                                <div class="card-row">
+                                    <div class="card-col label">{{'loans.return_date' | translate}}</div>
+                                    <div class="card-col prop-name">
+                                        <ng-container *ngIf="!isEditMode; else dateRet">
+                                            <input
+                                                type="text"
+                                                [value]="payloadForm.ReturnDate | localDate: datetimeFullFormatLocaldatePipe"
+                                                readonly>
+                                        </ng-container>
+                                        <ng-template #dateRet>
+                                            <imfx-controls-datetimepicker
+                                                #returnDatePickerEl
+                                                [locale]="'common.locale' | translate"
+                                                [format]="'common.date_full_format' | translate"
+                                                [formatDate]="'common.date_format' | translate"
+                                                [formatTime]="'common.time_format' | translate"
+                                                [allowBlank]="true"
+                                                [mask]="true"
+                                                [yearStart]="dateNow.getFullYear()"
+                                                [dayOfWeekStart]="'common.date_of_week_start' | translate"
+                                                [timepicker]="true"
+                                                [datepicker]="true"
+                                                [readonly]="false"
+                                                [validateOnBlur]="true"
+                                                (onChangeDateTime)="onSelectDate($event, 'returnDate')"
+                                            ></imfx-controls-datetimepicker>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                                <div class="card-row">
+                                    <div class="card-col label">{{'loans.delivery_method' | translate}}</div>
+                                    <div class="card-col prop-name">
+                                        <imfx-controls-select2
+                                            required
+                                            #deliveryMethodSelectEl
+                                            [width]="'100%'"
+                                            [multiple]="false"
+                                            [data]="[deliveryMethodSelect.data]"
+                                            [selected]="deliveryMethodSelect.selectedId"
+                                            [readonly]="deliveryMethodSelect.readonly"
+                                            [placeholder]="'base.selectOoo'|translate"
+                                            (onSelect)="onChangeSelect($event, 'deliveryMethodSelect')"
+                                            [placeholderRefToTranslate]="'base.selectOoo'"></imfx-controls-select2>
+
+                                    </div>
+                                </div>
+                                <div class="card-row" *ngIf="payloadForm.PlacedBy">
+                                    <div class="card-col label">{{'loans.placedby' | translate}}</div>
+                                    <div class="card-col prop-name">
+                                        <input type="text" readonly [value]="payloadForm.PlacedBy">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="notes-block">
+                                <div class="notes-block-row">
+                                    <div class="notes-block-label">
+                                        {{'loans.сreated' | translate}}
+                                    </div>
+                                    <div class="notes-block-det">
+                                        {{ payloadForm.CreatedDate | localDate: datetimeFullFormatLocaldatePipe }}
+                                    </div>
+                                </div>
+                                <div class="notes-block-row textarea">
+                                    <div class="notes-block-label">
+                                        {{'loans.loan_notes' | translate}}
+                                    </div>
+                                    <div class="notes-block-det">
+                                        <textarea formControlName="notes" (focusin)="changeNotes($event)"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </as-split-area>
+            <as-split-area
+                [order]="2"
+                [size]="62"
+                class="split-area">
+                <div class="panel-flex-wrapper">
+                    <div class="panel card panel-default" style="padding-bottom: 0px">
+                        <div class="v-header">
+                            <ul class="v-header_tabs">
+                                <li class="v-header_tab"
+                                    [ngClass]="{'v-header_active': tabActive === 'versions'}"
+                                    (click)="tabActive = 'versions'">
+                                    <span class="v-header_title">
+                                         {{'version.small_title' | translate}}
+                                    </span>
+                                </li>
+                                <li class="v-header_tab"
+                                    [ngClass]="{'v-header_active': tabActive === 'media'}"
+                                    (click)="tabActive = 'media'">
+                                    <span class="v-header_title">
+                                        {{'media.small_title' | translate}}
+                                    </span>
+                                </li>
+                                <li class="v-header_tab"
+                                    [ngClass]="{'v-header_active': tabActive === 'carriers'}"
+                                    (click)="tabActive = 'carriers'">
+                                    <span class="v-header_title">
+                                        {{'base.carriers' | translate}}
+                                    </span>
+                                </li>
+                            </ul>
+                            <ul class="v-header_btns">
+                                <li>
+                                    <button class="add-item"
+                                            *ngIf="isEditMode"
+                                            (click)="addFromBasket()"
+                                            [disabled]="itemsFromBasket.added || itemsFromBasket.isEmpty">
+                                        {{'loans.add_from_basket' | translate}}
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="add-item" *ngIf="isEditMode" (click)="showMediaTable('versions')">
+                                        {{'loans.add_versions' | translate}}
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="add-item" *ngIf="isEditMode" (click)="showMediaTable('media')">
+                                        {{'loans.add_media' | translate}}
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="add-item" *ngIf="isEditMode" (click)="showMediaTable('carriers')">
+                                        {{'loans.add_carriers' | translate}}
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="v-body">
+                            <div [ngStyle]="{ 'display': tabActive === 'versions' ? '' : 'none'}" class="v-body-tab">
+                                <div
+                                    id="versionTab"
+                                    style="height: calc(100% - 5px); margin: 0 12px;">
+                                    <version-tab [versionData]="payloadForm.VersionItems"></version-tab>
+                                </div>
+                            </div>
+                            <div [ngStyle]="{ 'display': tabActive === 'media' ? '' : 'none'}" class="v-body-tab">
+                                <div
+                                    id="mediaTab"
+                                    style="height: calc(100% - 5px); margin: 0 12px;">
+                                    <media-tab [mediaData]="payloadForm.MediaItems"></media-tab>
+                                </div>
+                            </div>
+                            <div [ngStyle]="{ 'display': tabActive === 'carriers' ? '' : 'none'}" class="v-body-tab">
+                                <div
+                                    id="carriersTab"
+                                    style="height: calc(100% - 5px); margin: 0 12px;">
+                                    <carriers-tab [carriersData]="payloadForm.TapeItems"></carriers-tab>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </as-split-area>
+        </as-split>
+
+    </div>
+</div>

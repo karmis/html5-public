@@ -1,0 +1,22 @@
+@import "../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .video-js {
+            .icons-fullscreen {
+                display: inline;
+            }
+            .icons-exit-fullscreen {
+                display: none;
+            }
+            &.vjs-fullscreen {
+                .icons-fullscreen {
+                    display: none;
+                }
+                .icons-exit-fullscreen {
+                    display: inline;
+                }
+            }
+        }
+    }
+}

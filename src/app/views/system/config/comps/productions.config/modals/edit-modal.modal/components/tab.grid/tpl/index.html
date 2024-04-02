@@ -1,0 +1,15 @@
+<!--<div #configTablesGridWrapper class="config-tables" [ngClass]="{'editonly':tableData && tableData.EditOnly}">-->
+<div class="common-tab-grid">
+    <button *ngIf="!readOnly" class="add-new-item" (click)="showModal()" title="{{'common.add' | translate}}">
+        <i class="icons-cross icon"></i>
+    </button>
+    <div class="common-tab-grid-wrapper">
+        <div style="height: 100%;">
+            <slick-grid #prodConfigTabGrid
+                        class="vertical-align-row"
+                        [config]="gridConfig"
+            >
+            </slick-grid>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+<div class="slickgrid-bottom-panel-wrapper" #element [ngClass]="{'fix-height': sgp && sgp.module.info.enabled == true && infoComp.isVisible}">
+    <div style="flex-grow: 0;">
+        <slickgrid-info-comp [provider]="sgp" #infoComp></slickgrid-info-comp>
+    </div>
+    <div style="flex-grow: 1;">
+        <slickgrid-pager-comp [provider]="sgp" #pagerComp></slickgrid-pager-comp>
+    </div>
+</div>

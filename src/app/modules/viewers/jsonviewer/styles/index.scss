@@ -1,0 +1,70 @@
+@import "../../../../views/base/styles/theme.scss";
+
+@each $key,
+$value in $common-themes {
+  .#{$key} {
+      json-viewer {
+          .json-viewer-wrapper {
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+
+              &.fullSize {
+                  position: fixed;
+                  width: 100%;
+                  height: 100%;
+                  z-index: 150;
+              }
+
+              .min-max-btn {
+                  position: absolute;
+                  width: 100px;
+                  right: 20px;
+                  bottom: 20px;
+                  z-index: 10;
+                  background: getThemeColor(3, $key);
+                  border-radius: 0px;
+                  outline: none;
+              }
+
+              .CodeMirror {
+                  width: 100%;
+                  height: 100% !important;
+                  line-height: normal;
+                  z-index: 9;
+                  .cm-string:not(.cm-property) {
+                      color: getThemeColor(1, $key);
+                  }
+                  .cm-atom {
+                      color: getThemeColor(10, $key);
+                  }
+                  .cm-number {
+                      color: getThemeColor(13, $key);
+                  }
+                  .CodeMirror-scrollbar-filler {
+                      background: transparent;
+                  }
+              }
+
+              .modal-overlay {
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  bottom: 0;
+                  right: 0;
+                  z-index: 11;
+                  background-color: getThemeColor(4, $key);
+
+                  .spinner {
+                      width: 30px;
+                      height: 30px;
+                      margin-left: calc(50% - 15px);
+                      margin-top: 30%;
+                  }
+              }
+          }
+      }
+  }
+}

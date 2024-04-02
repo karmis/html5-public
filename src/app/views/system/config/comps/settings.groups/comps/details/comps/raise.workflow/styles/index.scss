@@ -1,0 +1,45 @@
+@import "../../../../../../../../../base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .settings-groups-raise-workflow-wrapper {
+            height: 100%;
+            padding: 1rem;
+
+            .checkboxes-wrapper {
+                background: getThemeColor(4, $key);
+                display: inline-flex;
+                flex-direction: column;
+                width: 100%;
+                margin-right: 3%;
+                height: 100%;
+                overflow: hidden;
+                position: relative;
+                vertical-align: top;
+                .header {
+                    width: 100%;
+                    flex: 0 0 26px;
+                    padding: 0 10px;
+                    border-bottom: 1px solid getThemeColor(9, $key);
+
+                }
+                .checkboxes-list {
+                    flex: 1;
+                    padding: 10px;
+                    //height: calc(100% - 32px);
+                    overflow-x: hidden;
+                    overflow-y: auto;
+                    width: 20%;
+                    .checkboxes-item {
+                        position: relative;
+                        padding-right: 25px;
+                        .per-item-checkbox {
+                            position: absolute;
+                            right: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

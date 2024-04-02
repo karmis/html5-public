@@ -1,0 +1,34 @@
+<div class="add-custom-column-modal-wrapper">
+    <div class="steps">
+        <div class="step-content fields">
+            <div class="column-field">
+                <div class="label" [title]="'global_settings.friendly_name' | translate">
+                    <span>{{"global_settings.friendly_name" | translate}}</span>
+                </div>
+                <input class="input-name" type="text" [(ngModel)]="name"/>
+            </div>
+            <div class="column-field" style="margin-left: 10px;">
+                <div class="label" [title]="'details_view_metadata.custom_status' | translate">
+                    <span>{{'details_view_metadata.custom_status' | translate}}</span>
+                </div>
+                <imfx-lookups-select2
+                    #controlItemTypes
+                    [width]="'100%'"
+                    [allowClear]="false"
+                    [lookupType]="lookup"
+                    [placeholder]="'base.selectOoo'|translate"
+                    [placeholderRefToTranslate]="'base.selectOoo'"
+                    (onSelect)="onSelect($event)"
+                ></imfx-lookups-select2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div class="buttons">
+            <button class="next" [disabled]="!(name&&id)" (click)="saveColumns()">Add</button>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,19 @@
+<div style="height: 100%; overflow: auto; position: relative;">
+    <div class="cssload-container" *ngIf="!config.options.chartData && filterLoaded">
+        <div class="cssload-container-cell">
+            <div class="cssload-speeding-wheel"></div>
+        </div>
+    </div>
+    <chart *ngIf="config.options.chartData" [chartName]="config.options.chartTitle" [chartAxisNames]="config.options.chartAxis" [lineChartColors]="config.options.chartData.cc" [lineChartData]="config.options.chartData.cd" [lineChartLabels]="config.options.chartData.cl" [showButtons]="true">{{ 'common.loadingOoo' | translate }}
+    </chart>
+    <div class="chart-filters-wrapper">
+        <select class="chart-select" (change)="selectParam($event, 0)" [disabled]="!channels">
+            <option value="">All Channels</option>
+            <option *ngFor="let channel of channels; let i=index" value="{{channel.ID}}">{{channel.Name}}</option>
+        </select>
+        <select class="chart-select" (change)="selectParam($event, 1)" [disabled]="!itemTypes">
+            <option value="">All Item types</option>
+            <option *ngFor="let type of itemTypes; let j=index" value="{{type.ID}}">{{type.Name}}</option>
+        </select>
+    </div>
+</div>

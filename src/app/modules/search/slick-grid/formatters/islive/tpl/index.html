@@ -1,0 +1,7 @@
+<div class="wrapper img-cell">
+    <div class="media-icon-wrapper"  [ngClass]="{'green-icon': playable, 'orange-icon': params.data._playing}" style="text-align: center;"><!-- .status-green -->
+        <!--do not use [ngClass] here because of IE problems-->
+        <i *ngIf="isVideo && playable" class="video-icon icons-play icon play" (click)="iconClick()"></i>
+        <i *ngIf="isVideo && !playable" class="icons-play icon play"></i>
+    </div>
+</div>

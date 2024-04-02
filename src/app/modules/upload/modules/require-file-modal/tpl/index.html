@@ -1,0 +1,12 @@
+<div class="full-height full-width" style="min-height: 70px;">
+    Select file <strong>{{um.name}} ({{um.getFormattedSize()}}) </strong> to continue upload: <br>
+    <input
+        class="input-same-upload button primary"
+        #file
+        type="file"
+        (change)="select($event)"/>
+</div>
+
+
+<!--[disabled]="fileRef.nativeElement.value === null"-->
+<!--[ngClass]="{'disabled': !fileRef.nativeElement.value}"-->

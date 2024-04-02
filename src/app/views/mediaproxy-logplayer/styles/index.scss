@@ -1,0 +1,19 @@
+@import "../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+  .#{$key} {
+    #media-log-player-page-wrapper {
+        .blank {
+            font-size: 15px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -250px;
+            margin-top: -40px;
+            a {
+                font-size: 15px;
+            }
+        }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+@import "../../../../../../views/base/styles/theme";
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .tile-field {
+            width: 243px;
+            height: 20px;
+            font-size: 12px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+        .tile-wrapper {
+            position: relative;
+            height: 100%;
+
+            .icons-wrapper {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+
+                .wrapper.media-basket-button {
+                    margin-left: 5px;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,21 @@
+export type MediaDetailAudioTracks = {
+    $id: number;
+    TrackNo: number;
+    Content: string;
+    Language: string;
+    MS: string;
+    LangTag: string;
+    QcFlag: number;
+    QcText: string;
+    DateAdded: string;
+    IntAudioFlag: boolean;
+    Id: number;
+    Miid: number;
+    TypeId: number;
+    MsTypeId: number;
+    LanguageId: number;
+    Created: number;
+    CreatedBy: string;
+    Modified: any;
+    ModifiedBy: any;
+};

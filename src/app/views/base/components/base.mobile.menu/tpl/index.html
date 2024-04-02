@@ -1,0 +1,13 @@
+<li class="dropdown mobile-menu-wrap">
+    <a (click)="onToggle()" class="no-label user-btn">
+        <i *ngIf="!isOpen" class="icons-menu icon"></i>
+        <i *ngIf="isOpen" class="icons-cross icon"></i>
+    </a>
+    <div
+            class="submenu dialog dialog-user"
+            [ngClass]="{'active': isOpen}">
+        <base-top-menu style="height: inherit"></base-top-menu>
+    </div>
+</li>
+<div [ngClass]="{'mobile-menu-background': isOpen}" (click)="onToggle(false)"></div>
+

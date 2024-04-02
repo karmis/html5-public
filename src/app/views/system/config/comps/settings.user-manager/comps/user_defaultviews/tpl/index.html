@@ -1,0 +1,108 @@
+<div class="user-default-views-wrapper" #viewsWrapper>
+    <div class="tree-locations-left">
+        <input type="text" #filterInput (keyup)="filterTree($event, tree)" placeholder="{{'system-config.xml.filter' | translate}}"/>
+        <i class="icons-cross icon" *ngIf="filterInput.value.length > 0" (click)="filterInput.value = ''; filterTree($event, tree)"></i>
+        <imfx-controls-tree #locationsTree
+                            [extensions]="['filter']"
+                            [ext_filter]="{autoExpand: true, mode: 'hide', highlight: false}"
+                            [checkbox]="false"
+                            [icon]="false"
+                            [source]="locations"
+                            [allowChangedBold]="true"
+                            [keyboard]="false"
+                            (onClick)="onSelect($event)"
+        ></imfx-controls-tree><!-- (onKeydown)="onEnterPress($event)" -->
+    </div>
+    <div class="views-controls" [hidden]="itemData == null">
+        <div class="location-title">
+            <div>{{itemData?.title}}</div>
+            <button (click)="saveLocationsDefaults()" *ngIf="hasUnsaved">{{'user_management.views.save' | translate}}</button>
+        </div>
+        <div class="view-fields-wrapper">
+            <div class="view-field">
+                <div class="label">{{('user_management.views.' + viewTypesTranslates[0]) | translate}}</div>
+                <imfx-controls-select2
+                    #titleSelect
+                    [width]="'100%'"
+                    [multiple]="false"
+                    [data]="[]"
+                    [placeholder]="selectPlaceholder|translate"
+                    [placeholderRefToTranslate]="selectPlaceholder"
+                    (onSelect)="onSelectView(viewTypes[0], $event)"
+                    [minimumResultsForSearch]="10"></imfx-controls-select2>
+                <button (click)="onSelectView(viewTypes[0], null)">x</button>
+            </div>
+            <div class="view-field">
+                <div class="label">{{('user_management.views.' + viewTypesTranslates[1]) | translate}}</div>
+                <imfx-controls-select2
+                    #versionSelect
+                    [width]="'100%'"
+                    [multiple]="false"
+                    [data]="[]"
+                    [placeholder]="selectPlaceholder|translate"
+                    [placeholderRefToTranslate]="selectPlaceholder"
+                    (onSelect)="onSelectView(viewTypes[1], $event)"
+                    [minimumResultsForSearch]="10"></imfx-controls-select2>
+                <button (click)="onSelectView(viewTypes[1], null)">x</button>
+            </div>
+            <div class="view-field">
+                <div class="label">{{('user_management.views.' + viewTypesTranslates[2]) | translate}}</div>
+                <imfx-controls-select2
+                    #mediaSelect
+                    [width]="'100%'"
+                    [multiple]="false"
+                    [data]="[]"
+                    [placeholder]="selectPlaceholder|translate"
+                    [placeholderRefToTranslate]="selectPlaceholder"
+                    (onSelect)="onSelectView(viewTypes[2], $event)"
+                    [minimumResultsForSearch]="10"></imfx-controls-select2>
+                <button (click)="onSelectView(viewTypes[2], null)">x</button>
+            </div>
+            <div class="view-field">
+                <div class="label">{{('user_management.views.' + viewTypesTranslates[3]) | translate}}</div>
+                <imfx-controls-select2
+                    #carrierSelect
+                    [width]="'100%'"
+                    [multiple]="false"
+                    [data]="[]"
+                    [placeholder]="selectPlaceholder|translate"
+                    [placeholderRefToTranslate]="selectPlaceholder"
+                    (onSelect)="onSelectView(viewTypes[3], $event)"
+                    [minimumResultsForSearch]="10"></imfx-controls-select2>
+                <button (click)="onSelectView(viewTypes[3], null)">x</button>
+            </div>
+            <div class="view-field">
+                <div class="label">{{('user_management.views.' + viewTypesTranslates[4]) | translate}}</div>
+                <imfx-controls-select2
+                    #digitalCarrierSelect
+                    [width]="'100%'"
+                    [multiple]="false"
+                    [data]="[]"
+                    [placeholder]="selectPlaceholder|translate"
+                    [placeholderRefToTranslate]="selectPlaceholder"
+                    (onSelect)="onSelectView(viewTypes[4], $event)"
+                    [minimumResultsForSearch]="10"></imfx-controls-select2>
+                <button (click)="onSelectView(viewTypes[4], null)">x</button>
+            </div>
+            <div class="view-field">
+                <div class="label">{{('user_management.views.' + viewTypesTranslates[5]) | translate}}</div>
+                <imfx-controls-select2
+                    #bookingsSelect
+                    [width]="'100%'"
+                    [multiple]="false"
+                    [data]="[]"
+                    [placeholder]="selectPlaceholder|translate"
+                    [placeholderRefToTranslate]="selectPlaceholder"
+                    (onSelect)="onSelectView(viewTypes[5], $event)"
+                    [minimumResultsForSearch]="10"></imfx-controls-select2>
+                <button (click)="onSelectView(viewTypes[5], null)">x</button>
+            </div>
+        </div>
+    </div>
+    <div class="select-message" [hidden]="itemData != null">
+        <div>
+            {{'user_management.views.select_message' | translate}}
+        </div>
+    </div>
+    <overlay #overlay [mode]="true" [zIndex]="100"></overlay>
+</div>

@@ -1,0 +1,25 @@
+<!--<div *ngIf="groupDefaultPage">-->
+<!--    Default page for group is <b>{{groupDefaultPage.text}}</b>-->
+
+<!--    <p>-->
+<!--        <a *ngIf="hasPermission('system')" [routerLink]="['/' + appRouter.system.config]">Change</a>-->
+<!--    </p>-->
+<!--    <hr>-->
+<!--</div>-->
+<div>
+    <label>{{ 'profile.defaultpage.title' | translate }}</label>
+    <div>
+        <!--<select class="" (change)="pageChange($event)">-->
+        <!--<option *ngFor="let page of allowedPages" [value]="page"-->
+        <!--[selected]="page === defaultPage">{{ page }}-->
+        <!--</option>-->
+        <!--</select>-->
+        <imfx-controls-select2
+            #selectDefaultPage
+            [width]="'100%'"
+            [data]="[]"
+            [placeholder]="'base.selectOoo'|translate"
+            [placeholderRefToTranslate]="'base.selectOoo'"
+            (onSelect)="onSelectPage($event)"></imfx-controls-select2>
+    </div>
+</div>

@@ -1,0 +1,155 @@
+@import "../../../../../../base/styles/theme.scss";
+
+$multilineheight: 300px;
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        select-tracks-modal {
+            .select-tracks-modal-wrapper {
+                width: 100%;
+                height: 70vh;
+                position: relative;
+                overflow-x: hidden;
+                overflow-y: auto;
+                display: flex;
+                flex-direction: column;
+
+                .tracks {
+                    height: 100%;
+                    overflow: hidden;
+
+                    .tracks-group {
+                        overflow: hidden;
+                        height: 50%;
+                        vertical-align: top;
+
+                        &.collapsed {
+                            height: 28px;
+                        }
+
+                        .group-header {
+                            line-height: 28px;
+                            height: 28px;
+                            padding: 0 3px;
+                            background: getThemeColor(4, $key);
+                            position: relative;
+                            -webkit-touch-callout: none;
+                            -webkit-user-select: none;
+                            -khtml-user-select: none;
+                            -moz-user-select: none;
+                            -ms-user-select: none;
+                            user-select: none;
+
+                            span {
+                                cursor: pointer;
+                            }
+                            .icon {
+                                cursor: pointer;
+                                vertical-align: baseline;
+                            }
+
+                            .indicator {
+                                width: 16px;
+                                height: 16px;
+                                border: 1px solid getThemeColor(9, $key);
+                                border-radius: 15px;
+                                background: getThemeColor(3, $key);
+                                display: block;
+                                position: absolute;
+                                top: 5px;
+                                right: 5px;
+                                cursor: pointer;
+                                overflow: hidden;
+                                &.all {
+                                    background: getThemeColor(12, $key);
+                                }
+                                &.partial {
+                                    &:before {
+                                        content: " ";
+                                        width: 7px;
+                                        background: getThemeColor(12, $key);
+                                        height: 16px;
+                                        display: block;
+                                        cursor: pointer;
+                                    }
+                                }
+                            }
+                        }
+                        .track-items {
+                            height: calc(100% - 28px);
+                            overflow-x: hidden;
+                            overflow-y: auto;
+
+                            .track-item {
+                                cursor: pointer;
+                                height: 20px;
+                                line-height: 20px;
+                                padding: 0 8px;
+                                border-bottom: 1px solid getThemeColor(9, $key);
+                                position: relative;
+
+                                span {
+                                    opacity: 0.4;
+                                    display: block;
+                                    width: 100%;
+                                    padding-right: 15px;
+                                }
+
+                                .indicator {
+                                    width: 8px;
+                                    height: 8px;
+                                    border: 1px solid getThemeColor(9, $key);
+                                    border-radius: 8px;
+                                    background: getThemeColor(3, $key);
+                                    display: block;
+                                    position: absolute;
+                                    top: 6px;
+                                    right: 6px;
+                                }
+
+                                &.selected {
+                                    span {
+                                        opacity: 1;
+                                    }
+                                    .indicator {
+                                        border-color: getThemeColor(2, $key);
+                                        background: getThemeColor(12, $key);
+                                    }
+                                }
+
+                                &:hover {
+                                    .indicator {
+                                        border-color: getThemeColor(2, $key);
+                                    }
+
+                                    background: getThemeColor(22, $key);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .overlay-wrapper {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: getThemeColor(3, $key);
+                overflow: hidden;
+                z-index: 5;
+
+                .spinner {
+                    width: 80px;
+                    height: 80px;
+                    border-width: 8px;
+                    margin: 0 auto;
+                    position: relative;
+                    top: calc(50% - 40px);
+                }
+            }
+        }
+    }
+}

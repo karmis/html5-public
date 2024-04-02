@@ -1,0 +1,117 @@
+<div class="modal-wrapper">
+    <div class="main-data">
+        <div class="field-wrapper">
+            <div class="label">
+                Name
+<!--                {{'misrmanager.components.modal' | translate}}-->
+            </div>
+            <input type="text" [(ngModel)]="itemData.NAME"/>
+        </div>
+        <div class="field-wrapper">
+            <div class="label">
+                Media Type
+<!--                {{'misrmanager.components.modal' | translate}}-->
+            </div>
+            <imfx-lookups-select2
+                #mediaTypeControl
+                [width]="'100%'"
+                [validationEnabled]="false"
+                [allowClear]="false"
+                [firstEmpty]="false"
+                [fetchLookup]="false"
+                [compContext]="self"
+                [placeholder]="'base.selectOoo'|translate"
+                [placeholderRefToTranslate]="'base.selectOoo'"
+                (onSelect)="onUpdateControl('mediaTypeControl', 'MEDIA_TYPE')"
+                (onUnselect)="onUpdateControl('mediaTypeControl', 'MEDIA_TYPE')"
+            ></imfx-lookups-select2>
+        </div>
+        <div class="field-wrapper">
+            <div class="label">
+                Storage Device
+            </div>
+            <imfx-lookups-select2
+                #storageDeviceControl
+                [width]="'100%'"
+                [validationEnabled]="false"
+                [allowClear]="false"
+                [firstEmpty]="false"
+                [fetchLookup]="false"
+                [compContext]="self"
+                [placeholder]="'base.selectOoo'|translate"
+                [placeholderRefToTranslate]="'base.selectOoo'"
+                (onSelect)="onUpdateControl('storageDeviceControl', 'STORAGE_ID')"
+                (onUnselect)="onUpdateControl('storageDeviceControl', 'STORAGE_ID')"
+            ></imfx-lookups-select2>
+        </div>
+        <div class="field-wrapper">
+            <div class="label">
+                Media File Type
+                <!--                {{'misrmanager.components.modal' | translate}}-->
+            </div>
+            <imfx-lookups-select2
+                #mediaFileTypeControl
+                [width]="'100%'"
+                [validationEnabled]="false"
+                [allowClear]="false"
+                [firstEmpty]="false"
+                [fetchLookup]="false"
+                [compContext]="self"
+                [placeholder]="'base.selectOoo'|translate"
+                [placeholderRefToTranslate]="'base.selectOoo'"
+                (onSelect)="onUpdateControl('mediaFileTypeControl', 'MI_FILE_TYPE')"
+                (onUnselect)="onUpdateControl('mediaFileTypeControl', 'MI_FILE_TYPE')"
+            ></imfx-lookups-select2>
+        </div>
+        <div class="field-wrapper">
+            <div class="label">
+                Usage Type
+                <!--                {{'misrmanager.components.modal' | translate}}-->
+            </div>
+            <imfx-lookups-select2
+                #usageTypeControl
+                [width]="'100%'"
+                [validationEnabled]="false"
+                [allowClear]="false"
+                [firstEmpty]="false"
+                [fetchLookup]="false"
+                [compContext]="self"
+                [placeholder]="'base.selectOoo'|translate"
+                [placeholderRefToTranslate]="'base.selectOoo'"
+                (onSelect)="onUpdateControl('usageTypeControl', 'USAGE_TYPE')"
+                (onUnselect)="onUpdateControl('usageTypeControl', 'USAGE_TYPE')"
+            ></imfx-lookups-select2>
+        </div>
+        <div class="field-wrapper">
+            <div class="label">
+                Audio Content Type
+<!--                                {{'misrmanager.components.modal' | translate}}-->
+            </div>
+            <imfx-lookups-select2
+                #audioContentTypeControl
+                [width]="'100%'"
+                [validationEnabled]="false"
+                [allowClear]="false"
+                [firstEmpty]="false"
+                [fetchLookup]="false"
+                [compContext]="self"
+                [placeholder]="'base.selectOoo'|translate"
+                [placeholderRefToTranslate]="'base.selectOoo'"
+                (onSelect)="onUpdateControl('audioContentTypeControl', 'AUDIO_CONTENT_TYPE')"
+                (onUnselect)="onUpdateControl('audioContentTypeControl', 'AUDIO_CONTENT_TYPE')"
+            ></imfx-lookups-select2>
+        </div>
+        <div class="overlay-wrapper" #modalWrapperEl>
+            <div class="spinner"></div>
+        </div>
+    </div>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div>
+            <button type="button" (click)="closeModal()">{{'common.cancel'| translate}}</button>
+            <button type="button primary" (click)="saveData()" [disabled]="!isValid()">{{'common.save'| translate}}</button>
+        </div>
+    </div>
+</ng-template>

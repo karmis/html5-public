@@ -1,0 +1,14 @@
+@import "../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+  .#{$key} {
+    #rce-page-wrapper {
+      .imfx-detail-btns ul {
+        line-height: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+}

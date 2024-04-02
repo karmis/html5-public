@@ -1,0 +1,89 @@
+<div class="w-100 h-100" *ngIf="_errors && _errors.length > 0">
+    <h3 [innerHTML]="_title"></h3>
+    <div class="row">
+        <div class="col-md-12">
+            <p style="font-size: 13px;">{{'error_modal.suggestion' | translate}}</p>
+            <div class="form-group">
+                <label class="mr-sm-2">{{ 'error_modal.description' | translate }}</label>
+                <textarea class="form-control field error-modal-descriptionField noresize-textarea"
+                          [attr.wrap]="'soft'"
+                          placeholder="{{'error_modal.description_placeholder' | translate}}"
+                          (keyup)="setDescription($event)"></textarea>
+            </div>
+            <button
+                [hidden]="!!shownStack"
+                (click)="copyError()"
+                type="button"
+                class="btn btn-default mt-1 mr-0" style="float: right">
+                {{ 'common_hints.copy_error' | translate }}
+                <i class="icons-files icon"></i>
+            </button>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group" [hidden]="!shownStack">
+                <label class="mr-sm-2">{{ 'error_modal.stack' | translate }}
+                    <span class="error-modal-counter">{{_errors.length}}</span>
+                </label>
+                <textarea class="form-control field error-modal-stackField noresize-textarea"
+                          [attr.wrap]="'soft'"
+                          [readonly]="true"
+                          placeholder="{{'error_modal.description_placeholder' | translate}}">{{_errorAsString }}
+                </textarea>
+                <button
+                    [hidden]="!shownStack"
+                    (click)="copyError()"
+                    type="button"
+                    class="btn btn-default mt-1 mr-0" style="float: right">
+                    {{ 'common_hints.copy_error' | translate }}
+                    <i class="icons-files icon"></i>
+                </button>
+                <button
+                    [hidden]="!hasFullStorageError()"
+                    (click)="copyStorage()"
+                    type="button"
+                    class="btn btn-default mt-1 mr-1" style="float: right">
+                    Copy Storage
+                    <i class="icons-files icon"></i>
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div class="buttons">
+            <div class="pull-left">
+                <button type="button" class="btn btn-default " (click)="modalRef.hide()">
+                    {{'common.close' | translate}}
+                </button>
+                <button [hidden]="!shownStack" (click)="shownStack = !shownStack"
+                        class="btn btn-default">
+                    Hide Stack
+                </button>
+                <button [hidden]="!!shownStack" (click)="shownStack = !shownStack"
+                        class="btn btn-default">
+                    Show Stack
+                </button>
+            </div>
+
+            <div class="pull-right">
+                <!--<div class="form-group" style="margin-top: 8px;">-->
+                    <!--<label>-->
+                        <!--<input name="isDebug"  [checked]="isDebug" (change)="changeDebugMode($event)" type="checkbox">-->
+                        <!--Debug mode-->
+                    <!--</label>-->
+                <!--</div>-->
+                <button type="button" class="btn btn-default primary"
+                        (click)="download()" style="float: right">
+                    {{'error_modal.download_log' | translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+</ng-template>

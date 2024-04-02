@@ -1,0 +1,19 @@
+<div class="table-formatter-comp-wrapper">
+    <div *ngIf="data && data.length" class="table">
+        <div class="table-row table-header">
+            <div *ngFor="let mapItem of dataMap"
+                 class="table-cell"
+            >
+                {{mapItem.label}}
+            </div>
+        </div>
+        <div *ngFor="let item of data"
+             class="table-row">
+            <div *ngFor="let mapItem of dataMap"
+                 class="table-cell"
+            >
+                {{getValue(item, mapItem)}}
+            </div>
+        </div>
+    </div>
+</div>

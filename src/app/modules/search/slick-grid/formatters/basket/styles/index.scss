@@ -1,0 +1,14 @@
+@import "../../../../../../views/base/styles/theme";
+@each $key, $value in $common-themes {
+  .#{$key} {
+    basket-formatter-comp {
+      .icon {
+        cursor: pointer;
+      }
+      .ordered-basket {
+        color: getThemeColor(7, $key) !important;
+        opacity: 1;
+      }
+    }
+  }
+}

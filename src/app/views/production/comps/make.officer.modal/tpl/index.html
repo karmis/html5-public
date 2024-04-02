@@ -1,0 +1,34 @@
+<div class="change-custom-status">
+    <label>
+        User
+    </label>
+    <imfx-controls-select2
+        #userLookupSelectEl
+        [width]="'100%'"
+        [multiple]="false"
+        [data]="[userLookupSelect.data]"
+        [selected]="userLookupSelect.selectedId"
+        [readonly]="userLookupSelect.readonly"
+        [placeholder]="'base.selectOoo'|translate"
+        (onSelect)="onChangeSelect($event)"
+        (onUnselect)="onChangeSelect($event)"
+        [allowClear]="true"
+        [placeholderRefToTranslate]="'base.selectOoo'"></imfx-controls-select2>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div class="buttons">
+            <button class="next"
+                    (click)="closeModal()">
+                {{ 'views.cancel' | translate }}
+            </button>
+            <button class="next primary"
+                    (click)="save()"
+                    [disabled]="!isValid">
+                {{ 'common.save' | translate }}
+            </button>
+        </div>
+    </div>
+</ng-template>
+

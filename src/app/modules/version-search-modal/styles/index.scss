@@ -1,0 +1,24 @@
+@import "../../../views/base/styles/theme.scss";
+@import "../../../views/base/styles/blocks/nav.scss";
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        versions-search-modal {
+            .container-fluid {
+                padding: 0;
+                position: relative;
+                height: 100%;
+            }
+
+            .version-search-modal-grid .slick-grid-wrapper .slick-viewport.slick-viewport-left {
+                overflow-x: auto !important;
+            }
+        }
+
+        &.version-search-modal .modal-footer.modal-footer-container {
+            min-height: 47px;
+            padding-top: 0;
+        }
+    }
+}

@@ -1,0 +1,68 @@
+<div class="production-make-actions-wrapper">
+    <div class="top-block">
+        <div class="field-row">
+            <div class="field-label">
+<!--                {{"production.production_templates.edit_modal.clean-prefix" | translate}}-->
+                Remake Workflow
+            </div>
+            <div class="field-value">
+                <imfx-controls-select2
+                    *ngIf="lookups"
+                    [width]="'100%'"
+                    [allowClear]="true"
+                    [data]="_lookups['MADE_REMAKE_WORKFLOW_ID']"
+                    [value]="[{id: data.MADE_REMAKE_WORKFLOW_ID}]"
+                    [placeholder]="'xml.select_value'|translate"
+                    [placeholderRefToTranslate]="'xml.select_value'"
+                    (onSelect)="onSelectWorkflow($event, 'MADE_REMAKE_WORKFLOW_ID')"
+                    (onUnselect)="onSelectWorkflow($event, 'MADE_REMAKE_WORKFLOW_ID')"
+                ></imfx-controls-select2>
+            </div>
+        </div>
+        <div class="field-row">
+            <div class="field-label">
+<!--                {{"production.production_templates.edit_modal.version-prefix" | translate}}-->
+                Complete Workflow
+            </div>
+            <div class="field-value">
+                <imfx-controls-select2
+                    *ngIf="lookups"
+                    [width]="'100%'"
+                    [allowClear]="true"
+                    [data]="_lookups['MADE_COMPLETE_WORKFLOW_ID']"
+                    [value]="[{id: data.MADE_COMPLETE_WORKFLOW_ID}]"
+                    [placeholder]="'xml.select_value'|translate"
+                    [placeholderRefToTranslate]="'xml.select_value'"
+                    (onSelect)="onSelectWorkflow($event, 'MADE_COMPLETE_WORKFLOW_ID')"
+                    (onUnselect)="onSelectWorkflow($event, 'MADE_COMPLETE_WORKFLOW_ID')"
+                ></imfx-controls-select2>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-block">
+        <div class="grid-tabs">
+            <ul class="sub-tabs-wrapper">
+                <li class="sub-tab" [ngClass]="{'active': activeGridType == 0}" (click)="switchActiveGrid(0)" title='{{"production.production_templates.edit_modal.primary" | translate}}'>
+                    <span>
+                        {{"production.production_templates.edit_modal.primary" | translate}}
+                    </span>
+                </li>
+                <li class="sub-tab" [ngClass]="{'active': activeGridType == 1}" (click)="switchActiveGrid(1)" title='{{"production.production_templates.edit_modal.secondary" | translate}}'>
+                    <span>
+                        {{"production.production_templates.edit_modal.secondary" | translate}}
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="grid-wrapper">
+            <button *ngIf="!readOnly" class="add-new-item" (click)="showModal()" title="{{'common.add' | translate}}">
+                <i class="icons-cross icon"></i>
+            </button>
+            <slick-grid #slickGrid
+                        class="vertical-align-row"
+                        [config]="gridConfig"
+            >
+            </slick-grid>
+        </div>
+    </div>
+</div>

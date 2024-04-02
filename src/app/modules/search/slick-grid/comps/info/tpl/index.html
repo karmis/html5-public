@@ -1,0 +1,5 @@
+<div class="wrapper-info" *ngIf="sgp && sgp.module.info.enabled == true">
+    <span *ngIf="provider.total > 0 && isVisible">
+        {{'common.total_entries'|translate:{'total_entries': provider.total} }}
+    </span>
+</div>

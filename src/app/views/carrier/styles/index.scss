@@ -1,0 +1,40 @@
+@import "../../base/styles/theme.scss";
+
+@each $key,
+$value in $common-themes {
+  .#{$key} {
+    .carrier-grid {
+      .tile-mode {
+        .tile-wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+        }
+        .tile-field[colid="LI_TTL_text"],
+        .tile-field[colid="U_ID_PFIX"],
+        .tile-field[colid="LI_VERS_text"],
+        .tile-field[colid="FORMAT"] {
+          width: 243px !important;
+          height: 20px;
+          font-size: 12px;
+        }
+        .tile-field[colid="LI_TTL_text"]:not(:empty),
+        .tile-field[colid="U_ID_PFIX"]:not(:empty),
+        .tile-field[colid="LI_VERS_text"]:not(:empty),
+        .tile-field[colid="FORMAT"]:not(:empty) {
+          display: block;
+        }
+      }
+
+      .slick-viewport {
+        position: relative;
+        outline: 0;
+        width: 100%;
+        &.slick-viewport-left {
+          overflow-x: auto !important;
+        }
+      }
+    }
+  }
+}

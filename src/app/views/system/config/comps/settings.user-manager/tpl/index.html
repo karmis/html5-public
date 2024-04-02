@@ -1,0 +1,14 @@
+<div class="user-manager-wrapper">
+    <div class="um-container" *ngIf="selectedTable == userManagerIdList[0]">
+        <user-manager-users-grid #userManagerUsersGridComponent></user-manager-users-grid>
+    </div>
+    <div class="um-container" *ngIf="selectedTable == userManagerIdList[1]">
+        <user-manager-groups-grid #userManagerGroupsGridComponent></user-manager-groups-grid>
+    </div>
+    <div class="um-container" *ngIf="selectedTable == userManagerIdList[2]">
+        <user-notifications></user-notifications>
+    </div>
+    <div class="um-container" *ngIf="selectedTable == userManagerIdList[3]">
+        <user-default-views></user-default-views>
+    </div>
+</div>

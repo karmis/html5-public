@@ -1,0 +1,210 @@
+@import "../../../../base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .media-basket-wrapper {
+            .media-basket-item {
+                height: 128px;
+                flex: 1 0 100%;
+                flex-direction: row;
+                margin: 0 12px 12px 0;
+                background: getThemeColor(6, $key);
+                padding: 12px;
+                display: flex;
+                position: relative;
+                overflow: hidden;
+
+                .basket-selection {
+                  display: none;
+                  position: absolute;
+                  bottom: 0;
+                  right: 0;
+                  z-index: 9;
+                  width: 0;
+                  height: 0;
+                  border-style: solid;
+                  border-width: 0 0 50px 50px;
+                  border-color: transparent transparent getThemeColor(10, $key) transparent;
+
+                  &.selected {
+                    display: block;
+
+                    &:after {
+                      content: "\f109";
+                      font-family: icons !important;
+                      font-style: normal;
+                      font-weight: normal !important;
+                      vertical-align: top;
+                      position: absolute;
+                      width: 20px;
+                      height: 20px;
+                      right: 10px;
+                      bottom: -45px;
+                      font-size: 30px;
+                      color: #fff;
+                    }
+                  }
+                }
+
+                &:hover .basket-selection {
+                  &:not(.selected) {
+                    display: block;
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+                    z-index: 9;
+                    width: 0;
+                    height: 0;
+                    border-style: solid;
+                    border-width: 0 0 50px 50px;
+                    opacity: 0.1;
+                    border-color: transparent transparent getThemeColor(1, $key) transparent;
+                  }
+                  &:not(.selected):after {
+                    content: "\f109";
+                    font-family: icons !important;
+                    font-style: normal;
+                    font-weight: normal !important;
+                    vertical-align: top;
+                    position: absolute;
+                    width: 20px;
+                    height: 20px;
+                    right: 10px;
+                    bottom: -45px;
+                    font-size: 30px;
+                    color: getThemeColor(4, $key);
+                  }
+                }
+
+                .fa-minus-circle {
+                    color: getThemeColor(6, $key);
+                }
+                .checkbox {
+                    float: left;
+                    margin: 30px 5px;
+                }
+                .basket-thumbnail {
+                    order: -1;
+                    margin-left: -12px;
+                    margin-right: 16px;
+                    margin-top: -12px;
+                    .thumbnail-wrapper {
+                        height: 128px;
+                        width: 230px;
+                        max-width: none;
+                        max-height: none;
+                        margin: 0;
+                    }
+                }
+                .item-detail-col {
+                    display: inline-block;
+                    min-width: 30%;
+                    margin-right: 16px;
+                    vertical-align: top;
+                    line-height: 18px;
+                    >div {
+                        overflow: hidden;
+                        //text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                }
+                .title {
+                    height: 22px;
+                    margin-bottom: 8px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+                .series-title {
+                    //text-transform: uppercase;
+                    //margin-bottom: 6px;
+                    max-height: 16px;
+                    overflow: hidden;
+                }
+                .description {
+                  overflow: hidden;
+                  max-height: 65px;
+
+                  &.withSubTitle {
+                    max-height: 51px;
+                    margin-bottom: 5px;
+                  }
+                  &.withSubAndDuration {
+                    max-height: 32px;
+                    margin-bottom: 5px;
+                  }
+                  &.withDuration {
+                    max-height: 51px;
+                    margin-bottom: 5px;
+                  }
+                }
+                .duration-text {
+                    position: absolute;
+                    bottom: 0;
+                    span {
+                        margin-right: 16px;
+                        margin-left: 4px;
+                        vertical-align: -5%;
+                        font-size: 11px;
+                    }
+                }
+                .duration {
+                    margin-right: 16px;
+                    margin-left: 4px;
+                    vertical-align: -5%;
+                    font-size: 11px;
+                }
+                .field-label {
+                    min-width: 80px;
+                    opacity: .6;
+                    display: inline-block;
+                }
+                .close {
+                    opacity: 0.7;
+                    width: 20px;
+                    height: 20px;
+                    &:hover {
+                        opacity: 1;
+                        .icon {
+                            background: #e67339;
+                            color: #ffffff;
+                            opacity: 1;
+                            padding-bottom: 3px;
+                        }
+                    }
+                    .icons-closedelete {
+                        margin: auto;
+                        display: flex;
+                        position: static;
+                    }
+                }
+                .select {
+                  opacity: 1;
+                  position: absolute;
+                  right: 14px;
+                  bottom: 15px;
+                }
+                .basket-thumbnail-wrapper {
+                    width: 120px;
+                    float: left;
+                }
+                .details-wrapper {
+                    position: relative;
+                    flex: 1;
+                    overflow: hidden;
+                    > div {
+                        padding-left: 0;
+                    }
+                }
+                &:hover {
+                    //background: getThemeColor(21, $key);
+                    cursor: default;
+                    background: getThemeColor(23, $key);
+                    box-shadow: 0 8px 16px getThemeColor(24, $key);
+                }
+            }
+        }
+    }
+}

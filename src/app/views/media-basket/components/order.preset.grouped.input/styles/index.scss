@@ -1,0 +1,57 @@
+@import "../../../../base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .order-preset-grouped-input-wrapper {
+            position: relative;
+
+            .field {
+                line-height: 29px;
+            }
+
+            i.icon {
+                display: block;
+                position: absolute;
+                right: 3px;
+                top: 1px;
+                bottom: 0;
+                margin: auto;
+            }
+
+            &:hover i.icon {
+                opacity: 1;
+            }
+
+
+        }
+
+        .tooltip-order-presets-grouped-wrapper {
+            display: block;
+            position: absolute;
+            overflow: hidden;
+            height: 300px;
+            opacity: 1;
+            transition: height .2s ease-in-out, opacity .1s ease-in-out; //toDo not work!!
+            z-index: 4;
+            &.hidden {
+                display: none;
+                height: 40px;
+                opacity: 0;
+            }
+            .order-presets-grouped-wrapper {
+                background-color: getThemeColor(5, $key);
+
+                input {
+                    width: calc(100% - 8px); //toDo add inputWrapper
+                    margin: 4px;
+                }
+                .js-scrollbar-target-adv-modal-user {
+                    span.fancytree-node:not(.fancytree-active):hover {
+                        background-color: getThemeColor(10, $key);
+                    }
+                }
+            }
+        }
+
+    }
+}

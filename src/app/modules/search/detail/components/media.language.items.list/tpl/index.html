@@ -1,0 +1,83 @@
+<div class="media-language-list-wrapper">
+  <div *ngFor="let item of config.items; let i = index" class="item-wrapper" [ngClass]="{'selected': i == selectedItemIndex}" (click)="selectItem(item.ID)">
+    <div style="display: flex; flex-direction: row;">
+      <div class="info">
+          <div>
+              <div *ngIf="item.MEDIA_TYPE == 150"
+                   class="audio-label"
+               >
+                  {{ 'simple_assessment.audio' | translate }}
+              </div>
+              <div *ngIf="item.MEDIA_TYPE == 101"
+                   class="audio-label"
+              >
+                  {{ 'simple_assessment.subtitles' | translate }}
+              </div>
+            <h4 class="item-name">{{item.FILENAME}}</h4>
+          </div>
+          <div>
+            <p>{{ 'simple_assessment.format' | translate }}: {{item.MEDIA_FORMAT_text}}</p>
+          </div>
+          <div>
+            <p>{{ 'simple_assessment.storage_device' | translate }}: {{item.CtnrId}}</p>
+          </div>
+          <div>
+            <p>{{ 'simple_assessment.created' | translate }}: {{item.CREATED_DT | localDate: datetimeFullFormatLocaldatePipe}}</p>
+          </div>
+          <div class="acceptance-form-group" id="{{item.ID}}" [ngClass]="{'disabled': config.readOnly}">
+              <div class="form-check">
+                  <div>
+                    <input type="radio"
+                         id="radio_accepted_{{item.ID}}"
+                         (change)="onRadioChange(1)"
+                         [checked]="item.ACCEPTANCE_LTTR_ID === 1"
+                         [value]="1"
+                         name="{{item.ID}}">
+                  </div>
+                  <div class="label-wrapper">
+                    <label for="radio_accepted_{{item.ID}}" title="{{ 'simple_assessment.accepted' | translate }}">
+                      {{ 'simple_assessment.accepted' | translate }}
+                    </label>
+                  </div>
+              </div>
+              <div class="form-check">
+                  <div>
+                    <input type="radio"
+                         id="radio_rejected_{{item.ID}}"
+                         (change)="onRadioChange(-1)"
+                         [checked]="item.ACCEPTANCE_LTTR_ID === -1"
+                         [value]="-1"
+                         name="{{item.ID}}">
+                  </div>
+                  <div class="label-wrapper">
+                      <label for="radio_rejected_{{item.ID}}" title="{{ 'simple_assessment.rejected' | translate }}">
+                          {{ 'simple_assessment.rejected' | translate }}
+                      </label>
+                  </div>
+              </div>
+
+              <div class="form-check">
+                  <div>
+                    <input type="radio"
+                         id="radio_not_set_{{item.ID}}"
+                         (change)="onRadioChange(0)"
+                         [checked]="item.ACCEPTANCE_LTTR_ID === 0"
+                         [value]="0"
+                         name="{{item.ID}}">
+                  </div>
+                  <div class="label-wrapper">
+                      <label for="radio_not_set_{{item.ID}}" title="{{ 'simple_assessment.not_set' | translate }}">
+                          {{ 'simple_assessment.not_set' | translate }}
+                      </label>
+                  </div>
+              </div>
+          </div>
+          <div>
+              <select #lang (change)="setLang($event.target.value, item)" [(ngModel)]="item.AUD_LANGUAGE_ID" [disabled]="config.readOnly">
+                  <option *ngFor="let lang of languages" value="{{lang.Id}}">{{lang.Value}}</option>
+              </select>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

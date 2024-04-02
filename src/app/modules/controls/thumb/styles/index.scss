@@ -1,0 +1,44 @@
+@import "../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+  .#{$key} {
+    .thumbnail-wrapper {
+      height: 100%;
+      width: 100%;
+      max-width: 150px;
+      max-height: 85px;
+      min-width: 150px;
+      overflow: hidden;
+      background-color: #000000;
+      margin: 2px auto;
+      position: relative;
+      .icon-button.large{
+        background: rgba(18, 22, 26, 0.5);
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        i.icons-play:before {
+          font-size: 40px;
+        }
+      }
+      .thumbnail {
+        max-height: 100%;
+        max-width: 100%;
+        width: auto;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+      }
+    }
+  }
+}

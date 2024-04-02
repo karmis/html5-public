@@ -1,0 +1,53 @@
+@import "../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .search-text-wrapper {
+            position: relative;
+            display: flex;
+            vertical-align: top;
+            border: 2px solid getThemeColor(22, $key);
+            input{
+                height: 28px;
+                flex-grow: 1;
+                border:none;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                &::-ms-clear {
+                    display: none;
+                }
+            }
+            .search-text-actions {
+                display: flex;
+                flex-grow: 0;
+                flex-direction: row;
+                align-items: center;
+                .icon-button {
+                    cursor: pointer;
+                    height: 20px;
+                    &:hover {
+                        background-color: getThemeColor(18, $key);
+                        box-shadow: 0 8px 16px rgba(51, 60, 69, 0.08);
+                    }
+                }
+                .search-text-results {
+                    opacity: .6;
+                    margin-right: 6px;
+                }
+            }
+
+            .muted-follow {
+                opacity: 0.3;
+            }
+        }
+        span.highlight {
+            background-color: getThemeColor(25, $key);
+            cursor: pointer;
+            vertical-align: baseline!important;
+        }
+        span.highlight.selected {
+            background-color: getThemeColor(7, $key);
+            cursor: pointer;
+        }
+    }
+}

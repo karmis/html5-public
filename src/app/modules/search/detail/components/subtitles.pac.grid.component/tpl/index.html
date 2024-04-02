@@ -1,0 +1,16 @@
+<div class="subtitles-pac-grid-wrapper">
+    <div class="subs-header-wrapper"
+         [ngClass]="{'with-drop': additionalSubs && additionalSubs.length > 0}">
+        <search-text-for-mark [searchResource]="data.tableRows"
+                              [config]="textMarkerConfig"
+                              [externalSearchText]="externalSearchText"
+        ></search-text-for-mark>
+    </div>
+    <div id="externalWrapperSubPacSlickGridForInfoPanel"
+         class="external-wrapper-grid">
+        <slick-grid #subtitlesPacGrid class="small-height-header"
+                    [ngClass]="{'standalone': standalone}"
+                    [config]="subtitlesPacGridOptions">
+        </slick-grid>
+    </div>
+</div>

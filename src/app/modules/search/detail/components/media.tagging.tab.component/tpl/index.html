@@ -1,0 +1,24 @@
+<div class="tagging-tab-wrapper" #mediaTagging style="">
+  <div *ngIf="config.hasOuterFilter">
+    <imfx-controls-select2
+      #select
+      [multiple]="true"
+      [placeholder]="'base.selectOoo'|translate"
+      [placeholderRefToTranslate]="'base.selectOoo'"
+      [width]="'100%'"
+      [tags]="true"
+      [tokenSeparators]="[',', ';']"
+      [tokenSeparatorsKeys]="[13]"
+      [bottomDropdownMessage]="'media_details.tabs.media_tagging.select2_bottomText'|translate"
+      (onSelect)="onSelect()"
+      (onUnselect)="onSelect()"
+    ></imfx-controls-select2>
+  </div>
+  <div class="slick-grid-wrapper">
+    <slick-grid
+      class="attachment-grid vertical-align-row small-height-header"
+      #slickGridComp
+      [config]="searchGridConfig">
+    </slick-grid>
+  </div>
+</div>

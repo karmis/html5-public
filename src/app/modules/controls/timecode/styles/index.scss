@@ -1,0 +1,49 @@
+input[type="text"].timecode-input-error {
+    border: 1px solid red !important;
+    &:focus{
+        border: 2px solid red !important;;
+    }
+}
+
+@import "../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .slick-cell:not(.selected) {
+            .timecode-input-wrapper {
+                input {
+                    border: 2px solid transparent;
+                }
+            }
+        }
+        .timecode-input-wrapper {
+            //display: inline-block;
+            position: relative;
+            input {
+                max-width: 100%;
+                width: 150px;
+            }
+            .go-to-timecode {
+                margin-left: -20px;
+                cursor: pointer;
+            }
+
+        }
+        .copy-timecode-confirmation-tooltip {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            padding: 2px;
+            border: 1px solid getThemeColor(9, $key);
+            background: getThemeColor(4, $key);
+            box-shadow: 0 5px 10px 0 getThemeColor(33, $key);
+            color: #FFFFFF;
+            z-index: 230;
+            button {
+                height: 100%;
+                line-height: normal;
+                border: 1px solid getThemeColor(9, $key);
+            }
+        }
+    }
+}

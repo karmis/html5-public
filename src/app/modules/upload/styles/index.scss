@@ -1,0 +1,677 @@
+@import "../../../views/base/styles/theme.scss";
+@import "../../../views/base/styles/blocks/inputs.scss";
+@import "../../../views/base/styles/blocks/buttons.scss";
+@import "../../../views/base/styles/blocks/nav.scss";
+@import "../../../views/base/styles/blocks/nav.tabbed.scss";
+@import "../../../views/base/styles/blocks/rows.scss";
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+
+        .error-field {
+            &::after {
+                left: 0;
+                bottom: 0px;
+            }
+        }
+
+        .error-upload-model {
+            &::after {
+                left: 0;
+                bottom: 0px;
+            }
+        }
+
+        .error-upload-model, .error-field {
+            position: relative;
+
+            &::after {
+                content: '';
+                position: absolute;
+                border: 5px solid transparent;
+                border-bottom: 5px solid #ff0000;
+                border-left: 5px solid #ff0000;
+            }
+        }
+
+        .tooltip-order-presets-grouped-wrapper {
+            z-index: 211 !important;
+        }
+
+        .upload {
+            .xml-preset-wrapper {
+                &.absolute {
+                    width: 50%;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                }
+            }
+            .xml-metadata-wrappers {
+                &.absolute {
+                    width: 50%;
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                }
+                .parent-node-label {
+                    color: getThemeColor(2, $key);
+                }
+                textarea, .select2-selection--single {
+                    background-color: getThemeColor(4, $key);
+                    //border: 2px getThemeColor(22, $key) solid;
+                }
+                .select2-wrapper.dropdown{
+                    border: 2px getThemeColor(22, $key) solid !important;
+                    height: 26px !important;
+                    line-height: 24px;
+                    background: getThemeColor(4, $key) !important;
+                }
+                textarea {
+                    padding-top: 0px;
+                    line-height: 22px !important;
+                    height: 25px !important;
+                    overflow: hidden;
+                    //border: 2px getThemeColor(22, $key) solid;
+                    resize: none;
+                }
+                input[type=checkbox] {
+                    width: 16px;
+                    height: 16px !important;
+                    margin: 5px 0;
+                    border-radius: 0;
+                    background: getThemeColor(4, $key);
+                    border: 2px getThemeColor(22, $key) solid;
+                }
+                input[type=checkbox]:checked {
+                    width: 16px;
+                    height: 16px !important;
+                    margin: 5px 0;
+                    border-radius: 0;
+                    background: getThemeColor(22, $key) url(assets/icons/check.svg) no-repeat center center;
+                    border: 2px solid getThemeColor(22, $key);
+                    //border: 2px getThemeColor(22, $key) solid;
+                }
+            }
+            .upload-meta-data {
+                padding: 15px 0;
+                clear: both;
+                height: 205px;
+                overflow: hidden;
+            }
+
+            .version-details {
+                margin-bottom: 6px;
+                .caption {
+                    font-size: 1.2rem;
+                }
+                width: 100%;
+                min-height: 100%;
+                margin-top: 0;
+                padding: 12px;
+                //width: 45vw;
+                background: getThemeColor(26, $key);
+                position: relative;
+                table{
+                    td.name {
+                        width: 130px;
+                    }
+                }
+
+            }
+
+            .form-group {
+                &.show-image {
+                    position: relative;
+
+                    .preview-icon {
+                        display: none;
+                        position: absolute;
+                        left: -110px;
+                        bottom: 0;
+
+                        i {
+                            opacity: 0.3;
+                        }
+
+                        .image-preview {
+                            width: 100px;
+                            height: 75px;
+                            background-size: contain;
+                        }
+                    }
+
+                    &:hover {
+                        i {
+                            opacity: 1;
+                        }
+
+                        .preview-icon {
+                            display: block;
+                        }
+                    }
+                }
+            }
+
+            .form-control.is-error {
+                border: getThemeColor(13, $key) 1px solid;
+            }
+
+            .select-associate-mode {
+                cursor: pointer;
+
+                &.disabled {
+                    opacity: 0.6;
+                    cursor: default !important;
+                }
+            }
+
+            height: 100%;
+
+            .notification {
+                height: auto;
+                margin-bottom: 15px;
+                padding: 10px;
+                padding-bottom: inherit;
+                max-width: 100%;
+
+                p {
+                    font-size: 11px;
+                    //font-weight: 600;
+                }
+            }
+
+
+            .wizard-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                align-items: center;
+                justify-content: center;
+                background: getThemeColor(3, $key);
+                z-index: 10;
+                opacity: 0;
+                display: none;
+                transition: all ease-in 0.3s;
+
+                &.showed {
+                    opacity: 1;
+                    transition: all ease-in 0.3s;
+                }
+
+                &.active-overlay {
+                    display: flex;
+                }
+            }
+
+            .status-row {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                height: 50px;
+                align-items: center;
+                margin-bottom: 20px;
+
+                .step {
+                    flex: 1;
+                    height: 50px;
+                    position: relative;
+
+                    .step-title {
+                        opacity: 0.4;
+                        display: block;
+                        text-align: center;
+                    }
+
+                    .step-circle {
+                        position: absolute;
+                        height: 20px;
+                        width: 20px;
+                        border: 5px solid getThemeColor(4, $key);
+                        background: getThemeColor(4, $key);
+                        border-radius: 20px;
+                        display: block;
+                        margin: 0 auto;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                        z-index: 1;
+                    }
+
+                    .step-line {
+                        background: getThemeColor(4, $key);
+                        height: 6px;
+                        width: 100%;
+                        bottom: 7px;
+                        position: absolute;
+                        left: 50%;
+                    }
+
+                    &.first {
+                        text-align: left;
+
+                        .step-circle {
+
+                        }
+                    }
+
+                    &.second {
+                        text-align: center;
+
+                        .step-circle {
+
+                        }
+                    }
+
+                    &.third {
+                        text-align: right;
+
+                        .step-circle {
+
+                        }
+                    }
+
+                    &.done {
+                        .step-title {
+                            opacity: 1;
+                        }
+
+                        .step-circle {
+                            border-color: getThemeColor(12, $key);
+                            background: getThemeColor(12, $key);
+                        }
+
+                        .step-line {
+                            background: getThemeColor(12, $key);
+                        }
+
+                        &.current,
+                        &.last {
+                            .step-title {
+                                font-size: 16px;
+                                opacity: 1;
+                            }
+
+                            .step-circle {
+                                border-color: getThemeColor(4, $key);
+                                background: #fff;
+                            }
+
+                            .step-line {
+                                background: getThemeColor(4, $key);
+                            }
+                        }
+
+                        &.last {
+                            .step-circle {
+                                border-color: getThemeColor(12, $key);
+                                background: #fff;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .wizard-steps {
+                height: calc(100% - 118px);
+
+                .files {
+                    height: 100%;
+                    padding: 0;
+                }
+            }
+
+            .step-content {
+                // height: 100%;
+                display: block;
+                padding-bottom: 22px;
+                position: relative;
+                width: 100%;
+                overflow: auto;
+                height: calc(100% - 118px);
+
+                .files-wrapper {
+                    height: calc(100% - 20px);
+                    overflow: hidden;
+                    overflow-y: auto;
+
+                    .files-upload-area {
+                        height: 250px;
+                        border: 3px getThemeColor(12, $key) dashed;
+                        display: block;
+                        margin-top: 10px;
+
+                        .files-block {
+                            position: relative;
+                            padding: 0px;
+                            color: getThemeColor(16, $key);
+                            height: 243px;
+                            max-height: 243px;
+                            overflow: auto;
+                            background-color: getThemeColor(6, $key);
+
+                            .click-me-for-upload-placeholder {
+                                //display: block;
+                                cursor: pointer;
+                                position: relative;
+                                display: flex;
+                                flex-direction: column;
+                                height: 243px;
+                                overflow: hidden;
+                                overflow-y: auto;
+                                //
+                                align-items: center;
+                                align-content: center;
+                                justify-content: center;
+                                font-size: 14px;
+                                font-weight: bold;
+                                line-height: 18px;
+                                word-wrap: break-word;
+                                word-break: break-all;
+                                //text-transform: uppercase;
+                                opacity: 0.6;
+
+                                .upload-icon {
+                                    width: auto;
+                                    height: auto;
+                                    opacity: 0.5;
+                                    color: getThemeColor(12, $key);
+                                }
+
+                                .upload-icon:before {
+                                    content: "\f148";
+                                    font-size: 124px;
+                                }
+                            }
+
+                            tr.row-item {
+                                height: 40px;
+                                width: 100%;
+                                color: getThemeColor(16, $key) !important;
+
+                                &:hover {
+                                    color: getThemeColor(15, $key);
+                                    background-color: getThemeColor(5, $key);
+                                }
+
+                                &.active {
+                                    color: getThemeColor(15, $key);
+                                    background-color: getThemeColor(5, $key);
+                                }
+
+                                td.td-close {
+                                    position: relative;
+                                    //width: 100%;
+                                    height: 18px;
+                                    text-align: right;
+                                    min-width: 25px;
+                                }
+
+                                td.td-medias {
+                                    min-width: 145px;
+                                    padding-left: 10px;
+                                    cursor: pointer;
+                                }
+
+                                //td.td-medias-s {
+                                //    min-width: 100px;
+                                //    padding-left: 10px;
+                                //}
+                                td.td-size {
+                                    min-width: 50px;
+                                    padding-left: 10px;
+                                }
+                                .td-valid {
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                }
+                                td.td-name {
+                                    min-width: 240px;
+                                    width: 240px;
+                                }
+
+                                td.td-path {
+                                    min-width: 50px;
+                                }
+
+                                td.td-name-s {
+                                    min-width: 120px;
+                                }
+
+                                td {
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    white-space: nowrap;
+                                    width: 100%;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .notes-block {
+                    width: 30%;
+                    height: 180px;
+                    min-height: 180px;
+                    max-height: 180px;
+                    display: flex;
+                    flex-direction: column;
+
+                    .control-notes {
+                        //height: 180px;
+                        //max-height: 180px;
+                        //min-height: 180px;
+                        flex-grow: 1;
+                        -webkit-appearance: textarea;
+                        -webkit-rtl-ordering: logical;
+                        -webkit-user-select: text;
+                        -webkit-box-orient: vertical;
+                        cursor: auto;
+                        white-space: pre-wrap;
+                        word-wrap: break-word;
+                        resize: none;
+                        padding: 8px;
+                    }
+                }
+
+                &.files {
+                    display: block;
+                    align-items: center;
+                }
+
+                &.prepare {
+                    display: block;
+                    align-items: center;
+                    padding-bottom: 0px;
+
+                    .form-group {
+                        margin-bottom: 5px;
+                    }
+
+                    .col-xs-4, .col-xs-6 {
+                        padding: 0 5px;
+                    }
+
+                    .row {
+                        width: 100%;
+                        padding: 0;
+                        margin: 0;
+
+                        .fields-col {
+                            width: 50%;
+                            display: inline-block;
+                            font-size: 0;
+                            vertical-align: top;
+
+                            &.left {
+                                padding-right: 5px;
+                            }
+
+                            &.right {
+                                padding-left: 5px;
+                            }
+
+                            &.full {
+                                width: 100%;
+                                padding: 0;
+                            }
+                        }
+                    }
+
+                    .prepare-wrapper {
+                        display: flex;
+                        flex-direction: column;
+                        overflow: hidden;
+                        overflow-y: auto;
+                        align-items: center;
+                        align-content: center;
+                        justify-content: center;
+                        font-size: 14px;
+                        line-height: 18px;
+                        word-wrap: break-word;
+                        word-break: break-all;
+
+                        .prepare-top {
+                            .class-width-100 {
+                                width: 100%;
+                            }
+
+                            .class-width-60 {
+                                width: 60%;
+                            }
+
+                            width: 100%;
+
+                            .prepare-top-left {
+                                overflow: auto;
+                                @extend .files-wrapper;
+
+                                font-size: 0;
+                                vertical-align: top;
+                                display: inline-block;
+
+                                .files-header {
+                                    width: 70%;
+                                }
+
+                                .files-wrapper {
+                                    //height: 100%;
+                                    height: 180px;
+                                    display: flex;
+                                    flex-direction: column;
+                                    overflow: hidden;
+                                    overflow-y: auto;
+                                    float: left;
+                                    width: calc(70% - 10px);
+
+                                    .files-upload-area {
+                                        height: auto;
+                                        flex: 1;
+                                        border: 2px solid getThemeColor(22, $key);
+                                        display: block;
+                                        margin: 0;
+
+                                        .files-block {
+                                            height: 100%;
+                                        }
+                                    }
+                                }
+                            }
+
+                            .prepare-top-right {
+                                font-size: 0;
+                                vertical-align: top;
+                                display: inline-block;
+                                padding-left: 10px;
+                                width: calc(40% - 10px);
+                                height: 100%;
+
+                                .schema-wrapper {
+                                    background: getThemeColor(4, $key);
+                                    border: 2px solid getThemeColor(22, $key);
+                                    padding: 5px;
+                                    overflow-y: auto;
+                                    height: 424px;
+                                }
+                            }
+                        }
+
+                        .prepare-bottom {
+                            width: 100%;
+                        }
+
+                        .prepare-icon {
+                            font-size: 150px;
+
+                            &.icons-statusgreen {
+                                color: getThemeColor(12, $key);
+                            }
+
+                            &.icons-statusred {
+                                color: getThemeColor(13, $key);
+                            }
+                        }
+                    }
+                }
+
+
+                .buttons {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    height: 42px;
+                    padding-top: 10px;
+
+                    .next {
+                        float: right;
+                    }
+
+                    .back {
+                        float: left;
+                    }
+
+
+                }
+            }
+
+            .buttons {
+                padding: 15px 0 15px 0;
+            }
+
+            #rml-devices-block {
+                span.select2-container {
+                    height: 28px;
+                }
+
+                .remote-browser-button {
+                    padding: 0;
+                    width: 100%;
+                    margin: 0;
+                    height: 28px;
+                    line-height: 0;
+                }
+            }
+
+
+        }
+
+        #upload-grouping {
+            color: getThemeColor(16, $key);
+            position: absolute;
+            right: 84px;
+            bottom: 17px;
+            padding-right: 15px;
+
+            #group_files_for_wf {
+                top: 0px;
+                position: absolute;
+                left: -20px;
+            }
+        }
+    }
+}

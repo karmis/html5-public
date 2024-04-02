@@ -1,0 +1,24 @@
+@import "../../../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .tagging-tab-wrapper {
+           // padding: 10px;
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+          .slick-grid-wrapper {
+            .slick-viewport.slick-viewport-left {
+              overflow: auto!important;
+            }
+          }
+          slick-grid {
+            width: 100%;
+            height: 100%;
+          }
+          .select2-container{
+            border: 2px solid getThemeColor(9, $key);
+          }
+        }
+    }
+}

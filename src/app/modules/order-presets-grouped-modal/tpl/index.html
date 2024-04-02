@@ -1,0 +1,16 @@
+<div class="order-presets-grouped-modal-wrapper">
+    <order-presets-grouped
+        #OrderPresetsGroupedComponent
+        (onReady)="onReadyContent.emit()"
+        (dblClickByPresetItemEvent)="onDblClickByPresetItemEvent($event)"
+    ></order-presets-grouped>
+    <ng-template #modalFooterTemplate>
+        <div class="modal-footer">
+            <div>
+                <button type="button" style="float: left;" (click)="opgComp.clear()">{{'base.clear'| translate}}</button>
+                <button type="button" (click)="saveData()">{{'common.save'| translate}}</button>
+                <button type="button"  (click)="closeModal()">{{'common.cancel'| translate}}</button>
+            </div>
+        </div>
+    </ng-template>
+</div>

@@ -1,0 +1,63 @@
+@import "../../../../../views/base/styles/theme.scss";
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        search-modal {
+            .ms-search {
+                display: flex;
+                position: relative;
+                margin-bottom: 5px;
+            }
+
+            .search-icon {
+                position: absolute;
+                right: 8px;
+                top: 6px;
+                content: '';
+                background: url('assets/img/multiple-select.png') no-repeat 100% -24px;
+                width: 20px;
+                height: 20px;
+            }
+
+            .search-input {
+                width: 100%;
+                height: 32px;
+                padding: 0 20px 0 5px;
+                outline: 0;
+                font-family: sans-serif;
+                font-size: 1em;
+            }
+        }
+
+        .fields {
+            height: 100%;
+
+            .modal-row {
+                padding: 0 5px;
+
+                .modal-col {
+                    display: inline-block;
+
+                    label {
+                        margin-left: 5px;
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            .js-scrollbar-target-modal-one {
+                height: calc(100% - 95px);
+                overflow: auto;
+                width: 100%;
+                max-height: 400px;
+            }
+
+            .footer {
+                padding: 15px 0 15px 0;
+                display: flex;
+                justify-content: space-between
+            }
+        }
+    }
+}

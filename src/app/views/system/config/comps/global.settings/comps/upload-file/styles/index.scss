@@ -1,0 +1,192 @@
+@import "../../../../../../../base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+    .#{$key} {
+        app-upload-file {
+            .main-logo {
+                height: 40px;
+                //width: 40px;
+                margin: 0 10px;
+            }
+            .back {
+                height: 100px;
+                //width: 40px;
+                margin: 0 10px;
+            }
+            .search-form-logo {
+                height: auto;
+                width: auto;
+                max-width: 400px;
+                max-height: 150px;
+                margin: 0 auto 20px;
+                display: block;
+            }
+            position: relative;
+            .preview-img {
+                //position: absolute;
+                z-index: 119;
+                top: 0;
+                //margin-top: 10px;
+                //background-color: getThemeColor(6, $key);
+                &:hover {
+                    cursor: pointer;
+                    .closebtn {
+                        opacity: 1 !important;
+                    }
+                    .icon {
+                        color: getThemeColor(13, $key) !important;
+                        opacity: 1 !important;
+                    }
+                }
+                .close-wrap {
+                    top: -10px;
+                    position: relative;
+                    right: 20px;
+                    .closebtn {
+                        background-color: transparent;
+                        transition: all 0.2s ease-in-out;
+                        cursor: pointer;
+                        width: 26px;
+                        height: 26px;
+                        padding: 0;
+                        line-height: 20px;
+                        opacity: 0;
+                        display: flex;
+                        margin: auto;
+                        i.icon {
+                            display: flex;
+                            margin: auto;
+                            line-height: 20px;
+                        }
+                    }
+                }
+            }
+            .close-block {
+                position: absolute;
+                top: 5px;
+                right: -3px;
+            }
+            .files-upload-area {
+                position: relative;
+                z-index: 5;
+                height: 140px;
+                width: 250px;
+                border: 3px getThemeColor(12, $key) dashed;
+                display: block;
+                margin-top: 10px;
+
+                .tip {
+                    text-align: center;
+                    color: black;
+                }
+
+                .files-block {
+                    position: relative;
+                    padding: 0px;
+                    color: getThemeColor(16, $key);
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+                    overflow: auto;
+                    //background-color: getThemeColor(6, $key);
+
+                    .click-me-for-upload-placeholder {
+                        //display: block;
+                        height: 100%;
+                        cursor: pointer;
+                        //position: relative;
+                        display: flex;
+                        flex-direction: column;
+                        overflow: hidden;
+                        overflow-y: auto;
+                        //
+                        align-items: center;
+                        align-content: center;
+                        justify-content: center;
+                        font-size: 14px;
+                        font-weight: bold;
+                        line-height: 18px;
+                        word-wrap: break-word;
+                        word-break: break-all;
+                        //text-transform: uppercase;
+                        opacity: 0.6;
+
+                        .upload-icon {
+                            width: auto;
+                            height: auto;
+                            opacity: 0.5;
+                            color: getThemeColor(12, $key);
+                        }
+
+                        .upload-icon:before {
+                            content: "\f148";
+                            font-size: 34px;
+                        }
+                    }
+
+                    tr.row-item {
+                        height: 40px;
+                        width: 100%;
+                        color: getThemeColor(16, $key) !important;
+
+                        &:hover {
+                            color: getThemeColor(15, $key);
+                            background-color: getThemeColor(5, $key);
+                        }
+
+                        &.active {
+                            color: getThemeColor(15, $key);
+                            background-color: getThemeColor(5, $key);
+                        }
+
+                        td.td-close {
+                            position: relative;
+                            //width: 100%;
+                            height: 18px;
+                            text-align: right;
+                            min-width: 25px;
+                        }
+
+                        td.td-medias {
+                            min-width: 145px;
+                            padding-left: 10px;
+                            cursor: pointer;
+                        }
+
+                        //td.td-medias-s {
+                        //    min-width: 100px;
+                        //    padding-left: 10px;
+                        //}
+                        td.td-size {
+                            min-width: 50px;
+                            padding-left: 10px;
+                        }
+
+                        td.td-name {
+                            min-width: 240px;
+                            width: 240px;
+                        }
+
+                        td.td-path {
+                            min-width: 50px;
+                        }
+
+                        td.td-name-s {
+                            min-width: 120px;
+                        }
+
+                        td {
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}

@@ -1,0 +1,6 @@
+<div class="multiline">
+    <codemirror [(ngModel)]="xmlString"
+                [config]="{'readOnly':false, 'lineNumbers': true }">
+    </codemirror>
+    <div *ngIf="showOverlay" class="modal-overlay"><div class="spinner"></div></div>
+</div>

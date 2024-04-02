@@ -1,0 +1,60 @@
+@import "../../../../views/base/styles/theme.scss";
+// Rows
+@each $key, $value in $common-themes {
+  .#{$key} {
+    [class^="row-"],
+    [class*=" row-"] {
+      display: flex;
+    }
+
+    .row-form {
+      align-items: baseline;
+      flex: 1 0;
+      flex-wrap: wrap;
+    }
+
+    .row-form * + * {
+      margin-top: 0;
+    }
+
+    .row-form.baseline {
+      align-items: baseline;
+    }
+
+    .row-header {
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .row-header h1 {
+      margin: 0 0 0 $grid*4;
+    }
+
+    .row-actions {
+      align-items: baseline;
+      justify-content: space-between;
+    }
+
+    .row-form .field {
+      flex: 1;
+    }
+
+    .row-item {
+      align-items: center;
+      padding: $grid*3;
+    }
+
+    .row-item h4 {
+      //color: getThemeColor(2, $key);
+    }
+
+    .row-item p {
+      color: getThemeColor(1, $key);
+    }
+
+    .row-header>* {
+      margin-top: 0;
+    }
+
+  }
+}

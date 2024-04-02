@@ -1,0 +1,169 @@
+<div class="settings-groups-advanced-associate-wrapper">
+    <div class="tabs-wrapper">
+    <hr>
+    <div class="wf-panel clearfix">
+        <div class="wf-panel-item">
+            <label class="pull-left" for="isRaiseWorkflowMedia">
+                {{ 'mapping.raise_wf' | translate}}:
+            </label>
+            <input type="checkbox"
+                   id="isRaiseWorkflowMedia"
+                   name="expressInstall"
+                   value="1"
+                   (ngModelChange)="mappingProvider.raiseWFsettings.flag = !mappingProvider.raiseWFsettings.flag"
+                   [ngModel]="mappingProvider?.raiseWFsettings?.flag"
+                   class="is-raise-workflow"
+                   [ngClass]="{'disabled': !mappingProvider?.raiseWFsettings?.preset}"
+                   disabled="{{!mappingProvider?.raiseWFsettings?.preset}}"/>
+        </div>
+        <div class="wf-panel-item">
+            <label class="pull-left" for="isAllowMulti">
+                {{ 'upload.settings.apply_all' | translate}}:
+            </label>
+            <input type="checkbox"
+                   id="isAllowMulti"
+                   name="expressInstall"
+                   value="1"
+                   (ngModelChange)="mappingProvider.raiseWFsettings.isAllowMulti = !mappingProvider.raiseWFsettings.isAllowMulti"
+                   [ngModel]="mappingProvider?.raiseWFsettings?.isAllowMulti"
+                   class="is-raise-workflow"
+                   [ngClass]="{'disabled': !mappingProvider?.raiseWFsettings?.preset}"
+                   disabled="{{!mappingProvider?.raiseWFsettings?.preset}}"/>
+        </div>
+        <div class="wf-panel-item ml-2">
+            <label class="pull-left" for="chosen-preset-title-id-version">
+                {{ 'mapping.wf_preset' | translate}}:
+            </label>
+            <div class="chosen-preset-title" id="chosen-preset-title-id-version"
+                 title="{{ 'basket.choose_preset' | translate }}"
+                 (click)="mappingProvider.openChoosePresetModal(false, chooseModalCallBacks)">
+                {{mappingProvider.raiseWFsettings?.preset?.Name || 'basket.choose_preset' | translate}}
+            </div>
+        </div>
+
+    </div>
+    <hr>
+
+    <div class="tabs-head">
+        <span class="tabs-head-item" [ngClass]="{'active':activeTab==='version'}" (click)="tab('version')">
+            Version
+        </span>
+        <span class="tabs-head-item" [ngClass]="{'active':activeTab==='media'}" (click)="tab('media')">
+            Media
+        </span>
+    </div>
+    <div class="tabs-body">
+        <div class="tabs-body-item" [hidden]="activeTab !== 'version'">
+            <h3>Settings for Version in associate screen</h3>
+            <div class="adv-panel">
+                <div class="wf-panel clearfix">
+                    <div class="wf-panel-item">
+                        <button
+                            [hidden]="searchAdvancedConfigVersion.options.builderData && searchAdvancedConfigVersion.options.builderData.groups.length == 0 && searchAdvancedConfigVersion.options.advancedSearchMode == 'builder' "
+
+                            class="test-advanced-searching-button-clear btn-adv btn-adv-left"
+                            (click)="clearParams('version')">
+                            {{ 'base.clear' | translate }}
+                        </button>
+                    </div>
+                    <div class="wf-panel-item ml-1">
+                        <button type="button" [disabled]="!getIsValidAdvSchema('version')"
+                                (click)="refreshData('version')">{{'common.refresh'| translate}}
+                        </button>
+                    </div>
+
+                    <div class="wf-panel-item ml-1 columns-module">
+                        <button class="button" (click)="setupColumns('VersionGrid', 'associate.version')">Set sort for column</button>
+                    </div>
+                </div>
+
+
+                <search-advanced
+                    #searchAdvancedComponentVersion
+                    [clearCacheSavedSearch]="false"
+                    [config]="searchAdvancedConfigVersion"
+                ></search-advanced>
+            </div>
+        </div>
+        <div class="tabs-body-item" [hidden]="activeTab !== 'media'">
+            <h3>Settings for Media in associate screen</h3>
+            <div class="adv-panel">
+                <div class="wf-panel clearfix">
+                    <div class="wf-panel-item">
+                        <button
+                            [hidden]="searchAdvancedConfigVersion.options.builderData && searchAdvancedConfigVersion.options.builderData.groups.length == 0 && searchAdvancedConfigVersion.options.advancedSearchMode == 'builder' "
+
+                            class="test-advanced-searching-button-clear btn-adv btn-adv-left"
+                            (click)="clearParams('media')">
+                            {{ 'base.clear' | translate }}
+                        </button>
+                    </div>
+                    <div class="wf-panel-item ml-1">
+                        <button type="button" [disabled]="!getIsValidAdvSchema('media')"
+                                (click)="refreshData('media')">{{'common.refresh'| translate}}
+                        </button>
+                    </div>
+
+                    <div class="wf-panel-item ml-1 columns-module">
+                        <button class="button" (click)="setupColumns('MediaGrid', 'associate.media')">Set sort for column</button>
+                    </div>
+                </div>
+                <search-advanced
+                    #searchAdvancedComponentMedia
+                    [clearCacheSavedSearch]="false"
+                    [config]="searchAdvancedConfigMedia"
+                ></search-advanced>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="results-wrapper">
+        <div class="result-panel" #resultPanelVersion [hidden]="activeTab !== 'version'">
+            <div class="result-panel-wrapper">
+                <div class="result-panel-content-wrapper">
+                    <div class="color-back-wrapper" *ngIf="dataVersion.Data.length > 0">
+                        <div class="tab-content-row" *ngFor="let item of dataVersion.Data; let i = index"
+                             title="{{item.ID + ' - ' + item.TITLE}}">
+                            <span class="left-span">{{item.ID}}</span>
+                            <span>{{item.TITLE}}</span>
+                        </div>
+                    </div>
+                    <div *ngIf="dataVersion.Data.length === 0">
+                        <div class="tab-content-row-blank">
+                            <span>No results</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="angucomplete-overlay" *ngIf="!isDataLoaded"><!---->
+                <div class="spinner small suggestion-overlay"></div>
+            </div>
+        </div>
+
+        <div class="result-panel" #resultPanelMedia [hidden]="activeTab !== 'media'">
+            <div class="result-panel-wrapper">
+                <div class="result-panel-content-wrapper">
+                    <div class="color-back-wrapper" *ngIf="dataMedia.Data.length > 0">
+                        <div class="tab-content-row" *ngFor="let item of dataMedia.Data; let i = index"
+                             title="{{item.ID + ' - ' + item.TITLE}}">
+                            <span class="left-span">{{item.ID}}</span>
+                            <span>{{item.TITLE}}</span>
+                        </div>
+                    </div>
+                    <div *ngIf="dataMedia.Data.length === 0">
+                        <div class="tab-content-row-blank">
+                            <span>No results</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="angucomplete-overlay" *ngIf="!isDataLoaded"><!---->
+                <div class="spinner small suggestion-overlay"></div>
+            </div>
+        </div>
+    </div>
+</div>
+

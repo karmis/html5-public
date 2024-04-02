@@ -1,0 +1,46 @@
+@import "../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+  .#{$key} {
+    .video-js {
+      .vjs-overlay-button.vjs-hidden {
+        display: block!important;
+        opacity: 0.6;
+        cursor: default;
+        .vjs-menu {
+          display: none!important;
+        }
+        .icon {
+          opacity: 0.4!important;
+        }
+      }
+      .vjs-overlay-button:focus:not(.vjs-hidden) {
+        border-bottom: getThemeColor(7, $key) 2px solid;
+      }
+      .vjs-overlay-button.vjs-hidden:hover, .vjs-overlay-button.vjs-hidden:focus {
+        box-shadow: none;
+      }
+      .vjs-overlay-button {
+        position: relative;
+        .vjs-menu {
+          right: 0;
+          left: inherit;
+          z-index: 2;
+          li {
+            text-transform: initial;
+          }
+        }
+      }
+    }
+    .icon-overlay-select, .icon-settings {
+      width: 20px;
+      opacity: 0.6;
+      vertical-align: middle;
+      transition: all 0.2s ease-in-out;
+      line-height: 39px;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}

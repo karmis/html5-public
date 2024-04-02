@@ -1,0 +1,54 @@
+@import "../../../../../../views/base/styles/theme";
+
+@each $key,
+$value in $common-themes {
+  .#{$key} {
+    .media-icon-wrapper {
+      &.green-icon {
+        .video-icon {
+          opacity: 1;
+          color: getThemeColor(12, $key);
+        }
+      }
+    }
+    .slick-row .slick-cell.selected {
+      .media-icon-wrapper {
+        &.green-icon {
+          .video-icon {
+            opacity: 1;
+            color: getThemeColor(15, $key);
+          }
+        }
+        &.green-icon.orange-icon {
+          .video-icon {
+            opacity: 1;
+            color: getThemeColor(7, $key);
+          }
+        }
+      }
+    }
+    .img-cell div {
+      display: inline-block;
+      width: 24px;
+      &.media-icon-wrapper {
+        width: 50px;
+        span {
+          vertical-align: middle;
+        }
+      }
+    }
+    .media-icon-wrapper {
+      &.orange-icon {
+        .video-icon {
+          color: getThemeColor(7, $key);
+        }
+      }
+      &.green-icon i.icons-play {
+        cursor: pointer;
+      }
+      i.icons-play:before {
+        font-size: 30px;
+      }
+    }
+  }
+}

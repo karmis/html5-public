@@ -1,0 +1,15 @@
+@import "../../../../../base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+  .#{$key} {
+
+    .user-groups-manager {
+
+      height: 100%;
+      .ugm-container {
+        height: 100%;
+      }
+
+    }
+  }
+}

@@ -1,0 +1,11 @@
+<div class="work-order-status-wrapper" [ngSwitch]="item.STATUS">
+    <i *ngSwitchCase="0" class="icons-statusorange icon status-orange"></i>
+    <i *ngSwitchCase="1" class="icons-statusred icon status-red"></i>
+    <i *ngSwitchCase="2" class="icons-statusorange icon status-orange"></i>
+    <i *ngSwitchCase="3" class="icons-statusgreen icon status-blue"></i>
+    <i *ngSwitchCase="4" class="icons-statusorange icon status-blue"></i>
+    <i *ngSwitchCase="5" class="icons-statusgreen icon status-green"></i>
+    <i *ngSwitchCase="6" class="icons-statusred icon status-red"></i>
+    <i *ngSwitchDefault class="icons-statusorange icon status-orange"></i>
+    <span>{{params.value}}</span>
+</div>

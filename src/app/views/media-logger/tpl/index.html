@@ -1,0 +1,45 @@
+<div class="detail-page-wrapper media-logger-wrapper">
+    <div class="imfx-table detail">
+        <div class="imfx-detail-btns imfx-logger-btns">
+            <nav>
+                <ul>
+                    <li class="back-button-clause">
+                        <button *ngIf="!isFirstLocation()" class="icon-button" title="{{ 'common.back_button' | translate }}" (click)="clickBack()">
+                            <i class="icons-left icon"></i>
+                        </button>
+                    </li>
+                    <li>
+                        <h1>
+                            {{ 'media_logger.title' | translate }}
+                        </h1>
+                    </li>
+                </ul>
+            </nav>
+            <nav>
+              <ul>
+                  <li>
+                      <button style="display: none;" class="button" title="{{ 'common.reload' | translate }}" (click)="reload()">
+                          <span>
+                             {{ 'common.reload' | translate }}
+                          </span>
+                      </button>
+                      <button class="button" title="{{ 'common.save' | translate }}" (click)="save()"
+                              [disabled]="!isValid()">
+                          <span>
+                             {{ 'common.save' | translate }}
+                          </span>
+                      </button>
+                  </li>
+              </ul>
+            </nav>
+        </div>
+        <div class="imfx-row p-rel-h-full">
+            <div class="golden-layout-detail">
+                <golden-logger-layout *ngIf="(checkDetailExistance(config.options.file)) || isPopout"
+                                      [config]="goldenConfig"
+                                      [onSaveLogger]="onSaveLogger"
+                                      #gl>Loading...</golden-logger-layout>
+            </div>
+        </div>
+    </div>
+</div>

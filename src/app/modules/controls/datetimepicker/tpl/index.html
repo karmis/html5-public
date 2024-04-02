@@ -1,0 +1,10 @@
+<div class="picker-wrap">
+    <input
+        #imfxControlsDateTimePicker
+        type="text"
+        [attr.disabled]="(readonly) ? true : null"
+        class="form-control guid-datepicker-{{guid}}"
+        [ngClass]="{'form-control-sm': small}"
+    />
+    <i *ngIf="clearButton" (click)="onClearDatePicker()" class="clear-datapicker icons-cross icon"></i>
+</div>

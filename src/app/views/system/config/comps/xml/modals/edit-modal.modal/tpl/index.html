@@ -1,0 +1,68 @@
+<div class="edit-xml-modal-wrapper">
+    <div class="main-data">
+        <div class="field-wrapper">
+            <div class="label">{{'system-config.xml.modal.name' | translate}}</div>
+            <input type="text" *ngIf="data" [(ngModel)]="data.Name"/>
+        </div>
+        <div class="field-wrapper">
+            <div class="label">{{'system-config.xml.modal.type' | translate}}</div>
+            <imfx-controls-select2
+                *ngIf="typesData && data"
+                [width]="'100%'"
+                [data]="typesData"
+                [value]="[{Id: data.Type}]"
+                [placeholder]="'xml.select_value'|translate"
+                [placeholderRefToTranslate]="'xml.select_value'"
+                (onSelect)="onSelectType($event)"></imfx-controls-select2>
+        </div>
+
+        <div class="field-wrapper description">
+            <div class="label">Description</div>
+            <textarea *ngIf="data" [(ngModel)]="data.Description"></textarea>
+        </div>
+
+        <div class="field-wrapper checkboxes">
+            <label *ngIf="data" (click)="toggleBit(1)"><input type="checkbox" [checked]="flagActive(1)">Version documents are shown at media level</label>
+            <label *ngIf="data" (click)="toggleBit(2)"><input type="checkbox" [checked]="flagActive(2)">Title documents are shown at media level</label>
+            <label *ngIf="data" (click)="toggleBit(4)"><input type="checkbox" [checked]="flagActive(4)">Title documents are shown at version level</label>
+            <label *ngIf="data" (click)="toggleBit(8)"><input type="checkbox" [checked]="flagActive(8)">Don't inherit documents for media item created via transcode</label>
+        </div>
+
+        <div class="field-wrapper schema">
+            <div class="label">{{'system-config.xml.modal.schema_text' | translate}}</div>
+            <div class="label"
+                 *ngIf="data"
+                 style="
+                float: right;
+                padding-right: 10px;
+                width: 300px;
+                text-align: right;
+            ">{{'system-config.xml.modal.schema_id' | translate}}: {{data.Id}}</div>
+            <codemirror *ngIf="data" [(ngModel)]="data.XmlSchema"
+                        [config]="{'readOnly':false, 'lineNumbers': true }">
+            </codemirror>
+        </div>
+        <div class="field-wrapper schema override">
+            <div class="label">{{'system-config.xml.modal.schema_override' | translate}}</div>
+            <codemirror *ngIf="data" [(ngModel)]="data.Override"
+                        [config]="{'readOnly':false, 'lineNumbers': true }">
+            </codemirror>
+        </div>
+    </div>
+    <div class="overlay-wrapper" #modalEditXmlOverlayWrapper>
+        <div class="spinner"></div>
+    </div>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div>
+            <button type="button" *ngIf="isNew" (click)="saveData()">{{'common.save'| translate}}</button>
+            <button type="button" (click)="closeModal()">{{'common.cancel'| translate}}</button>
+            <div class="select-file-xml" *ngIf="isNew">
+                <button type="button browse">{{'system-config.xml.modal.browse'| translate}}</button>
+                <input type='file' accept='.xsd' (change)='openFile($event)'>
+            </div>
+        </div>
+    </div>
+</ng-template>

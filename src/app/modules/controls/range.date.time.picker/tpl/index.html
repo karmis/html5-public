@@ -1,0 +1,37 @@
+<div>
+    <div class="row">
+        <div class="col-md-6">
+            <imfx-controls-datetimepicker
+                    #fromRDTPcontrol
+                    [locale]="'common.locale' | translate"
+                    [format]="'common.date_full_format' | translate"
+                    [formatDate]="'common.date_format' | translate"
+                    [formatTime]="'common.time_format' | translate"
+                    [value]="fromDefValue"
+                    [mask]="true"
+                    [dayOfWeekStart]="'common.date_of_week_start' | translate"
+                    [small]="true"
+                    (onChangeDateTime)="changedDate('from')"
+                    (onSelectDate)="changedDate('from')"
+                    (onSelectTime)="changedDate('from')"
+            ></imfx-controls-datetimepicker>
+        </div>
+
+        <div class="col-md-6">
+            <imfx-controls-datetimepicker
+                    #toRDTPcontrol
+                    [locale]="'common.locale' | translate"
+                    [format]="'common.date_full_format' | translate"
+                    [formatDate]="'common.date_format' | translate"
+                    [formatTime]="'common.time_format' | translate"
+                    [value]="toDefValue"
+                    [mask]="true"
+                    [dayOfWeekStart]="'common.date_of_week_start' | translate"
+                    [small]="true"
+                    (onChangeDateTime)="changedDate('to')"
+                    (onSelectDate)="changedDate('to')"
+                    (onSelectTime)="changedDate('to')"
+            ></imfx-controls-datetimepicker>
+        </div>
+    </div>
+</div>

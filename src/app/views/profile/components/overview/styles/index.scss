@@ -1,0 +1,43 @@
+@import "../../../../base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+  .#{$key} {
+    .overview-wrapper {
+
+      /*
+       * Placeholder dashboard ideas
+       */
+
+      .placeholders {
+        margin-bottom: 30px;
+        text-align: center;
+
+        .row {
+          padding: 5px;
+        }
+        h4 {
+          margin-bottom: 0;
+        }
+        .test-lang-switcher-select {
+          width: 200px;
+        }
+      }
+      .placeholder {
+        margin-bottom: 20px;
+        img {
+          display: inline-block;
+          border-radius: 50%;
+        }
+      }
+      @media (max-width: 768px) {
+        profile-overview .text-xs-left,
+        profile-overview .text-xs-right {
+          text-align: center !important;
+        }
+        profile-overview .test-lang-switcher-select {
+          margin: auto;
+        }
+      }
+    }
+  }
+}

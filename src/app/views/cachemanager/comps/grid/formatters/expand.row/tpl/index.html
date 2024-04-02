@@ -1,0 +1,50 @@
+<div class="accordion-row captions">
+    <span style="width: 20px;">
+        <i></i>
+    </span>
+    <span class="ac-devices">
+        Devices
+    </span>
+    <span class="ac-status">
+        Status
+    </span>
+    <span class="ac-job-id">
+        Job Id
+    </span>
+    <span class="ac-status">
+        Job Status
+    </span>
+    <span class="ac-locked">
+        Locked
+    </span>
+</div>
+<div class="accordion-row "
+     *ngFor="let dev of item.Devices; let i=index"
+     [ngClass]="{'selected': dev.id==provider.selectedSubRow.id && i==provider.selectedSubRow.index}"
+     (click)="onClick(dev, i)">
+
+    <span style="padding-right: 10px">
+        <i class="icons-more icon reveal"
+           (click)="openPopups($event)"
+           [attr.data-popupid]="'settings'"
+           [attr.data-rowid]="'subrow-' + item.ID + '-' + i"
+           [attr.data-parentid]="item.ID"
+           [attr.data-childid]="dev.DEV_ID "
+        ></i>
+    </span>
+    <span class="ac-devices">
+        {{dev.DeviceName}}
+    </span>
+    <span class="ac-devices">
+        <cm-status-comp [device]="dev"></cm-status-comp>
+    </span>
+    <span class="ac-job-id">
+        {{dev.JOB_ID}}
+    </span>
+    <span class="ac-status">
+        {{dev.JobStatus}}
+    </span>
+    <span class="ac-locked">
+        {{dev.IS_LOCKED}}
+    </span>
+</div>

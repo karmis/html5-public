@@ -1,0 +1,169 @@
+@import "../../../../../../../../../base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        production-predefined-cleans-versions {
+            .production-predefined-cleans-versions-wrapper {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                height: 100%;
+                padding: 8px 3px 3px 3px;
+                overflow: auto;
+                border: 1px solid getThemeColor(9, $key);
+
+                //background: getThemeColor(4, $key);
+
+
+                .field-row {
+                    display: flex;
+
+                    .field-label {
+                        padding: 0 1rem;
+                        line-height: 32px;
+                    }
+                    .field-value {
+                        flex: 1;
+                        padding-right: 1rem;
+                        input {
+                            width: 100%;
+                        }
+                    }
+                }
+
+                .prefixes {
+                    flex-grow: 0;
+                    flex-shrink: 0;
+                }
+
+                .clean-versions, .other-cleans {
+                    flex-grow: 1;
+                    overflow: hidden;
+                }
+
+
+                .clean-version-buttons{
+                    width: 150px;
+                    flex-grow: 0;
+                    display: flex;
+                    flex-direction: column;
+                    padding: 0.5rem 1rem;
+                    button {
+                        margin-bottom: 5px;
+                        :not(:last-child) {
+                            margin-bottom: 5px;
+                        }
+                    }
+                }
+                .clean-version-table{
+                    flex-grow: 1;
+                    margin: 0.5rem 1rem 0 0;
+                    overflow: auto;
+                }
+                .clean-item-wrapper {
+
+
+                    .delete-row {
+                        .closebtn {
+                            background-color: transparent;
+                            transition: all 0.2s ease-in-out;
+                            cursor: pointer;
+                            width: 26px;
+                            height: 26px;
+                            padding: 0;
+                            line-height: 20px;
+                            opacity: 0.7;
+                            display: flex;
+                            margin: 0 3px;;
+
+                            &:hover {
+                                background-color: getThemeColor(13, $key);
+                                opacity: 1;
+                            }
+
+                            i.icon {
+                                display: flex;
+                                margin: auto;
+                                line-height: 20px;
+                            }
+                        }
+                    }
+                }
+
+                .clean-item-content {
+                    display: flex;
+                    align-items: center;
+                    position: relative;
+                    .expander{
+                        position: absolute;
+                        top: 8px;
+                        left: -1px;
+                    }
+                }
+
+                .clean-item, .version-item  {
+                    display: flex;
+                    align-items: center;
+                    flex-grow: 1;
+
+                    input{
+                        &.duration {
+                            //flex-grow: 1;
+                        }
+                        &.name{
+                            flex-grow: 4;
+                        }
+                    }
+                }
+
+                .clean-versions {
+                    .clean-item, .version-item {
+
+                        padding: 2px 0;
+
+                        &.selected {
+                            background-color: getThemeColor(20, $key);
+                        }
+
+                        input {
+
+                            margin-left: 2px;
+
+                            &.duration {
+                                //flex-grow: 1;
+                            }
+
+                            &.name {
+                                flex-grow: 4;
+                            }
+                        }
+                    }
+                }
+
+                .clean-item {
+                    padding-left: 16px;
+                    input {
+
+                        &.duration {
+                            width: 132px;
+                        }
+                    }
+                }
+
+                .version-item {
+                    padding-left: 28px;
+                    input {
+                        &.duration {
+                            width: 120px;
+                        }
+                    }
+                }
+
+                .other-cleans .clean-item {
+                    padding-left: 0px;
+                }
+
+            }
+        }
+    }
+}

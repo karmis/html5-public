@@ -1,0 +1,231 @@
+<div class="manager-user-modal-wrapper">
+    <div class="main-user-wrapper" *ngIf="userData">
+        <div class="left-column">
+            <div class="top-row" style="height:100%">
+                <div class="fields-wrapper">
+                    <div class="field-row">
+                        <div class="label">{{"user_management.users.fields.userid" | translate}}</div>
+                        <div class="value-wrapper">
+                            <input type="text" [(ngModel)]="userData.USER_ID" (keyup)="onUserIDInput()" [attr.disabled]="isNew ? null : true" style="text-transform: uppercase;"/>
+                        </div>
+                    </div>
+                    <div class="field-row" *ngIf="isNew">
+                        <div class="label">{{"user_management.users.fields.pass" | translate}}</div>
+                        <div class="value-wrapper">
+                            <input type="password" autocomplete="new-password" [(ngModel)]="userData.PASSWORD"/>
+                        </div>
+                    </div>
+                    <div class="field-row" *ngIf="isNew">
+                        <div class="label">{{"user_management.users.fields.confirm" | translate}}</div>
+                        <div class="value-wrapper">
+                            <input type="password" autocomplete="new-password" [(ngModel)]="passwordConfirm"/>
+                        </div>
+                    </div>
+                    <div class="field-row" *ngIf="!isNew && !inChange && !changeInProgress && !getPasThru()">
+                        <div class="label"></div>
+                        <div class="value-wrapper" style="text-align: center;">
+                            <button (click)="toggleChangePassword(true)">{{"base.change_password" | translate}}</button>
+                        </div>
+                    </div>
+                    <div class="field-row" *ngIf="!isNew && inChange && !changeInProgress">
+                        <div class="label">{{"profile.security.change_password.new_pass" | translate}}</div>
+                        <div class="value-wrapper">
+                            <input type="password" autocomplete="new-password" [(ngModel)]="changedPassword"/>
+                        </div>
+                        <div>
+                            <button style="height: 24px;line-height: 24px;" (click)="changePassword()">{{"base.save" | translate}}</button>
+                            <button style="height: 24px;line-height: 24px;" (click)="toggleChangePassword(false)">{{"common.cancel" | translate}}</button>
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <div class="label"></div>
+                        <div class="value-wrapper" style="text-align: center;">
+                            <button (click)="userData.DBA_MODE = -1" *ngIf="userData.DBA_MODE == 0">{{"user_management.users.fields.grant_dba" | translate}}</button>
+                            <button (click)="userData.DBA_MODE = 0" *ngIf="userData.DBA_MODE == -1">{{"user_management.users.fields.ugrant_dba" | translate}}</button>
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <div class="label">{{"user_management.users.fields.fname" | translate}}</div>
+                        <div class="value-wrapper">
+                            <input type="text" [(ngModel)]="userData.FORENAME"/>
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <div class="label">{{"user_management.users.fields.lname" | translate}}</div>
+                        <div class="value-wrapper">
+                            <input type="text" [(ngModel)]="userData.SURNAME"/>
+                        </div>
+                    </div>
+                    <div class="field-row phone">
+                        <div class="label">{{"user_management.users.fields.phone_d" | translate}}</div>
+                        <div class="value-wrapper">
+                            <input type="text" [(ngModel)]="userData.PHONE" style="width: calc(100% - 107px)"/>
+                            <span>{{"user_management.users.fields.ext" | translate}}</span>
+                            <input class="short" type="text" [(ngModel)]="userData.PH_EXT" style="width: 30px;"/>
+                            <span>#</span>
+                            <input class="short" type="text" [(ngModel)]="userData.PH_SPED" style="width: 30px;"/>
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <div class="label">{{"user_management.users.fields.phone_m" | translate}}</div>
+                        <div class="value-wrapper">
+                            <input type="text" [(ngModel)]="userData.PH_MOB"/>
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <div class="label">{{"user_management.users.fields.email" | translate}}</div>
+                        <div class="value-wrapper">
+                            <input type="text" [(ngModel)]="userData.PC_ID"/>
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <div class="label">{{"user_management.users.fields.job_schedule" | translate}}</div>
+                        <div class="value-wrapper" style="height: auto;">
+                            <div>{{userData.LocationText}}</div>
+                            <button (click)="showLocationModal()" style="margin-bottom: 5px;">{{"user_management.users.edit" | translate}}</button>
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <div class="label">{{"user_management.users.fields.parent_company" | translate}}</div>
+                        <div class="value-wrapper" style="height: auto;">
+                            <div>{{userData.NA_PARENT_ENTITY_NAME}}</div>
+                            <button (click)="showNamesAuthoringModal()" style="margin-bottom: 5px;">{{"user_management.users.edit" | translate}}</button>
+                        </div>
+                    </div>
+                    <div class="field-row" *ngIf="hasCustomUIOptions">
+                        <div class="label">{{"user_management.users.fields.language" | translate}}</div>
+                        <div class="value-wrapper select2wrapper">
+                            <imfx-controls-select2
+                                #selectLangEl
+                                [width]="'100%'"
+                                *ngIf="lookupsMap['LANGUAGES']"
+                                [data]="lookupsMap['LANGUAGES']"
+                                (onSelect)="onChangeLang($event)"></imfx-controls-select2>
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <div class="label">{{"user_management.users.fields.department" | translate}}</div>
+                        <div class="value-wrapper select2wrapper">
+                            <imfx-controls-select2
+                                    [width]="'100%'"
+                                    *ngIf="lookupsMap['DEPT_ID']"
+                                    [data]="lookupsMap['DEPT_ID']"
+                                    [value]="[{Id: userData['DEPT_ID']}]"
+                                    [placeholder]="'xml.select_value'|translate"
+                                    [placeholderRefToTranslate]="'xml.select_value'"
+                                    (onSelect)="onSelect($event, 'DEPT_ID')"></imfx-controls-select2>
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <div class="label">{{"user_management.users.fields.settings_groups" | translate}}</div>
+                        <div class="value-wrapper select2wrapper">
+                            <imfx-controls-select2
+                                    [width]="'100%'"
+                                    *ngIf="lookupsMap['SETTINGS_GROUP_ID']"
+                                    [data]="lookupsMap['SETTINGS_GROUP_ID']"
+                                    [value]="[{Id: userData['SETTINGS_GROUP_ID']}]"
+                                    [placeholder]="'xml.select_value'|translate"
+                                    [placeholderRefToTranslate]="'xml.select_value'"
+                                    (onSelect)="onSelect($event, 'SETTINGS_GROUP_ID')"></imfx-controls-select2>
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <div class="label">{{"user_management.users.fields.file_server" | translate}}</div>
+                        <div class="value-wrapper select2wrapper">
+                            <imfx-controls-select2
+                                    *ngIf="lookupsMap['DEFAULT_DEVICE']"
+                                    [width]="'100%'"
+                                    [data]="lookupsMap['DEFAULT_DEVICE']"
+                                    [value]="[{Id: userData['DEFAULT_DEVICE']}]"
+                                    [placeholder]="'xml.select_value'|translate"
+                                    [placeholderRefToTranslate]="'xml.select_value'"
+                                    (onSelect)="onSelect($event, 'DEFAULT_DEVICE')"></imfx-controls-select2>
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <div class="label"></div>
+                        <div class="value-wrapper">
+                            <button (click)="setPasThru(!getPasThru())"><span class="status" [ngClass]="{'enabled': getPasThru()}"></span>{{"user_management.users.fields.is_pass" | translate}}</button>
+                            <!--                            <button (click)="setDisabled(!getDisabled())" style="float: right;"><span class="status" [ngClass]="{'enabled': getDisabled()}"></span>{{"user_management.users.fields.is_disabled" | translate}}</button>-->
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <div class="label">{{"user_management.users.fields.status" | translate}}</div>
+                        <div class="value-wrapper">
+                            <span>{{userData.STATUS}}</span>
+                            <button (click)="userData.STATUS = 'LOCKED'" *ngIf="userData.STATUS == 'OPEN'">{{"user_management.users.fields.lock" | translate}}</button>
+                            <button (click)="userData.STATUS = 'OPEN'" *ngIf="userData.STATUS != 'OPEN'">{{"user_management.users.fields.unlock" | translate}}</button>
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <div class="label">{{"user_management.users.fields.expiry_date" | translate}}</div>
+                        <div class="value-wrapper expiry-date select2wrapper">
+                            <expiry-date
+                                    [value]="userData.ExpiryDate"
+                                    (onChangeDate)="onChangeDate($event, 'ExpiryDate')"></expiry-date>
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <div class="label">{{"user_management.users.fields.okta_id" | translate}}</div>
+                        <div class="value-wrapper">
+                            <input type="text" [(ngModel)]="userData.OKTA_ID"/>
+                        </div>
+                    </div>
+                    <div class="field-row api-key" [ngClass]="{'full-size': userData.PUBLIC_API_KEY}">
+                        <div class="label">{{"user_management.users.fields.api_key" | translate}}</div>
+                        <div class="value-wrapper">
+                            <input type="text" [(ngModel)]="userData.PUBLIC_API_KEY"/>
+                            <button *ngIf="!userData.PUBLIC_API_KEY" (click)="genreatePublicAPIKey()" title="Generate random key">R</button>
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <div class="label" title="{{'user_management.users.fields.alt_user_name_full' | translate}}">{{'user_management.users.fields.alt_user_name' | translate}}</div>
+                        <div class="value-wrapper">
+                            <input type="text" [(ngModel)]="userData.ALT_USERNAME"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="middle-column">
+            <div class="bottom-row" style="height:100%">
+                <div class="top-row">
+                    <user-groups-tab [data]="userData.GROUPS" [user]="userData.USER_ID" (onAddItems)="onAddGroup($event)" (onDeleteItems)="onDeleteGroup($event)"></user-groups-tab>
+                </div>
+                <div class="bottom-row">
+                    <div class="tab-label"><span>{{"user_management.users.modal.notes_tab" | translate}}</span></div>
+                    <textarea class="user-notes-tab" [(ngModel)]="userData.NOTES"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="right-column">
+            <div class="top-row">
+                <div class="left-column">
+                    <user-presets-tab [data]="userData.PRESETS"></user-presets-tab>
+                </div>
+                <div class="right-column">
+                    <user-channels-tab [data]="userData.CHANNELS" [lookup]="lookupsMap['CHANNELS_LOOKUP']"></user-channels-tab>
+                </div>
+            </div>
+            <div class="bottom-row">
+                <responsibilities_tree #responsibilitiesTree
+                                       [responsibilities]="userData.RESPONSIBILITIES"
+                                       [reportsPermissions]="userData.REPORTS_PERMISSIONS"
+                                       [schedules]="userData.SCHEDULE_AREAS"
+                                       [readonly]="true"></responsibilities_tree>
+            </div>
+        </div>
+    </div>
+    <div class="overlay-wrapper" #modalUsersOverlayWrapper>
+        <div class="spinner"></div>
+    </div>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div>
+            <button type="button" *ngIf="userData" (click)="saveData()">{{'common.save'| translate}}</button>
+            <button type="button"  (click)="closeModal()">{{'common.cancel'| translate}}</button>
+        </div>
+    </div>
+</ng-template>

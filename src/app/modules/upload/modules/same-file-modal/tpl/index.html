@@ -1,0 +1,35 @@
+<div class="full-height full-width" style="padding-top: 10px; min-height: 600px;">
+    <div class="container-fluid" style="position: relative; height:100%;">
+        <!--Header-->
+        <div class="row-header">
+            <nav>
+                <ul>
+                    <li [hidden]="!hasPermissionByName('views-modify')">
+                        <search-views
+                            #viewsComp
+                            [config]="searchViewsConfig"
+                        ></search-views>
+                    </li>
+                    <li>
+                        <search-thumbs
+                            #searchThumbsComp
+                            [config]="searchThumbsConfig"
+                        ></search-thumbs>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!--Body-->
+        <div class="row-body">
+            <div style="height: 100%; width: 100%; min-height: 500px">
+                <slick-grid
+                    #slickGridComp
+                    class="media-grid vertical-align-row"
+                    style="width: 100%;  height: 100%"
+                    [config]="searchGridConfig"
+                ></slick-grid>
+            </div>
+        </div>
+    </div>
+</div>

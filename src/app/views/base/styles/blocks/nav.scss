@@ -1,0 +1,258 @@
+@import "../../../../views/base/styles/theme.scss";
+// Navigation
+@each $key, $value in $common-themes {
+    .#{$key} {
+        nav {
+            * {
+                margin-top: 0;
+            }
+
+            ul {
+                display: flex;
+                list-style-type: none;
+            }
+
+            > ul {
+                margin-bottom: -1px;
+            }
+
+            //
+            > ul > li + li {
+                margin-left: $grid*3;
+            }
+
+            li {
+                line-height: $baseline*2;
+                border-bottom: 2px solid transparent;
+            }
+
+            li label {
+                color: rgba(getThemeColor(1, $key), 0.6);
+            }
+
+            a, &.slick-pager a {
+                text-decoration: none;
+                display: block;
+                color: rgba(getThemeColor(1, $key), 0.6);
+                padding: 0 $grid*3;
+                line-height: $baseline*2;
+            }
+
+            &.main-menu a {
+                color: rgba(getThemeColor(1, $key), 0.6);
+                margin: $baseline/2 0;
+            }
+
+            a:hover, nav.slick-pager a:hover {
+                color: getThemeColor(1, $key) !important;
+            }
+
+            a.disabled {
+                pointer-events: none;
+                opacity: 0.6;
+            }
+
+            .active,
+            .icon-button.active,
+            .active:hover {
+                border-bottom: getThemeColor(7, $key) 2px solid;
+            }
+
+            .active > a {
+                color: rgba(getThemeColor(1, $key), 1) !important;
+            }
+
+            // Top nav
+            &.main-menu {
+                border-bottom: getThemeColor(22, $key) 1px solid;
+                white-space: nowrap;
+            }
+
+            &.main-menu {
+                position: fixed;
+                left: 0;
+                top: 0;
+                right: 0;
+                background-color: getThemeColor(3, $key);
+            }
+
+            .dropdown.button {
+                background: getThemeColor(22, $key);
+                height: 100% !important;
+            }
+            .dropdown.button.disabled:hover {
+                background-color: getThemeColor(22, $key);
+            }
+
+            &:not(.main-menu) .dropdown a {
+                color: getThemeColor(1, $key);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding-right: $grid;
+            }
+
+
+            // Nested menus
+            .dropdown {
+                outline: none;
+                position: relative;
+                //   background-color: getThemeColor(3, $key);
+                white-space: nowrap;
+                align-items: baseline;
+
+                &:hover {
+                    //height: 49px; // what for
+                    background-color: getThemeColor(6, $key);
+                    a {
+                        color: getThemeColor(1, $key)
+                    }
+                }
+
+
+                &.compact .submenu {
+                    font-size: 11px;
+                    li, a {
+                        line-height: $baseline*1.5;
+                    }
+                }
+            }
+
+            .submenu a {
+                margin: 0;
+                //color: getThemeColor(1, $key);
+                color: rgba(getThemeColor(1, $key), 0.85);
+            }
+
+            .active-dropdown {
+                background-color: getThemeColor(6, $key) !important;
+                a {
+                    color: getThemeColor(1, $key);
+                }
+            }
+
+            .active-submenu {
+                max-height: 999px !important;
+                opacity: 1 !important;
+                overflow: visible !important;
+                transform: translateZ(0) !important;
+                pointer-events: auto !important;
+            }
+
+
+
+            &.main-menu > ul > li:last-child a {
+                //padding-left: $grid*2;
+                //border-left: getThemeColor(9, $key) 1px solid;
+            }
+
+            // Dropdown
+            &.main-menu .dropdown,
+            .selected .dropdown,
+            .selected .dropdown:hover {
+                background-color: transparent;
+            }
+
+            &:not(.main-menu) .dropdown {
+                max-height: 32px;
+            }
+
+            &:not(.main-menu) .dropdown a {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding-right: 12px;
+            }
+
+            &:not(.main-menu) li {
+                height: 32px;
+            }
+
+            button.icon-button {
+                height: $baseline*2;
+                line-height: $baseline*2;
+                padding: 0 $grid;
+                border-bottom: 2px solid transparent;
+            }
+
+        }
+
+        .sidebar {
+            nav button.icon-button.active {
+                border-right: getThemeColor(7, $key) 2px solid;
+            }
+
+
+            nav button.icon-button {
+                border-bottom: 0;
+                border-right: 2px solid transparent;
+            }
+        }
+
+        .divider {
+            border-left: getThemeColor(22, $key) 1px solid;
+            min-width: 1px;
+            text-indent: -999em;
+            overflow: hidden;
+        }
+
+        .nav-right,
+        .row-form > .nav-right {
+            margin-left: auto;
+        }
+
+        //nav.main-menu ul li.dropdown:hover {
+        //  background-color: getThemeColor(6, $key);
+        //}
+
+
+        .dropdown.grid-settings-dropdown {
+            &.mediaSettingsPopup, &.versionSettingsPopup, &.carrierSettingsPopup, &.titleSettingsPopup {
+                z-index: 101;
+            }
+        }
+
+
+        footer {
+            .dropdown .submenu {
+                top: auto;
+                bottom: 0;
+            }
+
+            .submenu {
+                top: auto;
+                bottom: 100%;
+            }
+        }
+
+
+
+        .submenu a:hover,
+        nav .dropdown .submenu a:hover {
+            background-color: getThemeColor(10, $key);
+            color: #fff;
+        }
+
+        .no-label span {
+            clip: rect(1px, 1px, 1px, 1px);
+            height: 1px;
+            width: 1px;
+            overflow: hidden;
+            position: absolute;
+            white-space: nowrap;
+        }
+
+        .table-view .dropdown,
+        .tile .dropdown,
+        .results .dropdown {
+            background: transparent;
+        }
+
+        .item nav .dropdown {
+            height: $baseline;
+            margin: 0;
+            padding: 0 $grid*2;
+            line-height: $baseline;
+        }
+    }
+}

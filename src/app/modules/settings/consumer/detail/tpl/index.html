@@ -1,0 +1,467 @@
+<div id="consumer-settings" #wrapperDetailConfig style="height: 100%; overflow: auto">
+    <button class="button" (click)="open()" style="z-index: 2" *ngIf="!builderMode">
+        {{'consumer_settings.edit'|translate}}
+    </button>
+
+
+    <div *ngIf="!builderMode"
+         [ngStyle]="{'height': settings.common.blockHeight?settings.common.blockHeight+'px':'auto'}"
+         id='consumer-preview-detail'>
+
+        <div class="grid-stack grid-stack-static">
+
+            <!--Dynamic widgets-->
+            <div *ngFor="let dynWidget of settings.dynamicWidgets; let i=index" class="grid-stack-item imfx-allow-dnd"
+                 [attr.data-custom-id]="dynWidget.id"
+                 [ngStyle]="getStylesForWidget(dynWidget.id, 'dynamicWidgets')"
+            >
+                <div class="grid-stack-item-content">
+                    <div class="label-value">{{dynWidget.value}}</div>
+                </div>
+            </div>
+
+            <!--<div class="grid-stack-item"-->
+                 <!--[hidden]="!settings.staticWidgets.ThumbUrl.enabled"-->
+                 <!--data-custom-id="ThumbUrl"-->
+                 <!--[ngStyle]="getStylesForWidget('ThumbUrl')"-->
+            <!--&gt;-->
+                <!--<div class="grid-stack-item-content">-->
+                    <!--<div class="thumbnail-container centred" style="width: 100%;">-->
+                        <!--<grid-column-thumb-component [params]="{value: item?.ThumbUrl}"-->
+                                                     <!--style="position: absolute;top: 50%;transform: translateY(-50%);width: 100%;height: 100%;"></grid-column-thumb-component>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--Titles-->
+            <div class="grid-stack-item imfx-allow-dnd"
+                 [hidden]="!settings.staticWidgets.Title.enabled"
+                 data-custom-id="Title"
+                 [ngStyle]="getStylesForWidget('Title')">
+                <div class="grid-stack-item-content">
+                    <div class="item-title">
+                        <h1>{{item?.Title||('consumer_settings.no_data'|translate)}}</h1>
+                    </div>
+                </div>
+            </div>
+
+            <!--VersionId1-->
+            <div class="grid-stack-item imfx-allow-dnd"
+                 [hidden]="!settings.staticWidgets.VersionId1?.enabled"
+                 data-custom-id="VersionId1"
+                 [ngStyle]="getStylesForWidget('VersionId1')">
+                <div class="grid-stack-item-content">
+                    <div class="item-title-versionId1">
+                        <div class="series-versionId1">{{item?.VersionId1||('consumer_settings.no_data'|translate)}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!--ItemType-->
+            <div class="grid-stack-item imfx-allow-dnd"
+                 [hidden]="!settings.staticWidgets.ItemType?.enabled"
+                 data-custom-id="ItemType"
+                 [ngStyle]="getStylesForWidget('ItemType')">
+                <div class="grid-stack-item-content">
+                    <div class="item-title-itemType">
+                        <div class="series-itemType">{{item?.ItemType||('consumer_settings.no_data'|translate)}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!--SeasonTitle-->
+            <div class="grid-stack-item imfx-allow-dnd"
+                 [hidden]="!settings.staticWidgets.SeasonTitle?.enabled"
+                 data-custom-id="SeasonTitle"
+                 [ngStyle]="getStylesForWidget('SeasonTitle')">
+                <div class="grid-stack-item-content">
+                    <div class="item-title-seasonTitle">
+                        <div class="series-seasonTitle">{{item?.SeasonTitle||('consumer_settings.no_data'|translate)}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!--EpisodeNo-->
+            <div class="grid-stack-item imfx-allow-dnd"
+                 [hidden]="!settings.staticWidgets.EpisodeNo?.enabled"
+                 data-custom-id="EpisodeNo"
+                 [ngStyle]="getStylesForWidget('EpisodeNo')">
+                <div class="grid-stack-item-content">
+                    <div class="item-title-episodeNo">
+                        <div class="series-episodeNo">{{item?.EpisodeNo||('consumer_settings.no_data'|translate)}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!--SeasonNo-->
+            <div class="grid-stack-item imfx-allow-dnd"
+                 [hidden]="!settings.staticWidgets.SeasonNo?.enabled"
+                 data-custom-id="SeasonNo"
+                 [ngStyle]="getStylesForWidget('SeasonNo')">
+                <div class="grid-stack-item-content">
+                    <div class="item-title-seasonNo">
+                        <div class="series-seasonNo">{{item?.SeasonNo||('consumer_settings.no_data'|translate)}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-stack-item imfx-allow-dnd"
+                 [hidden]="!settings.staticWidgets.SeriesTitle.enabled"
+                 data-custom-id="SeriesTitle"
+                 [ngStyle]="getStylesForWidget('SeriesTitle')">
+                <div class="grid-stack-item-content">
+                    <div class="series-title">{{item?.SeriesTitle}}</div>
+                </div>
+            </div>
+
+            <div class="grid-stack-item imfx-allow-dnd"
+                 [hidden]="!settings.staticWidgets.Synopsis.enabled"
+                 data-custom-id="description"
+                 [ngStyle]="getStylesForWidget('Synopsis')">
+                <div class="grid-stack-item-content">
+                    <p class="description">{{item?.Synopsis}}</p>
+                </div>
+            </div>
+
+            <div class="grid-stack-item imfx-allow-dnd"
+                 [hidden]="!settings.staticWidgets.Duration.enabled"
+                 data-custom-id="Duration"
+                 [ngStyle]="getStylesForWidget('Duration')">
+                <div class="grid-stack-item-content">
+                    <i class="icons-duration icon"></i>
+                    <span class="duration">{{item?.Duration}}</span>
+                </div>
+            </div>
+
+            <div class="grid-stack-item imfx-allow-dnd"
+                 [hidden]="!settings.staticWidgets.cart.enabled"
+                 data-custom-id="cart"
+                 [ngStyle]="getStylesForWidget('cart')">
+                <div class="grid-stack-item-content">
+                    <button class="full-width centred">
+                        <i *ngIf="isOrdered(); else emptyBasket" class="icons-inbasket icon inbasket centred"></i>
+                        <ng-template #emptyBasket>
+                            <i class="icons-addbasket icon centred"></i>
+                        </ng-template>
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid-stack-item imfx-allow-dnd"
+                 [hidden]="!settings.staticWidgets.icons.enabled"
+                 data-custom-id="icons"
+                 [ngStyle]="getStylesForWidget('icons')">
+                <div class="grid-stack-item-content">
+                    <div class="icons">
+                        <i class="icons-files icon"></i>
+                        <i class="icons-audio icon"></i>
+                        <i class="icons-video icon"></i>
+                        <i class="icons-video-hd icon"></i>
+                        <i class="icons-video-sd icon"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!--moreDetails-->
+            <div class="grid-stack-item imfx-allow-dnd"
+                 [hidden]="!settings.staticWidgets.moreDetails.enabled"
+                 data-custom-id="moreDetails"
+                 [ngStyle]="getStylesForWidget('moreDetails')">
+                <div class="grid-stack-item-content" style="cursor: pointer;">
+                    <div class="button centred full-width more-details-btn">
+                        <span>{{ 'consumer.more_details' | translate }}</span>
+                        <!--<i class="icons-more icon" style="line-height: normal"></i>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div *ngIf="builderMode">
+        <div id="box">
+            <button class="button" (click)="addLabel()">
+                {{'consumer_settings.add_label'|translate}}
+            </button>
+            <button class="button" (click)="save()">
+                {{'consumer_settings.save'|translate}}
+            </button>
+            <button class="button" (click)="reset()">
+                {{'consumer_settings.reset'|translate}}
+            </button>
+            <button class="button" (click)="openListOfFiledsModal()">
+                {{'consumer_settings.setup_fields'|translate}}
+            </button>
+            <!--Label wisget tpl-->
+            <div id="widget-tpl-label" style="display: none;" gridStackItem>
+                <div class="label-value"></div>
+            </div>
+        </div>
+        <!--<div id="trash"></div>-->
+
+        <div class="item-content-wrapper" id="consumer-builder-detail"
+             [ngStyle]="{'width': '30%'}">
+            <div>
+                <gridStack #gridStackDetail w="30" [h]="400" animate="false"
+                           (saveFunction)="save()"
+                           [options]="gridStackOptions">
+
+                    <!--<div gridStackItem-->
+                         <!--[customid]="'ThumbUrl'"-->
+                         <!--id="ThumbUrl"-->
+                         <!--[x]="tmpSettings.staticWidgets.ThumbUrl.x" [y]="tmpSettings.staticWidgets.ThumbUrl.y"-->
+                         <!--[w]="tmpSettings.staticWidgets.ThumbUrl.width"-->
+                         <!--[h]="tmpSettings.staticWidgets.ThumbUrl.height"-->
+                         <!--[attr.data-gs-min-width]="tmpSettings.staticWidgets.ThumbUrl.minWidth"-->
+                         <!--[ngStyle]="{minHeight: tmpSettings.staticWidgets.ThumbUrl.minHeight + 'px'}"-->
+                    <!--&gt;-->
+                        <!--<div class="thumbnail-container centred" style="width: 100%;">-->
+                            <!--<grid-column-thumb-component [params]="{value: item?.ThumbUrl}"-->
+                                                         <!--style="position: absolute;top: 50%;transform: translateY(-50%);width: 100%;height: 100%;"></grid-column-thumb-component>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--Title-->
+                    <div gridStackItem
+                         *ngIf="tmpSettings.staticWidgets.Title.enabled"
+                         [customid]="'Title'"
+                         id="Title"
+                         title="{{getTitleByFieldName('Title')}}"
+                         [x]="tmpSettings.staticWidgets.Title.x" [y]="tmpSettings.staticWidgets.Title.y"
+                         [w]="tmpSettings.staticWidgets.Title.width"
+                         [h]="tmpSettings.staticWidgets.Title.height"
+                         [attr.data-gs-min-width]="tmpSettings.staticWidgets.Title.minWidth"
+                         [attr.data-gs-min-height]="tmpSettings.staticWidgets.Title.minHeight"
+                    >
+                        <div class="item-title">
+                            <h1>{{item?.Title||('consumer_settings.no_data'|translate)}}</h1>
+                        </div>
+                    </div>
+
+                    <!--VersionId1-->
+                    <div gridStackItem
+                         *ngIf="tmpSettings.staticWidgets.VersionId1.enabled"
+                         [customid]="'VersionId1'"
+                         id="VersionId1"
+                         title="{{getTitleByFieldName('VersionId1')}}"
+                         [x]="tmpSettings.staticWidgets.VersionId1.x" [y]="tmpSettings.staticWidgets.VersionId1.y"
+                         [w]="tmpSettings.staticWidgets.VersionId1.width"
+                         [h]="tmpSettings.staticWidgets.VersionId1.height"
+                         [attr.data-gs-min-width]="tmpSettings.staticWidgets.VersionId1.minWidth"
+                         [attr.data-gs-min-height]="tmpSettings.staticWidgets.VersionId1.minHeight"
+                    >
+                        <div class="series-versionId1">
+                            {{item?.VersionId1||('consumer_settings.no_data'|translate)}}
+                        </div>
+                    </div>
+
+                    <!--ItemType-->
+                    <div gridStackItem
+                         *ngIf="tmpSettings.staticWidgets.ItemType.enabled"
+                         [customid]="'ItemType'"
+                         id="ItemType"
+                         title="{{getTitleByFieldName('ItemType')}}"
+                         [x]="tmpSettings.staticWidgets.ItemType.x" [y]="tmpSettings.staticWidgets.ItemType.y"
+                         [w]="tmpSettings.staticWidgets.ItemType.width"
+                         [h]="tmpSettings.staticWidgets.ItemType.height"
+                         [attr.data-gs-min-width]="tmpSettings.staticWidgets.ItemType.minWidth"
+                         [attr.data-gs-min-height]="tmpSettings.staticWidgets.ItemType.minHeight"
+                    >
+                        <div class="series-itemType">
+                            {{item?.ItemType||('consumer_settings.no_data'|translate)}}
+                        </div>
+                    </div>
+
+
+                    <!--SeasonTitle-->
+                    <div gridStackItem
+                         *ngIf="tmpSettings.staticWidgets.SeasonTitle.enabled"
+                         [customid]="'SeasonTitle'"
+                         id="SeasonTitle"
+                         title="{{getTitleByFieldName('SeasonTitle')}}"
+                         [x]="tmpSettings.staticWidgets.SeasonTitle.x" [y]="tmpSettings.staticWidgets.SeasonTitle.y"
+                         [w]="tmpSettings.staticWidgets.SeasonTitle.width"
+                         [h]="tmpSettings.staticWidgets.SeasonTitle.height"
+                         [attr.data-gs-min-width]="tmpSettings.staticWidgets.SeasonTitle.minWidth"
+                         [attr.data-gs-min-height]="tmpSettings.staticWidgets.SeasonTitle.minHeight"
+                    >
+                        <div class="series-seasonTitle">
+                            {{item?.SeasonTitle||('consumer_settings.no_data'|translate)}}
+                        </div>
+                    </div>
+
+                    <!--EpisodeNo-->
+                    <div gridStackItem
+                         *ngIf="tmpSettings.staticWidgets.EpisodeNo.enabled"
+                         [customid]="'EpisodeNo'"
+                         id="EpisodeNo"
+                         title="{{getTitleByFieldName('EpisodeNo')}}"
+                         [x]="tmpSettings.staticWidgets.EpisodeNo.x" [y]="tmpSettings.staticWidgets.EpisodeNo.y"
+                         [w]="tmpSettings.staticWidgets.EpisodeNo.width"
+                         [h]="tmpSettings.staticWidgets.EpisodeNo.height"
+                         [attr.data-gs-min-width]="tmpSettings.staticWidgets.EpisodeNo.minWidth"
+                         [attr.data-gs-min-height]="tmpSettings.staticWidgets.EpisodeNo.minHeight"
+                    >
+                        <div class="series-episodeNo">
+                            {{item?.EpisodeNo||('consumer_settings.no_data'|translate)}}
+                        </div>
+                    </div>
+
+                    <!--SeasonNo-->
+                    <div gridStackItem
+                         *ngIf="tmpSettings.staticWidgets.SeasonNo.enabled"
+                         [customid]="'SeasonNo'"
+                         id="SeasonNo"
+                         title="{{getTitleByFieldName('SeasonNo')}}"
+                         [x]="tmpSettings.staticWidgets.SeasonNo.x" [y]="tmpSettings.staticWidgets.SeasonNo.y"
+                         [w]="tmpSettings.staticWidgets.SeasonNo.width"
+                         [h]="tmpSettings.staticWidgets.SeasonNo.height"
+                         [attr.data-gs-min-width]="tmpSettings.staticWidgets.SeasonNo.minWidth"
+                         [attr.data-gs-min-height]="tmpSettings.staticWidgets.SeasonNo.minHeight"
+                    >
+                        <div class="series-seasonNo">
+                            {{item?.SeasonNo||('consumer_settings.no_data'|translate)}}
+                        </div>
+                    </div>
+
+                    <!--SeriesTitle-->
+                    <div gridStackItem
+                         *ngIf="tmpSettings.staticWidgets.SeriesTitle.enabled"
+                         [customid]="'SeriesTitle'"
+                         id="SeriesTitle"
+                         title="{{getTitleByFieldName('SeriesTitle')}}"
+                         [x]="tmpSettings.staticWidgets.SeriesTitle.x" [y]="tmpSettings.staticWidgets.SeriesTitle.y"
+                         [w]="tmpSettings.staticWidgets.SeriesTitle.width"
+                         [h]="tmpSettings.staticWidgets.SeriesTitle.height"
+                         [attr.data-gs-min-width]="tmpSettings.staticWidgets.SeriesTitle.minWidth"
+                         [attr.data-gs-min-height]="tmpSettings.staticWidgets.SeriesTitle.minHeight"
+                    >
+                        <div class="series-title">
+                            {{item?.SeriesTitle||('consumer_settings.no_data'|translate)}}
+                        </div>
+                    </div>
+
+                    <!--Synopsis-->
+                    <div gridStackItem
+                         *ngIf="tmpSettings.staticWidgets.Synopsis.enabled"
+                         [customid]="'Synopsis'"
+                         id="Synopsis"
+                         title="{{getTitleByFieldName('Synopsis')}}"
+                         [x]="tmpSettings.staticWidgets.Synopsis.x"
+                         [y]="tmpSettings.staticWidgets.Synopsis.y"
+                         [w]="tmpSettings.staticWidgets.Synopsis.width"
+                         [h]="tmpSettings.staticWidgets.Synopsis.height"
+                         [attr.data-gs-min-width]="tmpSettings.staticWidgets.Synopsis.minWidth"
+                         [attr.data-gs-min-height]="tmpSettings.staticWidgets.Synopsis.minHeight"
+                    >
+                        <p class="description">
+                            {{item?.Synopsis||('consumer_settings.no_data'|translate)}}
+                        </p>
+                    </div>
+
+                    <!--Duration-->
+                    <div gridStackItem
+                         *ngIf="tmpSettings.staticWidgets.Duration.enabled"
+                         [customid]="'Duration'"
+                         id="Duration"
+                         title="{{getTitleByFieldName('Duration')}}"
+                         [x]="tmpSettings.staticWidgets.Duration.x" [y]="tmpSettings.staticWidgets.Duration.y"
+                         [w]="tmpSettings.staticWidgets.Duration.width"
+                         [h]="tmpSettings.staticWidgets.Duration.height"
+                         [attr.data-gs-min-width]="tmpSettings.staticWidgets.Duration.minWidth"
+                         [attr.data-gs-min-height]="tmpSettings.staticWidgets.Duration.minHeight"
+                    >
+                        <i class="icons-duration icon"></i>
+                        <span class="duration">
+                            {{item?.Duration||('consumer_settings.no_data'|translate)}}
+                        </span>
+                    </div>
+
+                    <!--cart-->
+                    <div gridStackItem
+                         *ngIf="tmpSettings.staticWidgets.cart.enabled"
+                         [customid]="'cart'"
+                         id="cart"
+                         [x]="tmpSettings.staticWidgets.cart.x" [y]="tmpSettings.staticWidgets.cart.y"
+                         [w]="tmpSettings.staticWidgets.cart.width" [h]="tmpSettings.staticWidgets.cart.height"
+                         [attr.data-gs-min-width]="tmpSettings.staticWidgets.cart.minWidth"
+                         [attr.data-gs-min-height]="tmpSettings.staticWidgets.cart.minHeight"
+                    >
+                        <button class="full-width centred">
+                            <i *ngIf="isOrdered(); else emptyBasket" class="icons-inbasket icon inbasket centred"></i>
+                            <ng-template #emptyBasket>
+                                <i class="icons-addbasket icon centred"></i>
+                            </ng-template>
+                        </button>
+                    </div>
+
+                    <!--IsHD-->
+                    <!--<div gridStackItem-->
+                    <!--*ngIf="tmpSettings.staticWidgets.IsHD.enabled"-->
+                    <!--[customid]="'IsHD'"-->
+                    <!--id="IsHD"-->
+                    <!--[x]="tmpSettings.staticWidgets.IsHD.x" [y]="tmpSettings.staticWidgets.IsHD.y"-->
+                    <!--[w]="tmpSettings.staticWidgets.IsHD.width" [h]="tmpSettings.staticWidgets.IsHD.height"-->
+                    <!--[attr.data-gs-min-width]="tmpSettings.staticWidgets.IsHD.minWidth"-->
+                    <!--[attr.data-gs-min-height]="tmpSettings.staticWidgets.IsHD.minHeight"-->
+                    <!--&gt;-->
+                    <!--< IsHD >-->
+                    <!--</div>-->
+
+                    <!--toDetail-->
+                    <!--<div gridStackItem-->
+                    <!--*ngIf="tmpSettings.staticWidgets.toDetail.enabled"-->
+                    <!--[customid]="'toDetail'"-->
+                    <!--id="toDetail"-->
+                    <!--[x]="tmpSettings.staticWidgets.toDetail.x" [y]="tmpSettings.staticWidgets.toDetail.y"-->
+                    <!--[w]="tmpSettings.staticWidgets.toDetail.width" [h]="tmpSettings.staticWidgets.toDetail.height"-->
+                    <!--[attr.data-gs-min-width]="tmpSettings.staticWidgets.toDetail.minWidth"-->
+                    <!--[attr.data-gs-min-height]="tmpSettings.staticWidgets.toDetail.minHeight"-->
+                    <!--&gt;-->
+                    <!--< toDetail >-->
+                    <!--</div>-->
+
+
+                    <!--icons-->
+                    <div gridStackItem
+                         *ngIf="tmpSettings.staticWidgets.icons.enabled"
+                         [customid]="'icons'"
+                         id="icons"
+                         class="centred"
+                         [x]="tmpSettings.staticWidgets.icons.x" [y]="tmpSettings.staticWidgets.icons.y"
+                         [w]="tmpSettings.staticWidgets.icons.width" [h]="tmpSettings.staticWidgets.icons.height"
+                         [attr.data-gs-min-width]="tmpSettings.staticWidgets.icons.minWidth"
+                         [attr.data-gs-min-height]="tmpSettings.staticWidgets.icons.minHeight"
+                    >
+                        <div class="icons">
+                            <i class="icons-files icon"></i>
+                            <i class="icons-audio icon"></i>
+                            <i class="icons-video icon"></i>
+                            <i class="icons-video-hd icon"></i>
+                            <i class="icons-video-sd icon"></i>
+                        </div>
+                    </div>
+
+                    <!--moreDetails-->
+                    <div gridStackItem
+                         *ngIf="tmpSettings.staticWidgets.moreDetails.enabled"
+                         [customid]="'moreDetails'"
+                         id="moreDetails"
+                         [x]="tmpSettings.staticWidgets.moreDetails.x"
+                         [y]="tmpSettings.staticWidgets.moreDetails.y"
+                         [w]="tmpSettings.staticWidgets.moreDetails.width"
+                         [h]="tmpSettings.staticWidgets.moreDetails.height"
+                         [attr.data-gs-min-width]="tmpSettings.staticWidgets.moreDetails.minWidth"
+                         [attr.data-gs-min-height]="tmpSettings.staticWidgets.moreDetails.minHeight"
+                    >
+                        <div class="button centred full-width more-details-btn">
+                            <span>{{ 'consumer.more_details' | translate }}</span>
+                            <!--<i class="icons-more icon" style="line-height: normal"></i>-->
+                        </div>
+                    </div>
+                </gridStack>
+            </div>
+        </div>
+    </div>
+</div>
+
+<overlay #overlayForDetail></overlay>

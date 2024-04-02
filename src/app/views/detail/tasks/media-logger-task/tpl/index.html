@@ -1,0 +1,68 @@
+<div class="task-logger-wrapper detail-page-wrapper media-logger-wrapper">
+    <div class="imfx-table detail">
+        <div class="imfx-detail-btns imfx-logger-btns">
+            <div class="btn-wrapper-left">
+                <div class="back-btn-wrapper">
+                    <button *ngIf="!isFirstLocation()" class="icon-button" title="{{ 'common.back_button' | translate }}"
+                            (click)="clickBack()">
+                                <i class="icons-left icon"></i>
+                            </button>
+                </div>
+                <div class="title-wrapper">
+                            <h1>
+                                {{ 'media_logger.task_logger_title' | translate }}
+                            </h1>
+                </div>
+                <div class="tasks-control-buttons-wrap" *ngIf="!error">
+                    <tasks-control-buttons #tasksControlButtons
+                                           [status]="taskStatus"
+                                           [taskId]="taskId"
+                                           [statusText]="statusText"
+                                           [reloadStatus]="reloadTaskStatus"
+                                           [taskFile]="detailProvider.taskFile"
+                                           [commonUpdateDetailSubject]="detailProvider.commonUpdateDetailSubject"
+                               [callback]="taskCallback"
+                               [lockedBy]="taskLockedBy"></tasks-control-buttons>
+                </div>
+            </div>
+            <div class="btn-wrapper-right" *ngIf="!error">
+                <nav>
+                    <ul>
+                        <li>
+                            <button class="history" (click)="history()">
+                                {{ 'simple_assessment.history_button' | translate }}
+                            </button>
+                            <button class="button" title="{{ 'common.save' | translate }}" (click)="save()"
+                                    [disabled]="!isValid()">
+                              <span>
+                                 {{ 'common.save' | translate }}
+                              </span>
+                            </button>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="imfx-row p-rel-h-full">
+            <div class="golden-layout-detail" *ngIf="!error">
+                <golden-task-logger-layout *ngIf="(checkDetailExistance(config.options.file)) || isPopout"
+                                           [config]="goldenConfig"
+                                           [onSaveLogger]="onSaveLogger"
+                                           #glTaskLogger>Loading...</golden-task-logger-layout>
+            </div>
+            <div class="error-text error" *ngIf="error">
+                <div style="    text-align: center;
+    margin: auto;">
+                    <h2>
+                        {{text}}
+                    </h2>
+                    <div *ngIf="isErrorMoreInfo" class="err-more-btn" (click)="toggleMoreInfoPopup($event)"> {{ 'login.learn_more' | translate }}
+                        <div class="err-info-popup">
+                            <p *ngFor="let item of errorMoreInfoText.split('\n')">{{item}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

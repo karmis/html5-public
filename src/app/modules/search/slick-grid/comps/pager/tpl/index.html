@@ -1,0 +1,70 @@
+<div *ngIf="sgp && provider?.slickGridProvider && sgp.module.pager.enabled == true">
+    <nav
+            #pager
+            [hidden]="sgp.module.pager.mode === 'full'?!sgp.getData()?.length || sgp.module.pager._pages?.length <= 1:false"
+            class="slick-pager"
+            id="{{sgp.uid}}-pager">
+        <!-- Full mode -->
+        <ul class="pages" style="float: right;margin-left: auto;" *ngIf="sgp.module.pager.mode === 'full'">
+            <li>
+                <button class="icon-button" title="first page" [hidden]="provider.isFirstPage()"
+                        (click)="provider.firstPage()">
+                    <i class="icons-first icon"></i>
+                </button>
+            </li>
+            <li>
+                <button class="icon-button" title="previous page" [hidden]="provider.isFirstPage()"
+                        (click)="provider.prevPage()">
+                    <i class="icons-left icon"></i>
+                </button>
+            </li>
+            <li class="divider">|</li>
+            <li class="page" (click)="provider.setPage(p)" class="slick-page-{{p}}"
+                [ngClass]="{'active': provider.currentPage == p}"
+                *ngFor="let p of provider.currentPageNumbers">
+                <!--*ngFor="let p of module.pager._pages">-->
+                <a>{{p}}</a>
+            </li>
+            <li class="divider">|</li>
+            <li>
+                <button class="icon-button" title="next page" [hidden]="provider.isLastPage()"
+                        (click)="provider.nextPage()">
+                    <i class="icons-right icon"></i>
+                </button>
+            </li>
+            <li>
+                <button class="icon-button" title="last page" [hidden]="provider.isLastPage()"
+                        (click)="provider.lastPage()">
+                    <i class="icons-last icon"></i>
+                </button>
+            </li>
+        </ul>
+        <!-- Small mode -->
+        <!--(sgp.getTopData()?.length < sgp.module.pager.perPage) && provider.isFirstPage()-->
+        <ul class="pages" style="float: right;margin-left: auto;"
+            *ngIf="sgp.module.pager.mode === 'small'"
+            [hidden]="(sgp.getTopData()?.length < sgp.module.pager.perPage) && provider.isFirstPage()">
+            <li>
+                <button class="icon-button" title="previous page" [disabled]="provider.isFirstPage() || isDisabledPrevBtn"
+                        (click)="provider.prevPage()">
+                    <i class="icons-left icon"></i>
+                    {{'common.prev'|translate}}
+                </button>
+            </li>
+            <li class="divider">|</li>
+            <li>
+                <!--sgp.getTopData()?.length < sgp.module.pager.perPage-->
+                <button
+                    class="icon-button"
+                    title="next page"
+                    [disabled]="(sgp.getTopData()?.length < sgp.module.pager.perPage) || provider.isLastPage() || isDisabledNextBtn"
+                        (click)="provider.nextPage()">
+                    {{'common.next'|translate}}
+                    <i class="icons-right icon"></i>
+                </button>
+            </li>
+
+        </ul>
+    </nav>
+
+</div>

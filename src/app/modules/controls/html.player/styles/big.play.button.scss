@@ -1,0 +1,99 @@
+@import "../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .simple-mode {
+            .video-js {
+                button.icon-button.large {
+                    width: 50px;
+                    height: 50px;
+                    i.icons-play {
+                        line-height: 50px;
+                    }
+                    i.icons-play:before {
+                        font-size: 40px;
+                    }
+                }
+            }
+        }
+        .video-js {
+            &.vjs-rewind .imfx-big-play-btn, &.vjs-error .imfx-big-play-btn /*, &.vjs-playing .imfx-big-play-btn*/
+            {
+                display: none;
+            }
+            button.icon-button, div.icon-button {
+                height: 32px;
+                line-height: 32px;
+                padding: 0 4px;
+            }
+            div.icon-button {
+                border-bottom: 2px solid transparent;
+            }
+            .large,
+            button.icon-button.large {
+                width: 100px;
+                height: 100px;
+                pointer-events: auto;
+                i.icons-play:before {
+                    font-size: 80px;
+                }
+                i.icons-play {
+                    line-height: 100px;
+                }
+            }
+            .icon-button.large:hover,
+            .icon-button.large:focus {
+                background: rgba(18, 22, 26, 0.7);
+            }
+            .icon-button.large:hover .icon {
+                opacity: 1;
+            }
+            .large .icon {
+                width: 80px;
+                height: 80px;
+            }
+            button.large .icon {
+                color: #fff;
+            }
+            button .icon {
+                margin-top: -2px;
+            }
+            .icon-button.large {
+                background: rgba(18, 22, 26, 0.3);
+                border-radius: 50%;
+            }
+            button.large {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                margin-left: -50px;
+                margin-top: -50px;
+            }
+            .vjs-paused .pause, .pause, .vjs-playing .play {
+                display: none;
+            }
+            .vjs-playing .pause, .vjs-paused .play {
+                display: inline;
+            }
+        }
+        .video-js.vjs-playing button.icon-button.large {
+            display: none;
+        }
+        .video-js.vjs-paused button.icon-button.large {
+            display: block;
+        }
+        .video-js.vjs-has-started {
+            .imfx-big-play-btn {
+                display: none;
+            }
+        }
+        html-player:not(.simple-mode) {
+            .video-js .imfx-big-play-btn {
+                position: absolute;
+                width: 100%;
+                top: 0;
+                pointer-events: none;
+            }
+        }
+    }
+}

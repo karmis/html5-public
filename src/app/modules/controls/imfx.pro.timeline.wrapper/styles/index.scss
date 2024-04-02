@@ -1,0 +1,13 @@
+@import "../../../../views/base/styles/theme.scss";
+@each $key, $value in $common-themes {
+  .#{$key} {
+      imfx-pro-timeline-wrapper {
+          display: block;
+          height: 100%;
+          .protimeline-wrapper {
+              width: 100%;
+              height: calc(100% - 40px);
+          }
+      }
+    }
+  }

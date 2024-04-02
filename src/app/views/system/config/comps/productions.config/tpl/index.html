@@ -1,0 +1,8 @@
+<div class="config-productions-grid-wrapper">
+        <common-tables-grid #commonTablesGridComponent
+                            [customEditModal]="customEditModal"
+                            (changeModalOk$)="onModalOk($event)"
+                            (deleteItem$)="onDeleteItem($event)"
+                            (changeItem$)="onChangeItem($event)"
+        ></common-tables-grid>
+</div>

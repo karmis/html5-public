@@ -1,0 +1,7 @@
+<div class="wrapper img-cell media-basket-button">
+    <i class="icon"
+       (click)="toggleBasket($event)"
+       (mousedown)="onMousedown($event)"
+       [ngClass]="{'icons-inbasket': isOrdered, 'ordered-basket': isOrdered, 'icons-addbasket': !isOrdered}">
+    </i>
+</div>

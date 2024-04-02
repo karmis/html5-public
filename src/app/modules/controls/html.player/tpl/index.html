@@ -1,0 +1,40 @@
+<div #playerElement class="player-wrapper" id="vjs-wrapper-{{internalId}}" [ngClass]="{
+      'base-player-mode': simpleModeClass,
+      'focused': focusProvider.isFocused,
+      'markers': clipBtns
+     }">
+    <!-- crossorigin="anonymous" used here to enable canvas export -->
+    <video id="imfx-video-{{internalId}}"
+           *ngIf="!isLive || (isLive && type == 100)"
+           crossorigin="anonymous"
+           attr.data-imfx-id="imfx-video-{{internalId}}"
+           class="video-js vjs-default-skin vjs-big-play-centered"
+           [ngStyle]="{background: videoPlayerSettings?.bgColor||'#000'}"
+           playsinline="playsinline">
+        <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that
+            <a
+                    href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+    </video>
+    <audio id="imfx-audio-{{internalId}}" *ngIf="!isLive || (isLive && type == 100)"
+           attr.data-imfx-id="imfx-audio-{{internalId}}" src="{{audioSrc}}" controls="controls" style="display: none;">
+        <!-- -->
+    </audio>
+    <audio id="imfx-video-{{internalId}}" *ngIf="isLive && type == 150" attr.data-imfx-id="imfx-video-{{internalId}}"
+           class="video-js vjs-default-skin vjs-big-play-centered">
+    </audio>
+    <canvas id="clip-canvas" class="clip-canvas" origin-clean="true"></canvas>
+    <canvas id="empty-canvas" class="empty-canvas" origin-clean="true"></canvas>
+    <div id="png-overlay" class="png-overlay" *ngIf="!simpleMode"></div>
+    <div id="timecode-overlay" class="timecode-overlay" *ngIf="!simpleMode" #playerTimecodeElement></div>
+    <div id="audio-track-overlay" class="audio-track-overlay" *ngIf="!simpleMode" #playerAudioTrakcElement></div>
+    <player-settings-modal #settingsModal *ngIf="!simpleMode" [player]="player"
+                           [mediaType]="type"></player-settings-modal>
+    <div id="opening-overlay" class="opening-overlay" #playerOpeningElement
+         [hidden]="isLive">{{'player.opening' | translate}}</div>
+    <div id="disable-video-wrap" #disableVideoWrap style="display: none">
+        <div style="padding-bottom: 60px;">
+            {{'player.disable_video_wrap' | translate}}
+        </div>
+    </div>
+</div>
+<div id="not-available" style="display: none;">Not available</div>

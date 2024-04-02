@@ -1,0 +1,237 @@
+<div class="detail-upload-layout-wrapper">
+    <div>
+        <div class="p-0 col-md-12">
+            <p>
+                <label class="mr-sm-2">
+                    {{ 'upload.settings.set_default_value' | translate }}
+                </label>
+            </p>
+        </div>
+        <div class="col-xs-12">
+            <div class="form-group bg-0">
+                <label class="mr-sm-2">{{ 'lookups.workflow' | translate }}</label>
+                <imfx-controls-select2
+                    #controlWorkflowPresetId
+                    [allowClear]="true"
+                    [width]="'100%'"
+                    [multiple]="false"
+                    [data]="[]"
+                    (onSelect)="onUpdateControl('controlWorkflowPresetId', 'WorkflowPresetId')"
+                    (onUnselect)="onClear('controlWorkflowPresetId', 'WorkflowPresetId')"
+                    [placeholder]="'base.selectOoo'|translate"
+                    [placeholderRefToTranslate]="'base.selectOoo'"></imfx-controls-select2>
+            </div>
+            <hr>
+            <div class="form-group bg-1">
+                <label class="mr-sm-2">{{ 'lookups.usage' | translate }}</label>
+                <imfx-lookups-select2
+                    #controlUsageTypes
+                    [width]="'100%'"
+                    [allowClear]="true"
+                    [cache]="true"
+                    [lookupType]="'UsageTypes'"
+                    [placeholderRefToTranslate]="'base.selectOoo'"
+                    (onSelect)="onUpdateControl('controlUsageTypes', 'Usage')"
+                    (onUnselect)="onClear('controlUsageTypes', 'Usage')"
+                ></imfx-lookups-select2>
+            </div>
+            <hr>
+            <div class="form-group bg-0">
+                <label class="mr-sm-2">{{ 'lookups.itemtype' | translate }}</label>
+                <imfx-lookups-select2
+                    #controlItemTypes
+                    [width]="'100%'"
+                    [allowClear]="true"
+                    [cache]="true"
+                    [lookupType]="'ItemTypes'"
+                    [placeholder]="'base.selectOoo'|translate"
+                    [placeholderRefToTranslate]="'base.selectOoo'"
+                    (onSelect)="onUpdateControl('controlItemTypes', 'MiType')"
+                    (onUnselect)="onClear('controlItemTypes', 'MiType')"
+                ></imfx-lookups-select2>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="p-0 col-md-12">
+                    <p>
+                        <label class="mr-sm-2">
+                            {{ 'upload.settings.enable_disable_additional_fields' | translate }}
+                        </label>
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group bg-1">
+                        <label class="mr-sm-2 pr-1">{{ 'lookups.aspectratio' | translate }}</label>
+                        <input type="checkbox" #controlAspectRatioTypes (change)="setAspectRatio($event)">
+                        <!--<imfx-lookups-select2-->
+                        <!--#controlAspectRatioTypes-->
+                        <!--[width]="'100%'"-->
+                        <!--[allowClear]="true"-->
+                        <!--[lookupType]="'AspectRatioTypes'"-->
+                        <!--(onSelect)="onUpdateControl('controlAspectRatioTypes', 'AspectRatio')"-->
+                        <!--(onUnselect)="onClear('controlAspectRatioTypes', 'AspectRatio')"-->
+                        <!--[placeholder]="'base.selectOoo'|translate"-->
+                        <!--[placeholderRefToTranslate]="'base.selectOoo'"-->
+                        <!--&gt;</imfx-lookups-select2>-->
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group bg-1">
+                        <label class="mr-sm-2 pr-1">{{ 'lookups.tvstandart' | translate }}</label>
+                        <input type="checkbox" #controlTvStandard (change)="setTVStandard($event)">
+                        <!--<imfx-lookups-select2-->
+                        <!--#controlTvStandard-->
+                        <!--[width]="'100%'"-->
+                        <!--[allowClear]="true"-->
+                        <!--[lookupType]="'TvStandards'"-->
+                        <!--[placeholder]="'base.selectOoo'|translate"-->
+                        <!--[placeholderRefToTranslate]="'base.selectOoo'"-->
+                        <!--(onSelect)="onUpdateControl('controlTvStandard', 'TvStandard')"-->
+                        <!--(onUnselect)="onClear('controlTvStandard', 'TvStandard')"-->
+                        <!--&gt;</imfx-lookups-select2>-->
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <!--Media or Media Version-->
+            <div class="row">
+                <!--{{ 'lookups.tvstandart' | translate }}-->
+                <div class="p-0 col-md-12">
+                    <p>
+                        <label class="mr-sm-2" *ngIf="type==='upload'">
+                            {{ 'upload.settings.default_upload_mode' | translate }}
+                        </label>
+                        <label class="mr-sm-2" *ngIf="type==='login'">
+                            {{ 'upload.settings.remote_default_upload_mode' | translate }}
+                        </label>
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group bg-1">
+                        <label class="mr-sm-2 pr-1">{{ 'upload.title_for_version' | translate }}</label>
+                        <input
+                            #uploadMediaVersion
+                            type="radio"
+                            name="start-upload-mode-{{type}}"
+                            (change)="setUploadMode('version')">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group bg-1">
+                        <label class="mr-sm-2 pr-1">{{ 'upload.title_for_title' | translate }}</label>
+                        <input
+                            #uploadMediaTitle
+                            type="radio"
+                            name="start-upload-mode-{{type}}"
+                            (change)="setUploadMode('title')">
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <div *ngIf="type === 'upload'">
+                <div class="form-group bg-0">
+                    <label class="mr-sm-2">
+                        {{ 'settings_group.upload_layout.upload_type' | translate }}
+                    </label>
+                    <imfx-controls-select2
+                        #controlUploadTypes
+                        [width]="'100%'"
+                        [placeholder]="'base.selectOoo'|translate"
+                        [placeholderRefToTranslate]="'base.selectOoo'"
+                        (onSelect)="onUpdateUploadTypesControl($event)"
+                    ></imfx-controls-select2>
+                </div>
+                <hr>
+                <div class="form-group" [hidden]="!showAdditionSettings">
+                    <label class="mr-sm-2">
+                        {{ 'settings_group.upload_layout.device' | translate }}
+                    </label>
+                    <imfx-controls-select2
+                        #controlDeviceTypes
+                        [width]="'100%'"
+                        [placeholderRefToTranslate]="'base.selectOoo'"
+                        (onSelect)="onUpdateDevicesControl($event)"
+                    ></imfx-controls-select2>
+                </div>
+            </div>
+            <div class="form-group bg-0">
+                <label class="mr-sm-2 pr-1">{{ 'upload.settings.apply_all' | translate }}</label>
+                <input type="checkbox" [(ngModel)]="uploadSearchSettings.isApplyAll">
+            </div>
+            <ng-container>
+                <hr>
+                <div class="form-group bg-0">
+                    <custom-metadata [value]="uploadSearchSettings.schema"
+                                     [label]="type === 'upload'?'settings_group.upload_layout.metadata':'settings_group.remote_login_layout.metadata'"
+                                     (onChange)="onSelectSchema($event)"></custom-metadata>
+                </div>
+                <hr>
+            </ng-container>
+
+            <ng-container>
+                <hr>
+                <div class="form-group bg-0 version-name">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group bg-1">
+                                <label class="mr-sm-2 pr-1">{{ 'upload.title_version_name' | translate }}
+
+                                    <i title="{{'settings_group.version_creation.modal_add_name.label' | translate}}"
+                                       (click)="addItems()"
+                                       class="icons-add icon add-item"></i>
+                                </label>
+                                <div class="available-names-wrapper">
+                                    <div class="names-list">
+                                        <div *ngFor="let item of uploadSearchSettings.versionNameList"
+                                             class="names-list-item"
+                                        >
+                                            {{item}}
+                                            <span class="closebtn" (click)="deleteRow($event,item)"
+                                                  title="{{ 'common_hints.remove' | translate }}">
+                                                <i class="icons-cross icon"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+            </ng-container>
+            <div class="form-group bg-0 version-name">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <p>
+                            <label class="mr-sm-2">
+                                {{ (type === 'upload' ? 'upload.settings.custom_metadata_mode' : 'upload.settings.custom_remote_metadata_mode') | translate }}
+                            </label>
+                        </p>
+                        <div class="col-md-6">
+                            <div class="form-group bg-1">
+                                <label class="mr-sm-2 pr-1">{{ 'upload.title_for_version' | translate }}</label>
+                                <input
+                                    #metadataModeVersion
+                                    type="radio"
+                                    name="metadata-mode-{{type}}"
+                                    (change)="setCustomMetadataMode('version')">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group bg-1">
+                                <label class="mr-sm-2 pr-1">{{ 'upload.title_for_title' | translate }}</label>
+                                <input
+                                    #metadataModeMedia
+                                    type="radio"
+                                    name="metadata-mode-{{type}}"
+                                    (change)="setCustomMetadataMode('media')">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

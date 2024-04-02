@@ -1,0 +1,558 @@
+@import "../../../../../base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+    .#{$key} {
+        details-view-metadata-config {
+            .detail-view-metadata-config-wrapper {
+                height: 100%;
+                width: 100%;
+                background: getThemeColor(3, $key);
+                vertical-align: top;
+
+                .details-metadata-tree {
+                    width: 300px;
+                    overflow-x: hidden;
+                    overflow-y: auto;
+                    background: getThemeColor(4, $key);
+                    height: 100%;
+                    position: relative;
+                    display: inline-block;
+                    vertical-align: top;
+
+                    input {
+                        position: absolute;
+                        top: 0;
+                        width: 100%;
+                        padding-right: 30px;
+                    }
+
+                    .icons-cross {
+                        position: absolute;
+                        right: 7px;
+                        top: 6px;
+                        opacity: 0.6;
+                        cursor: pointer;
+
+                        &:hover {
+                            opacity: 1;
+                        }
+                    }
+
+                    imfx-controls-tree > div {
+                        height: 100%;
+                        overflow: hidden;
+
+                        &>ul {
+                            height: calc(100% - 32px);
+                            overflow-x: hidden;
+                            overflow-y: auto;
+                            margin-top: 32px;
+                        }
+                    }
+                }
+                .select-message {
+                    height: 100%;
+                    width: calc(100% - 320px);
+                    display: inline-block;
+                    vertical-align: top;
+
+                    div {
+                        display: block;
+                        text-align: center;
+                        position: relative;
+                        height: 32px;
+                        line-height: 32px;
+                        font-size: 18px;
+                        opacity: 0.5;
+                        top: calc(50% - 16px);
+                    }
+                }
+                .detail-view-metadata-config {
+                    display: inline-block;
+                    height: 100%;
+                    width: calc(100% - 300px);
+                    overflow: hidden;
+                    position: relative;
+                    vertical-align: top;
+
+                    .overlay-wrapper {
+                        position: absolute;
+                        top: 0;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                        background: getThemeColor(3, $key);
+                        overflow: hidden;
+                        z-index: 5;
+
+                        .spinner {
+                            width: 80px;
+                            height: 80px;
+                            border-width: 8px;
+                            margin: 0 auto;
+                            position: relative;
+                            top: calc(50% - 40px);
+                        }
+                    }
+
+                    .placeholder-ref {
+                        background: getThemeColor(3, $key);
+                        height: 32px;
+                        border: 1px solid getThemeColor(10, $key);
+                        opacity: 0.5;
+                        margin-bottom: 5px;
+                    }
+                    .drag-handle {
+                        vertical-align: top;
+                        display: inline-block;
+                        width: 32px;
+                        height: 32px;
+                        transform: rotate(90deg);
+                        position: relative;
+                        cursor: grab;
+
+                        &:before {
+                            font-family: icons !important;
+                            font-style: normal;
+                            font-weight: normal !important;
+                            content: "\f129";
+                            top: 5px;
+                            left: 9px;
+                            position: absolute;
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
+
+                    .tabs {
+                        height: 32px;
+                        line-height: 32px;
+                        padding-left: 5px;
+                    }
+                    .tabs-zone {
+                        background: getThemeColor(4, $key);
+                        height: calc(100% - 84px);
+                        margin-top: 5px;
+                        width: calc(100% - 5px);
+                        margin-left: 5px;
+
+                        .tabs-row-header {
+
+                            div {
+                                color: getThemeColor(9, $key);
+                                display: inline-block;
+                                height: 32px;
+                                line-height: 32px;
+                                padding: 0 10px;
+                                border-bottom: 1px solid getThemeColor(9, $key);
+                                width: 70%;
+                            }
+                            .title {
+                                width: 30%;
+                                border-right: 1px solid getThemeColor(9, $key);
+                            }
+                        }
+
+                        .tabs-rows {
+                            height: calc(100% - 32px);
+                            overflow-x: hidden;
+                            overflow-y: auto;
+                            width: 100%;
+
+                            .tabs-row {
+                                width: 100%;
+                                font-size: 0;
+                                line-height: 32px;
+                                height: 32px;
+                                padding: 0 10px;
+                                cursor: pointer;
+                                &:hover {
+                                    background: getThemeColor(5, $key);
+                                }
+                                label {
+                                    width: 100%;
+                                    margin: 0;
+                                }
+                                div {
+                                    display: inline-block;
+                                    width: 30%;
+                                }
+                                input {
+                                    margin-left: 10px;
+                                }
+                            }
+                        }
+                    }
+
+                    .reset-layout-btn,
+                    .add-custom-field {
+                        margin-right: 10px;
+                    }
+
+                    .is-default-message {
+                        float: left;
+                        display: inline-block;
+                        line-height: 32px;
+                        height: 32px;
+                        padding: 0 10px;
+                        background: getThemeColor(13, $key);
+                        color: white;
+                    }
+
+                    .tabs-buttons-zone {
+                        margin-top: 5px;
+                        padding: 5px;
+                        background: getThemeColor(4, $key);
+                        vertical-align: top;
+                        overflow-x: hidden;
+                        overflow-y: auto;
+                        height: 42px;
+                        width: calc(100% - 5px);
+                        margin-left: 5px;
+                        display: inline-block;
+                        position: relative;
+                        float: right;
+                        text-align: right;
+                    }
+
+                    .config-zone {
+                        height: 100%;
+                        vertical-align: top;
+                        display: inline-block;
+                        width: calc(100% - 205px);
+                        padding-left: 5px;
+                        overflow: hidden;
+
+                        .tabs {
+                            padding: 0;
+                            margin-bottom: 5px;
+                        }
+
+                        .add-field-group-btn {
+                            width: 32px;
+                            height: 32px;
+                            vertical-align: top;
+                            overflow: hidden;
+                            padding: 0;
+                            display: inline-block;
+                            position: absolute;
+                            left: 0px;
+                            top: 0px;
+
+                            i {
+                                vertical-align: top;
+                                line-height: 30px;
+                            }
+                        }
+
+                        .center-wrapper {
+                            height: calc(100% - 84px);
+                            overflow-x: auto;
+                            overflow-y: hidden;
+                            position: relative;
+                        }
+
+                        .config-drop-zone {
+                            padding: 5px;
+                            background: getThemeColor(4, $key);
+                            vertical-align: top;
+                            overflow-x: hidden;
+                            overflow-y: auto;
+                            height: 100%;
+                            width: calc(100% - 32px);
+                            min-width: 650px;
+                            margin-left: 32px;
+                            display: inline-block;
+
+                            .config-drag-group {
+                                width: 100%;
+                                line-height: 32px;
+                                margin-bottom: 5px;
+                                padding: 10px;
+                                padding-bottom: 5px;
+                                text-overflow: ellipsis;
+                                white-space: nowrap;
+                                cursor: default;
+                                border: 1px solid getThemeColor(9, $key);
+                                background: getThemeColor(3, $key);
+                                position: relative;
+                                min-height: 80px;
+
+                                .remove-group {
+                                    position: absolute;
+                                    top: 41px;
+                                    left: 12px;
+                                    height: 20px;
+                                    width: 20px;
+                                    opacity: 0.5;
+                                    cursor: pointer;
+
+                                    &:hover {
+                                        opacity: 1;
+                                    }
+                                    i {
+                                        right: 0;
+                                    }
+                                }
+
+                                .fld-title {
+                                    display: inline-block;
+                                    width: calc(100% - 32px);
+                                    vertical-align: top;
+                                    line-height: 32px;
+                                    border-width: 1px;
+                                }
+
+                                div:not(.drag-handle):not(.remove-group) {
+                                    min-height: 10px;
+                                }
+
+                                .config-drag-field {
+                                    width: calc(100% - 32px);
+                                    margin-left: 32px;
+                                    margin-top: 5px;
+                                    margin-bottom: 0px;
+                                }
+
+                                .placeholder-ref {
+                                    width: calc(100% - 32px);
+                                    margin-left: 32px;
+                                    margin-top: 5px;
+                                    margin-bottom: 0px;
+                                }
+
+                                .config-drag-group {
+                                    width: calc(100% - 32px);
+                                    margin-left: 32px;
+                                    margin-top: 5px;
+                                    margin-bottom: 0px;
+                                }
+                            }
+                            .config-drag-field {
+                                width: 100%;
+                                line-height: 42px;
+                                margin-bottom: 5px;
+                                padding: 0 5px;
+                                //overflow: hidden;
+                                text-overflow: ellipsis;
+                                white-space: nowrap;
+                                cursor: default;
+                                background: getThemeColor(5, $key);
+                                border: 1px solid getThemeColor(9, $key);
+                                position: relative;
+
+                                .custom-label {
+                                    position: absolute;
+                                    left: 0;
+                                    top: 0;
+                                    width: 0;
+                                    height: 0;
+                                    border-style: solid;
+                                    border-width: 20px 20px 0 0;
+                                    border-color: getThemeColor(10, $key) transparent transparent transparent;
+                                    .letter {
+                                        position: absolute;
+                                        top: -20px;
+                                        left: 2px;
+                                        height: 10px;
+                                        line-height: 10px;
+                                        font-weight: 900;
+                                    }
+                                    &.orange {
+                                        border-color: orange transparent transparent transparent !important;
+                                    }
+                                }
+
+                                .drag-handle {
+                                    height: 42px;
+                                }
+
+                                .flds-wrapper {
+                                    display: inline-block;
+                                    height: 32px;
+                                    line-height: 32px;
+                                    width: calc(100% - 32px);
+
+                                    .fld-title {
+                                        display: inline-block;
+                                        width: calc(50% - 80px - 120px);
+                                        vertical-align: top;
+                                        line-height: 32px;
+
+                                        &.extended {
+                                            width: calc(33% - 80px);
+                                        }
+                                    }
+                                    .fld-bold {
+                                        display: inline-block;
+                                        width: 80px;
+                                        vertical-align: top;
+                                        line-height: 32px;
+
+                                        .fld-label {
+                                            display: inline-block;
+                                            width: 40px;
+                                        }
+                                    }
+                                    .fld-visible {
+                                        display: inline-block;
+                                        width: 120px;
+                                        vertical-align: top;
+                                        line-height: 32px;
+
+                                        .fld-label {
+                                            display: inline-block;
+                                            width: 93px;
+                                        }
+                                    }
+                                    .fld-color {
+                                        display: inline-block;
+                                        width: 25%;
+                                        height: 100%;
+                                        vertical-align: top;
+                                        position: relative;
+
+                                        &.extended {
+                                            width: 33%;
+                                        }
+
+                                        .fld-label {
+                                            display: inline-block;
+                                            width: 76px;
+                                        }
+
+                                        .color-icon {
+                                            border: 2px solid getThemeColor(8, $key);
+                                            display: inline-block;
+                                            width: 20px;
+                                            height: 20px;
+                                            vertical-align: top;
+                                            line-height: 32px;
+                                            margin-top: 6px;
+                                        }
+
+                                        .color-input {
+                                            width: calc(100% - 30px - 76px);
+                                            margin: 0 5px;
+                                            border-width: 1px;
+                                        }
+                                        i {
+                                            position: absolute;
+                                            right: 10px;
+                                            cursor: pointer;
+                                            top: 6px;
+                                            opacity: 0.1;
+                                            &:hover {
+                                                opacity: 1;
+                                            }
+                                        }
+                                        color-picker {
+                                            .color-picker {
+                                                background: getThemeColor(4, $key);
+
+                                                div[_ngcontent-c31] {
+                                                    color: getThemeColor(1, $key);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        .config-buttons-zone {
+                            margin-top: 5px;
+                            padding: 5px;
+                            background: getThemeColor(4, $key);
+                            vertical-align: top;
+                            overflow-x: hidden;
+                            overflow-y: auto;
+                            height: 42px;
+                            width: calc(100% - 32px);
+                            display: inline-block;
+                            position: relative;
+                            float: right;
+                            text-align: right;
+                        }
+                    }
+
+                    .fields-zone {
+                        display: inline-block;
+                        height: 100%;
+                        width: 200px;
+                        overflow: hidden;
+                        margin-left: 5px;
+                        background: getThemeColor(4, $key);
+                        padding: 5px;
+
+                        .fields-header {
+                            height: 50px;
+                            .title {
+                                text-align: center;
+                                height: 24px;
+                                line-height: 24px;
+                                color: getThemeColor(1, $key);
+                            }
+                            .sub-title {
+                                text-align: center;
+                                color: getThemeColor(1, $key);
+                                height: 16px;
+                                line-height: 16px;
+                                opacity: 0.5;
+                            }
+                        }
+
+                        .fields-drag-zone {
+                            height: calc(100% - 50px);
+                            width: 100%;
+                            overflow-x: hidden;
+                            overflow-y: auto;
+
+                            .config-drag-field {
+                                width: 100%;
+                                line-height: 32px;
+                                margin-bottom: 5px;
+                                padding: 0 5px;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                white-space: nowrap;
+                                cursor: grab;
+                                background: getThemeColor(5, $key);
+                                position: relative;
+                                border: 1px solid rgba(0,0,0,0);
+
+                                &.selected {
+                                    background: getThemeColor(3, $key);
+                                    border: 1px solid getThemeColor(7, $key);
+                                }
+
+                                .custom-label {
+                                    position: absolute;
+                                    left: 0;
+                                    top: 0;
+                                    width: 0;
+                                    height: 0;
+                                    border-style: solid;
+                                    border-width: 15px 15px 0 0;
+                                    border-color: getThemeColor(10, $key) transparent transparent transparent;
+                                    .letter {
+                                        position: absolute;
+                                        top: -17px;
+                                        left: 2px;
+                                        height: 10px;
+                                        line-height: 10px;
+                                        font-weight: 900;
+                                        font-size: 10px;
+                                    }
+                                    &.orange {
+                                        border-color: orange transparent transparent transparent !important;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

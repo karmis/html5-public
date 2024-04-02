@@ -1,0 +1,30 @@
+@import "../../../../../../views/base/styles/theme";
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .text-formatter-wrapper {
+            //margin-top: -4px;
+            margin: 0;
+            position: relative;
+
+            .field {
+                width: 100%;
+            }
+
+            .textarea-field {
+                resize: none;
+            }
+
+            &.error-validation .invalid-triangle {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 0;
+                height: 0;
+                border-top: 10px solid transparent;
+                border-left: 10px solid red;
+            }
+        }
+    }
+}

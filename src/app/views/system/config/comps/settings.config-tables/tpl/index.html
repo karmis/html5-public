@@ -1,0 +1,27 @@
+<div class="config-tables-wrapper">
+    <div class="tables-list" #overlayTablesTarget>
+        <input type="text" class="tables-list-filter" #tablesFilter (input)="filterTables($event.target.value)" placeholder="{{'config_tables.filter_tables' | translate}}"/>
+        <div class="clear-tables-filter" (click)="clearTablesFilter()">
+            <i class="icons-cross icon"></i>
+        </div>
+        <div class="tables-list-wrapper">
+            <div class="configTableItem"
+                 title="{{table.Label}}"
+                 [ngClass]="{'active':selectedTable == table.Id}"
+                 *ngFor="let table of filteredTables"
+                 (click)="selectConfigTable(table.Id)">
+                {{table.Label}}
+            </div>
+        </div>
+    </div>
+    <div class="config-tables-grid-wrapper">
+        <common-tables-grid #commonTablesGridComponent
+                            [firstInit]="true"
+                            [translateKey]="'config_tables'"
+                            (changeModalOk$)="onModalOk($event)"
+                            (deleteItem$)="onDeleteItem($event)"
+                            (changeItem$)="onChangeItem($event)"
+        ></common-tables-grid>
+    </div>
+</div>
+<overlay #overlayTables [mode]="true" [zIndex]="100"></overlay>

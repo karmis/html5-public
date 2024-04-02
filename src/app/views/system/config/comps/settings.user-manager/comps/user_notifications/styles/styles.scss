@@ -1,0 +1,146 @@
+@import "../../../../../../../base/styles/theme.scss";
+@each $key, $value in $common-themes {
+    .#{$key} {
+        user-notifications {
+            width: 100%;
+            height: 100%;
+
+            .user-notifications-wrapper {
+                width: 100%;
+                height: 100%;
+                display: block;
+
+                .users-tree-wrapper {
+                    margin-left: 16px;
+                    background: getThemeColor(4, $key);
+                    width: 250px;
+                    position: relative;
+                    overflow: hidden;
+                    display: inline-block;
+                    height: 100%;
+                    vertical-align: top;
+
+                    input {
+                        position: absolute;
+                        top: 0;
+                        width: 100%;
+                        padding-right: 30px;
+                    }
+
+                    .icons-cross {
+                        position: absolute;
+                        right: 7px;
+                        top: 6px;
+                        opacity: 0.6;
+                        cursor: pointer;
+
+                        &:hover {
+                            opacity: 1;
+                        }
+                    }
+
+                    imfx-controls-tree > div {
+                        height: 100%;
+                        overflow: hidden;
+
+                        &>ul {
+                            height: calc(100% - 40px - 32px);
+                            overflow-x: hidden;
+                            overflow-y: auto;
+                            margin-top: 32px;
+                        }
+                    }
+
+                    .buttons-wrapper {
+                        position: absolute;
+                        width: 100%;
+                        bottom: 0;
+                        left: 0;
+                        font-size: 0;
+
+                        .add-btn {
+                            width: 100%;
+                        }
+
+                        .add-btn i, .remove-btn i {
+                            position: relative;
+                            top: -2px;
+                        }
+
+                        &.has-selected {
+                            .add-btn, .edit-btn, .remove-btn {
+                                width: 33.33%;
+                            }
+                        }
+                    }
+                }
+                .select-message {
+                    height: 100%;
+                    width: calc(100% - 266px);
+                    display: inline-block;
+                    vertical-align: top;
+
+                    div {
+                        display: block;
+                        text-align: center;
+                        position: relative;
+                        height: 32px;
+                        line-height: 32px;
+                        font-size: 18px;
+                        opacity: 0.5;
+                        top: calc(50% - 16px);
+                    }
+                }
+                #userNotificationsSlickGridExternalWrapper {
+                    width: calc(100% - 250px - 38px - 16px);
+                    display: inline-block;
+                    height: 100%;
+                    margin-left: 38px;
+                    background: getThemeColor(4, $key);
+                    position: relative;
+
+                    .add-new-notification {
+                        position: absolute;
+                        left: -30px;
+                        width: 30px;
+                        height: 30px;
+                        line-height: 30px;
+                        padding: 0;
+                        background: getThemeColor(4, $key);
+
+                        &:hover {
+                            background: getThemeColor(5, $key);
+                        }
+
+                        i {
+                            transform: rotate(45deg);
+                            display: block;
+                            width: 100%;
+                        }
+                    }
+                }
+                .slick-grid-wrapper {
+                    .slick-header-column,
+                    .slick-group-header-column,
+                    .slick-header-column.ui-state-default,
+                    .slick-group-header-column.ui-state-default{
+                        height: 30px;
+                        line-height: inherit;
+                    }
+                    .slick-cell,
+                    .slick-headerrow-column,
+                    .slick-footerrow-column{
+                        border: none;
+                        border-right: 1px solid getThemeColor(22, $key);
+                    }
+                }
+                //grid-column-remove-component .icons-closedelete{
+                //    position: static;
+                //    display: inline-block;
+                //    margin-right: 14px;
+                //}
+            }
+        }
+    }
+}
+

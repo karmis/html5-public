@@ -1,0 +1,24 @@
+@import "../../../../../../views/base/styles/theme";
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .slick-cell {
+            .work-order-status-wrapper {
+                .status-blue {
+                    color: getThemeColor(10, $key);
+                }
+                i {
+                    position: relative;
+                    top: 1px;
+                    &:before {
+
+                    }
+                }
+                span {
+
+                }
+            }
+        }
+    }
+}

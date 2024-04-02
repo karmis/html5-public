@@ -1,0 +1,159 @@
+//Font variables
+$basefontsize: 13px;
+$basefontsize-850: $basefontsize - 3px;
+$baseline: 16px;
+$grid: 4px;
+
+@function getFilter($theme) {
+  @if "dark" == $theme {
+    @return 1;
+  } @else {
+    @return 0;
+  }
+}
+$common-themes: (
+        default: (
+                #3f3f3f, // 1 - $color-fgrd
+                #878B8E, // 2 - $color-fgrd-mid
+                #edf1f2, // 3 - $color-bkgd
+                #e2e7eb, // 4 - $color-bkgd-mid
+                #D4DADE, // 5 - $color-bkgd-dark
+                #f6f6f6, // 6 - $color-menu
+                #D98A1C, // 7 - $color-accent
+                #FFFFFF, // 8 - $color-accent-contrast
+                #d8dcdf, // 9 - $color-border // ???
+                #2A8CEA, // 10 - $color-highlight
+                #2A8CEA, // 11 - $color-link
+                #8CBF45, // 12 - $color-success
+                #C63636, // 13 - $color-error
+                #12161A, // 14 - $color-overlay-bkgd
+                #FFFFFF, // 15 - $color-overlay-fgrd
+                #3f3f3f, // 16 - $color-font
+                #12161A, // 17 - $color-font-saturated
+                #bcc3c8, // 18 - $color-default-btn-hover
+                #ac6d16, // 19 - $color-orange-btn-hover
+                #1472cd, // 20 - $color-highlight-dark
+                #e2e3e4, // 21 - $color-highlight-dark-suggestion
+                #c6ced5, // 22 - $color-border // ???
+                rgba(226, 231, 235, 0.5), // 23 - $color-hover-transparent
+                rgba(51, 60, 69, 0.08), // 24 - $color-box-shadow,
+                #9dc1f8, // 25 - $color-input-border
+                #e2e7eb, // 26 - $color-bg-adv
+                rgba(51, 60, 69, 0.6), // 27 $color-adv-font
+                rgb(51, 60, 69), // 28 $color-adv-font-active
+                rgba(51, 60, 69, 0.85), // 29 $color-adv-font-hover
+                rgba(255, 255, 255, 0.4), // 30 $color-border-loader-login
+                #1d10e8, // 31 $color-border-top-loader-login
+                0%,
+                rgba(0, 0, 0, 0.1), /*color33*/
+                rgba(212, 218, 222, 0.4), // 34 not found box in grid,
+                #D4DADE, // 35 - flowchart main color 1
+                #EDF1F2, // 36 - flowchart main color 2
+                rgba(217, 138, 28, 0.3), // 37 - flowchart minimap frame
+                rgba(255, 255, 255, 1), /*color38 Codemirror selector*/
+                #196A1F, // color39 - Codemirror tag
+                #f6f6f6, // 40 - $color-select2-dropdown-panel
+                #d7dce0, // 41 - tree grid color 1
+                #c7cbce, // 42 - tree grid color 2
+                #c8ddf1, // 43 - tree grid color 3
+                #878B8E, // 44 - tree grid color 4
+                rgba(217, 138, 28, 0.3), // 45 - timeline clip fill color
+                rgba(42, 140, 234, 0.3), // 46 - timeline clip fill color selected
+                rgba(226, 231, 235, 0.8) // 47
+        ),
+        dark: (
+                #DFEBF3, // 1 - $color-fgrd
+                #b0b3b5, // 2 - $color-fgrd-mid
+                #34404a, // 3 - $color-bkgd
+                #21282e, // 4 - $color-bkgd-mid
+                #121619, // 5 - $color-bkgd-dark
+                #21282E, // 6 - $color-menu
+                #EDA800, // 7 - $color-accent
+                #21282E, // 8 - $color-accent-contrast
+                #546878, // 9 - $color-border
+                #2A8CEA, // 10 - $color-highlight
+                #9ACCFF, // 11 - $color-link
+                #8CBF45, // 12 - $color-success
+                #E0301E, // 13 - $color-error
+                #12161A, // 14 - $color-overlay-bkgd
+                #FFFFFF, // 15 - $color-overlay-fgrd
+                #F5F5F5, // 16 - $color-font
+                #FFFFFF, // 17 - $color-font-saturated
+                #3f4e5a, // 18 - $color-default-btn-hover
+                #ac6d16, // 19 - $color-orange-btn-hover
+                #1472cd, // 20 - $color-highlight-dark
+                #353c42, // 21 - $color-highlight-dark-suggestion
+                #546878, // 22 - $color-border
+                rgba(33, 40, 46, 0.5), // 23 - $color-hover-transparent
+                rgba(33, 40, 46, 0.08), // 24 - $color-box-shadow,
+                #517cbb, // 25 - $color-input-border
+                #21282e, // 26 - $color-bg-adv
+                rgba(223, 235, 243, 0.6), // 27 $color-adv-font
+                #dfebf3, // 28 $color-adv-font-active
+                rgba(223, 235, 243, 0.85), // 29 $color-adv-font-hover
+                rgba(255, 255, 255, 0.4), // 30 $color-border-loader-login
+                #1d10e8, // 31 $color-border-top-loader-login
+                100%,
+                rgba(0, 0, 0, 0.2), /*color33*/
+                rgba(18, 22, 25, 0.4), // 34 not found box in grid,
+                #34404A, // 35 - flowchart main color 1
+                #121619, // 36 - flowchart main color 2
+                rgba(237, 168, 0, 0.1), // 37 - flowchart minimap frame
+                rgba(0, 0, 0, 1), /*color38 Codemirror selector*/
+                #8CBF45, // color39 - Codemirror tag
+                #121619, // 40 - $color-select2-dropdown-panel
+                #2a343c, // 41 - tree grid color 1
+                #232b31, // 42 - tree grid color 2
+                #294661, // 43 - tree grid color 3
+                #121619, // 44 - tree grid color 4
+                rgba(237, 168, 0, 0.3), // 45 - timeline clip fill color
+                rgba(42, 140, 234, 0.3), // 46 - timeline clip fill color selected
+                rgba(33, 40, 46, 0.8) // 47
+        )
+);
+
+$common-icons: (
+    default: (
+        'assets/icons/ColResizeLight.svg',
+        'assets/icons/RowResizeLight.svg',
+        'assets/icons/indeterminateLight.svg'
+    ),
+    dark: (
+        'assets/icons/ColResizeDark.svg',
+        'assets/icons/RowResizeDark.svg',
+        'assets/icons/indeterminateDark.svg'
+    )
+);
+
+@function getThemeColor($num, $theme) {
+  @each $theme-name, $color in $common-themes {
+    @if $theme-name == $theme {
+      @return (nth($color, $num));
+    }
+  }
+}
+@function getThemeIcon($num, $theme) {
+  @each $theme-name, $icon in $common-icons {
+    @if $theme-name == $theme {
+      @return (nth($icon, $num));
+    }
+  }
+}
+
+$common-properties: (
+    default: (
+        invert(0%),
+        invert(100%)
+    ),
+    dark: (
+        invert(100%),
+        invert(0%)
+    )
+);
+@function getInvertedFilter($num, $theme) {
+    @each $theme-name, $icon in $common-properties {
+        @if $theme-name == $theme {
+            @return (nth($icon, $num));
+        }
+    }
+}

@@ -1,0 +1,126 @@
+@import "../../../../views/base/styles/theme.scss";
+
+$multilineheight: 300px;
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        production-templates {
+            button {
+                border-radius: 0px;
+            }
+            .prod-templates-wrapper {
+                width: 100%;
+                height: 70vh;
+                max-height: 400px;
+                position: relative;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+
+                .main-prod-templates-wrapper {
+                    display: flex;
+                    flex: 1;
+                    height: 100%;
+                    flex-direction: column;
+                    position: relative;
+                    overflow: hidden;
+
+                    .data-filter {
+                        width: 100%;
+                        height: 32px;
+                        line-height: 32px;
+                        flex-grow: 0;
+                        padding-right: 25px;
+                    }
+
+                    .clear-filter {
+                        cursor: pointer;
+                        opacity: 0.5;
+                        position: absolute;
+                        width: 20px;
+                        top: 4px;
+                        right: 4px;
+
+                        &:hover {
+                            opacity: 1;
+                        }
+                    }
+
+                    .prod-templates-table-wrapper {
+                        //background: getThemeColor(3, $key);
+                        width: 100%;
+                        overflow-x: hidden;
+                        overflow-y: auto;
+                        //height: calc(100% - 28px);
+                        flex:1;
+                        //border: 1px solid getThemeColor(4, $key);
+                        .tab-row {
+                            height: 32px;
+                            line-height: 32px;
+                            width: 100%;
+                            font-size: 0;
+                            cursor: pointer;
+                            //border-bottom: 1px solid getThemeColor(4, $key);
+                            &:last-child{
+                                border: none;
+                            }
+
+                            &.locked {
+                                opacity: 0.6;
+                            }
+
+                            .item {
+                                height: 32px;
+                                line-height: 32px;
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                display: inline-block;
+                                cursor: pointer;
+                                padding: 0 5px;
+                                &.noselect {
+                                    -webkit-touch-callout: none;
+                                    -webkit-user-select: none;
+                                    -khtml-user-select: none;
+                                    -moz-user-select: none;
+                                    -ms-user-select: none;
+                                    user-select: none;
+                                }
+                            }
+
+                            &:hover {
+                                background: getThemeColor(4, $key);
+                                color: getThemeColor(1, $key);
+                            }
+
+                            &.selected {
+                                background: getThemeColor(10, $key);
+                                color: #fff;
+                            }
+                        }
+                    }
+                }
+            }
+
+            //.overlay-wrapper {
+            //    position: absolute;
+            //    top: 0;
+            //    bottom: 0;
+            //    left: 0;
+            //    right: 0;
+            //    background: getThemeColor(3, $key);
+            //    z-index: 5;
+            //
+            //    .spinner {
+            //        width: 80px;
+            //        height: 80px;
+            //        border-width: 8px;
+            //        margin: 0 auto;
+            //        position: relative;
+            //        top: calc(50% - 40px);
+            //    }
+            //}
+        }
+    }
+}

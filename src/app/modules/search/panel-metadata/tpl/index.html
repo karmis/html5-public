@@ -1,0 +1,18 @@
+<!--imfx-xml-tree #xmlTreeRef
+               class="xml-block" *ngIf="selectedSchemaModel"
+               [schemaModel]="selectedSchemaModel"
+               [xmlModel]="selectedXmlModel"
+               [readonly]="true"-->
+<!--div style="padding: 20px">
+    Tab in progress, ignore that!
+    <div>Default metadata Id: {{data?.Id}}</div>
+    <div>Default metadata Name: {{data?.Name}}</div>
+</div-->
+<div style="padding: 5px">
+    <h2>{{schemaFriendlyName}}</h2>
+    <imfx-xml-tree #xmlTreePresets class="xml-block js-scrollbar-target" *ngIf="schemaModel"
+                   [schemaModel]="schemaModel"
+                   [xmlModel]="xmlModel"
+                   [readonly]="true">
+    </imfx-xml-tree>
+</div>

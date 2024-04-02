@@ -1,0 +1,117 @@
+<div class="modal-wrapper">
+    <div class="main-data">
+        <div class="field-wrapper">
+            <div class="label">{{'cachemanager.dd.device_name' | translate}}</div>
+            <imfx-lookups-select2
+                    #devicesControl
+                    [width]="'100%'"
+                    [validationEnabled]="false"
+                    [allowClear]="false"
+                    [firstEmpty]="false"
+                    [value]="null"
+                    [lookupType]="'Devices'"
+                    [compContext]="self"
+                    [placeholder]="'base.selectOoo'|translate"
+                    [placeholderRefToTranslate]="'base.selectOoo'"
+                    (onSelect)="onUpdateControl('devicesControl', 'DEVICE_ID')"
+                    (onUnselect)="onUpdateControl('devicesControl', 'DEVICE_ID')"
+            ></imfx-lookups-select2>
+        </div>
+        <div class="field-wrapper">
+            <div class="label">{{'cachemanager.dd.active' | translate}}</div>
+            <input type="checkbox"
+                   title="If this value is set to FALSE it will be unavailable to the CM engine as a Destination. Any template that uses this destination will not raise a job - instead the CM engine will skip to the next destination device. This would be set FALSE if a particular cache went off line (the setting will be changed …"
+                   [(ngModel)]="itemData.CACHE_STATUS"/>
+        </div>
+        <div class="field-wrapper">
+            <div class="label">{{'cachemanager.dd.purge_enabled' | translate}}</div>
+            <input type="checkbox"
+                   title="If set false no purge will be carried out."
+                   [(ngModel)]="itemData.PURGE_STATUS"/>
+        </div>
+        <div class="field-wrapper">
+            <div class="label">{{'cachemanager.dd.purge_cm_only' | translate}}</div>
+            <input type="checkbox"
+                   title="When checked cache manager entries will be removed, but media will NOT be purged from cache location."
+                   [(ngModel)]="itemData.PURGE_CM_ONLY"/>
+        </div>
+        <div class="field-wrapper">
+            <div class="label">{{'cachemanager.dd.purge_period' | translate}}</div>
+            <input type="text"
+                   title="Number of hours after TX before long form material is purged."
+                   digitOnly
+                   decimal="true"
+                   [(ngModel)]="itemData.PURGE_PERIOD"/>
+        </div>
+        <div class="field-wrapper">
+            <div class="label">{{'cachemanager.dd.purge_preset' | translate}}</div>
+            <imfx-lookups-select2
+                    #purgePreset
+                    [width]="'100%'"
+                    [validationEnabled]="false"
+                    [allowClear]="false"
+                    [firstEmpty]="false"
+                    [value]="null"
+                    [lookupUrl]="'/api/v3/'"
+                    [lookupType]="'order-presets'"
+                    [compContext]="self"
+                    [placeholder]="'base.selectOoo'|translate"
+                    [placeholderRefToTranslate]="'base.selectOoo'"
+                    (onSelect)="onUpdateControl('purgePreset', 'PURGE_PRESET_ID')"
+                    (onUnselect)="onUpdateControl('purgePreset', 'PURGE_PRESET_ID')"
+            ></imfx-lookups-select2>
+        </div>
+        <div class="field-wrapper">
+            <div class="label">{{'cachemanager.dd.purge_period_short' | translate}}</div>
+            <input type="text"
+                   title="Number of hours after TX before long form material is purged."
+                   digitOnly
+                   decimal="true"
+                   [(ngModel)]="itemData.SF_PURGE_PERIOD"/>
+        </div>
+        <div class="field-wrapper">
+            <div class="label">{{'cachemanager.dd.purge_preset_short' | translate}}</div>
+            <imfx-lookups-select2
+                    #purgePresetShrt
+                    [width]="'100%'"
+                    [validationEnabled]="false"
+                    [allowClear]="false"
+                    [firstEmpty]="false"
+                    [value]="null"
+                    [lookupUrl]="'/api/v3/'"
+                    [lookupType]="'order-presets'"
+                    [compContext]="self"
+                    [placeholder]="'base.selectOoo'|translate"
+                    [placeholderRefToTranslate]="'base.selectOoo'"
+                    (onSelect)="onUpdateControl('purgePresetShrt', 'SF_PURGE_PRESET_ID')"
+                    (onUnselect)="onUpdateControl('purgePresetShrt', 'SF_PURGE_PRESET_ID')"
+            ></imfx-lookups-select2>
+        </div>
+        <div class="field-wrapper">
+            <div class="label">{{'cachemanager.dd.max_look_ahead' | translate}}</div>
+            <input type="text"
+                   title="The maximum look ahead (in hours) when considering purging material."
+                   digitOnly
+                   [(ngModel)]="itemData.MAX_LOOK_AHEAD"/>
+        </div>
+        <div class="field-wrapper">
+            <div class="label">{{'cachemanager.dd.tx_size_24_hrs' | translate}}</div>
+            <input type="text"
+                   title="The estimated size of 24 hours of transmission."
+                   digitOnly
+                   [(ngModel)]="itemData.TX_SIZE_24_HOURS"/>
+        </div>
+        <div class="overlay-wrapper" #modalWrapperEl>
+            <div class="spinner"></div>
+        </div>
+    </div>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div>
+            <button type="button" (click)="closeModal()">{{'common.cancel'| translate}}</button>
+            <button type="btn button primary" (click)="saveData()" [disabled]="!isValid()">{{'common.save'| translate}}</button>
+        </div>
+    </div>
+</ng-template>

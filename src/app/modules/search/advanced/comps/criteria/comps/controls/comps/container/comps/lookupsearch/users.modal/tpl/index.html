@@ -1,0 +1,14 @@
+<button type="button" class="btn btn-default" (click)="showModal()" style="width: 100%;">
+    <span *ngIf="modalValue">
+        {{modalValue}}
+    </span>
+    <span *ngIf="!modalValue && lookupSearchTypeVal == 'na'">
+        {{ 'advanced.select_authority' | translate }}
+    </span>
+    <span *ngIf="!modalValue && lookupSearchTypeVal == 'users'">
+        {{ 'advanced.select_user' | translate }}
+    </span>
+    <span *ngIf="!modalValue && lookupSearchTypeVal == 'company'">
+        {{ 'advanced.select_company' | translate }}
+    </span>
+</button>

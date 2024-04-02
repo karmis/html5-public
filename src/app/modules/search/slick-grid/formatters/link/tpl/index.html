@@ -1,0 +1,21 @@
+<ng-container *ngIf="data.linkTemp !== 'customTaskId'">
+    <a *ngIf="link; else simpleView"
+       [routerLink]="[link]">
+        {{title}}
+    </a>
+    <ng-template #simpleView>
+        <span *ngIf="!isEmpty(title)">{{title}}</span>
+    </ng-template>
+</ng-container>
+
+<ng-container *ngIf="data.linkTemp == 'customTaskId'">
+    <span *ngIf="isEnableTask(); else simpleViewCustomTask" (click)="goToPage($event)" class="link-href">
+        {{title}}
+    </span>
+
+    <ng-template #simpleViewCustomTask>
+        <span *ngIf="!isEmpty(title)">{{title}}</span>
+    </ng-template>
+</ng-container>
+
+

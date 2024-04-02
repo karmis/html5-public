@@ -1,0 +1,14 @@
+<div class="criteria-group">
+    <nav>
+        <div *ngFor="let criteria of group.criterias; let i = index;" class="clearfix criteria-group-item">
+            <advanced-criteria-example
+                    #criteriaModule
+                    [mode]="mode"
+                    [criteria]="criteria"
+                    [groupId]="group.id"
+                    [common]="common"
+                    (onUpdateCriteria)="updateCriteria($event)"></advanced-criteria-example>
+        </div>
+    </nav>
+</div>
+

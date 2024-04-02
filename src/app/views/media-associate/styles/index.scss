@@ -1,0 +1,123 @@
+@import "../../base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+
+        .mapping-wrapper{
+            padding-top: 10px;
+            .container-fluid {
+                .row-header {
+                    > nav {
+                        &:first-child {
+                            flex-grow: 1;
+                        }
+
+                        + nav {
+                            flex-grow: 0;
+                            margin-left: 12px;
+                        }
+                    }
+
+                    .search-input-wrapper {
+                        flex-grow: 1;
+                        max-width: 30vw;
+                    }
+
+                    .combined input.field {
+                        width: auto;
+                    }
+                }
+            }
+            .multi-facets-panel-header {
+                width: calc(100% - 16px);
+                position: absolute;
+                padding: 5px 12px;
+                background-color: getThemeColor(4, $key);
+                white-space: nowrap;
+                user-select: none;
+                z-index: 1;
+                > span {
+                    padding: 0 2px 2px;
+                    cursor: pointer;
+                    border-bottom: 2px solid transparent;
+                    &.selected {
+                        border-bottom-color: getThemeColor(7, $key);
+                        cursor: default;
+                    }
+                }
+            }
+            .multi-facets-panel-wrapper{
+                height: 100%;
+                padding-top: 32px;
+                overflow: auto;
+                background-color: getThemeColor(4, $key);
+            }
+        }
+        .mapping-grid-wrapper {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .mapping-grid {
+            .slick-header-column, .slick-group-header-column,
+            .slick-header-column.ui-state-default, .slick-group-header-column.ui-state-default {
+                height: 30px;
+                line-height: 20px;
+                &.hidden {
+                    display: none;
+                }
+            }
+            .tile-mode {
+                [colid="THUMBURL"] {
+                  .thumbnail-wrapper {
+                    height: 150px!important;
+                    width: 267px!important;
+                    margin: -12px -12px 5px -12px;
+                    max-width: none;
+                    max-height: none;
+                  }
+                }
+                .tile-field[colid="SER_NUM"],
+                .tile-field[colid="TITLE"]:not(:empty),
+                .tile-field[colid="VERSION"]:not(:empty),
+                .tile-field[colid="SER_TITLE"]:not(:empty),
+                .tile-field[colid="DURATION_text"]{
+                    display: block;
+                    width: 243px!important;
+                    height: 20px;
+                    font-size: 12px;
+                }
+                .tile-field[colid="_mediaBasket"],
+                .tile-field[colid="_settings"] {
+                    float: right;
+                    display: flex!important;
+                    align-items: flex-end!important;
+                    justify-content: flex-end;
+                    .wrapper{
+                        height: 100%;
+                        position: relative;
+                        div {
+                            position: absolute;
+                            bottom: 0;
+                        }
+                        img {
+                            position: absolute;
+                            bottom: 0;
+                            margin: auto;
+                            left: 0;
+                            right: 0;
+                        }
+                    }
+                }
+                .tile-field[colid="_settings"] img {
+                    bottom: 1px!important;
+                }
+                .tile-field[colid="SER_TITLE"]:empty,
+                .tile-field[colid="TITLE"]:empty,
+                .tile-field[colid="VERSION"]:empty{
+                    display: none!important;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,443 @@
+@import "../../../views/base/styles/theme.scss";
+@import "../../../views/base/styles/blocks/inputs.scss";
+@import "../../../views/base/styles/blocks/buttons.scss";
+@import "../../../views/base/styles/blocks/nav.scss";
+@import "../../../views/base/styles/blocks/nav.tabbed.scss";
+@import "../../../views/base/styles/blocks/rows.scss";
+
+@each $key,
+$value in $common-themes {
+  .#{$key} {
+    .rw-wizzard {
+        .zero-step{
+            display: block;
+        }
+      .wizard-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        align-items: center;
+        justify-content: center;
+        background: getThemeColor(3, $key);
+        z-index: 10;
+        opacity: 0;
+        display: none;
+        transition: all ease-in 0.3s;
+
+        &.showed {
+          opacity: 1;
+          transition: all ease-in 0.3s;
+        }
+
+        &.active-overlay {
+          display: flex;
+        }
+      }
+
+      .status-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        height: 50px;
+        align-items: center;
+        margin-bottom: 20px;
+
+        .step {
+          flex: 1;
+          height: 50px;
+          position: relative;
+
+          .step-title {
+            opacity: 0.4;
+            display: block;
+            text-align: center;
+          }
+          .step-circle {
+            position: absolute;
+            height: 20px;
+            width: 20px;
+            border: 5px solid getThemeColor(4, $key);
+            background: getThemeColor(4, $key);
+            border-radius: 20px;
+            display: block;
+            margin: 0 auto;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1;
+          }
+          .step-line {
+            background: getThemeColor(4, $key);
+            height: 6px;
+            width: 100%;
+            bottom: 7px;
+            position: absolute;
+            left: 50%;
+          }
+
+          &.first {
+            text-align: left;
+
+            // .step-circle {
+
+            // }
+          }
+          &.second {
+            text-align: center;
+
+            // .step-circle {
+
+            // }
+          }
+          &.third {
+            text-align: right;
+
+            // .step-circle {
+
+            // }
+          }
+
+            &.done {
+                .step-title {
+                    opacity: 1;
+                }
+                .step-circle {
+                    border-color: getThemeColor(12, $key);
+                    background: getThemeColor(12, $key);
+                }
+                .step-line {
+                    background: getThemeColor(12, $key);
+                }
+
+
+                &.raise-failed {
+                    .step-circle {
+                        border-color: getThemeColor(13, $key);
+                        background: getThemeColor(13, $key);
+                    }
+                    .step-line {
+                        background: getThemeColor(13, $key);
+                    }
+                }
+
+                &.current,
+                &.last {
+                    .step-title {
+                        font-size: 20px;
+                        opacity: 1;
+                    }
+                    .step-circle {
+                        border-color: getThemeColor(4, $key);
+                        background: #fff;
+                    }
+                    .step-line {
+                        background: getThemeColor(4, $key);
+                    }
+                }
+                &.last {
+                    .step-circle {
+                        border-color: getThemeColor(12, $key);
+                        background: #fff;
+                    }
+                    &.raise-failed {
+                        .step-circle {
+                            border-color: getThemeColor(13, $key);
+                        }
+                    }
+                }
+            }
+        }
+      }
+
+      .wizard-steps {
+        height: calc(100% - 70px);
+
+        .step-content {
+          height: 100%;
+          display: block;
+          position: relative;
+          width: 100%;
+
+          &.preset {
+              display: flex;
+              flex-direction: column;
+            //display: block;
+            //align-items: center;
+            //padding-bottom: 15px;
+
+              .options-wrapper{
+                  display: flex;
+                  margin-bottom: 10px;
+
+                  .datepicker-wrapper {
+                      display: inline-flex;
+                      flex: 1 1;
+                      label {
+                          flex: 0;
+                          white-space: nowrap;
+                          margin-top: 8px;
+                          margin-right: 10px;
+                      }
+                      imfx-controls-datetimepicker{
+                          flex: 1;
+                      }
+                  }
+
+                  .per-item-wrapper {
+                      //flex: 1 1;
+                      flex: 0;
+                      padding-top: 8px;
+                      margin-left: 20px;
+                      text-align: right;
+                      white-space: nowrap;
+                      label{
+                          margin-right: 10px;
+                      }
+                      //.per-item-checkbox {
+                      //
+                      //}
+                  }
+              }
+
+            //input {
+            //  width: 100%;
+            //}
+
+            .presets-wrapper {
+              height: calc(100% - 79px);
+              overflow: hidden;
+              overflow-y: auto;
+              max-height: 400px;
+                background-color: getThemeColor(4, $key);
+
+              .no-items {
+                display: flex;
+                align-items: center;
+                align-content: center;
+                justify-content: center;
+                height: 100%;
+                font-size: 18px;
+                opacity: 0.3;
+              }
+
+              //.preset-item {
+              //  height: 28px;
+              //  line-height: 14px;
+              //  padding: 7px;
+              //  cursor: pointer;
+              //  background-color: getThemeColor(4, $key);
+              //  &:hover {
+              //    background-color: getThemeColor(5, $key);
+              //  }
+              //
+              //  &.selected {
+              //    color: #fff;
+              //    background-color: getThemeColor(10, $key);
+              //  }
+              //}
+            }
+          }
+          &.xml {
+            display: block;
+            align-items: center;
+
+            .success-wrapper {
+              height: 100%;
+              overflow: hidden;
+              overflow-y: auto;
+              border: 2px solid getThemeColor(22, $key);
+            }
+
+            .xml-wrapper {
+              overflow-y: auto;
+              height: 100%;
+            }
+          }
+          &.result {
+            display: block;
+            align-items: center;
+
+            .result-wrapper {
+              display: flex;
+              flex-direction: column;
+              height: 100%;
+              overflow: hidden;
+              overflow-y: auto;
+              //
+              align-items: center;
+              align-content: center;
+              justify-content: center;
+              font-size: 14px;
+              font-weight: bold;
+              line-height: 18px;
+              word-wrap: break-word;
+              word-break: break-word;
+                text-align: center;
+                white-space: pre-line;
+
+                .result-task {
+                    padding-top: 5px;
+                }
+
+                .task-status {
+                    padding-top: 5px;
+                    .tast-progress {
+                        background: getThemeColor(4, $key);
+                        height: 5px;
+                        .progress-fill {
+                            background: getThemeColor(12, $key);
+                            width: 0%;
+                            height: 5px;
+                        }
+                    }
+                }
+
+                .updating-active-task {
+                    padding-top: 7px;
+                    font-weight: 100;
+                    font-size: 12px;
+                    opacity: 0.6;
+                    position: absolute;
+                    bottom: 6px;
+                    .spinner {
+                        width: 16px;
+                        height: 16px;
+                        display: inline-block;
+                        margin: 0;
+                        position: relative;
+                        top: 4px;
+                    }
+                }
+
+              .result-icon {
+                font-size: 150px;
+                opacity: 1;
+                vertical-align: top;
+                width: auto;
+                height: auto;
+                line-height: 150px;
+
+                &:before {
+                  font-size: 150px;
+                }
+
+                &.icons-statusgreen {
+                  color: getThemeColor(12, $key);
+                }
+                &.icons-statusred {
+                  color: getThemeColor(13, $key);
+                }
+              }
+
+                .result-job {
+                    font-size: inherit;
+                    line-height: 26px;
+                }
+
+              span {
+                font-size: 16px;
+                line-height: 18px;
+                margin-top: 10px;
+                cursor: pointer;
+                //padding-bottom: 2px;
+                border-bottom: 1px solid getThemeColor(1, $key);
+                  &.task-link {
+                      font-size: 14px;
+                      padding-bottom: 2px;
+                  }
+              }
+            }
+
+              .several-wf-result-wrapper{
+                  //position: relative;
+                  padding: 0px;
+                  color: getThemeColor(16, $key);
+                  height: calc(100% - 15px);
+                  overflow: auto;
+                  background-color: getThemeColor(6, $key);
+
+                  .wf-result-item {
+                      height: 60px;
+                      width: 100%;
+                      display: flex;
+                      justify-content: space-between;
+                      align-items: center;
+                      color: getThemeColor(16, $key) !important;
+                      border-bottom: 1px solid getThemeColor(3, $key);
+                      &:hover {
+                          color: getThemeColor(15, $key);
+                          background-color: getThemeColor(5, $key);
+                      }
+                      &.active {
+                          color: getThemeColor(15, $key);
+                          background-color: getThemeColor(5, $key);
+                      }
+
+                      .media-details {
+                          margin-left: 10px;
+                          .prop-name{
+                              display: inline-block;
+                              width: 80px;
+                              margin-right: 5px;
+                              //text-align: right;
+                          }
+                      }
+
+                  }
+                  .wf-details {
+                      display: flex;
+                      margin-left: 20px;
+                      align-items: center;
+                      flex: 1;
+                      justify-content: flex-end;
+                      text-align: right;
+                      .wf-details-status {
+                          width: 100px;
+                          min-width: 100px;
+                          height: 25px;
+                          float: right;
+                          line-height: 25px;
+                          display: inline-block;
+                          margin: 0 10px;
+                          text-align: center;
+                          border-radius: 15px;
+
+                          &.green {
+                              background-color: getThemeColor(12, $key);
+                          }
+                          &.yellow {
+                              background-color: getThemeColor(7, $key);
+                          }
+                          &.red {
+                              background-color: getThemeColor(13, $key);
+                          }
+                      }
+                      .wf-details-link {
+                          cursor: pointer;
+                          text-decoration: underline;
+                          overflow: hidden;
+                          text-overflow: ellipsis;
+                          white-space: nowrap;
+                      }
+                      .wf-details-error {
+                          cursor: pointer;
+                          text-decoration: underline;
+                          overflow: hidden;
+                          text-overflow: ellipsis;
+                          white-space: nowrap;
+                          flex: 1;
+                          width: 200px;
+                      }
+                  }
+
+              }
+
+
+          }
+        }
+      }
+    }
+  }
+}

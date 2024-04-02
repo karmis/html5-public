@@ -1,0 +1,30 @@
+<div class="users">
+    <div style="height: 32px">
+        <input style="width: 100%"
+            #filterInput
+            class="field"
+            placeholder="{{ 'common.just_search_placeholder' | translate }}"
+            (keyup)="onFilter()">
+    </div>
+    <div style="height: calc(100% - 32px);">
+        <slick-grid
+            #slickGridComp
+            style="width: 100%; height: 100%;"
+            class="users-grid"
+            [config]="searchGridConfig">
+        </slick-grid>
+    </div>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div class="buttons">
+            <button (click)="closeModal()" class="">
+                {{ 'common.cancel' | translate }}
+            </button>
+            <button (click)="save()" class="primary">
+                {{ 'common.ok' | translate }}
+            </button>
+        </div>
+    </div>
+</ng-template>

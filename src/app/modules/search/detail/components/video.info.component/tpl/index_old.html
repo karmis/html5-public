@@ -1,0 +1,23 @@
+<div class="video-info-wrapper">
+  <div *ngIf="smudge" class="wrapper">
+    <div>Smudge</div>
+    <img [src]="smudge.Url" class="elem elem-full" [ngClass]="{'one-frame': smudge.EventData.TotalFrames == 1}" (click)="clickOnSmudge($event)" #smudgeElem />
+    <div class="elem-scroll-wrapper" *ngIf="smudge.EventData.TotalFrames > 1">
+      <img [src]="smudge.Url" class="elem elem-scroll" (click)="clickOnSmudge($event)" #smudgeElem />
+    </div>
+  </div>
+  <div *ngIf="scene" class="wrapper">
+    <div>Scenes</div>
+    <img [src]="scene.Url" class="elem elem-full" [ngClass]="{'one-frame': scene.EventData.TotalFrames == 1}" (click)="clickOnScene($event)" #sceneElem/>
+    <div class="elem-scroll-wrapper" *ngIf="scene.EventData.TotalFrames > 1">
+      <img [src]="scene.Url" class="elem elem-scroll" (click)="clickOnScene($event)" #sceneElem/>
+    </div>
+  </div>
+  <div *ngIf="waveform" class="wrapper">
+    <div>Waveform</div>
+    <img [src]="waveform.Url" class="elem elem-full" [ngClass]="{'one-frame': waveform.EventData.TotalFrames == 1}" (click)="clickOnWaveform($event)" #waveformElem/>
+    <div class="elem-scroll-wrapper" *ngIf="waveform.EventData.TotalFrames > 1">
+      <img [src]="waveform.Url" class="elem elem-scroll" (click)="clickOnWaveform($event)" #waveformElem/>
+    </div>
+  </div>
+</div>

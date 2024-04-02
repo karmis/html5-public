@@ -1,0 +1,80 @@
+@import "../../../../base/styles/theme.scss";
+
+$multilineheight: 300px;
+
+@each $key, $value in $common-themes {
+    .#{$key} {
+        .production-info-wrapper {
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            .main-fields {
+                overflow: visible;
+                flex-grow: 1;
+                background: getThemeColor(3, $key);
+                border: 1px solid getThemeColor(9, $key);
+                padding: 4px;
+                margin: 4px;
+                flex-direction: column;
+            }
+        }
+        .field-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+
+            & .wrap-label:not(:first-child) .filed-label {
+                margin-left: 10px;
+            }
+
+            .wrap-label {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                //width: 150px;
+                &.col-1, .col-2 {
+                    & .filed-input {
+                        width: calc(100% - 70px);
+                    }
+                }
+                &.col-2 {
+                    & .filed-label {
+                        width: 80px;
+                    }
+                }
+            }
+            .filed-label {
+                width: 120px;
+            }
+            .filed-input {
+                margin-left: 10px;
+                width: 100%;
+            }
+        }
+
+        .field-title {
+            height: 25px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .selector-border {
+            border-radius: 0;
+            border: 2px solid getThemeColor(22, $key);
+            background-color: getThemeColor(6, $key);
+            height: $baseline*2;
+            //line-height: $baseline*2;
+            color: getThemeColor(16, $key);
+            box-shadow: none;
+            &:focus {
+                border-color: getThemeColor(25, $key)!important;
+            }
+        }
+    }
+}

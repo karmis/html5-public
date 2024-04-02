@@ -1,0 +1,58 @@
+<div class="full-height-width-block" style="top: 0px !important;">
+    <div class="" style="position: relative; height:100%;   display: flex;
+    flex-direction: column;">
+        <!--Header-->
+        <div class="row-header" style="justify-content: flex-start">
+            <nav style="min-width: 120px;">
+                <ul>
+                    <li>
+                        <span style="font-size: 15px;">{{ 'user_management.views.carrierselect' | translate }}</span>
+                    </li>
+                    <li style="margin-top: -2px" [hidden]="needUpdateGrid === false">
+                        <i class="imfx-icon fa fa-refresh pulse refresh-grid-icon" style="margin-top: 0;font-size: 15px;" title="Refresh" (click)="onClickRefreshGrid()"></i>
+                    </li>
+                </ul>
+            </nav>
+            <nav style="margin-right: 70px">
+                <ul>
+                    <li *ngIf="hasPermissionByName('views-options')"><label>{{ 'common.view' | translate}}:</label></li>
+                    <li [hidden]="!hasPermissionByName('views-modify')">
+                        <search-views
+                            #viewsComp
+                            [config]="searchViewsConfig"
+                        ></search-views>
+                    </li>
+                    <li *ngIf="hasPermissionByName('views-options') || hasPermissionByName('export-options') ">
+                        <search-settings
+                            [config]="searchSettingsConfig"
+                        ></search-settings>
+                    </li>
+                    <li>
+                        <search-thumbs
+                            #searchThumbsComp
+                            [config]="searchThumbsConfig"
+                        ></search-thumbs>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <!--Body-->
+        <div style="height: calc(100% - 35px);margin-top:0;">
+            <div style="height: 100%;width: 100%;">
+                <slick-grid
+                    style="width: 100%;  height: 100%"
+                    class="inside-media-grid vertical-align-row small-height-header"
+                    #slickGridComp
+                    [config]="searchGridConfig"
+                ></slick-grid>
+            </div>
+        </div>
+    </div>
+
+    <!--Settings dropdown-->
+    <media-item-ellipsis-dropdown [slickGridComp]="slickGridComp"></media-item-ellipsis-dropdown>
+</div>
+
+
+
+

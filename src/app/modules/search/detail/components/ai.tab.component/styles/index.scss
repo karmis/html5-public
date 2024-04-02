@@ -1,0 +1,169 @@
+@import "../../../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+  .#{$key} {
+    .ai-tab-wrapper {
+      height: 100%;
+      .ai-head-sub-tabs {
+        margin: 0;
+        display: inline-block;
+        height: 30px!important;
+        line-height: 20px;
+        z-index: 0;
+
+        .ai-tabs-wrapper {
+          position: relative;
+          display: inline-block;
+          margin: 0;
+
+          .ai-sub-tab {
+            display: inline-block;
+            cursor: pointer;
+            background: none!important;
+            display: inline-block;
+            height: 29px!important;
+            padding: 0;
+            margin-right: 24px;
+            transition: all 0.2s ease-in-out;
+
+            span {
+              font-size: 12px;
+              font-family: 'sinkin_sans500_medium', 'Roboto', sans-serif;
+            }
+
+            &:hover {
+              opacity: 1;
+              i {
+                opacity: 1;
+              }
+              span {
+                opacity: 1;
+              }
+            }
+            i {
+              position: relative;
+              top: -1px;
+              padding-right: 4px;
+            }
+
+            &.active {
+              border-bottom: getThemeColor(7,$key) 2px solid;
+              opacity: 1;
+              i {
+                 opacity: 1;
+               }
+              span {
+                opacity: 1;
+              }
+            }
+          }
+        }
+      }
+
+      .ai-content {
+        height: calc(100% - 32px);
+        overflow: hidden;
+        position: relative;
+        display: block;
+        width: 100%;
+
+        .notes-filter {
+          width: 100%;
+        }
+
+        .header-fake-table {
+          width: calc(100% - 20px)!important;
+          position: relative;
+          max-height: 38px;
+
+
+          th {
+            padding: 3px 5px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            line-height: 32px;
+            opacity: 0.5;
+            font-weight: 100;
+            &:not(:last-child) {
+              border-right: 1px solid getThemeColor(9, $key);
+            }
+          }
+
+          .ai-in {
+            width: 100px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+          }
+          .ai-out {
+            width: 100px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+          }
+          .ai-notes {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+          }
+        }
+        .content-table {
+          height: calc(100% - 76px);
+          overflow-x: hidden;
+          overflow-y: auto;
+
+          .fake-rows {
+            display: block;
+            font-size: 0;
+            margin-left: 1px;
+            vertical-align: top;
+            height: 22px;
+            overflow: hidden;
+            cursor: pointer;
+            &:hover {
+              background: getThemeColor(10, $key);
+              .fake-cell {
+                color: #fff!important;
+              }
+            }
+
+            .ai-in {
+              width: 100px;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              overflow: hidden;
+            }
+            .ai-out {
+              width: 100px;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              overflow: hidden;
+            }
+            .ai-notes {
+              width: calc(100% - 100px);
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              overflow: hidden;
+            }
+            .fake-cell {
+              font-size: 14px;
+              position: relative;
+              padding: 3px 5px!important;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              display: inline-block;
+              height: 22px;
+              vertical-align: top;
+              cursor: pointer;
+              &:not(:last-child) {
+                border-right: 1px solid getThemeColor(9, $key);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

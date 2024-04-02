@@ -1,0 +1,30 @@
+<div class="global-settings-grafana full-height" #grafanaWrapper>
+  <button style="margin-bottom: 20px;" *ngIf="addReady" (click)="toggleAdd(false)" title="{{ 'common_hints.add' | translate }}">
+    <i class="icons-add icon"></i>
+    {{"common.add" | translate}}</button>
+  <div *ngIf="!addReady" class="add-grafana-wrapper">
+    <input [(ngModel)]="this.grafanaData.FriendlyName" type="text" placeholder="{{'global_settings.friendly_name' | translate}}" />
+    <textarea [(ngModel)]="this.grafanaData.EmbedData" placeholder="{{'global_settings.embed_data' | translate}}"></textarea>
+    <button (click)="addGrafanaPanel()">Save</button>
+    <button (click)="toggleAdd(true)">Cancel</button>
+  </div>
+  <div class="grafana-items-wrapper">
+    <div *ngFor="let item of grafanaDataArray; let i = index" class="grafana-item">
+      <div class="g-name">{{item.FriendlyName}}</div>
+      <iframe class="g-frame" [src]="item.ResultUrl + (themesProvider.theme_class == 'default' ? '&theme=light' : '&theme=dark') | safe" width="450" height="200" frameborder="0"></iframe>
+      <div class="g-update" *ngIf="activeUpdate==i">
+        <input value="{{item.FriendlyName}}" id="g-update-input-{{i}}" type="text" placeholder="{{'global_settings.friendly_name' | translate}}" />
+        <textarea id="g-update-textarea-{{i}}" placeholder="{{'global_settings.embed_data' | translate}}">{{item.EmbedData}}</textarea>
+      </div>
+      <div class="g-buttons" *ngIf="activeUpdate!=i">
+        <button (click)="toggleUpdate(i, false)">Edit</button>
+        <button (click)="deleteGrafanaPanel(i)">Remove</button>
+      </div>
+      <div class="g-buttons" *ngIf="activeUpdate==i">
+        <button (click)="updateGrafanaPanel(i)">Save</button>
+        <button (click)="toggleUpdate(i, true)">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- http://192.168.90.41:3000/dashboard-solo/db/alex?from=1502723330438&to=1503414530438&panelId=5 -->

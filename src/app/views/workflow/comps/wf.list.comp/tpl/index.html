@@ -1,0 +1,100 @@
+<!--h4 class="block-header text">{{ 'workflow.title' | translate }}</h4-->
+<div class="full-height full-width">
+    <div class="container-fluid workflow-view" style="position: relative; height:100%;">
+        <!--Header-->
+        <div class="row-header">
+            <nav>
+                <ul class="workflow-top-buttons">
+                    <li *ngIf="hasPermissionByName('views-options')" class="divider" style="display: none;"></li>
+                    <li *ngIf="hasPermissionByName('views-options')"><label>{{ 'common.view' | translate}}:</label></li>
+                    <li [hidden]="!hasPermissionByName('views-modify')">
+                        <search-views
+                            #viewsComp
+                            [config]="searchViewsConfig"
+                        ></search-views>
+                    </li>
+                    <li *ngIf="hasPermissionByName('views-options') || hasPermissionByName('export-options')">
+                        <search-settings
+                            [config]="searchSettingsConfig"
+                        ></search-settings>
+                    </li>
+                    <li *ngIf="issetData() && issetColumns()">
+                        <button (click)="collapseAll()"
+                                *ngIf="slickGridComp.provider.isGridExpanded; else collapseButton">
+                            {{'workflow.collapse_all' | translate}}
+                        </button>
+                        <ng-template #collapseButton>
+                            <button (click)="expandAll()">{{'workflow.expand_all' | translate}}</button>
+                        </ng-template>
+                    </li>
+                    <li *ngIf="issetData() && issetColumns()">
+                        <button
+                            style="width: 70px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"
+                            (click)="openRestartWizard()"
+                            [ngClass]="{'disabled': disabledGroupOperationButtons}"
+                            [disabled]="disabledGroupOperationButtons || disabledRestartButton">
+                            {{'workflow.topPanel.abort'|translate}}
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            (click)="onRefresh()">
+                            {{'workflow.refresh' | translate}}
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <!--Body-->
+        <div class="row-body" style="height: 400px;">
+            <slick-grid
+                #slickGridComp
+                class="workflow-grid"
+                style="width: 100%;  height: 100%"
+                [config]="searchGridConfig"
+            ></slick-grid>
+        </div>
+    </div>
+</div>
+
+
+<!--Settings dropdown-->
+
+<div *ngIf="slickGridComp.isGridReady"
+     class="dropdown grid-settings-dropdown workflowSettingsPopup"
+     style="margin-top: 15px; margin-right: 15px; position: fixed; display: none;">
+    <ul
+        aria-labelledby="simple-btn-keyboard-nav"
+        style="display: block;"
+        class="dropdown-menu"
+        role="menu"
+    >
+        <li role="menuitem">
+            <a
+                class="dropdown-item"
+                [class.disabled]="!slickGridComp.provider.isDeleteEnabled()"
+                (click)="slickGridComp.provider.delete($event)">
+                {{ 'workflow.table.dropdown.row.delete' | translate }}
+            </a>
+        </li>
+    </ul>
+</div>
+<div *ngIf="slickGridComp.isGridReady"
+     class="dropdown grid-settings-dropdown workflowMultiSettingsPopup"
+     style="margin-top: 15px; margin-right: 15px; position: fixed; display: none;">
+    <ul
+        aria-labelledby="simple-btn-keyboard-nav"
+        style="display: block;"
+        class="dropdown-menu"
+        role="menu"
+    >
+        <li role="menuitem">
+            <a
+                class="dropdown-item"
+                [class.disabled]="!slickGridComp.provider.isDeleteMultiEnabled()"
+                (click)="slickGridComp.provider.deleteMulti()">
+                {{ 'workflow.table.dropdown.row.delete' | translate }}
+            </a>
+        </li>
+    </ul>
+</div>

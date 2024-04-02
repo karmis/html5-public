@@ -1,0 +1,190 @@
+<div class="item-content-wrapper" #simplItem [ngStyle]="{'height': settings.common.blockHeight + 'px'}">
+    <div class="grid-stack grid-stack-static" (click)="onSelect(item, page, index)">
+
+        <!--Dynamic widgets-->
+        <div *ngFor="let dynWidget of settings.dynamicWidgets; let i=index" class="grid-stack-item"
+             [attr.data-custom-id]="dynWidget.id"
+             [ngStyle]="getStylesForWidget(dynWidget.id, 'dynamicWidgets')"
+        >
+            <div>
+                <div class="label-value breaktext">{{dynWidget.value}}</div>
+            </div>
+        </div>
+
+        <div class="grid-stack-item"
+             [hidden]="!settings.staticWidgets.ThumbUrl.enabled"
+             data-custom-id="ThumbUrl"
+             [ngStyle]="getStylesForWidget('ThumbUrl')">
+            <div>
+                <div class="thumbnail-container centred" style="width: 100%;position: relative;">
+                    <div class="thumbnail-wrapper" [ngStyle]="{width: '100%', height: getHeightForWidget('ThumbUrl')}">
+                      <thumb-component [params]="item" [mediaInfoType]="'version'"></thumb-component>
+                        <!--<img [src]="item.ThumbUrl"-->
+                             <!--onerror="this.src='./assets/img/default-thumb.PNG'"-->
+                             <!--class="thumbnail"/>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-stack-item"
+             [hidden]="!settings.staticWidgets.Title.enabled"
+             data-custom-id="Title"
+             [ngStyle]="getStylesForWidget('Title')">
+            <div>
+                <div class="item-title">
+                    <h1 class="breaktext">{{item?.Title||('consumer_settings.no_data'|translate)}}</h1>
+                    <!--<h1 class="">{{item?.Title||('consumer_settings.no_data'|translate)}}</h1>-->
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-stack-item"
+             [hidden]="!settings.staticWidgets.SeriesTitle.enabled"
+             data-custom-id="SeriesTitle"
+             style="cursor:pointer;"
+             [ngStyle]="getStylesForWidget('SeriesTitle')">
+            <div>
+                <div class="series-title" (click)="toggleModifications('SERIES_ID', item?.SeriesId)">
+                    {{item?.SeriesTitle||('consumer_settings.no_data'|translate)}}
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-stack-item"
+             [hidden]="!settings.staticWidgets.Synopsis.enabled"
+             data-custom-id="description"
+             [ngStyle]="getStylesForWidget('Synopsis')">
+            <div>
+                <p class="description">{{item?.Synopsis||('consumer_settings.no_data'|translate)}}</p>
+            </div>
+        </div>
+
+        <div class="grid-stack-item"
+             [hidden]="!settings.staticWidgets.Duration.enabled"
+             data-custom-id="duration"
+             [ngStyle]="getStylesForWidget('Duration')">
+            <div style="min-width: 60px;">
+                <i class="icons-duration icon"></i>
+                <span class="duration">{{item?.Duration||('consumer_settings.no_data'|translate)}}</span>
+            </div>
+        </div>
+
+        <div class="grid-stack-item"
+             [hidden]="!settings.staticWidgets.cart.enabled"
+             data-custom-id="cart"
+             [ngStyle]="getStylesForWidget('cart')">
+            <div  style="padding: 8px;display: inline-block;cursor: pointer;"
+                  (click)="toggleBasket($event)"
+            >
+                <i class="icon centred"
+                   [ngClass]="{
+                       'icons-inbasket':isOrdered(),
+                       'inbasket': isOrdered(),
+                       'icons-addbasket': !isOrdered()
+                       }"
+                ></i>
+            </div>
+        </div>
+        <!--VersionId1-->
+        <div class="grid-stack-item"
+             [hidden]="!settings.staticWidgets.VersionId1?.enabled"
+             data-custom-id="VersionId1"
+             [ngStyle]="getStylesForWidget('VersionId1')">
+            <div>
+                <div class="item-title-versionId1">
+                    <div class="series-versionId1">{{item?.VersionId1||('consumer_settings.no_data'|translate)}}</div>
+                </div>
+            </div>
+        </div>
+
+        <!--ItemType-->
+        <div class="grid-stack-item"
+             [hidden]="!settings.staticWidgets.ItemType?.enabled"
+             data-custom-id="ItemType"
+             [ngStyle]="getStylesForWidget('ItemType')">
+            <div>
+                <div class="item-title-itemType">
+                    <div class="series-itemType">{{item?.ItemType||('consumer_settings.no_data'|translate)}}</div>
+                </div>
+            </div>
+        </div>
+
+        <!--SeasonTitle-->
+        <div class="grid-stack-item"
+             [hidden]="!settings.staticWidgets.SeasonTitle?.enabled"
+             data-custom-id="SeasonTitle"
+             [ngStyle]="getStylesForWidget('SeasonTitle')">
+            <div>
+                <div class="item-title-seasonTitle">
+                    <div class="series-seasonTitle item-title-reference pointer" (click)="toggleModifications('SEASON_ID', item?.SeasonNo)">{{item?.SeasonTitle||('consumer_settings.no_data'|translate)}}</div>
+                </div>
+            </div>
+        </div>
+
+        <!--EpisodeNo-->
+        <div class="grid-stack-item"
+             [hidden]="!settings.staticWidgets.EpisodeNo?.enabled"
+             data-custom-id="EpisodeNo"
+             [ngStyle]="getStylesForWidget('EpisodeNo')">
+            <div>
+                <div class="item-title-episodeNo">
+                    <div class="series-episodeNo item-title-reference pointer" (click)="toggleModifications('EPISODE_ID', item?.EpisodeNo)">{{item?.EpisodeNo||('consumer_settings.no_data'|translate)}}</div>
+                </div>
+            </div>
+        </div>
+
+        <!--SeasonNo-->
+        <div class="grid-stack-item pointer"
+             [hidden]="!settings.staticWidgets.SeasonNo?.enabled"
+             data-custom-id="SeasonNo"
+             [ngStyle]="getStylesForWidget('SeasonNo')">
+            <div>
+                <div class="item-title-seasonNo">
+                    <div class="series-seasonNo item-title-reference"
+                         (click)="toggleModifications('SEASON_ID', item?.SeasonNo)">
+                        {{item?.SeasonNo||('consumer_settings.no_data'|translate)}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--moreDetails-->
+        <div class="grid-stack-item"
+             [hidden]="!settings.staticWidgets.moreDetails.enabled"
+             data-custom-id="moreDetails"
+             [ngStyle]="getStylesForWidget('moreDetails')">
+            <div class="grid-stack-item-content" style="cursor: pointer;">
+                <button class="button full-width breaktext more-details-btn" [routerLink]="['/versions','detail', item.ID]">
+                    {{ 'consumer.more_details' | translate }}
+                    <!--<i class="icons-more icon"></i>-->
+                </button>
+            </div>
+        </div>
+
+        <!--&lt;!&ndash;IsHD&ndash;&gt;-->
+        <!--<div class="grid-stack-item"-->
+             <!--[hidden]="!settings.staticWidgets.IsHD.enabled"-->
+             <!--data-custom-id="IsHD"-->
+             <!--[ngStyle]="getStylesForWidget('IsHD')">-->
+            <!--<div class="grid-stack-item-content">-->
+                <!--< IsHD >-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <div class="grid-stack-item"
+             [hidden]="!settings.staticWidgets.icons.enabled"
+             data-custom-id="icons"
+             [ngStyle]="getStylesForWidget('icons')">
+            <div>
+                <div class="icons">
+                    <i class="icons-files icon"></i>
+                    <i class="icons-audio icon"></i>
+                    <i class="icons-video icon"></i>
+                    <i class="icons-video-hd icon"></i>
+                    <i class="icons-video-sd icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

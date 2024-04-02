@@ -1,0 +1,38 @@
+<div class="full-height-block media-basket-wrapper">
+  <div class="p-rel-h-full">
+    <div class="ovr-h-full">
+
+      <h2>Demo XML</h2>
+      <div *ngIf="schemas">
+        <div class="col-sm-2" style="max-height: 500px;overflow-y: auto;overflow-x: hidden;">
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let schema of schemas; let i = index"
+                (click)="selectXml(schema)" style="cursor:pointer">
+              #{{schema.Id}} - {{schema.Name}}
+            </li>
+          </ul>
+        </div>
+        <div class="col-sm-10 card">
+          <div class="card-block">
+            <div>
+              <button class="button" (click)="getValue()">getValue</button>
+              <p *ngIf="serialized">Serialized Tree: {{serialized}}</p>
+              <input [(ngModel)]="fillFrom" />
+              <button class="button" (click)="setValue()">setValue</button>
+            </div>
+            <div>
+              <button class="button" (click)="checkValid()">isValid</button>
+              {{valid}}
+            </div>
+            <imfx-xml-tree
+              #xmlTree
+              [schemaModel]="selectedSchemaModel"
+              [xmlModel]="selectedXmlModel"
+            ></imfx-xml-tree>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

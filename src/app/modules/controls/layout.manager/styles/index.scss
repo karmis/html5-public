@@ -1,0 +1,46 @@
+@import "../../../../views/base/styles/theme.scss";
+@each $key, $value in $common-themes {
+  .#{$key} {
+    layout-manager {
+      .layout-manager-wrapper {
+        transform: none!important;
+        position: relative;
+        display: block;
+
+        .layout-manager-menu {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 155px;
+          height: 164px;
+          z-index: 100;
+          background: getThemeColor(3, $key);
+          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+
+            &.notmine {
+                height: 104px;
+            }
+
+          div {
+            cursor: pointer;
+            text-align: center;
+            line-height: $baseline * 2;
+            &:hover {
+              background: getThemeColor(4, $key);
+            }
+          }
+        }
+      }
+      .manager-save-modal {
+        .modal {
+          max-height: 185px!important;
+        }
+      }
+      .manager-load-modal {
+        .modal-body {
+          height: calc(60vh - 36px)!important;
+        }
+      }
+    }
+  }
+}

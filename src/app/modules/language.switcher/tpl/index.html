@@ -1,0 +1,11 @@
+<nav class="lang-switcher">
+  <ul>
+    <li class="dropdown test-lang-switcher-dropdown" style="height: 32px; line-height: 32px" dropdown>
+      {{translate.currentLang}}
+      <i class="icons-down icon"></i>
+      <ul class="submenu">
+        <li *ngFor="let lang of additionalLangs" class="test-lang-{{ lang }}" style="height: 32px; line-height: 32px"><a (click)="setLang(lang)">{{ lang }}</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>

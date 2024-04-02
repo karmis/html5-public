@@ -1,0 +1,13 @@
+<!--<search-views-->
+<!--    #viewsComp-->
+<!--    [config]="searchViewsConfig"-->
+<!--&gt;</search-views>-->
+<slick-grid *ngIf="typeGrids !== 'mediaInProd'"
+            #grid
+            class="small-height-header"
+            [config]="gridConfig">
+</slick-grid>
+<media-tab *ngIf="typeGrids === 'mediaInProd'"
+           [mediaData]="mediaData"
+            [isReadonly]="true">
+</media-tab>

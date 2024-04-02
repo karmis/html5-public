@@ -1,0 +1,104 @@
+<div class="edit-production-template-wrapper">
+    <div class="main-data" *ngIf="itemData">
+        <div class="field-block main-block">
+            <div class="field-block left-block">
+                <div class="field-item">
+                    <label>{{"production.production_templates.edit_modal.name" | translate}}</label>
+                    <div class="value-wrapper" [ngClass]="{'notvalid': (saveAttepmt && !isFieldValid('NAME'))}">
+                        <input type="text" [(ngModel)]="itemData.NAME"/>
+                    </div>
+                </div>
+                <div class="field-item">
+                    <label>{{"production.production_templates.edit_modal.config" | translate}}</label>
+                    <div class="value-wrapper" [ngClass]="{'notvalid': (saveAttepmt && !isFieldValid('CONFIG_ID'))}">
+                        <imfx-controls-select2
+                            *ngIf="templates && templates.length > 0"
+                            [width]="'100%'"
+                            [data]="templates"
+                            [readonly]="!isNew"
+                            [value]="[{id: itemData.CONFIG_ID}]"
+                            [placeholder]="'xml.select_value'|translate"
+                            [placeholderRefToTranslate]="'xml.select_value'"
+                            (onSelect)="onSelectConfig($event)"></imfx-controls-select2>
+                    </div>
+                </div>
+                <div class="field-item">
+                    <label>{{"production.production_templates.edit_modal.rce" | translate}}</label>
+                    <input type="checkbox"
+                           [checked]="itemData['RCE'] == 1 || itemData['RCE'] === true"
+                           (change)="$event.target.checked ? itemData['RCE'] = true : itemData['RCE'] = false"/>
+                </div>
+                <div class="field-item">
+                    <label>{{"production.production_templates.edit_modal.due_date_offset" | translate}}</label>
+                    <div class="value-wrapper" [ngClass]="{'notvalid': (saveAttepmt && !validatePositive(itemData.DUE_DATE_ADJ, 366))}">
+                        <input type="number"
+                               step="any"
+                               [(ngModel)]="itemData.DUE_DATE_ADJ"
+                               [attr.min]="0"
+                               [attr.max]="365"
+                               (input)="!validatePositive($event.target.value, 366) ?
+                                $event.target.value = '' :
+                                $event.target.value = processIntegerLimits($event.target.value, true, 366)"
+                               (ngModelChange)="onDueDateChange($event)"
+                        />
+                    </div>
+                </div>
+                <div class="field-item">
+                    <label>{{"production.production_templates.edit_modal.auto_src_copy" | translate}}</label>
+                    <input type="checkbox"
+                           [checked]="itemData['AUTO_SRC_COPY'] == 1 || itemData['AUTO_SRC_COPY'] === true"
+                           (change)="$event.target.checked ? itemData['AUTO_SRC_COPY'] = true : itemData['AUTO_SRC_COPY'] = false"/>
+                </div>
+            </div>
+            <div class="field-block right-block">
+                <user-channels-tab
+                    [tabName]="'production.production_templates.edit_modal.channels'"
+                    [data]="(itemData.CHANNELS ? itemData.CHANNELS : [])"
+                    [lookup]="lookups['CHANNELS']"
+                    [isNew]="isNew"
+                    [showLeftCode]="false"
+                    [readOnly]="false"
+                    (onAddItems)="onAddChannelsOwners($event, 'CHANNELS')"
+                    (onDeleteItems)="onDeleteChannelsOwners($event, 'CHANNELS')"
+                ></user-channels-tab>
+            </div>
+        </div>
+        <div class="field-block">
+            <production-template-fields
+                                        #dynamicFieldsBlock
+                                        [data]="itemData"
+                                        [viewData]="viewData"
+                                        [lookups]="lookups"
+                                        [isNew]="isNew"
+                                        (onChangeItems)="onChangeTemplateFields($event)">
+            </production-template-fields>
+        </div>
+        <div class="field-block tabs-block">
+            <production-config-edit-modal-tabs
+                #productionConfigEditModalTabsComponent
+                style="display: block; flex: 1;"
+                [templateMode]="templateMode"
+                [itemData]="itemData"
+                [lookups]="lookups"
+                (itemDataChanged)="onChangeTabsFields($event)"
+            ></production-config-edit-modal-tabs>
+        </div>
+    </div>
+    <div class="overlay-wrapper" #modalEditProductionTemplateOverlayWrapper>
+        <div class="spinner"></div>
+    </div>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div>
+            <div class="productions-active-filed-wrapper" *ngIf="itemData">
+                <span>{{"production.production_templates.edit_modal.active" | translate}}</span>
+                <input type="checkbox" [checked]="itemData['ACTIVE'] === 1 || itemData['ACTIVE'] === true"
+                       (change)="$event.target.checked ? itemData['ACTIVE'] = true : itemData['ACTIVE'] = false"/>
+            </div>
+            <button type="button" (click)="saveData()">{{'common.save'| translate}}</button>
+            <button type="button" (click)="closeModal()">{{'common.cancel'| translate}}</button>
+        </div>
+    </div>
+</ng-template>

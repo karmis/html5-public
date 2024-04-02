@@ -1,0 +1,37 @@
+@import "../../styles.scss";
+
+#consumer-preview-detail {
+  width: 30%;
+}
+
+div.more-details-btn {
+  height: 100%;
+  line-height: normal;
+  span {
+    margin-top: -2px;
+    padding-right: 3px;
+  }
+}
+
+#consumer-builder-detail {
+  width: 30%;
+  .grid-stack-item {
+
+    $gridstack-columns: 30;
+
+    @for $i from 1 through $gridstack-columns {
+      &[data-gs-width='#{$i}'] {
+        width: (100% / $gridstack-columns) * $i;
+      }
+      &[data-gs-x='#{$i}'] {
+        left: (100% / $gridstack-columns) * $i;
+      }
+      &.grid-stack-item[data-gs-min-width='#{$i}'] {
+        min-width: (100% / $gridstack-columns) * $i;
+      }
+      &.grid-stack-item[data-gs-max-width='#{$i}'] {
+        max-width: (100% / $gridstack-columns) * $i;
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+<div class="panel-flex-wrapper">
+    <div class="slick-top-panel">
+        <div class="slick-top-panel__left">
+            <button class="button-panel"
+                    (click)="onChangeVersions(true)"
+                    *ngIf="eventMode == 0"
+                    title="{{ 'events_detail.add_change_version' | translate }}">
+                {{ 'events_detail.add_change_version' | translate}}
+            </button>
+
+            <button class="button-panel"
+                    (click)="onChangeTitle()"
+                    *ngIf="eventMode == 1"
+                    title="{{ 'events_detail.add_change_title' | translate }}">
+                {{ 'events_detail.add_change_title' | translate}}
+            </button>
+            <button class="button-panel"
+                    (click)="onChangeMedia()"
+                    *ngIf="eventMode == 2"
+                    title="{{ 'events_detail.add_change_media' | translate }}">
+                {{ 'events_detail.add_change_media' | translate}}
+            </button>
+        </div>
+    </div>
+    <slick-grid
+        #slickGridComp
+        class="version-grid vertical-align-row small-height-header"
+        [config]="searchGridConfig"
+    ></slick-grid>
+</div>

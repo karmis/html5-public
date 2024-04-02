@@ -1,0 +1,130 @@
+@import "../../../../../../../base/styles/theme.scss";
+
+$multilineheight: 300px;
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        manager-group-modal {
+            button {
+                border-radius: 0px;
+            }
+            .manager-group-modal-wrapper {
+                width: 100%;
+                height: 70vh;
+                position: relative;
+                overflow-x: hidden;
+                overflow-y: auto;
+                display: flex;
+                flex-direction: column;
+                .panel {
+                    display: flex;
+                    justify-content: space-between;
+                    input {
+                        //width: 80%;
+                    }
+                    button {
+                        height: 28px;
+                        padding: 0 12px;
+                        line-height: 12px;
+                        margin-left: 5px;
+                    }
+                }
+                .main-group-wrapper {
+                    display: flex;
+                    flex: 1;
+                    height: 100%;
+                    flex-direction: row;
+                    overflow: hidden;
+
+                    .tab-label {
+                        line-height: 24px;
+                        height: 24px;
+                        padding: 0 5px;
+                        color: getThemeColor(2, $key);
+                        margin-bottom: 5px;
+                        position: relative;
+
+                        span {
+                            border-bottom: 1px solid getThemeColor(9, $key);
+                        }
+                    }
+
+                    .bottom-row,
+                    .top-row {
+                        display: flex;
+                        width: 100%;
+                        height: 50%;
+                    }
+                    .left-column,
+                    .right-column {
+                        display: flex;
+                        height: 100%;
+                    }
+
+                    .left-column {
+                        flex-direction: column;
+                        width: 35%;
+                        .top-row {
+                            padding: 0 5px 5px 0;
+                            .fields-wrapper {
+                                background: getThemeColor(4, $key);
+                                width: 100%;
+                                height: 100%;
+                                overflow: auto;
+                            }
+                        }
+                        .bottom-row {
+                            flex-direction: column;
+                            padding: 5px 5px 0 0;
+
+                            .resp-tree {
+                                max-height: 581px;
+                            }
+                        }
+                    }
+
+                    .right-column {
+                        flex-direction: column;
+                        width: 65%;
+                        .top-row {
+                            flex-direction: row;
+                            .left-column {
+                                width: 50%;
+                                padding: 0 5px 5px 5px;
+                            }
+                            .right-column {
+                                padding: 0 0 5px 5px;
+                                width: 50%;
+                            }
+                        }
+                        .bottom-row {
+                            padding: 5px 0 0 5px;
+                        }
+                    }
+                }
+            }
+
+            .overlay-wrapper {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: getThemeColor(3, $key);
+                overflow: hidden;
+                z-index: 5;
+
+                .spinner {
+                    width: 80px;
+                    height: 80px;
+                    border-width: 8px;
+                    margin: 0 auto;
+                    position: relative;
+                    top: calc(50% - 40px);
+                }
+            }
+        }
+    }
+}
+

@@ -1,0 +1,184 @@
+@import "../../../../../../views/base/styles/theme";
+
+@each $key, $value in $common-themes {
+  .#{$key} {
+    .flex-criterias {
+      //display: flex !important;
+      display: flex;
+      flex-direction: row;
+      &.criteria-disabled {
+        pointer-events: none;
+        opacity: 0.8;
+      }
+      //display: inline;
+        > div {
+            display: block;
+            padding: $grid;
+            vertical-align: top;
+            overflow: hidden;
+        }
+        .select2-wrapper .select2-container{
+            vertical-align: top;
+        }
+
+      .flex-criteria-field {
+          flex: 5;
+        //min-width: 230px;
+        //width: 230px;
+        //min-width: 200px;
+        //width: 200px;
+      }
+      .flex-criteria-comparison {
+          flex: 2;
+          max-width: 110px;
+        //width: 10%;
+        //min-width: 80px;
+        //width: 80px;
+      }
+      .flex-criteria-value {
+        flex: 5;
+        //display: block;
+        //margin-top: 2px;
+        //width: calc(100% - 230px - 70px);
+
+        advanced-criteria-control-combomulti .dropdown.button {
+          height: auto;
+          max-height: initial;
+        }
+
+        .select2-wrapper {
+          //display: -ms-grid;
+          //display: grid;
+          display: inline;
+          .select2 {
+            vertical-align: top;
+          }
+          .with-relative .select2-container {
+                width: calc(100% - 20px) !important;
+          }
+
+          .select2-container--default .select2-selection--single {
+            padding: 0 8px !important;
+            font-size: 12px;
+            border-radius: 0;
+            //border: 2px solid getThemeColor(22,$key);
+            background-color: getThemeColor(4, $key);
+            color: getThemeColor(16, $key);
+            &:focus {
+              border-color: getThemeColor(25, $key) !important;
+            }
+          }
+
+          .select2-selection--multiple {
+            padding: 0 !important;
+            .select2-selection__rendered {
+              //border: 2px solid getThemeColor(9, $key) !important;
+              padding: 0 8px;
+              .select2-search--inline {
+                float: left;
+                input {
+                  width: 100% !important;
+                  //padding: 0 8px;
+                  margin-top: 0px;
+                }
+              }
+            }
+          }
+        }
+
+      }
+      .flex-criteria-delete {
+          flex: 0 0 32px;
+          padding-left: 0;
+        button {
+          float: right;
+          i:before {
+            vertical-align: -4px;
+          }
+        }
+      }
+    }
+
+    .remove-criteria {
+      margin-top: 5px;
+    }
+    .adv-criteria-select-column {
+      width: 100px;
+      margin: 0 0 0 5px;
+    }
+    .adv-criteria-select-comparison {
+      width: 125px;
+    }
+    .adv-criteria-input {
+      padding: 0 5px;
+      overflow: hidden;
+    }
+    .form-inline .form-control {
+      width: 100%;
+    }
+
+    #criteria-item {
+      min-width: 500px;
+      .form-group:first-child {
+        padding-left: 12px;
+      }
+      .form-group {
+        padding: 0px;
+      }
+
+      #criteria-item-remove {
+        width: 45px;
+      }
+    }
+    .first-column .select2-selection__rendered {
+      width: 120px !important;
+    }
+    .third-column {
+      .input-group {
+        border-collapse: collapse;
+      }
+      .select2-container--default.select2-container--focus .select2-selection--multiple,
+      .select2-container--default .select2-selection--multiple {
+        border: solid #aaaaaa 1px;
+        border-radius: 4px 0 0 4px;
+        min-height: 33px;
+      }
+      .select2-container--default .select2-selection--multiple {
+        border: solid #cccccc 1px;
+      }
+      .btn {
+        padding: 8px;
+      }
+      .advanced-input {
+        min-width: 150px;
+        margin-right: 2px;
+      }
+    }
+
+    advanced-criteria-control-singledatetime input,
+    advanced-criteria-control-datetyped input,
+    advanced-criteria-control-time-ms input {
+      height: 24px !important;
+    }
+
+      advanced-criteria-control-datetyped {
+              .discard-custom {
+                  padding: 0 4px;
+                  line-height: 23px;
+                  border-left: 1px solid getThemeColor(3, $key);
+
+                  .icon {
+                      position: relative;
+                      top: -2px;
+                      opacity: 0.6;
+                      cursor: pointer;
+                  }
+                  &:hover {
+                      .icon {
+                          opacity: 1;
+                      }
+                  }
+              }
+          }
+      }
+}

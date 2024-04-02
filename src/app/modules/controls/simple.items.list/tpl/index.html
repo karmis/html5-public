@@ -1,0 +1,71 @@
+<div class="show-only" *ngIf="task!==null">
+    <label>Only show main media <input type="checkbox" [checked]="isShowMainMedia" (click)="onClickShowMainMedia($event)"></label>
+</div>
+<div class="simple-list-wrapper" #simpleList>
+  <div *ngFor="let item of showItems; let i = index " class="item-wrapper" [ngClass]="{'selected': i == selectedItemIndex}" (click)="selectItem(item.ID)">
+    <div style="display: flex; flex-direction: row;">
+      <div class="thumb">
+        <thumb-component #thumbComponent [disablePlayer]="true" [params]="{'data':item}" ></thumb-component>
+      </div>
+      <div class="info">
+          <h4 class="item-name" title="Go To Media Item" (click)="gotoMediaItem($event, item.ID)">{{item.TITLE}}</h4>
+          <div class="row-div">
+              <p>{{item.DURATION_text}} {{item.ITEM_TYPE_text}}</p>
+              <p>{{item.MEDIA_FORMAT_text}}</p>
+          </div>
+              <p>{{item.VERSIONID1}}</p>
+          <div class="form-group acceptance-form-group" id="{{item.ID}}" *ngIf="item._hasAcceptBnts" [ngClass]="{'disabled': item._disableAcceptBnts}">
+              <div class="form-check">
+                  <div>
+                    <input type="radio"
+                         id="radio_accepted_{{item.ID}}"
+                         (change)="onChangeRadio(item, 1)"
+                         [checked]="item.ACCEPTANCE_LTTR_ID === 1"
+                         [value]="1"
+                         name="{{item.ID}}">
+                  </div>
+                  <div class="label-wrapper">
+                    <label for="radio_accepted_{{item.ID}}" title="{{ 'simple_assessment.accepted' | translate }}">
+                      {{ 'simple_assessment.accepted' | translate }}
+                    </label>
+                  </div>
+              </div>
+              <div class="form-check">
+                  <div>
+                    <input type="radio"
+                         id="radio_rejected_{{item.ID}}"
+                         (change)="onChangeRadio(item, -1)"
+                         [checked]="item.ACCEPTANCE_LTTR_ID === -1"
+                         [value]="-1"
+                         name="{{item.ID}}">
+                  </div>
+                  <div class="label-wrapper">
+                      <label for="radio_rejected_{{item.ID}}" title="{{ 'simple_assessment.rejected' | translate }}">
+                          {{ 'simple_assessment.rejected' | translate }}
+                      </label>
+                  </div>
+              </div>
+
+              <div class="form-check">
+                  <div>
+                    <input type="radio"
+                         id="radio_not_set_{{item.ID}}"
+                         (change)="onChangeRadio(item, 0)"
+                         [checked]="item.ACCEPTANCE_LTTR_ID === 0"
+                         [value]="0"
+                         name="{{item.ID}}">
+                  </div>
+                  <div class="label-wrapper">
+                      <label for="radio_not_set_{{item.ID}}" title="{{ 'simple_assessment.not_set' | translate }}">
+                          {{ 'simple_assessment.not_set' | translate }}
+                      </label>
+                  </div>
+              </div>
+          </div>
+      </div>
+        <button class="icon-button remove-simple-list-item" title="Remove" *ngIf="allowRemove && defaultFile && item.ID != defaultFile.ID" (click)="removeItem(item.ID)">
+            <i class="icons-close-small icon close"></i>
+        </button>
+    </div>
+  </div>
+</div>

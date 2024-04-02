@@ -1,0 +1,23 @@
+@import "../../base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+  .#{$key} {
+    .tasks-view {
+      .slick-cell.l0.r0.selected {
+        background: transparent !important;
+      }
+
+      .slick-grid-wrapper .slick-viewport.slick-viewport-left {
+        overflow-x: auto !important;
+      }
+    }
+
+
+    //
+    //.workflow-grid {
+    //  .skipSelection {
+    //    color: #3f3f3f;
+    //  }
+    //}
+  }
+}

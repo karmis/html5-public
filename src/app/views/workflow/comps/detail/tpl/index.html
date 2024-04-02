@@ -1,0 +1,194 @@
+<div class="workflow-details-wrapper" #workflow style="height: 100%">
+  <div class="imfx-detail-btns">
+    <nav>
+      <ul>
+        <li *ngIf="!error" class="back-button-clause">
+          <button *ngIf="!isFirstLocation()" class="icon-button" title="{{ 'common.back_button' | translate }}" (click)="clickBack()">
+            <i class="icons-left icon"></i>
+          </button>
+        </li>
+        <li *ngIf="!error" class="detail-title">
+          <h1 title="{{ 'workflow.title' | translate }}">
+            {{ 'workflow.title' | translate }}
+            <span *ngIf="details?.JobRef">-</span> {{details?.JobRef}}
+          </h1>
+            <div class="tasks-control-buttons-wrap" [hidden]="!selectedTask">
+                <tasks-control-buttons #tasksControlButtons
+                                       [status]="selectedTask?.Status"
+                                       [taskId]="selectedTask?.ID"
+                                       [statusText]="selectedTask?.StatusText"
+                                       [reloadStatus]="reloadTaskStatus"
+                                       [callback]="taskCallback"
+                                       [statusMode]="true"
+                                       [lockedBy]="selectedTask?.LockedBy"></tasks-control-buttons>
+            </div>
+            <div class="tasks-control-buttons-wrap" >
+                <button class="refresh-flowchart-and-grid-btn" style="margin-right: 8px;"  [disabled]="!isMarkResolvedEnabled()" (click)="markResolved()" title="{{ 'workflow.table.dropdown.row.mark_resolved' | translate }}">
+                    {{ 'workflow.table.dropdown.row.mark_resolved' | translate }}</button>
+            </div>
+            <div class="tasks-control-buttons-wrap" >
+                <button class="refresh-flowchart-and-grid-btn" style="margin-right: 8px;" (click)="openPriorityWizard()" title="{{'workflow.topPanel.change_priority'|translate}}">
+                    {{'workflow.topPanel.change_priority'|translate}}</button>
+            </div>
+            <div class="tasks-control-buttons-wrap">
+                <button class="refresh-flowchart-and-grid-btn" style="margin-right: 8px;" [disabled]="!selectedTask" (click)="openRestartWizard()" title="{{'workflow.topPanel.abort'|translate}}">
+                    {{'workflow.topPanel.abort'|translate}}</button>
+            </div>
+            <div class="tasks-control-buttons-wrap" >
+                <button class="refresh-flowchart-and-grid-btn" style="margin-right: 8px;" (click)="changeCompletedDate()" title="{{'changeby.title'|translate}}">
+                    {{'changeby.title'|translate}}</button>
+            </div>
+            <button class="refresh-flowchart-and-grid-btn" (click)="updateData()" title="{{ 'workflow.refresh' | translate }}">{{ 'workflow.refresh' | translate }}</button>
+        </li>
+        <li *ngIf="error &&!isFirstLocation()">
+          <button class="icon-button" title="{{ 'common.back_button' | translate }}" (click)="clickBack()">
+            <i class="icons-left icon"></i>
+            {{'common.back_button' | translate}}
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+
+    <div class="full-height-width-block">
+        <as-split *ngIf="!error"
+               #split
+               [style.float]="'left'"
+               [direction]="'horizontal'">
+            <as-split-area
+                [order]="1"
+                [size]="30">
+                <div class="panel-flex-wrapper">
+                    <div class="panel card panel-default">
+                        <div class="panel-heading card-heading">
+                            <h2>Job Details</h2>
+                        </div>
+                        <div class="panel-body card-block">
+                            <div class="card-row">
+                                <div class="card-col prop-name">Job Ref</div>
+                                <div class="card-col prop-name">{{details?.JobRef}}</div>
+                            </div>
+                            <div class="card-row">
+                                <div class="card-col prop-name">Id</div>
+                                <div class="card-col prop-name">{{details?.Id}}</div>
+                            </div>
+                            <div class="card-row">
+                                <div class="card-col prop-name">Status Text</div>
+                                <div class="card-col prop-name">{{details?.StatusText}}</div>
+                            </div>
+                            <div class="card-row">
+                                <div class="card-col prop-name">Client</div>
+                                <div class="card-col prop-name">{{details?.Client}}</div>
+                            </div>
+                            <div class="card-row">
+                                <div class="card-col prop-name">Complete By</div>
+                                <div class="card-col prop-name">{{details?.CompleteBy | localDate: datetimeFullFormatLocaldatePipe}}</div>
+                            </div>
+                            <div class="card-row">
+                                <div class="card-col prop-name">Priority</div>
+                                <div class="card-col prop-name">{{details?.Priority}}</div>
+                            </div>
+                            <div class="card-row">
+                                <div class="card-col prop-name">Created By</div>
+                                <div class="card-col prop-name">{{details?.CreatedBy}}</div>
+                            </div>
+                            <div class="card-row">
+                                <div class="card-col prop-name">Created Date</div>
+                                <div class="card-col prop-name">{{details?.CreatedDate | localDate: datetimeFullFormatLocaldatePipe}}</div>
+                            </div>
+                            <div class="card-row">
+                                <div class="card-col prop-name">Notes</div>
+                                <div class="card-col prop-name">{{details?.JobNotes}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel card panel-default">
+                        <div class="panel-heading card-heading source-media-heading">
+                            <h2>{{ 'workflow.details.media' | translate }}</h2>
+                            <h3 *ngIf="details?.SourceMedia">{{'common.total_entries'|translate:{'total_entries': details?.SourceMedia.length} }}</h3>
+                        </div>
+                        <div class="panel-body card-block">
+                            <div *ngFor="let item of details?.SourceMedia; let i = index">
+                                <media-item-component [item]="item" [typeDetails]="typeDetails"></media-item-component>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </as-split-area>
+            <as-split-area
+                [order]="2"
+                [size]="70">
+                <div class="col-md-12 graph-wrapper no-padding" style="height: 100%;position:relative;">
+                    <as-split
+                        #split
+                        [style.float]="'left'"
+                        [direction]="'vertical'">
+                        <as-split-area
+                            #flowChartArea
+                            [order]="1"
+                            [size]="70"
+                            (resized)="onResizeFlowChart($event)">
+                            <flow-chart #flowchartModule [draggableNodes]="true" (onClickBlock)="selectTask($event)" (onDblClickBlock)="dblClickTask($event)"></flow-chart>
+                            <!--joint [fullSize]="true" style="display: none" #jointModule></joint-->
+
+                            <!--<div id="workflow-graph"></div>-->
+                        </as-split-area>
+                        <as-split-area [visible]="!!selectedTask"
+                                    [order]="2"
+                                    [size]="30"
+                        >
+                            <!--<div *ngIf="selectedTask" class="stick-bottom">-->
+                            <div class="full-height" style="display: flex; flex-direction: column;">
+                                <h2 class="" style="flex-grow: 0;">{{ selectedTask?.TaskTypeText }} ({{selectedTask?.StatusText }})</h2>
+                                <div  style="
+                    display: flex;
+                    flex-direction: column;
+                    flex-grow: 1;
+                    flex-basis: 100%;
+                    overflow: hidden;">
+                                    <div id="externalWrapperSelectTask" style="height:100%;">
+                                        <slick-grid [hidden]="!selectedTask"  #slickGridSelectedTask
+                                                    [config]="searchGridConfig">
+                                        </slick-grid>
+                                    </div>
+                                </div>
+                            </div>
+                        </as-split-area>
+                    </as-split>
+                </div>
+            </as-split-area>
+        </as-split>
+        <div style="margin: auto;" *ngIf="error">
+            <h2>
+                {{text}}
+            </h2>
+        </div>
+    </div>
+</div>
+<overlay #overlay></overlay>
+<div
+    id="copyPopup"
+    class="dropdown grid-settings-dropdown"
+    style="margin-top: 15px; margin-right: 15px; position: fixed; display: none;">
+    <ul
+        aria-labelledby="simple-btn-keyboard-nav"
+        style="display: block; top: 0"
+        class="dropdown-menu"
+        role="menu">
+        <li role="menuitem">
+            <a class="dropdown-item"
+               (click)="slickGridComp.provider.copy('OPERATOR_ID')"
+               aria-disabled="true">
+                Copy Operator ID
+            </a>
+        </li>
+        <li role="menuitem">
+            <a class="dropdown-item"
+               (click)="slickGridComp.provider.copy('NOTES')"
+               aria-disabled="true">
+                Copy Notes
+            </a>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,74 @@
+<div class="clearfix wrapper">
+    <div class="title-col" [ngStyle]="{width: titleColWidth}">
+        {{title}}
+    </div>
+    <div class="control-col" [ngStyle]="{width: controlColWidth}">
+        <div class="wrapper-controls">
+            <table style="width: 100%;" *ngFor="let group of structure|keyvalue">
+                <caption></caption>
+                <thead>
+                <tr>
+                    <td [colSpan]="lookupsObjects.length" style="padding-bottom: 5px;">
+                        Group {{group.key}}
+                        <button (click)="removeItem(group.key)">
+                            Remove Group
+                        </button>
+                        <button class="button pull-right" [disabled]="!isValid" (click)="addItem(group.key)">
+                            Add Rule
+                        </button>
+                    </td>
+                </tr>
+                </thead>
+                <tbody>
+                <!--[hidden]="rules.value._hidden"-->
+                <tr class="wrapper-control m10" *ngFor="let rules of group.value|keyvalue; index as ruleIndex; let even = even; trackBy: trackByFn">
+                    <!--suppress TypeScriptValidateTypes -->
+                    <td class="cell" *ngFor="let rule of rules.value.values|keyvalue; index as i; let even = even;">
+                        <span class="d-block" style="padding-bottom: 5px; white-space: nowrap;" [hidden]="ruleIndex !== 0">
+                            {{lookupsObjects[i%lookupsObjects.length]?.displayLabel || lookupsObjects[i%lookupsObjects.length].lookupType}}
+                        </span>
+                        <ng-container [ngSwitch]="lookupsObjects[i%lookupsObjects.length]?.controlType">
+                            <imfx-lookups-select2
+                                #controls
+                                *ngSwitchCase="'lookups-select2'"
+                                class="control"
+                                [width]="'100%'"
+                                [validationEnabled]="validationEnabled"
+                                [allowClear]="allowClear"
+                                [firstEmpty]="firstEmpty"
+                                [fetchLookup]="lookupsObjects[i%lookupsObjects.length].fetchLookup"
+                                [value]="rules.value.values[i%lookupsObjects.length]"
+                                [data]="lookupsObjects[i%lookupsObjects.length]?.lookupData"
+                                [lookupType]="lookupsObjects[i%lookupsObjects.length]?.lookupType"
+                                [lookupUrl]="lookupsObjects[i%lookupsObjects.length]?.lookupUrl"
+                                [compContext]="self"
+                                [placeholder]="placeholder"
+                                [placeholderRefToTranslate]="'base.selectOoo'"
+                                (onSelect)="_onUpdateControl($event, group.key, rules.key, rule.key)"
+                                (onUnselect)="_onUpdateControl($event, group.key, rules.key, rule.key)"
+                            ></imfx-lookups-select2>
+
+                            <input *ngSwitchCase="'checkbox'"
+                                   type="checkbox"
+                                   style="margin: 8px 0;"
+                                   [(ngModel)]="rules.value.values[i%lookupsObjects.length][0]"
+                            >  <!-- @IvanBanana value?-->
+                        </ng-container>
+
+
+                        <div class="cell controls" *ngIf="i == lookupsObjects.length-1">
+                            <button class="button control" (click)="removeItem(group.key, rules.key)">X</button>
+                        </div>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="wrapper-buttons" [hidden]="isMaxReached()">
+            <button class="button pull-left" [disabled]="!isValid" (click)="addItem()">
+                Add Group
+            </button>
+        </div>
+    </div>
+</div>

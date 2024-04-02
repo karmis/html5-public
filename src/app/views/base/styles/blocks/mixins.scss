@@ -1,0 +1,20 @@
+@import "../../../../views/base/styles/theme.scss";
+// Mixins
+@mixin shadow($key, $theme) {
+  box-shadow: 0 $grid*2 $grid*4 getThemeColor($key, $theme);
+}
+@mixin transition($property...) {
+    -webkit-transition: $property;
+    -moz-transition: $property;
+    -ms-transition: $property;
+    -o-transition: $property;
+    transition: $property;
+}
+@mixin no-select {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

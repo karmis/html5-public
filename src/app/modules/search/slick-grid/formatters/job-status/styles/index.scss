@@ -1,0 +1,36 @@
+@import "../../../../../../views/base/styles/theme";
+
+@each $key,
+$value in $common-themes {
+  .#{$key} {
+    .slick-cell {
+      .job-status-wrapper {
+          vertical-align: top;
+
+          .status-progress {
+              color: getThemeColor(10, $key);
+          }
+        .indicator {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          border: 1px solid #999999;
+          display: inline-block;
+        }
+          i:before {
+              font-size: 18px;
+          }
+          span {
+              vertical-align: top;
+              line-height: 18px;
+          }
+        div.red {
+            background-color: getThemeColor(13, $key) !important;
+        }
+        div.green {
+            background-color: getThemeColor(12, $key) !important;
+        }
+      }
+    }
+  }
+}

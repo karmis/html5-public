@@ -1,0 +1,35 @@
+@import "../../../views/base/styles/theme.scss";
+@each $key, $value in $common-themes {
+  .#{$key} {
+    nav.lang-switcher {
+      & > ul {
+        margin: 0 auto;
+        display: block;
+        cursor: pointer;
+      }
+      ul .dropdown {
+        width: 75px;
+        padding: 0 0 0 11px;
+        box-sizing: border-box;
+      }
+
+      .icons-down:before {
+        vertical-align: -5px;
+      }
+
+      .submenu {
+        left: 0;
+        right: 0;
+        top: 100%;
+
+        a {
+          display: block;
+          width: 100%;
+          height: 32px;
+          box-sizing: border-box;
+            padding-left: 11px;
+        }
+      }
+    }
+  }
+}

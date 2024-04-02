@@ -1,0 +1,24 @@
+<as-split
+        [direction]="'horizontal'">
+    <!--Adv search and recent search-->
+    <as-split-area>
+        <as-split
+                [direction]="'horizontal'">
+            <as-split-area>
+                <div class="audio-tab-col">
+                    <div class="audio-tab-col__title">
+                        <button class="add-item" (click)="onAddAudio()" [disabled]="!isMakeItemSelected">
+                            {{ 'production.controls.add_audio_to_item' | translate }}
+                        </button>
+                    </div>
+                    <div class="audio-tab-col__table">
+                        <slick-grid #gridGlobal
+                                    class="small-height-header vertical-align-row"
+                                    [config]="gridGlobalConfig">
+                        </slick-grid>
+                    </div>
+                </div>
+            </as-split-area>
+        </as-split>
+    </as-split-area>
+</as-split>

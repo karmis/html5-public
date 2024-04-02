@@ -1,0 +1,74 @@
+<div class="production-detail detail-page-wrapper task-logger-wrapper assessment-wrapper">
+    <div class="imfx-table detail">
+        <div class="imfx-detail-btns imfx-logger-btns">
+            <div class="btn-wrapper-left">
+                <div class="back-btn-wrapper">
+                    <button
+                            class="icon-button"
+                            *ngIf="!isFirstLocation()"
+                            title="{{ 'common.back_button' | translate }}"
+                            (click)="clickBack()">
+                        <i class="icons-left icon"></i>
+                    </button>
+                </div>
+                <div class="title-wrapper">
+                    <h1>
+                      {{productionTitle}}
+                    </h1>
+                </div>
+            </div>
+            <div class="btn-wrapper-right">
+                <div class="tasks-control-buttons-wrap">
+                    <button (click)="onSave()" [disabled]="isDisabledSaveBtn">{{ 'production.save' | translate }}</button>
+                </div>
+            </div>
+        </div>
+        <div class="imfx-row p-rel-h-full">
+            <div class="golden-layout-detail">
+                <div [ngClass]="{'menu-opened': menuOpened, 'no-menu': !newTabs.length}" class="full-height">
+                    <nav class="tabbed vertical left" [hidden]="error">
+                        <div>
+                            <button class="sidebar-toggle" title="Toggle panel" (click)="toggleMenu();">
+                                <i *ngIf="!menuOpened" class="icons-sidebar-right icon"></i>
+                                <i *ngIf="menuOpened" class="icons-sidebar-left icon"></i>
+                            </button>
+                            <button class="sidebar-toggle edit-btn" title="Edit layout"
+                                    (click)="enableEditLayoutMode(); isDisabledSaveBtn = editLayoutMode; cdr.detectChanges()"
+                                    [ngClass]="{'active': editLayoutMode}">
+                                <i class="fa fa-edit" style="width: 20px;
+    height: 20px;
+    opacity: 0.6;"></i>
+                            </button>
+                            <span class="nav-header">{{'common.drag_panel_to_layout' | translate}}</span>
+                        </div>
+                        <div class="drag-btns-wraper">
+                            <layout-manager
+                                    [layoutType]="layoutType"
+                                    [layoutModel]="layoutModel"
+                                    (onChange)="changeLayoutHandler($event)"
+                                    (onSave)="saveLayoutHandler($event)"
+                                    (onDefaultReady)="onDefaultReadyLayoutInit($event)">
+                            </layout-manager>
+                            <ul id="tabbed-nav" class="collapsed">
+                                <li *ngFor="let tab of newTabs; let i=index"
+                                    [ngClass]="{'disabled': !editLayoutMode}"
+                                    style="position: relative;">
+<!--                                    <div class="invalid-triangle"-->
+<!--                                         [hidden]="config.moduleContext.taskFile.TSK_STATUS !== 10 || tab.isValid">-->
+<!--                                    </div>-->
+                                    <a id="tab-drag-{{tab.tTitle}}">{{tab.title}}</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <div *ngIf="!error" [ngClass]="{'empty': !isEmpty, 'empty-layout-menu-opened': menuOpened}" class="empty-layout">
+                        <h2 [ngStyle]="{'line-height': height}">{{'common.empty_layout' | translate}}</h2>
+                    </div>
+                    <div *ngIf="error" [ngClass]="{'empty': !isEmpty, 'empty-layout-menu-opened': menuOpened}" class="empty-layout">
+                        <h2 [ngStyle]="{'line-height': height}">{{errorText}}</h2>
+                    </div>
+                    <div [ngClass]="{'empty': isEmpty, 'edit-layout-mode': editLayoutMode}" class="gl-layout" id="layout"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

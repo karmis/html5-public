@@ -1,0 +1,341 @@
+@import "../../../../views/base/styles/theme.scss";
+@import "../../../../views/base/styles/blocks/inputs.scss";
+@import "../../../../views/base/styles/blocks/buttons.scss";
+@import "../../../../views/base/styles/blocks/nav.scss";
+@import "../../../../views/base/styles/blocks/nav.tabbed.scss";
+@import "../../../../views/base/styles/blocks/rows.scss";
+//@import "../../../../views/base/styles/blocks/mixins.scss";
+@each $key, $value in $common-themes {
+  .#{$key} {
+    .advanced {
+      width: 100%;
+      min-height: 100%;
+      margin-top: 0;
+      padding: 12px;
+      //width: 45vw;
+      background: getThemeColor(26, $key);
+      position: relative;
+      &.withControls {
+        height: 90%;
+      }
+      .saved-searches-field .select2-container {
+        min-width: 150px;
+        max-width: 200px;
+      }
+
+      * {
+        font-size: 0.91rem;
+      }
+
+      .dropdown.button {
+        background: none;
+      }
+      .sidebar-content-wrapper {
+          height: 100%;
+          top: -12px;
+        position: relative;
+        //height: 90%;
+
+        .sidebar-content {
+          .row-header {
+            .dropdown {
+              .submenu.dialog-actions {
+                left: 0px;
+              }
+            }
+          }
+          #selectSavedSearch .dropdown.button, advanced-criteria-control-combomulti .dropdown.button {
+            background: transparent;
+            height: initial;
+          }
+        }
+      }
+
+        .angucomplete-overlay {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 3;
+            margin: 12px;
+            background: getThemeColor(26, $key);
+            .suggestion-overlay {
+                position: relative;
+                width: 50px;
+                height: 50px;
+                display: block;
+                margin: 0 auto;
+                top: calc(50% - 25px);
+                span {
+                    position: relative;
+                    width: 100%;
+                    height: 35px;
+                    display: block;
+                    margin: 0 auto;
+                    top: calc(50% - 35px);
+                    text-align: center;
+                }
+            }
+        }
+
+      .sidebar-content .field, .sidebar-content button, .sidebar-content .dropdown, .sidebar-content .dropdown a {
+        height: 24px;
+        line-height: 24px;
+      }
+
+      .select2-container--default.select2-container--focus .select2-selection--multiple, .select2-selection--multiple {
+        padding: 0px 8px;
+        background-color: getThemeColor(6, $key);
+        border: none;
+        border-radius: 0px;
+        //height: 24px;
+        min-height: 24px;
+        line-height: 0px;
+        margin-top: 0;
+        border: none;
+          overflow: auto;
+          max-height: 100px;
+          cursor: default;
+      }
+      .select2-search.select2-search--inline {
+        min-height: 20px;
+        height: 20px;
+        line-height: 20px;
+      }
+      .select2-container--default .select2-selection--single {
+        height: 24px;
+        min-height: 24px;
+        border: none;
+      }
+      .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 20px;
+        margin-top: 2px;
+        .icon {
+          vertical-align: top;
+        }
+      }
+
+      .select2-container--default .select2-selection--single .select2-selection__rendered {
+        padding-left: 12px;
+        color: getThemeColor(1, $key);
+        line-height: 24px;
+        //margin-top: -3px;
+        background-color: getThemeColor(4, $key);
+        border: none;
+      }
+
+      .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+        padding-left: 12px;
+        box-sizing: border-box;
+        list-style: none;
+        margin: 0;
+        padding: 0 5px;
+        width: 100%;
+        background-color: getThemeColor(4, $key);
+        border: none;
+        //max-height: 100px;
+        overflow: visible;
+          cursor: text;
+        //margin-top: -3px;
+      }
+
+      .select2-container--default .select2-selection--multiple .select2-search__field {
+        min-width: 90px;
+        height: 24px;
+        min-height: 24px;
+        line-height: 24px;
+        //margin-top: -3px;
+        //margin-top: 10px;
+      }
+      .select2-container--default .select2-selection--single input[type="search"].select2-search__field {
+        @extend .field;
+        min-width: 90px;
+        height: 24px;
+        min-height: 24px;
+        line-height: 24px;
+        border: 2px solid getThemeColor(22, $key) !important;
+      }
+
+      .select2-hidden-accessible {
+        height: 24px;
+        min-height: 24px;
+      }
+
+      .select2-selection__choice {
+        margin-bottom: 5px;
+        margin-right: 4px;
+      }
+
+      .select2-container--default .select2-selection--single,
+      .select2-container {
+        border: none;
+        outline: none;
+      }
+
+      .select2-container--default .select2-selection--single[aria-expanded="true"],
+      .select2-container--default .select2-selection--single:hover {
+        background: getThemeColor(6, $key);
+        .icon {
+          opacity: 1;
+        }
+      }
+
+      .select2-container--open .select2-dropdown {
+        width: 350px !important;
+        border: none;
+        border-bottom: 1px solid getThemeColor(22, $key);
+        background: getThemeColor(6, $key);
+        color: getThemeColor(1, $key);
+        border-radius: 0;
+      }
+
+      .select2-container--default .select2-results > .select2-results__options {
+        max-height: 200px;
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+
+      .select2-results__option {
+        font-size: 11px !important;
+        height: 24px;
+      }
+      .select2-container--default .select2-results__option[aria-selected=true] {
+        background: none;
+        font-weight: bold;
+      }
+
+      .select2-container--default .select2-results__option--highlighted[aria-selected] {
+        color: getThemeColor(15, $key);
+        background: getThemeColor(10, $key);
+      }
+      .field, input, textarea, textarea:focus, select {
+        border: none;
+      }
+    }
+    .advanced .row-form {
+      white-space: nowrap;
+    }
+
+    .advanced .row-form {
+      white-space: nowrap;
+    }
+
+    .criteria-group {
+      //display: table;
+      width: 100%;
+        min-width: 25vw;
+      //   padding: $grid $grid*2 $grid*3 $grid*2;
+      border: 1px solid getThemeColor(3, $key);
+      background-color: getThemeColor(3, $key);
+      .criteria-group-item {
+        display: block;
+        padding: 0;
+        advanced-criteria-builder {
+          width: 100%;
+          display: inline-table;
+        }
+      }
+    }
+    advanced-criteria-control-combomulti .dropdown.button {
+      height: auto;
+      max-height: initial
+    }
+    advanced-criteria-control-combomulti .dropdown a {
+      height: auto;
+      max-height: initial
+    }
+
+    .or-divider {
+      text-align: center;
+      margin-top: $baseline/2;
+      margin-bottom: $baseline/2;
+      //margin-bottom: -$baseline/2;
+      text-transform: uppercase;
+
+      /*
+        background-image: linear-gradient(to bottom,rgba($color-bkgd-dark,1) 50%,rgba($color-bkgd-dark,0) 50%);
+        background-repeat: repeat-x;
+        background-size: 2px 4px;
+        background-position: 0 60%;
+      */
+    }
+
+    nav.tabbed ul li a {
+      color: getThemeColor(28, $key)
+    }
+    nav.tabbed ul li a:hover {
+      color: getThemeColor(29, $key)
+    }
+    //
+    nav.tabbed ul li.active a {
+      color: getThemeColor(28, $key)
+    }
+
+    .or-divider span {
+      background: getThemeColor(4, $key);
+      padding: 0 $grid*2;
+    }
+
+    #adv-controls-block {
+      width: 100%;
+      position: absolute;
+      min-width: 250px;
+      .adv-controls-block-left {
+        float: left;
+        min-width: 165px;
+        .btn-adv {
+            margin-right: .5em;
+        }
+
+        .btn-adv-left {
+
+
+        }
+
+        .btn-adv-right {
+          //align-items: right;
+        }
+
+      }
+      .adv-controls-block-right {
+        float: right;
+        min-width: 47px;
+      }
+    }
+
+  }
+}
+
+//}
+
+//@each $key,
+//$value in $common-themes {
+//
+//}
+
+//.advanced-block-without-builder-btns {
+//
+//}
+//.advanced-block {
+//  height: calc(100% - 90px);
+//  .advanced-select {
+//    padding: 0 5px;
+//    overflow: hidden;
+//    select {
+//      padding: 0.3rem .3rem;
+//      height: initial;
+//    }
+//  }
+//  .advanced-groups {
+//    height: 100%;
+//    border: 1px solid #ccc;
+//    margin: 5px 0;
+//    background-color: #f6f6f6;
+//    overflow: auto;
+//    .advanced-input {
+//      padding: 5px;
+//    }
+//  }
+//}
+

@@ -1,0 +1,43 @@
+@import "../../../../../../base/styles/theme.scss";
+@each $key, $value in $common-themes {
+  .#{$key} {
+    .workflow-meida-item{
+      .media-basket-item {
+        position: relative;
+        margin-bottom: 10px;
+        background-color: getThemeColor(3, $key);
+        cursor: pointer;
+        font-size: 0.8em;
+        display: flex;
+
+        &:hover {
+          background-color: getThemeColor(10, $key);
+          color: #ffffff;
+        }
+
+        .thumb {
+            display:flex;
+            justify-content: center;
+          flex: 1;
+          max-width: 150px;
+          width: 100%;
+          overflow: hidden;
+          background-color: #000000;
+          line-height: 32px;
+          margin-right: 20px;
+
+          img {
+            width: auto;
+            max-height: 100px;
+          }
+        }
+
+        .details {
+          flex: 2;
+        }
+      }
+    }
+  }
+}
+
+

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="icon" type="image/png" id="favicon"/>
+    <style>
+        body,html {
+             height:100%;
+         }
+
+        body {
+            margin: 0;
+            color: #3f3f3f;
+        }
+
+        .browser-not-supported-container {
+            display: table;
+            width:100%;
+            height: 100%;
+            background-color: rgb(237, 241, 242);
+            font-family: "sinkin_sans500_medium", "Roboto", sans-serif !important;
+            font-weight: normal;
+            outline: none;
+        }
+
+        .browser-not-supported-container>div {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+            position: relative;
+            top: -37px;
+        }
+
+        .browser-not-supported-container .clip-art {
+            font-size: 48px;
+            line-height: 48px;
+            margin-bottom: 25px;
+        }
+
+        .browser-not-supported-container .sign {
+            font-size: 28px;
+        }
+
+        footer {
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+            margin: 25px 0px;
+            text-align: center;
+            font-family: "sinkin_sans400_regular","Roboto",sans-serif !important;
+            font-weight: normal;
+            font-size:10px;
+        }
+
+    </style>
+</head>
+
+<body>
+<div id="Container" class="browser-not-supported-container default">
+    <div>
+        <div class="clip-art">
+            ¯\_(ツ)_/¯
+        </div>
+        <div class="sign" id="Sign">
+            Sorry, your browser is not supported.
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var lang = window.navigator.language || window.navigator.browserLanguage;
+
+    if (lang && lang.indexOf('ru') !== -1) {
+        document.getElementById('Sign').innerText = 'Извините, Ваш браузер не поддерживается.';
+    }
+</script>
+<footer>
+    <p>Copyright © 2015-2019 TMD. All rights reserved </p>
+</footer>
+</body>
+</html>

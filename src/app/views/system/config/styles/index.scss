@@ -1,0 +1,237 @@
+@import "../../../base/styles/theme.scss";
+
+.default {
+    .submenu-btn {
+        background-color: #fff;
+    }
+
+    .select-file:hover {
+        cursor: pointer;
+        & .submenu-btn {
+            background-color: #2A8CEA;
+            color: #fff;
+            opacity: 1 !important;
+            cursor: pointer;
+        }
+    }
+}
+.dark {
+    .select-file:hover {
+        cursor: pointer;
+        & .submenu-btn {
+            background-color: #2A8CEA;
+            color: #fff;
+            opacity: 1!important;
+            cursor: pointer;
+        }
+    }
+}
+
+@each $key, $value in $common-themes {
+    .#{$key} {
+        .system-config-wrapper {
+            height: 100%;
+            padding: 16px;
+
+            .disabled {
+                opacity: 0.6;
+            }
+            .sc-sidebar {
+                //padding: 16px;
+                height: 100%;
+                background: getThemeColor(4, $key);
+                flex: 1;
+                max-width: 225px !important;
+                position: relative;
+                overflow-x: hidden;
+                overflow-y: auto;
+
+                &.hidden-bar {
+                    max-width: 0 !important;
+                    padding: 0;
+
+                    ul {
+                        display: none;
+                    }
+                }
+
+                .form-input input {
+                    width: 100%;
+                }
+
+
+                li {
+                    font-size: 12px;
+                    padding: 5px 0;
+                    cursor: pointer;
+                    border-bottom: 2px solid transparent;
+                }
+
+                li.active {
+                    border-bottom: 2px solid getThemeColor(7, $key);
+                }
+
+                .sub-menu-details-metadata {
+                    background: getThemeColor(5, $key);
+
+                    li {
+                        padding: 0;
+                    }
+
+                    span.fancytree-active span.fancytree-title,
+                    .fancytree-title {
+                        text-transform: none;
+                        color: getThemeColor(16, $key) !important;
+                        font-family: "sinkin_sans400_regular", "Roboto", sans-serif !important;
+                    }
+
+                    .fancytree-selected {
+                        background: getThemeColor(10, $key) !important;
+
+                        .fancytree-title {
+                            color: white !important;
+                        }
+                    }
+
+                    .fancytree-active {
+                        background: transparent;
+                    }
+                }
+
+                .sub-menu-types {
+                    background: getThemeColor(5, $key);
+                    margin: 0;
+                    vertical-align: top;
+                    padding: 0 !important;
+                    border: none;
+                    line-height: 16px;
+
+                    li {
+                        //margin-right: 15px;
+
+                        &.active-sub {
+                            font-weight: 900;
+                        }
+                    }
+                }
+            }
+
+            .sidebar-hidder {
+                cursor: pointer;
+                flex: 1;
+                max-width: 16px !important;
+                min-width: 16px !important;
+                width: 16px;
+                text-align: center;
+                height: 100%;
+                background: getThemeColor(4, $key);
+                opacity: 0.4;
+
+                &:hover {
+                    opacity: 1;
+                }
+
+                i {
+                    width: 16px;
+                    height: 16px;
+                    display: block;
+                    position: relative;
+                    top: calc(50% - 8px);
+
+                    &:before {
+                        font-size: 16px;
+                    }
+                }
+            }
+
+            .sc-viewport {
+                height: 100%;
+                flex: 5;
+                overflow: hidden;
+
+                .sc-container {
+                    height: 100%;
+                    position: relative;
+                }
+
+                .hide-on-big-screen {
+                    display: none;
+                }
+
+                @media (max-width: 1800px) {
+                    .select-file {
+                        margin: 0px !important;
+                        max-width: 100% !important;
+                        width: 100%  !important;
+                    }
+
+                    .hide-on-small-screen {
+                        display: none;
+                        overflow: hidden;
+                    }
+                    .hide-on-big-screen {
+                        display: initial;
+                    }
+                    .dropdown.dropdown-hiddens {
+                        width: 32px;
+                        text-align: center;
+                        cursor: pointer;
+                        margin-left: 12px;
+                        //height: 32px;
+                        //justify-content: center;
+                        //max-height: 32px;
+                        //display: flex;
+                        //align-items: center;
+
+                        a {
+                            text-decoration: none;
+                            display: block;
+                            color: getThemeColor(2, $key);
+                            padding: 0px 12px;
+                            line-height: 32px;
+                            text-align: left;
+                        }
+
+                        .submenu {
+                            right: 0;
+                            z-index: 105;
+
+                            .disabled {
+                                opacity: 0.5;
+                            }
+
+                            button {
+                                width: 100%;
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                padding-right: 12px;
+                                margin: 0 !important;
+                                max-width: 100% !important;
+                                float: none !important;
+                                &:hover {
+                                    background-color: #2A8CEA;
+                                    color: #fff;
+                                }
+                            }
+
+                            span {
+                                padding-left: 10px;
+                            }
+
+                            .subdropdown {
+                                width: 100%;
+                                position: relative;
+
+                                .submenu {
+                                    top: 0;
+                                    left: 100%;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

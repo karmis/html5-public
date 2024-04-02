@@ -1,0 +1,260 @@
+@import "../../../../views/base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+  .#{$key} {
+      imfx-xml-tree {
+          position: relative;
+          display: block;
+          height: 100%;
+          .available-children-list {
+              position: absolute;
+              background: getThemeColor(4, $key);
+              left: 0px;
+              right: 0px;
+              bottom: 0px;
+              top: 0px;
+              z-index: 1;
+              padding: 26px 0 26px 0;
+
+              .available-children-add-label {
+                  height: 26px;
+                  text-align: center;
+                  padding-right: 26px;
+                  position: absolute;
+                  left: 0;
+                  top: 0;
+                  right: 0;
+                  line-height: 26px;
+                  opacity: 0.6;
+              }
+
+              .available-children-items-wrapper {
+                  overflow-x: hidden;
+                  overflow-y: auto;
+                  position: absolute;
+                  left: 0;
+                  right: 0;
+                  top: 26px;
+                  bottom: 26px;
+
+                  .available-children-item {
+                      width: 100%;
+                      padding: 5px 10px;
+                      cursor: pointer;
+
+                      &:hover {
+                          background: getThemeColor(5, $key);
+                      }
+
+                      &.selected {
+                          background: getThemeColor(10, $key);
+
+                          &:hover {
+                              background: getThemeColor(11, $key);
+                          }
+                      }
+                  }
+              }
+
+              .available-children-close {
+                  position: absolute;
+                  right: 3px;
+                  top: 3px;
+                  cursor: pointer;
+                  &:hover {
+                      i {
+                          opacity: 1;
+                      }
+                  }
+              }
+
+              .available-children-add {
+                  height: 26px;
+                  position: absolute;
+                  bottom: 0;
+                  left: 0;
+                  right: 0;
+                  display: flex;
+                  flex-direction: row;
+
+                  .available-children-add-all,
+                  .available-children-add-selected {
+                      background: getThemeColor(5, $key);
+                      flex: 1;
+                      text-align: center;
+                      line-height: 26px;
+                      cursor: pointer;
+                      &:hover {
+                          opacity: 0.8;
+                      }
+                  }
+
+                  .available-children-add-all {
+
+                  }
+                  .available-children-add-selected {
+
+                  }
+              }
+          }
+
+          .imfx-xml-tree-wrapper {
+              .imfx-xml-node-wrapper {
+                  &.has-danger {
+                      input, textarea {
+                          outline: none!important;
+                          -webkit-box-shadow: 0px 0px 5px getThemeColor(13, $key)!important;
+                          box-shadow: 0px 0px 5px getThemeColor(13, $key)!important;
+                          box-shadow: 0px 0px 5px getThemeColor(13, $key)!important;
+                          height: 100%;
+                          max-height: 500px;
+                      }
+                      select {
+                          outline: none!important;
+                          -webkit-box-shadow: 0px 0px 5px getThemeColor(13, $key)!important;
+                          box-shadow: 0px 0px 5px getThemeColor(13, $key)!important;
+                      }
+                      .select2-wrapper {
+                          outline: none!important;
+                          border-color: getThemeColor(13, $key)!important;
+                          -webkit-box-shadow: 0px 0px 5px getThemeColor(13, $key)!important;
+                          box-shadow: 0px 0px 5px getThemeColor(13, $key)!important;
+                      }
+                  }
+              }
+
+              position: relative;
+              .select2-container--default, .select2-selection--single, .select2-selection__rendered {
+                  line-height: 24px !important;
+                  height: 22px !important;
+                  vertical-align: top;
+              }
+              .select2-selection__arrow {
+                  margin-top: 1px!important;
+              }
+              span {
+                  font-size: 13px!important;
+              }
+
+              tree-viewport {
+                  overflow: hidden;
+              }
+
+              .show-children {
+
+              }
+
+              .expander {
+                  cursor: pointer;
+                  i.icon {
+                      height: 20px;
+                      vertical-align: 2px;
+                  }
+              }
+              .tree-children { padding-left: 20px }
+
+              .tree, .node-content-wrapper {
+                  width: 100%
+              }
+              .tree {
+                  .toggle-children-wrapper-expanded .toggle-children,
+                  .toggle-children-wrapper-collapsed .toggle-children {
+                      webkit-filter: invert(getFilter($key));
+                      filter: invert(getFilter($key));
+                  }
+              }
+              input {
+                  width: 100%;
+                  height: 26px!important;
+                  line-height: 26px!important;
+                  font-size: 11px;
+              }
+
+              textarea {
+                  width: 100%;
+                  padding-top: 4px;
+                  line-height: 13px!important;//13
+                  font-size: 11px;
+                  resize: none;
+                  background: getThemeColor(4, $key);
+                  overflow-x: hidden;
+                  overflow-y: auto;
+                  height: 100%;
+                  //min-height: 150px;
+              }
+
+              input[type="number"] {
+                  line-height: 20px!important;
+                  font-size: 11px;
+              }
+              input[type=checkbox] {
+                  width: 16px;
+                  height: 16px !important;
+                  margin: 5px 0;
+                  border-radius: 0;
+              }
+
+              .dropdown {
+                  border: 2px solid getThemeColor(22, $key) !important;
+                  &.button {
+                      height: 26px!important;
+                  }
+                  height: 26px!important;
+                  line-height: 24px;
+                  background: getThemeColor(6, $key) !important;
+              }
+              .node-content-wrapper {
+                  height: 100%;
+                  cursor: auto;
+                  margin-bottom: 2px;
+                  padding: 2px 5px;
+                  &:hover {
+                      background: none;
+                      box-shadow: none;
+                      .node-icon {
+                          opacity: 1;
+                      }
+                  }
+              }
+              .node-label {
+                  margin: 0px 0;
+                  padding-top: 5px;
+              }
+              .node-wrapper {
+                  display: flex;
+                  align-items: flex-start;
+              }
+              .tree-node-focused > .node-wrapper > .node-content-wrapper {
+                  //color: rgb(255, 255, 255);
+                  background: none;
+                  border: none;
+                  box-shadow: none;
+              }
+
+              .node-content-wrapper {
+                  border-radius: 0;
+              }
+
+              .tree-node-child .tree-children {
+                  margin-left: 25px;
+                  padding-left: 0;
+                  //border-left: 2px solid getThemeColor(22, $key);
+
+              }
+
+              .tree-children {
+                  transition: all 0.2s ease-in-out;
+              }
+
+              .tree-node-collapsed {
+                  .tree-children {
+                      height: 0;
+                      opacity: 0;
+                      overflow: auto;
+                  }
+              }
+
+          }
+      }
+  }
+}

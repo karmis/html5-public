@@ -1,0 +1,40 @@
+@import "../../../../../../../views/base/styles/theme.scss";
+
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+
+        .edit-som-eom-wrapper{
+            width: 100%;
+            .input-wrapper {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 5px 0;
+                span{
+                    display: inline-block;
+                    padding-right: 8px;
+                }
+            }
+
+            .error-message{
+                height: 32px;
+                line-height: 32px;
+                padding: 2px 0px;
+                text-align: right;
+                font-size: 11px;
+            }
+
+            .visibility-visible{
+                visibility: visible;
+            }
+            .visibility-hidden{
+                visibility: hidden;
+            }
+
+        }
+
+
+    }
+}

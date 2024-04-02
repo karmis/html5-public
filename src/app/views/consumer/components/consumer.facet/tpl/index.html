@@ -1,0 +1,22 @@
+<div class="panel-heading card-header">
+    <div *ngIf="facet && facet.FacetItems.length > 0">
+        <div (click)="toggleFacet(facet)">
+            <h2>
+                <i *ngIf="csp.isExpandedFacet(facet)" class="icons-down icon"></i>
+                <i *ngIf="!csp.isExpandedFacet(facet)" class="icons-right icon"></i>
+                {{facet.FacedName}}
+            </h2>
+        </div>
+        <div class="panel-body card-block" *ngIf="csp.isExpandedFacet(facet)">
+            <div class="card-row"
+                 *ngFor="let item of facet.FacetItems; let i = index"
+                 [ngClass]="{'selected': isActiveFacet(facet, item)}" (click)="collectSearchCriteria(item)">
+                <span class="card-col">{{item.Field}}</span>
+                <span class="card-col">{{item.Count}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

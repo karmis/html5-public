@@ -1,0 +1,128 @@
+<ul class="production-list-controls production-list-controls--left" #inlineBlock>
+    <li #inlineItem class="production-list-controls__item" *ngIf="showBtns.isAddTitle">
+        <button (click)="onAddTitle()" [disabled]="disabledBtns.isAddVersion">{{ 'production.controls.add_version' | translate }}</button>
+<!--        (Not Tree)-->
+    </li>
+    <li #inlineItem class="production-list-controls__item" *ngIf="showBtns.isChangeTitle">
+        <button (click)="onChangeTitle()" [disabled]="disabledBtns.isChangeVersion">{{ 'production.controls.change_version' | translate }}</button>
+    </li>
+    <li #inlineItem class="production-list-controls__item" *ngIf="showBtns.isDelete">
+        <button (click)="onDelete()" [disabled]="disabledBtns.isDelete">{{ 'production.controls.delete' | translate }}</button>
+    </li>
+    <li #inlineItem class="production-list-controls__item" *ngIf="showBtns.isCleanMaster">
+        <button (click)="onAddCleanMaster()" [disabled]="disabledBtns.isAddMaster">{{ 'production.controls.add_clean_master' | translate }}</button>
+    </li>
+    <li #inlineItem class="production-list-controls__item" *ngIf="showBtns.isAddVersion">
+        <button (click)="onAddVersion()" [disabled]="disabledBtns.isAddMasterVersion">{{ 'production.controls.add_version' | translate }}</button>
+    </li>
+    <li #inlineItem class="production-list-controls__item" *ngIf="showBtns.isChangeMasterOrVersion">
+        <button (click)="onEditItem()" [disabled]="disabledBtns.isChangeMasterOrVersion">{{ 'production.controls.edit_item' | translate }}</button>
+    </li>
+    <li #inlineItem class="production-list-controls__item" *ngIf="showBtns.isMultiLineEvents">
+        <button (click)="onOpenMultiLineEventsPage()" [disabled]="disabledBtns.isMultiLineEvents">{{ 'production.controls.multi_line_events' | translate }}</button>
+    </li>
+    <li #inlineItem class="production-list-controls__item">
+        <button class="make-list-bnt wish" *ngIf="showBtns.isApprove" [disabled]="disabledBtns.isApprove"
+                (click)="onApprove()">{{ 'production.controls.approve' | translate }}
+        </button>
+    </li>
+    <li #inlineItem class="production-list-controls__item">
+        <button class="make-list-bnt rejected" *ngIf="showBtns.isReject" [disabled]="disabledBtns.isReject"
+                (click)="onReject()">{{ 'production.controls.reject' | translate }}
+        </button>
+    </li>
+    <li #inlineItem class="production-list-controls__item">
+        <button class="make-list-bnt started" *ngIf="showBtns.isStart" [disabled]="disabledBtns.isStart"
+                (click)="onStart()">{{ 'production.controls.start' | translate }}
+        </button>
+    </li>
+    <li #inlineItem class="production-list-controls__item">
+        <button class="make-list-bnt restarted" *ngIf="showBtns.isRestart" [disabled]="disabledBtns.isRestart"
+                (click)="onRestart()">{{ 'production.controls.restart' | translate }}
+        </button>
+    </li>
+    <li #inlineItem class="production-list-controls__item">
+        <button class="make-list-bnt completed" *ngIf="showBtns.isComplete" [disabled]="disabledBtns.isComplete"
+                (click)="onComplete()">{{ 'production.controls.complete' | translate }}
+        </button>
+    </li>
+    <li #inlineItem class="production-list-controls__item">
+        <button class="make-list-bnt aborted" *ngIf="showBtns.isAbort" [disabled]="disabledBtns.isAbort"
+                (click)="onAbort()">{{ 'production.controls.abort' | translate }}
+        </button>
+    </li>
+</ul>
+
+<div class="production-list-wrapper">
+    <!-- The dropdown starts here... -->
+    <div
+        #ellipsedEl
+        [hidden]="hiddenIds.length === 0"
+        class="production-list production-list-ellipsed-wrapper" >
+        <div class="production-list-ellipsed">
+            <i class="icons-more icon"></i>
+        </div>
+        <input type="checkbox" id="check-trigger" #checkTrigger>
+        <div class="production-list-shown" #ddWrapper>
+            <ul>
+                <li #ddItem class="production-list-controls__item" *ngIf="showBtns.isAddTitle">
+                    <button (click)="onAddTitle()" [disabled]="disabledBtns.isAddVersion">{{ 'production.controls.add_version' | translate }}</button>
+                    <!--        (Not Tree)-->
+                </li>
+                <li #ddItem class="production-list-controls__item" *ngIf="showBtns.isChangeTitle">
+                    <button (click)="onChangeTitle()" [disabled]="disabledBtns.isChangeVersion">{{ 'production.controls.change_version' | translate }}</button>
+                </li>
+                <li #ddItem class="production-list-controls__item" *ngIf="showBtns.isDelete">
+                    <button (click)="onDelete()" [disabled]="disabledBtns.isDelete">{{ 'production.controls.delete' | translate }}</button>
+                </li>
+                <li #ddItem class="production-list-controls__item" *ngIf="showBtns.isCleanMaster">
+                    <button (click)="onAddCleanMaster()" [disabled]="disabledBtns.isAddMaster">{{ 'production.controls.add_clean_master' | translate }}</button>
+                </li>
+                <li #ddItem class="production-list-controls__item" *ngIf="showBtns.isAddVersion">
+                    <button (click)="onAddVersion()" [disabled]="disabledBtns.isAddMasterVersion">{{ 'production.controls.add_version' | translate }}</button>
+                </li>
+                <li #ddItem class="production-list-controls__item" *ngIf="showBtns.isChangeMasterOrVersion">
+                    <button (click)="onEditItem()" [disabled]="disabledBtns.isChangeMasterOrVersion">{{ 'production.controls.edit_item' | translate }}</button>
+                </li>
+                <li #ddItem class="production-list-controls__item" *ngIf="showBtns.isMultiLineEvents">
+                    <button (click)="onOpenMultiLineEventsPage()" [disabled]="disabledBtns.isMultiLineEvents">{{ 'production.controls.multi_line_events' | translate }}</button>
+                </li>
+                <li #ddItem class="production-list-controls__item">
+                    <button class="make-list-bnt wish" *ngIf="showBtns.isApprove" [disabled]="disabledBtns.isApprove"
+                            (click)="onApprove()">{{ 'production.controls.approve' | translate }}
+                    </button>
+                </li>
+                <li #ddItem class="production-list-controls__item">
+                    <button class="make-list-bnt rejected" *ngIf="showBtns.isReject" [disabled]="disabledBtns.isReject"
+                            (click)="onReject()">{{ 'production.controls.reject' | translate }}
+                    </button>
+                </li>
+                <li #ddItem class="production-list-controls__item">
+                    <button class="make-list-bnt started" *ngIf="showBtns.isStart" [disabled]="disabledBtns.isStart"
+                            (click)="onStart()">{{ 'production.controls.start' | translate }}
+                    </button>
+                </li>
+                <li #ddItem class="production-list-controls__item">
+                    <button class="make-list-bnt restarted" *ngIf="showBtns.isRestart" [disabled]="disabledBtns.isRestart"
+                            (click)="onRestart()">{{ 'production.controls.restart' | translate }}
+                    </button>
+                </li>
+                <li #ddItem class="production-list-controls__item">
+                    <button class="make-list-bnt completed" *ngIf="showBtns.isComplete" [disabled]="disabledBtns.isComplete"
+                            (click)="onComplete()">{{ 'production.controls.complete' | translate }}
+                    </button>
+                </li>
+                <li #ddItem class="production-list-controls__item">
+                    <button class="make-list-bnt aborted" *ngIf="showBtns.isAbort" [disabled]="disabledBtns.isAbort"
+                            (click)="onAbort()">{{ 'production.controls.abort' | translate }}
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div class="pull-right">
+    <button (click)="onRemake()" [disabled]="disabledBtns.isRemake">{{ 'production.controls.remake' | translate }}</button>
+</div>

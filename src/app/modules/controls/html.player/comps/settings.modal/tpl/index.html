@@ -1,0 +1,51 @@
+<div id="settings-modal-wrapper">
+    <div class="settings-modal media" *ngIf="type == 'media'">
+        <div class="segment">
+            <label>
+                <span style="width: 45%;">Timecode Overlay</span>
+                <input type="checkbox" name="timecodeOverlay" (change)="changeTimecodeOverlayShowing()" [checked]="timecodeOverlay" style=" margin-left: 30px;">
+            </label>
+        </div>
+        <span class="segment">
+            <span style="width: 45%;">Brightness</span>
+            <span>
+                <input type="range" #brightnessRanger (input)="set('brightness', brightnessRanger.value);" value="1" step="0.05" min="0" max="2">
+            </span>
+        </span>
+        <span class="segment">
+            <span style="width: 45%;">Contrast</span>
+            <span>
+                <input type="range" #contrastRanger (input)="set('contrast', contrastRanger.value);" value="1" step="0.05" min="0" max="2">
+            </span>
+        </span>
+        <span class="segment">
+            <span style="width: 45%;">Saturate</span>
+            <span>
+                <input type="range" #saturateRanger (input)="set('saturate', saturateRanger.value);" value="1" step="0.05" min="0" max="2">
+            </span>
+        </span>
+        <span class="segment">
+            <span style="width: 45%;">Invert</span>
+            <span>
+                <input type="range" #invertRanger (input)="set('invert', invertRanger.value);" value="0" step="0.05" min="0" max="1">
+            </span>
+        </span>
+        <span class="segment">
+            <span style="width: 45%;">Grayscale</span>
+            <span>
+                <input type="range" #grayscaleRanger (input)="set('grayscale', grayscaleRanger.value);" value="0" step="0.05" min="0" max="1">
+            </span>
+        </span>
+        <div style="justify-content: flex-end; margin-top: auto;">
+            <button (click)="clear()">Clear</button>
+        </div>
+    </div>
+    <div class="settings-modal" *ngIf="type == 'audio'">
+        <div class="segment">
+            <label style="margin: 0;">
+                <span style="width: 45%;">Timecode Overlay</span>
+                <input type="checkbox" name="timecodeOverlay" (change)="changeTimecodeOverlayShowing()" [checked]="timecodeOverlay" style=" margin-left: 30px;">
+            </label>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,101 @@
+@import "../../base/styles/theme.scss";
+@each $key, $value in $common-themes {
+  .#{$key} {
+      acquisitions {
+          .acquisitions-wrapper {
+              padding: 10px 15px;
+
+              .header-wrapper {
+                  display: flex;
+                  max-width: 620px;
+
+                  input {
+                      flex: 1;
+                  }
+              }
+
+              .body-wrapper {
+                  padding-top: 10px;
+                  height: calc(100% - 22px);
+
+                  .header-fake-table {
+                      width: calc(100% - 20px) !important;
+                      position: relative;
+
+                      th {
+                          padding: 3px 5px;
+                          text-overflow: ellipsis;
+                          white-space: nowrap;
+                          overflow: hidden;
+                          line-height: 30px;
+                          font-weight: 100;
+                          font-size: $basefontsize;
+                          cursor: pointer;
+                          color: getThemeColor(2, $key);
+
+                          &:not(:last-child) {
+                              border-right: 1px solid getThemeColor(9, $key);
+                          }
+
+                          &:hover {
+                              background: getThemeColor(4, $key);
+                          }
+                      }
+                  }
+
+                  .content-table {
+                      height: calc(100% - 66px);
+                      overflow-x: hidden;
+                      overflow-y: auto;
+
+                      .fake-rows {
+                          display: block;
+                          font-size: 0;
+                          margin-left: 1px;
+                          vertical-align: top;
+                          height: 30px;
+                          overflow: hidden;
+                          cursor: pointer;
+
+                          &:hover {
+                              background: getThemeColor(10, $key);
+
+                              .fake-cell {
+                                  color: #fff !important;
+                              }
+                          }
+
+                          .fake-cell {
+                              font-size: 14px;
+                              position: relative;
+                              padding: 0 5px !important;
+                              white-space: nowrap;
+                              text-overflow: ellipsis;
+                              overflow: hidden;
+                              display: inline-block;
+                              height: 30px;
+                              line-height: 32px;
+                              vertical-align: top;
+                              cursor: pointer;
+
+                              &:not(:last-child) {
+                                  border-right: 1px solid getThemeColor(9, $key);
+                              }
+                          }
+                      }
+                  }
+              }
+
+              .overlay-indicator {
+                  display: inline-block;
+                  padding: 12px;
+                  z-index: 5;
+                  label {
+                      padding-left: 20px;
+                      color: getThemeColor(16, $key);
+                  }
+              }
+          }
+      }
+  }
+}

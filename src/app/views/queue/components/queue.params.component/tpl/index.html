@@ -1,0 +1,31 @@
+<div class="queue-params-wrapper" #listParams>
+    <div class="top-panel">
+        <input type="text" class="d-block w-100" placeholder="Search" (keyup)="filter($event)">
+        <button type="button"
+                [ngClass]="{'active': showCompleted}"
+                (click)="onToggleCompleted($event)">
+            {{ 'queue.params.show_completed' | translate }}
+        </button>
+        <button type="button"
+                [ngClass]="{'active': showError}"
+                (click)="onToggleError($event)">
+            {{ 'queue.params.show_error' | translate }}
+        </button>
+        <button type="button"
+                [ngClass]="{'active': selectAll}"
+                (click)="onToggleSelectAll()">
+            {{ 'queue.params.select_all' | translate }}
+        </button>
+    </div>
+    <div class="services-wrapper">
+        <div *ngFor="let item of filtredRes | orderBy : ['title'] ">
+            <label><input class="checkbox" type="checkbox" [(ngModel)]="item.selected" (change)="emitSelection()"/>{{item.title}}</label>
+        </div>
+        <div *ngIf="error">
+            <h2>{{'queue.error' | translate}}</h2>
+            <button class="icon-class" (click)="clickRepeat()">{{'queue.repeat' | translate}}</button>
+        </div>
+    </div>
+</div>
+
+<overlay #overlay [mode]="true" (isError)="isError($event)"></overlay>

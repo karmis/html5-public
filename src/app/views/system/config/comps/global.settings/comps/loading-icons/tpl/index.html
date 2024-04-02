@@ -1,0 +1,40 @@
+<div class="loading-icons-wrapper">
+<div #settingsGroup [style.display]="pageMode === 'list' ? 'flex' : 'none'" class="loading-icons-list">
+    <div class="add-btn-wrapper">
+        <button *ngIf="!error" (click)="addSettingsGroup()" title="{{ 'common_hints.add' | translate }}" class="add-btn">
+            <i class="icons-add icon"></i>
+            {{"common.add" | translate}}
+        </button>
+        <form  [formGroup]="searchForm" (ngSubmit)="onSubmitSearch()" class="form-input">
+            <input
+                class="input"
+                type="text"
+                name="query"
+                formControlName="query"
+                placeholder="Search..."
+                autocomplete="off"
+            >
+            <div class="clear-dataset-filter" (click)="onClearQuery()">
+                <i class="icons-cross icon"></i>
+            </div>
+        </form>
+<!--        <button *ngIf="!error && selectedData" (click)="cloneGroup()" title="{{ 'common_hints.clone' | translate }}" class="add-btn" style="margin-left: 5px;">-->
+<!--            {{"common.clone" | translate}}-->
+<!--        </button>-->
+    </div>
+
+    <div class="loading-icons-grid-wrapper">
+        <div id="externalWrapperSettingsGroupsGrid" style="height: 100%;">
+            <slick-grid #settingsGroupGrid
+                        [config]="settingsGroupGridOptions" class="small-height-header">
+            </slick-grid>
+        </div>
+    </div>
+</div>
+<loading-icons-detail [hidden]="!(pageMode === 'detail' || pageMode === 'new')">
+</loading-icons-detail>
+<div class="spinner-icons"  *ngIf="isLoading">
+    <div class="spinner small"></div>
+    <div class="overlay-text-inline"></div>
+</div>
+</div>

@@ -1,0 +1,81 @@
+<div class="abort" #overlayWrapper>
+    <div class="status-row">
+        <!--[ngClass]="{'done': currentStep >= 0, 'current': currentStep == 0}"-->
+        <div class="step first current done" [ngClass]="{'current': currentStep == 0, 'reject': isSuccessRes === false}">
+            <span class="step-title">{{'workflow.topPanel.wizard.abort.step1'|translate}}</span>
+            <span class="step-circle"></span>
+            <span class="step-line"></span>
+        </div>
+        <!--[ngClass]="{'done': currentStep >= 1, 'last': currentStep == 1}"-->
+        <div class="step third" [ngClass]="{'done': currentStep >= 1, 'last': currentStep == 1, 'reject': isSuccessRes === false}">
+            <span class="step-title">{{ getFinishStepTitle() | translate }}</span>
+            <span class="step-circle"></span>
+        </div>
+    </div>
+
+    <div class="wizard-steps">
+        <!--<div class="panel notification warning row-header inline" *ngIf="errorMsg">-->
+        <!--<p>{{errorMsg}}</p>-->
+        <!--</div>-->
+        <div class="step-content" [hidden]="currentStep != 0">
+            <div class="step-content-wrapper">
+                <!--Priority-->
+                <div class="row" style="max-height: 200px; overflow-y: auto;">
+                    <div class="col-xs-12">
+                        <h3 *ngIf="mode == 'single'">
+                            {{ 'workflow.topPanel.wizard.abort.title' | translate }}
+                            Task {{data._data.data.taskIds[0] + " (Job ID " + data._data.data.jobId + ")"}}
+                        </h3>
+                        <h3 *ngIf="mode == 'multiple'">
+                            {{ 'workflow.topPanel.wizard.abort.title' | translate }} Tasks:
+                            <span *ngFor="let taskId of data._data.data.taskIds; let i = index">{{taskId}}
+                                <span *ngIf="i < (data._data.data.taskIds.length - 1)">, </span>
+                            </span>
+                        </h3>
+                        <div class="form-group">
+                            <label for="abortReason">
+                                {{ 'workflow.topPanel.wizard.abort.reason' | translate }}
+                            </label>
+                            <textarea #abortReason class="form-control"
+                                      id="abortReason"
+                                      style="height: 120px; max-height: 120px; min-height: 120px; resize: none;" rows="10"
+                                      [ngClass]="{'error': !validForm}"
+                                      (keyup)="doTextareaValueChange($event)">{{reasonText}}</textarea>
+                            <p [style.visibility]="(!validForm) ? 'visible' : 'hidden'">Fill reason text please.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="finish-step"[hidden]="currentStep != 1" >
+            <div class="finish-step-step-content-wrapper">
+
+                <div class="angucomplete-overlay" *ngIf="isSuccessRes === null">
+                    <div class="spinner small suggestion-overlay"></div>
+                </div>
+
+                <div class="row" style="max-height: 200px; overflow-y: auto; width: 100%;">
+                    <div class="col-xs-12">
+                        <div class="message-wrapper" style="    min-height: 100px;
+    width: 100%;
+    padding: 10px;">{{requestMessage}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div [hidden]="currentStep != 0" class="buttons">
+            <button class="next primary" (click)="sendStatus()">
+                {{ 'version.wizard.next' | translate }}
+            </button>
+        </div>
+        <div [hidden]="currentStep != 1" class="buttons">
+            <button class="next primary" (click)="closeModal()">
+                {{ 'common.ok' | translate }}
+            </button>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,26 @@
+<div class="media-facets">
+    <div class="panel card">
+        <div *ngIf="!!(facets$ | async).length" class="controls">
+            <div class="icon"
+                 (click)="toggleAll()"
+                 title="{{'common_hints.collapse_all' | translate}}"
+            >
+                <i class="imfx-icon"
+                   [ngClass]="{'expand-all': !(toggle$ | async), 'collapse-all': (toggle$ | async)}"
+                ></i>
+            </div>
+            <div class="clear"
+                 (click)="clear()"
+            >
+                <i class="imfx-icon clear-filter" title="{{'common_hints.clear_facets' | translate}}"></i>
+            </div>
+        </div>
+        <div *ngIf = "!!(info$ | async)">
+            <h2>{{(info$ | async)}}</h2>
+        </div>
+        <div *ngIf="!(facets$ | async).length">
+            <h2>{{'common_hints.no_facets' | translate}}</h2>
+        </div>
+        <facets-group *ngFor="let facet of (facets$ | async)" [facet]="facet" [store]="facetsStore"></facets-group>
+    </div>
+</div>

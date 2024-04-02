@@ -1,0 +1,8 @@
+@import "../../../../../../base/styles/theme.scss";
+@each $key, $value in $common-themes {
+  .#{$key} {
+    .alert.alert-default {
+      border-color: #bebfbe;
+    }
+  }
+}

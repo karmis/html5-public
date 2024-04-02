@@ -1,0 +1,7 @@
+    <imfx-controls-number class="pull-left filesize-textbox-input" (onChange)="transferData($event)" #control></imfx-controls-number>
+    <select class="filesize-textbox-dropdown" #selectControl (change)="onChangeDimension($event)">
+        <option *ngFor="let d of dimensions" [value]="d.id">{{d.text}}</option>
+    </select>
+
+
+

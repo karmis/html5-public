@@ -1,0 +1,73 @@
+<div class="locator-wrapper">
+    <div class="locators-head-tabs lm_header">
+        <ul class="locators-tabs-wrapper">
+            <li class="locators-sub-tab" (click)="selectTab(1, 'Comments')" title='Comments'>
+                <a [ngClass]="{'active': activeTab == 1}">
+                    <span>{{customLabels.comments}}</span>
+                </a>
+            </li>
+            <li class="locators-sub-tab" (click)="selectTab(2, 'Legal')" title='Legal'>
+                <a [ngClass]="{'active': activeTab == 2}">
+                    <span>{{customLabels.legal}}</span>
+                </a>
+            </li>
+            <li class="locators-sub-tab" (click)="selectTab(3, 'Cuts')" title='Cuts'>
+                <a [ngClass]="{'active': activeTab == 3}">
+                    <span>{{customLabels.cuts}}</span>
+                </a>
+            </li>
+            <li class="locators-sub-tab" (click)="selectTab(4, 'Blackdetect')" title='Blackdetect'>
+                <a [ngClass]="{'active': activeTab == 4}">
+                    <span>Blackdetect</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="locators-content">
+        <div *ngIf="activeTab==1" style="height: 100%;">
+            <imfx-logger-comments [config]="locatorTabConfig.comments"
+                                  [reloadData]="reloadTaggingData"
+                                  [onRowUnselected]="onRowUnselected"
+                                  (saveValid)="onSaveValid($event)"
+                                  (onDelete)="deleteItem($event)"
+                                  (onSetTaggingNode)="mediaTagging_onSetNode($event)"
+                                  (onSetTimecodeString)="setTimecodeString($event)"
+                                  (isDataValid)="isDataValid($event)"
+                                  (timecodesInvalid)="isTimecodesInvalid($event)"
+                                  [locatorsFrameSettings]="locatorsFrameSettings"
+                                  [taxonomySettings]="taxonomySettings"
+            ></imfx-logger-comments>
+        </div>
+        <div *ngIf="activeTab==2" style="height: 100%;">
+            <imfx-logger-comments [config]="locatorTabConfig.legal"
+                                  [reloadData]="reloadTaggingData"
+                                  [onRowUnselected]="onRowUnselected"
+                                  (saveValid)="onSaveValid($event)"
+                                  (onDelete)="deleteItem($event)"
+                                  (onSetTaggingNode)="mediaTagging_onSetNode($event)"
+                                  (onSetTimecodeString)="setTimecodeString($event)"
+                                  (isDataValid)="isDataValid($event)"
+                                  (timecodesInvalid)="isTimecodesInvalid($event)"
+                                  [locatorsFrameSettings]="locatorsFrameSettings"
+            ></imfx-logger-comments>
+        </div>
+        <div *ngIf="activeTab==3" style="height: 100%;">
+            <imfx-logger-comments [config]="locatorTabConfig.cuts"
+                                  [reloadData]="reloadTaggingData"
+                                  [onRowUnselected]="onRowUnselected"
+                                  (saveValid)="onSaveValid($event)"
+                                  (onDelete)="deleteItem($event)"
+                                  (onSetTaggingNode)="mediaTagging_onSetNode($event)"
+                                  (onSetTimecodeString)="setTimecodeString($event)"
+                                  (isDataValid)="isDataValid($event)"
+                                  (timecodesInvalid)="isTimecodesInvalid($event)"
+                                  [locatorsFrameSettings]="locatorsFrameSettings"
+            ></imfx-logger-comments>
+        </div>
+        <div *ngIf="activeTab==4" style="height: 100%;">
+            <imfx-media-tagging-tab [config]="locatorTabConfig.blackdetect"
+                                    (onSetTaggingNode)="mediaTagging_onSetNode($event)"
+                                    (onSetTimecodeString)="setTimecodeString($event)"></imfx-media-tagging-tab>
+        </div>
+    </div>
+</div>

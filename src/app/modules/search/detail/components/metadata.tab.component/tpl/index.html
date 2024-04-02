@@ -1,0 +1,49 @@
+<div class="metadata-tab-wrapper">
+  <div class="trees-wrapper" [ngClass]="{'full': config.readOnly != false}">
+    <div class="docs-block js-scrollbar-target">
+      <div class="required-types" [ngClass]="{'edit-mode':editMode}" *ngIf="mandatoryXmls.length > 0">
+          <div class="head">
+              Required Schemas
+          </div>
+          <div class="item" *ngFor="let m of mandatoryXmls" (click)="selectMandatoryItem(m)">
+              <i class="icon" [ngClass]="{'icons-statusred':!m.exist,'check':m.exist}"></i>
+              {{m.item.Name}}</div>
+      </div>
+      <imfx-simple-tree #simpleTreeRef *ngIf="xmls"
+                        [groups]="xmls"
+                        [returnObject]="true"
+                        [freeze]="editMode"
+                        (selected)="selectXmlDocument($event)">
+      </imfx-simple-tree>
+    </div>
+    <imfx-xml-tree #xmlTreeRef class="xml-block js-scrollbar-target" *ngIf="selectedSchemaModel"
+                   [schemaModel]="selectedSchemaModel"
+                   [xmlModel]="selectedXmlModel"
+                    [readonly]="!editMode || inSave">
+    </imfx-xml-tree>
+      <div class="toggle-buttons" *ngIf="!inSave && selectedXmlModel && selectedXmlModel.XmlModel && compIsLoaded">
+          <i class="imfx-icon expand-all" *ngIf="!expanded" (click)="expandTree()" title="Expand All"></i>
+          <i class="imfx-icon collapse-all" *ngIf="expanded" (click)="collapseTree()" title="Collapse All"></i>
+      </div>
+      <div class="inherit-info" *ngIf="selectedItemInfo">
+          <i class="icons-info icon"></i>
+          <div class="hover-panel">
+              <div class="hover-field"><div class="label">Document Id:</div>
+                  <div class="value" title="{{selectedItemInfo.Id ? selectedItemInfo.Id : ' - ' }}">{{selectedItemInfo.Id ? selectedItemInfo.Id : ' - ' }}</div></div>
+              <div class="hover-field"><div class="label">Created:</div>
+                  <div class="value" title="{{selectedItemInfo.CreatedDate ? (selectedItemInfo.CreatedDate | localDate: datetimeFullFormatLocaldatePipe) : ' - ' }}">{{selectedItemInfo.CreatedDate ? (selectedItemInfo.CreatedDate | localDate: datetimeFullFormatLocaldatePipe) : " - " }}</div></div>
+              <div class="hover-field"><div class="label">Created by:</div>
+                  <div class="value" title="{{selectedItemInfo.CreatedBy ? selectedItemInfo.CreatedBy : ' - ' }}">{{selectedItemInfo.CreatedBy ? selectedItemInfo.CreatedBy : " - " }}</div></div>
+              <div class="hover-field"><div class="label">Modified:</div>
+                  <div class="value" title="{{selectedItemInfo.ModifiedDate ? (selectedItemInfo.ModifiedDate | localDate: datetimeFullFormatLocaldatePipe) : ' - ' }}">{{selectedItemInfo.ModifiedDate ? (selectedItemInfo.ModifiedDate | localDate: datetimeFullFormatLocaldatePipe) : " - " }}</div></div>
+              <div class="hover-field"><div class="label">Modified by:</div>
+                  <div class="value" title="{{selectedItemInfo.ModifiedBy ? selectedItemInfo.ModifiedBy : ' - ' }}">{{selectedItemInfo.ModifiedBy ? selectedItemInfo.ModifiedBy : " - " }}</div></div>
+          </div>
+      </div>
+      <div *ngIf="inSave || !compIsLoaded || documentInLoad" class="xml-overlay"><span class="spinner small"></span></div>
+  </div>
+  <button *ngIf="hasPermissionByName('media-metadata-edit') && config.readOnly == false && !inSave && !editMode && compIsLoaded" class="add-document" (click)="addCustomMetadata()">Add Document</button>
+  <button *ngIf="hasPermissionByName('media-metadata-edit') && config.readOnly == false && !inSave && selectedXmlModel && selectedXmlModel.XmlModel && !editMode && compIsLoaded && selectedItemInfo && !selectedItemInfo.IsLocked && !selectedItemInfo.IsInherited" class="add-document" (click)="editDocument()">Edit Document</button>
+  <button *ngIf="hasPermissionByName('media-metadata-edit') && config.readOnly == false && !inSave && editMode && compIsLoaded" class="add-document" (click)="cancelEditDocument()">Cancel</button>
+  <button *ngIf="hasPermissionByName('media-metadata-edit') && config.readOnly == false && !inSave && editMode && compIsLoaded" class="add-document" (click)="saveSelectedMetadata()">Save</button>
+</div>

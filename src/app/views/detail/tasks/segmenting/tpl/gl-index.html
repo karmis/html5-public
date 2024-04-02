@@ -1,0 +1,41 @@
+<div [ngClass]="{'menu-opened': menuOpened, 'no-menu': !newTabs.length}" class="full-height">
+    <nav class="tabbed vertical left">
+        <div>
+            <button class="sidebar-toggle" title="Toggle panel" (click)="toggleMenu();">
+                <i *ngIf="!menuOpened" class="icons-sidebar-right icon"></i>
+                <i *ngIf="menuOpened" class="icons-sidebar-left icon"></i>
+            </button>
+            <button class="sidebar-toggle edit-btn" title="Edit layout"
+                    (click)="enableEditLayoutMode()"
+                    [ngClass]="{'active': editLayoutMode}">
+                <i class="fa fa-edit" style="width: 20px;
+    height: 20px;
+    opacity: 0.6;"></i>
+            </button>
+            <span class="nav-header">{{'common.drag_panel_to_layout' | translate}}</span>
+        </div>
+        <div class="drag-btns-wraper">
+            <layout-manager
+                [layoutType]="layoutType"
+                [layoutModel]="layoutModel"
+                (onChange)="changeLayoutHandler($event)"
+                (onSave)="saveLayoutHandler($event)"
+                (onDefaultReady)="ngOnLayoutInit($event)">
+            </layout-manager>
+            <ul id="tabbed-nav" class="collapsed">
+                <li *ngFor="let tab of newTabs; let i=index"
+                    [ngClass]="{'disabled': !editLayoutMode}"
+                    style="position: relative;">
+                    <div class="invalid-triangle"
+                         [hidden]="config.moduleContext.taskFile.TSK_STATUS !== 10 || tab.isValid"></div>
+                    <a id="tab-drag-{{tab.tTitle}}">{{tab.title}}</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div [ngClass]="{'empty': !isEmpty, 'empty-layout-menu-opened': menuOpened}" class="empty-layout">
+        <h2 [ngStyle]="{'line-height': height}">{{'common.empty_layout' | translate}}</h2>
+    </div>
+    <div [ngClass]="{'empty': isEmpty, 'edit-layout-mode': editLayoutMode}" class="gl-layout" id="layout"></div>
+</div>
+
+

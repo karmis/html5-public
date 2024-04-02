@@ -1,0 +1,29 @@
+<div class="tab-wrapper" [ngClass]="{'edit-mode': !readOnly}">
+    <div class="tab-label">
+        <span>{{"user_management.groups.modal.users_block" | translate}}</span>
+        <div class="buttons-row" *ngIf="!readOnly">
+            <i title="{{'user_management.users.modal.add_new' | translate}}"
+               (click)="addItems()"
+               class="icons-cross icon add-item"></i>
+            <i title="{{'user_management.users.modal.remove' | translate}}"
+               (click)="deleteItems()"
+               class="icons-cross icon" [ngClass]="{'disabled': selectedRows.length == 0}"></i>
+        </div>
+    </div>
+    <div class="tab-content-wrapper">
+        <div class="color-back-wrapper">
+            <div class="tab-content-row" *ngFor="let item of data; let i = index" title="{{item.__FULLNAME}}"
+                 [ngClass]="{'selected': selectedRows.indexOf(item) > -1}"
+                 (click)="processRowClick(item, $event, i)">
+                <span class="left-span-id noselect" title="{{item.USER_ID}}">{{item.USER_ID}}</span>
+                <span class="left-span-forename noselect" title="{{item.FORENAME}} {{item.SURNAME}}" [innerHTML]="(item.FORENAME || '&nbsp') + ' ' + (item.SURNAME || '&nbsp')"></span>
+                <!--<span class="left-span-id" title="{{item.USER_ID}}">{{item.USER_ID}}</span>-->
+                <!--<span class="left-span-forename" title="{{item.FORENAME}}" [innerHTML]="item.FORENAME || '&nbsp'"></span>-->
+                <!--<span class="left-span-surname" title="{{item.SURNAME}}" [innerHTML]="item.SURNAME || '&nbsp'"></span>-->
+                <!--<div class="item name" title="{{item.NAME}}">{{item.NAME}}</div>-->
+                <!--<div class="item description" title="{{item.DESCRIPTION}}">{{item.DESCRIPTION}}</div>-->
+                <!--<p class="noselect">{{getFullName(item)}}</p>-->
+            </div>
+        </div>
+    </div>
+</div>

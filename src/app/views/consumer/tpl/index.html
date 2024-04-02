@@ -1,0 +1,134 @@
+<div id="consumer-search" class="full-height">
+    <!--<branding-search-form [staticSearchType]="searchType" *ngIf="!results.length; else simpleSearch"></branding-search-form>-->
+    <!--<template #simpleSearch>-->
+    <overlay #overlay [zIndex]="105"></overlay>
+    <div class="consumer-block">
+        <div class="search-row-wrapper consumer-search inline">
+            <search-form-branding
+                [isBackButton]="true"
+                [searchString]="csp?.getSearchString()"
+                [config]="searchFormConfig"
+                class="combined"
+                #brandingSearchForm
+            ></search-form-branding>
+        </div>
+        <div class="cinema-mode-player"></div>
+        <div class="consumer-blocks-wrapper grid">
+            <div class="facets"
+                 [ngClass]="{
+                    'collapsed-facets': csp.getSettings().facets.opened === false,
+                    'uncollapsed-facets': csp.getSettings().facets.opened === true
+                    }">
+                <div class="sidebar-toggle" (click)="toggleFacetsPanel()">
+                    <i [ngClass]="{
+                    'icons-sidebar-left':csp.getSettings().facets.opened === true,
+                    'icons-sidebar-right': csp.getSettings().facets.opened === false
+                    }" class="icon"></i>
+                </div>
+                <div class="consumer-facets sidebar full-height panel card"
+                     [ngClass]="{
+                        'collapsed-consumer-facets': csp.getSettings().facets.opened === false,
+                        'uncollapsed-consumer-facets': !csp.getSettings().facets.opened === true
+                        }">
+                    <div style="overflow-y: auto;
+                height: 100%;">
+                        <facets-page [config]="facetsConfig"></facets-page>
+<!--                        <div>-->
+<!--                            <div style="float:right; margin-top: 8px; cursor: pointer;  margin-left: 5px;margin-right: 8px;"-->
+<!--                                 [ngClass]="{'disabled' : csp?.getConsumerSearchType()?.model?.getAdvanced().length === 0}"-->
+<!--                                 (click)="clearFacets()">-->
+<!--                                <i class="imfx-icon clear-filter" style="float:right;" title="{{'consumer.clear_facets' | translate}}"></i>-->
+<!--                            </div>-->
+<!--                            <div style="float:right; margin-top: 8px; cursor: pointer" (click)="toggleFacets()">-->
+<!--                                <i class="imfx-icon"-->
+<!--                                   [ngClass]="{-->
+<!--                                    'expand-all': csp.getSettings().facets.expanded.length === 0,-->
+<!--                                    'collapse-all': csp.getSettings().facets.expanded.length > 0-->
+<!--                                }"></i>-->
+<!--                            </div>-->
+<!--                            <h2>-->
+<!--                                {{'consumer.facets_header' | translate}}-->
+<!--                            </h2>-->
+<!--                        </div>-->
+<!--                        <div *ngFor="let facet of results[0]?.Facets; let i = index">-->
+<!--                            <consumer-facet-component-->
+<!--                                #facets-->
+<!--                                [facet]="facet"-->
+<!--                                (selected)="toggleModifications($event)"></consumer-facet-component>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+            </div>
+            <div class="common-items-wrapper" [ngClass]="{'detail-selected': csp.getSettings().result.selected}"
+                 style="min-width: 480px; border-left: none; padding: 0; flex: 1; height:100%; overflow: auto;"
+                 #consumerItems tabindex="-1">
+                <div class="consumer-items full-height" *ngIf="results[0]?.Items?.length > 0"
+                     [ngClass]="{'detail-showed': csp.getSettings().result.selected}">
+                    <div *ngFor="let page of totalPagesArr; let _page_index = index">
+<!--                        <div *ngIf="page>=_page_index">-->
+                        <div *ngIf="results[_page_index]?.Items">
+                            <div *ngFor="let item of results[_page_index]?.Items; let index = index"
+                                 class="consumer-item__row"
+                                 [id]="'item-id-' + item.VersionId"
+                                 [ngClass]="{
+                                 'selected-item': csp.getSettings().result.selected?.id === item.VersionId
+                                 }">
+                                <consumer-item-component [item]="item"
+                                                           [setupsUpdated]="setupsUpdated"
+                                                           (click)="setSelectItem({
+                                                           index: index,
+                                                           page: _page_index,
+                                                           item: item
+                                                           })"
+                                                           [settings]="itemSettings"
+                                                           [defaultSettings]="defaultItemSettings"
+                                                           (changeFilter)="toggleModifications($event)"></consumer-item-component>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search-footer">
+                        <div class="wrapper-info">
+                        <span>
+                            {{'common.total_entries'|translate:{'total_entries': resultCount} }}
+                        </span>
+                        </div>
+                        <div *ngIf="enabledMoreButton" (click)="loadMore()"
+                             class="show-more-btn">{{ 'consumer.show_more' |
+                            translate }}
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center" *ngIf="results[0]?.Items?.length == 0">
+                    <h2>{{'consumer.no_results' | translate}}</h2>
+                </div>
+            </div>
+
+            <div class="consumer-detail full-height"
+                 [ngClass]="{'collapsed': csp.getSettings()?.detail.opened === false || getSelectedItem() === null}"
+            >
+                <div class="sidebar-toggle" (click)="toggleDetailPanel()">
+                    <i class="icon"
+                       [ngClass]="{
+                    'icons-sidebar-left':csp.getSettings().detail.opened === false,
+                    'icons-sidebar-right': csp.getSettings().detail.opened === true
+                    }"
+                    ></i>
+                </div>
+                <div class="sidebar-content full-height"
+                     [ngClass]="{'collapsed': csp.getSettings()?.detail.opened === false || getSelectedItem() === null}"
+                >
+                    <consumer-item-detail #detail
+                                          [item]="getSelectedItem()"
+                                          [setupsUpdated]="setupsUpdated"
+                                          [settings]="detailSettings"
+                                          [defaultSettings]="defaultDetailSettings"
+                                          (changeFilter)="toggleModifications($event)"
+                                          (click)="setSelectItem()"
+                    ></consumer-item-detail>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--</template>-->
+</div>

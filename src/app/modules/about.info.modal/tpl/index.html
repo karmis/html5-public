@@ -1,0 +1,45 @@
+<div class="about-info-modal-wrapper">
+    <h2>Client</h2>
+    <div class="info-wrapper">
+        <div class="info-container">
+            <ng-container *ngFor="let item of getKeys(toPrintClient)">
+                <div *ngIf="toPrintClient[item] !== null"
+                     class="info-item">
+                    <div class="item-title">{{item}}:</div>
+                    <div class="item-data">{{toPrintClient[item]}}</div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+
+    <h2>Server</h2>
+    <div class="info-wrapper">
+        <div class="info-container">
+            <ng-container *ngFor="let item of getKeys(toPrintServer)">
+                <div *ngIf="(toPrintServer[item] !== null) && (toPrintServer[item] !== 'n/a')"
+                     class="info-item">
+                    <div class="item-title">{{item}}:</div>
+                    <div class="item-data">{{toPrintServer[item]}}</div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+
+
+    <ng-container *ngIf="serverLog !== null">
+        <h2>Server Log</h2>
+            <textarea readonly class="server-log-container" [value]="serverLog"></textarea>
+    </ng-container>
+
+
+    <div style="text-align: right; margin-bottom: 1rem;">
+    <button
+        (click)="copyJSON()"
+        type="button"
+    >
+        {{ 'common.copy' | translate }}
+        <i class="icons-files icon"></i>
+    </button>
+    </div>
+</div>
+

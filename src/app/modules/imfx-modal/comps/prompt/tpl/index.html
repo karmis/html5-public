@@ -1,0 +1,12 @@
+<script src="../../../../search/settings/search.settings.ts"></script>
+<div class="modal-prompt">
+    <div class="modal-prompt-wrapper">
+        <label for="modalPromptInput">{{label | translate}}</label>
+        <input #promptInput type="text"
+               class="form-control"
+               id="modalPromptInput"
+               placeholder="{{placeholder | translate}}"
+               (keyup.enter)="ok($event)">
+        <div *ngIf="error" class="form-control-feedback">{{error| translate}}</div>
+    </div>
+</div>

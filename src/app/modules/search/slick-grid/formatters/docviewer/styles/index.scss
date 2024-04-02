@@ -1,0 +1,21 @@
+@import "../../../../../../views/base/styles/theme";
+@each $key, $value in $common-themes {
+    .#{$key} {
+        .report-doc-viewer{
+            position: relative;
+            //top: -6px;
+            button {
+                font-family: Arial, Helvetica, sans-serif!important;
+            }
+            .img-preview-btn {
+                background: none;
+                width: 100%;
+                height: 100%;
+                &:hover {
+                    background: none;
+                }
+            }
+        }
+    }
+}
+

@@ -1,0 +1,65 @@
+<!--h4 class="block-header text">{{ 'media.title' | translate }}</h4-->
+<div class="full-height full-width" style="padding-top: 10px;">
+    <div class="container-fluid" style="position: relative; height:100%;">
+        <!--Header-->
+        <div class="row-header">
+            <nav>
+                <ul>
+                    <li>
+                        <search-form
+                                [config]="searchFormConfig"
+                        ></search-form>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!--Body-->
+        <div class="row-body">
+            <as-split
+                    #split
+                    (dragEnd)="saveSplitSizes(0, $event)"
+                    [style.float]="'left'"
+                    [direction]="'horizontal'">
+                <!--Adv search and recent search-->
+                <as-split-area
+                        [visible]="getSplitAreaVisible([0,0], searchAdvancedConfig.options.provider.getStateForPanel(), false, searchAdvancedConfig.options.provider, searchAdvancedConfig.options.provider.setStateForPanel, searchAdvancedConfig.options.provider.getIsReady())"
+                        [size]="getSplitAreaSize([0,0], 30)"
+                        [order]="0">
+                    <as-split
+                            (dragEnd)="saveSplitSizes(1, $event)"
+                            [direction]="'vertical'">
+                        <as-split-area
+                                class="color-bkgd-mid"
+                                #advSplit
+                                [size]="getSplitAreaSize([1,0], 50)"
+                                [order]="0">
+                            <search-advanced
+                                [config]="searchAdvancedConfig"
+                            ></search-advanced>
+                        </as-split-area>
+                        <as-split-area
+                                #advSplit
+                                class="color-bkgd-mid"
+                                [size]="getSplitAreaSize([1,1], 50)"
+                                [order]="1">
+                            <search-recent
+                                [config]="searchRecentConfig"
+                            ></search-recent>
+                        </as-split-area>
+                    </as-split>
+                </as-split-area>
+
+                <!--Names-->
+                <as-split-area
+                    #tableSplit
+                    [order]="1"
+                    [size]="getSplitAreaSize([0,1])">
+                    <div style="height: 100%;">
+                        <names-tree #namesTree [searchView]="false"></names-tree>
+                    </div>
+                </as-split-area>
+            </as-split>
+        </div>
+    </div>
+</div>

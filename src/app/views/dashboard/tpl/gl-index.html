@@ -1,0 +1,21 @@
+<div class="common-dashboard " [ngClass]="{'menu-opened': menuOpened}">
+  <div class="boards-menu">
+      <layout-manager *ngIf="layoutTypeReady" [layoutType]="layoutType" [layoutModel]="layoutModel" (onChange)="changeLayoutHandler($event)" (onSave)="saveLayoutHandler($event)" (onDefaultReady)="ngOnLayoutInit($event)"></layout-manager>
+      <div class="boards-header">{{"dashboard.boards_header" | translate}}</div>
+    <div class="boards-subheader">{{"dashboard.drag_widget" | translate}}</div>
+    <button id="chart-drag" class="board-item">{{"dashboard.chart" | translate}}</button>
+    <button id="wfboard-drag" class="board-item">{{"dashboard.workflows" | translate}}</button>
+    <button id="grafana-drag" class="board-item">{{"dashboard.grafana" | translate}}</button>
+  </div>
+  <div class="toggler" (click)="toggleMenu();">
+    <i class="icon" [ngClass]="{'icons-sidebar-left': menuOpened, 'icons-sidebar-right ':!menuOpened}"></i>
+  </div>
+  <div [ngClass]="{'empty': !isEmpty, 'empty-layout-menu-opened': menuOpened}" class="empty-layout"><h2>{{'common.empty_layout' | translate}}</h2></div>
+  <div [ngClass]="{'empty': isEmpty}" class="gl-layout" id="layout"></div>
+</div>
+<div id="template-control" style="display: none;">
+  <div class="chooseSettings">
+    <div class="settingsButton"><i class="icons-settings icon" aria-hidden="true"></i></div>
+  </div>
+</div>
+

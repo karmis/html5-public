@@ -1,0 +1,47 @@
+<div class="template-production">
+    <div class="modal-body type-normal">
+        <div class="fields-wrapper">
+            <div class="field-row">
+                <div class="label">Template</div>
+                <div class="value-wrapper select2wrapper">
+                    <imfx-controls-select2
+                        #selectTemplateControl
+                        [width]="'100%'"
+                        [multiple]="false"
+                        (onSelect)="onSelectConfig($event)"></imfx-controls-select2>
+
+                </div>
+            </div>
+            <div class="field-row">
+                <div class="label">Channel</div>
+                <div class="value-wrapper select2wrapper">
+                    <imfx-controls-select2
+                        #selectChannelControl
+                        [readonly]="state.TemplateId == null"
+                        [width]="'100%'"
+                        [multiple]="false"
+                        (onSelect)="onSelectChannel($event)"></imfx-controls-select2>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer-container">
+        <div class="modal-footer">
+            <div class="buttons">
+                <button type="button"
+                        class="right"
+                        (click)="onCancel()">
+                    Cancel
+                </button>
+                <button type="button"
+                        class="primary right"
+                        [disabled]="!isValid"
+                        (click)="onOk()">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="showOverlay" class="modal-overlay"><div class="spinner"></div></div>
+</div>

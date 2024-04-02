@@ -1,0 +1,160 @@
+@import "../../../../views/base/styles/theme.scss";
+@each $key, $value in $common-themes {
+    .#{$key} {
+        simple-preview-player {
+            .preview-overlay {
+                position: absolute;
+                left: 0;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                background: getThemeColor(3, $key);
+                z-index: 10;
+
+                .spinner {
+                    width: 50px;
+                    height: 50px;
+                    margin: auto;
+                    position: relative;
+                    top: calc(50% - 25px);
+                }
+            }
+            .preview-palyer-wrapper {
+                width: 100%;
+                height: calc(100% - 42px);
+                position: relative;
+                vertical-align: top;
+                margin-bottom: 10px;
+                background: black;
+                .video-loader-overlay {
+                    z-index:5;
+                    display: none;
+                    width: 100%;
+                    height: 100%;
+                    position: relative;
+                    text-align: center;
+
+                    .spinner {
+                        position: relative;
+                        display: block;
+                        height: 30px;
+                        margin: 0 auto;
+                        width: 30px;
+                        top: calc(50% - 15px);
+                    }
+                }
+                video {
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    vertical-align: top;
+                    background: black;
+                }
+
+                .tl-wrapper {
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    height: 10px;
+                    bottom: 0px;
+                    background: getThemeColor(4, $key);
+                    vertical-align: top;
+                    z-index: 10;
+
+                    .hidden-slider {
+                        z-index: 10;
+                        position: absolute;
+                        left:0;
+                        right: 0;
+                        top: 0;
+                        bottom: 0;
+                        width: 100%;
+                        -webkit-appearance: none;
+                        height: 10px;
+                        background-color: transparent;
+                        opacity: 0;
+
+                        &::-webkit-slider-thumb {
+                            -webkit-appearance: none;
+                            width: 10px;
+                            height: 10px;
+                            -webkit-border-radius: 0px;
+                            border-radius: 0px;
+                            background: red; /* Old browsers */
+                        }
+                    }
+
+                    .tl-fill {
+                        position: absolute;
+                        left:0;
+                        bottom: 0;
+                        top: 0;
+                        width: 0;
+                        background: getThemeColor(10, $key);
+                        vertical-align: top;
+                        z-index: 4;
+                    }
+
+                    .tl-file-end {
+                        position: absolute;
+                        background: getThemeColor(7, $key);
+                        width: 2px;
+                        top: 0;
+                        bottom: 0;
+                        vertical-align: top;
+                        z-index: 5;
+                    }
+
+                    .tl-file-buf {
+                        position: absolute;
+                        background: getThemeColor(12, $key);
+                        width: 0px;
+                        top: 0;
+                        bottom: 0;
+                        vertical-align: top;
+                        z-index: 3;
+                    }
+                }
+            }
+            .preview-palyer-button-wrapper {
+                display: flex;
+                flex-direction: row;
+                .preview-palyer-button {
+                    display: block;
+                    margin-right: 5px;
+
+                    i {
+                        display: block;
+                        vertical-align: top;
+                    }
+
+                }
+                .fas:before {
+                    font-family: FontAwesome!important;
+                    font-size: 13px!important;
+                    top: -2px;
+                    position: relative;
+                }
+                .subs-wrapper {
+                    position: absolute;
+                    background: getThemeColor(5, $key);
+                    width: 100px;
+                    bottom: 50px;
+                    left: 162px;
+                    z-index: 100;
+                    -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
+                    -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
+                    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
+                    .item {
+                        padding: 5px;
+                        &.selected {
+                            background: getThemeColor(10, $key);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

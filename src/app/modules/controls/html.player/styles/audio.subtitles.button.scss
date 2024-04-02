@@ -1,0 +1,51 @@
+@import "../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .video-js {
+            .vjs-custom-captions-button.vjs-hidden, .vjs-custom-audio-button.vjs-hidden {
+                display: block!important;
+                opacity: 0.6;
+                cursor: default;
+                .vjs-menu {
+                    display: none!important;
+                }
+                .icon {
+                    opacity: 0.4!important;
+                }
+            }
+            .vjs-custom-captions-button:focus:not(.vjs-hidden), .vjs-custom-audio-button:focus:not(.vjs-hidden) {
+                border-bottom: getThemeColor(7, $key) 2px solid;
+            }
+            .vjs-custom-captions-button.vjs-hidden:hover, .vjs-custom-audio-button.vjs-hidden:hover,
+            .vjs-custom-captions-button.vjs-hidden:focus, .vjs-custom-audio-button.vjs-hidden:focus {
+                box-shadow: none;
+            }
+            .vjs-custom-captions-button, .vjs-custom-audio-button {
+                position: relative;
+                .vjs-menu {
+                    right: 0;
+                    left: inherit;
+                    z-index: 2;
+                    li {
+                       text-transform: initial;
+                     }
+                }
+            }
+            .vjs-audio-button.vjs-hidden, .vjs-subtitles-button.vjs-hidden, .vjs-subs-caps-button.vjs-hidden, .quality-menu-btn.vjs-hidden {
+                pointer-events: none;
+                button {
+                    cursor: default;
+                    opacity: 0.4 !important;
+                    &:hover {
+                        opacity: 0.4 !important;
+                    }
+                }
+                display: block!important;
+            }
+            .vjs-menu-big-length .vjs-menu {
+                width: 20em;
+            }
+        }
+    }
+}

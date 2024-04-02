@@ -1,0 +1,21 @@
+export type MediaDetailHistoryResponse = {
+    $id: number,
+    ACTION_NAME: string,
+    LOGGING_FORMAT: string,
+    HistoryText: string,
+    LogEntry: string,
+    ID: string,
+    HIS_TYPE: number,
+    PARENT_ID: number,
+    PARENT_TYPE: number,
+    INT_VALUE1: any,
+    INT_VALUE2: any,
+    STR_VALUE1: any,
+    STR_VALUE2: any,
+    NOTES: string,
+    CREATED_BY: string,
+    CREATED_DT: string,
+    ACTION_ID: any,
+    VALUE_STRINGS: string,
+    EntityKey: any
+}

@@ -1,0 +1,36 @@
+@import "../../../../../../../base/styles/theme.scss";
+
+$multilineheight: 300px;
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        names-authoring-modal {
+            .names-authoring-modal-wrapper {
+                width: 100%;
+                height: 70vh;
+                position: relative;
+                overflow-x: hidden;
+                overflow-y: auto;
+                display: flex;
+                flex-direction: column;
+
+                .names-authoring {
+                    height: 100%;
+
+                    .modal-search-field-wrapper {
+                        height: 48px;
+
+                        .dialog-searchdropdown {
+                            display: none;
+                        }
+                    }
+
+                    .modal-names-tree-wrapper {
+                        height: calc(100% - 48px);
+                    }
+                }
+            }
+        }
+    }
+}

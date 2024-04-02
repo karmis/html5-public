@@ -1,0 +1,38 @@
+<div style="    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;">
+    <div style="flex:1;width: 100%;">
+        <div class="subtitles-grid-wrapper" style="width: 100%;">
+            <div class="subs-header-wrapper" [ngClass]="{'with-drop': (additionalSubs && additionalSubs.length > 0) || showSynchronizationBtn}">
+                <search-text-for-mark #searchTextComp [searchResource]="data.tableRows"
+                                  [config]="textMarkerConfig"
+                                  [externalSearchText]="externalSearchText"
+                ></search-text-for-mark>
+                <select
+                    #subs
+                    value="0"
+                    *ngIf="additionalSubs && additionalSubs.length > 0"
+                    (change)="setLangSubtitles($event.target.value, '', true)">
+                    <option value="0">Indexed</option>
+                    <option *ngFor="let item of additionalSubs" value="{{item.Id}}">{{item.Language + ' [' + item.Format + ']'}}</option>
+                </select>
+                <button style="margin: 0 5px;" *ngIf="showSynchronizationBtn"
+                        (click)="enabledSynchronization()"
+                        [ngClass]="{'active': synchronizationEnabled}"
+                        title="{{ 'common_hints.sync_subtitles' | translate }}"><i class="fa fa-link"></i></button>
+            </div>
+            <div id="externalWrapperSlickGridForInfoPanel" style="height: calc(100% - 40px);">
+                <slick-grid #subtitlesGrid class="ag-fresh text small-height-header"
+                        [ngClass]="{'standalone': standalone}"
+                        [config]="subtitlesGridOptions">
+                </slick-grid>
+            </div>
+        </div>
+    </div>
+    <div class="subtitles-media-notes" style=" flex: 0 0 250px;" *ngIf="mediaNotes.visible">
+        <textarea [(ngModel)]="mediaNotes.text"
+                  (ngModelChange)="onChangeNotes($event)"
+                  style="width: 100%; height: 100%; resize: none;" [disabled]="config.readOnly"></textarea>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+<div class="user-groups-manager" [ngSwitch]="mode">
+  <div class="ugm-container" *ngSwitchCase="'grid'">
+      <settings-groups-grid (selectSettingsGroup)="selectSettingsGroup($event)"></settings-groups-grid>
+  </div>
+  <div class="ugm-container" *ngSwitchCase="'details'">
+    <settings-groups-detail #settingsGroupDetails (back)="toGrid()"></settings-groups-detail>
+  </div>
+</div>

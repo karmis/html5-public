@@ -1,0 +1,21 @@
+<div #tablesGridWrapper class="config-tables" [ngClass]="{'editonly':tableData && tableData.EditOnly}">
+    <input class="data-filter" [ngClass]="{'hasactivefield': hasActiveField}" #datasetFilter placeholder="{{translateKey + '.filter_data' | translate}}" type="text" (input)="updateDataset($event.target.value)"/>
+    <div class="clear-dataset-filter" [ngClass]="{'hasactivefield': hasActiveField}" (click)="clearDatasetFilter()">
+        <i class="icons-cross icon"></i>
+    </div>
+    <button *ngIf="hasActiveField" class="hide-inactive-toggle" [ngClass]="{'active': hideInactive}" (click)="toggleInactive()">{{translateKey + ".hide_inactive" | translate}}</button>
+    <button *ngIf="tableData && !tableData.EditOnly" class="add-new-config" (click)="showModal()" title="{{translateKey + '.add_new' | translate}}">
+        <i class="icons-cross icon"></i>
+    </button>
+    <div class="config-tables-grid-wrapper">
+        <div id="externalWrapperCommonTables" style="height: 100%;">
+            <slick-grid #tablesGrid
+                        [config]="tablesGridOptions" class="small-height-header">
+            </slick-grid>
+        </div>
+    </div>
+    <div class="select-table-message" [hidden]="tableData && !emptyColumns">
+        <span>{{(translateKey + "." + (emptyColumns ? "no_columns" : "select_table")) | translate}}</span>
+    </div>
+</div>
+<overlay #overlayGroup [mode]="true" [zIndex]="100"></overlay>

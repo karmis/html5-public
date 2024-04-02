@@ -1,0 +1,15 @@
+@import "../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+  .#{$key} {
+    .icon-repeat-media {
+      width: 20px;
+      opacity: 0.6;
+      vertical-align: middle;
+      transition: all 0.2s ease-in-out;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}

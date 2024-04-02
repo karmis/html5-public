@@ -1,0 +1,30 @@
+@import "../../../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+      imfx-attachments-tab {
+        .h-tab-wrapper {
+          padding: 10px;
+          height: 100%;
+          .download-viewer-wrapper, .download-viewer {
+            padding: 0!important;
+            a.button {
+              height: 25px;
+              line-height: 25px;
+            }
+          }
+          .download-viewer-wrapper {
+            margin-top: -3px;
+          }
+          //.slick-header-column.ui-state-default, .slick-group-header-column.ui-state-default {
+          //  height: 25px!important;
+          //  line-height: 15px!important;
+          //}
+
+          .slick-cell {
+            //z-index: 2000!important;
+          }
+        }
+      }
+    }
+}

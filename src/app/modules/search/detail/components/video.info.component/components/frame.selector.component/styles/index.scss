@@ -1,0 +1,91 @@
+@import "../../../../../../../../views/base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+  .#{$key} {
+    .hide-elem-scroll {
+      //display: none;
+      height: 0px;
+      overflow:hidden;
+    }
+
+    .hide-cursor-frame {
+      display: none;
+    }
+
+    .frame-wrapper {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      width: 100%;
+      margin: 7px 0;
+      .elem {
+        cursor: pointer;
+        height: 60px;
+        margin: 5px 0;
+          image-rendering: -moz-crisp-edges;
+          image-rendering: -o-crisp-edges;
+          image-rendering: -webkit-optimize-contrast;
+          image-rendering: crisp-edges;
+          -ms-interpolation-mode: nearest-neighbor;
+      }
+      .elem-full {
+        width: 100%;
+      }
+      .elem-scroll {
+        width: auto;
+      }
+      .elem-full-wrapper {
+        display: inline-block;
+        cursor: pointer;
+        position: relative;
+        max-width: 100%;
+        width: auto;
+        .cursor {
+          position: absolute;
+          height:100%;
+          width: 1px;
+          border: 2px dashed getThemeColor(10, $key);
+          box-shadow: 0 8px 16px #333333;
+          top:0;
+        }
+        .cursor-frame {
+          position: absolute;
+          height:100%;
+          width: 1px;
+          border: 2px dashed getThemeColor(7, $key);
+          box-shadow: 0 8px 16px #333333;
+          top:0;
+        }
+      }
+      .elem-scroll-wrapper {
+        overflow: auto;
+        display: inline-block;
+        cursor: pointer;
+        position: relative;
+        max-width: 100%;
+        width: auto;
+        .cursor {
+          position: absolute;
+          height:100%;
+          width: 1px;
+          border: 2px dashed getThemeColor(10, $key);
+          box-shadow: 0 8px 16px #333333;
+          top:0;
+        }
+        .cursor-frame {
+          position: absolute;
+          height:100%;
+          width: 1px;
+          border: 2px dashed getThemeColor(7, $key);
+          box-shadow: 0 8px 16px #333333;
+          top:0;
+        }
+      }
+      .one-frame {
+        width: auto!important;
+      }
+    }
+
+  }
+}

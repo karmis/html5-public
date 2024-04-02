@@ -1,0 +1,23 @@
+@import "../../../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .events-tab-wrapper {
+            height: 100%;
+            .slick-cell.selected .select2-selection__rendered {
+                color: #FFFFFF !important;
+                &:hover {
+                    color: getThemeColor(16, $key) !important;
+                }
+            }
+            .slick-grid-wrapper {
+                height: calc(100% - 32px);
+            }
+            .total-duration {
+                float: right;
+                margin: 0;
+                line-height: 32px;
+            }
+        }
+    }
+}

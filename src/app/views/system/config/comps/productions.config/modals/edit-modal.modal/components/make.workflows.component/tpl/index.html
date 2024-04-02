@@ -1,0 +1,51 @@
+<div class="production-make-workflows-wrapper">
+    <div style="flex-grow: 2; margin-right: 1rem;">
+        <div *ngFor="let item of controlsConst"
+             class="field-row">
+            <div class="field-label">
+                {{item.title | translate}}
+            </div>
+            <div class="field-value">
+                <imfx-controls-select2
+                    *ngIf="lookups"
+                    [width]="'100%'"
+                    [allowClear]="true"
+                    [data]="_lookups[item.field]"
+                    [value]="[{id: data[item.field]}]"
+                    [placeholder]="'xml.select_value'|translate"
+                    [placeholderRefToTranslate]="'xml.select_value'"
+                    (onSelect)="onSelectWorkflow($event, item.field)"
+                    (onUnselect)="onSelectWorkflow($event, item.field)"
+                ></imfx-controls-select2>
+            </div>
+        </div>
+    </div>
+
+    <div style="flex-grow: 1;">
+        <h5 style="margin-top: .5rem;">
+<!--            {{item.title | translate}}-->
+            Production Workflow Parameters:
+        </h5>
+
+        <div class="" style="margin-top: 1rem;">
+            <div class="field-row">
+                <div class="field-label">
+                    Transcode/Conform
+                </div>
+                <input type="checkbox" [(ngModel)]="data['AUTO_TRANSCODE']" (ngModelChange)="onChange($event,'AUTO_TRANSCODE')">
+            </div>
+            <div class="field-row">
+                <div class="field-label">
+                    Pre-Assigned Version
+                </div>
+                <input type="checkbox" [(ngModel)]="data['AUTO_PREASSIGNED']" (ngModelChange)="onChange($event,'AUTO_PREASSIGNED')">
+            </div>
+            <div class="field-row">
+                <div class="field-label">
+                    Transcode Task Name
+                </div>
+                <input type="text" class="field-value" [(ngModel)]="data['TRANSCODE_NAME']" (ngModelChange)="onChange($event,'TRANSCODE_NAME')">
+            </div>
+        </div>
+    </div>
+</div>

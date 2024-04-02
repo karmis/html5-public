@@ -1,0 +1,31 @@
+@import "../../../../../../../../../base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .maps-api-wrapper {
+            height: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            padding: 1rem;
+            .maps-api-row {
+                display: flex;
+                flex-direction: column;
+                width: 50%;
+                .maps-key-api {
+                    position: relative;
+                    input {
+                        width: 100%;
+                        padding-right: 32px;
+                    }
+                    .settings-btn {
+                        position: absolute;
+                        right: 8px;
+                        top: 0;
+                        line-height: $baseline*2;
+                    }
+                }
+            }
+        }
+    }
+}

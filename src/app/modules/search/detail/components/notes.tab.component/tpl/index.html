@@ -1,0 +1,29 @@
+<div class="notes-tab-wrapper">
+    <div class="admin-notes-wrapper" *ngIf="config.adminNotes">
+        <div class="admin-notes">
+            <h2 class="admin-notes-label">Task Notes</h2>
+            <div class="admin-notes-text">{{config.adminNotes}}</div>
+        </div>
+    </div>
+    <div class="job-notes-wrapper">
+        <div class="job-notes">
+            <h2 class="job-notes-label">Workflow Notes</h2>
+            <div class="job-notes-text">{{config.jobNotes ? config.jobNotes : '-'}}</div>
+        </div>
+    </div>
+    <div class="user-notes">
+        <h2 style="flex: 0;" *ngIf="config.fileNotes">Notes from Operator</h2>
+        <textarea  style="flex: 1;" type="text" *ngIf="config.readOnly === true" class="readonly-text"
+            readonly
+            [(ngModel)]="config.fileNotes">
+        </textarea>
+        <div *ngIf="config.readOnly === false" style="flex: 1;">
+            <textarea type="text" autofocus
+                name="text"
+                class="form-control"
+                [(ngModel)]="config.fileNotes"
+                (ngModelChange)="onChangeNotes()"></textarea>
+        </div>
+    </div>
+</div>
+

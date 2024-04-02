@@ -1,0 +1,21 @@
+@import "../../../../../../../base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+  .#{$key} {
+      .global-settings-logger {
+          padding: 1rem 1rem 0;
+          .add-logger-wrapper {
+              display: flex;
+              input {
+                  vertical-align: top;
+                  flex: 1;
+              }
+
+              button {
+                  vertical-align: top;
+                  margin-left: 5px;
+              }
+          }
+      }
+  }
+}

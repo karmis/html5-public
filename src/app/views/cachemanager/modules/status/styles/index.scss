@@ -1,0 +1,27 @@
+@import "../../../../../views/base/styles/theme";
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .slick-cell {
+            .wrapper {
+                display: flex;
+                align-items: center;
+                height: 100%;
+                .indicator {
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 50%;
+                    border: 1px solid #999999;
+                    display: inline-block;
+                }
+                div.red {
+                    background-color: getThemeColor(13, $key) !important;
+                }
+                div.green {
+                    background-color: getThemeColor(12, $key) !important;
+                }
+            }
+        }
+    }
+}

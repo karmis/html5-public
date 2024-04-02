@@ -1,0 +1,46 @@
+@import "../../../../../../../base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+    .#{$key} {
+        .global-settings-player-hotkeys {
+            .form-group {
+                margin-bottom: .5rem;
+                input[type="checkbox"] {
+                    margin-left: 5px;
+                }
+                label {
+                    width: 145px;
+                    display: inline-block;
+                    margin-left: 15px;
+                    &[disabled] {
+                        opacity: .3;
+                    }
+                }
+                input[type="text"] {
+                    width: 150px;
+                    display: inline-block;
+                    &[disabled] {
+                        opacity: .4;
+                    }
+                }
+                .permanent-value{
+                    min-width: 150px;
+                    height: 32px;
+                    line-height: 28px;
+                    display: inline-block;
+                    padding: 0 8px;
+                    border: 2px solid getThemeColor(22, $key);
+                    border-left: none;
+                    background-color: getThemeColor(6, $key);
+                    opacity: .6;
+                    color: getThemeColor(9, $key);
+                    user-select: none;
+                }
+            }
+            button {
+                margin-right: 10px;
+                margin-top: 15px;
+            }
+        }
+    }
+}

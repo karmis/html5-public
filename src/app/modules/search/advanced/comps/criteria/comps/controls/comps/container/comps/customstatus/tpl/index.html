@@ -1,0 +1,11 @@
+<imfx-lookups-select2
+        #control
+        [multiple]="false"
+        [placeholder]="'base.selectOoo'|translate"
+        [lookupUrl]="'/api/lookup/'"
+        [placeholderRefToTranslate]="'base.selectOoo'"
+        [width]="'100%'"
+        [lookupType]="data.field.Name"
+        (onSelect)="transferData()"
+        (onUnselect)="transferData()"
+></imfx-lookups-select2>

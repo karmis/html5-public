@@ -1,0 +1,30 @@
+<div class="priority m-1">
+    <label>Complete Date:</label>
+    <imfx-controls-datetimepicker
+        #datetimepicker
+        [locale]="'common.locale' | translate"
+        [format]="'common.date_full_format' | translate"
+        [formatDate]="'common.date_format' | translate"
+        [formatTime]="'common.time_format' | translate"
+        [allowBlank]="true"
+        [mask]="true"
+        [minDate]="minDate"
+        [yearStart]="minDate.getFullYear()"
+        [dayOfWeekStart]="'common.date_of_week_start' | translate"
+        [timepicker]="true"
+        [datepicker]="true"
+        [readonly]="false"
+        (onChangeDateTime)="onSelectValue($event)"
+        (onSelectDate)="onSelectValue($event)"
+        (onSelectTime)="onSelectValue($event)"
+    ></imfx-controls-datetimepicker>
+</div>
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div class="buttons">
+            <button class="next primary" (click)="apply()" [disabled]="!currentDate">
+                {{ 'common.ok' | translate }}
+            </button>
+        </div>
+    </div>
+</ng-template>

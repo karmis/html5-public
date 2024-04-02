@@ -1,0 +1,113 @@
+@-webkit-keyframes rotating /* Safari and Chrome */
+{
+    from {
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rotating {
+    from {
+        -ms-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -ms-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+.rotating {
+    -webkit-animation: rotating 1s linear infinite;
+    -moz-animation: rotating 1s linear infinite;
+    -ms-animation: rotating 1s linear infinite;
+    -o-animation: rotating 1s linear infinite;
+    animation: rotating 1s linear infinite;
+}
+
+.spinner {
+    border-radius: 50%;
+    /*animation: spin 1s linear infinite;*/
+    transform-origin: 50% 50%;
+    transform: rotate(0deg);
+}
+
+#loadingoverlay-prebootstraping .spinner.large {
+    /*width: 100px;*/
+    /*height: 100px;*/
+    /*border-width: 12px;*/
+    width: 78px;
+    height: 78px;
+    border-width: 12px;
+}
+
+#loadingoverlay-prebootstraping .spinner.small {
+    /*width: 100px;*/
+    /*height: 100px;*/
+    /*border-width: 12px;*/
+    width: 30px;
+    height: 30px;
+    border-width: 12px;
+}
+
+.loadingoverlay {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 600;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-size: 80px;
+    overflow: hidden;
+}
+
+/* base*/
+#loadingoverlay-prebootstraping {
+    background-color: rgb(237, 241, 242);
+}
+#loadingoverlay-prebootstraping .spinner {
+    border: 12px solid rgba(42, 140, 234, 0.4);
+    border-top: 12px solid #2a8cea;
+}
+
+/*dark*/
+#loadingoverlay-prebootstraping.dark {
+    background-color: rgb(52, 64, 74);
+}
+#loadingoverlay-prebootstraping.dark .spinner {
+    border: 12px solid rgba(42, 140, 234, 0.4);
+    border-top: 12px solid #2a8cea;
+}
+
+/*default*/
+#loadingoverlay-prebootstraping.default {
+    background-color: rgb(237, 241, 242);
+}
+#loadingoverlay-prebootstraping.default .spinner {
+    border: 12px solid rgba(42, 140, 234, 0.4);
+    border-top: 12px solid #2a8cea;
+}
+
+.text-color-dark {
+    color: #F5F5F5;
+}
+
+.text-color-default {
+    color: #3f3f3f;
+}

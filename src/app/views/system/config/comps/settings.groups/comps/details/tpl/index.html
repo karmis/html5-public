@@ -1,0 +1,216 @@
+<div #settingsGroupDetails class="settings-groups-details-wrapper">
+
+    <nav class="ug-header">
+        <ul>
+            <li>
+                <button class="icon-button" title="{{ 'common.back_button' | translate }}" (click)="goBack()">
+                    <i style="position: relative;    top: -2px;" class="icons-left icon"></i>
+                </button>
+            </li>
+            <li>
+                <span style="margin-right: 28px; margin-left: 10px;">{{'settings_group.title' | translate}}:</span>
+                <input [(ngModel)]="settingsGroupName"
+                       [readOnly]="settingsGroup?.Id === 0"
+                       style="width: 300px"
+                       type="text" spellcheck="false" placeholder="{{ 'settings_group.name_column' | translate }}"
+                >
+                <input [(ngModel)]="settingsGroupDescription" [readOnly]="settingsGroup?.Id === 0"
+                       type="text"
+                       placeholder="{{ 'settings_group.description_column' | translate }}"
+                       style="border-left: 0; width: 300px"
+                >
+                <button class="save-button primary" (click)="saveSettingsGroup()"
+                        *ngIf="!loading; else loadingicon">{{ 'common.save' | translate }}</button>
+                <ng-template #loadingicon>
+                    <div class="spinner icon"></div>
+                </ng-template>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="sub-categories-list-wrapper">
+
+        <div class="sub-categories-list">
+            <div *ngFor="let item of preparedSubCategories"
+                 class="sub-category"
+                 title="{{item.name | translate}}"
+                 [ngClass]="{'active': item.id == activeSubCategory && item.id !== 2}"
+                 (click)="selectSubCategory(item.name, item.id)">
+                {{item.name}}
+                <ng-template [ngIf]="item.children && item.children.length > 0">
+                    <div
+                            class="sub-menu-types"
+                            *ngIf="activeSubCategory === item.id">
+                        <div
+                                *ngFor="let itemChild of item.children; let indexChild = index;"
+                                (click)="selectSubCategory(item.id, indexChild);"
+                                [ngClass]="{'active-sub': selectedSearchByFields === indexChild }">
+                            {{itemChild.name}}
+                        </div>
+                    </div>
+                </ng-template>
+            </div>
+
+        </div>
+
+        <div class="category-container">
+            <settings-groups-detail-defaults [hidden]="activeSubCategory !== 0"
+                                             #configDefaultsComp
+                                             *ngIf="configDefault"
+                                             [configDefault]="configDefault"
+                                             (changedDefaultSearch)="onChangeDefaultSearch($event)"
+                                             (onChangeDefaultDefaultLayoutForType)="onChangeDefaultDefaultLayoutForType($event)"
+                                             (changedDefaultHomePage)="onChangeDefaultHomePage($event)"
+                                             (changedDefaultHelpdeskUrl)="onChangeDefaultHelpdeskUrl($event)"
+                                             (changedDefaultCustomLabels)="onChangeDefaultCustomLabels($event)"
+            ></settings-groups-detail-defaults>
+            <settings-groups-detail-search-screen [hidden]="activeSubCategory !== 1"
+                                                  #settingsGroupsDetailSearchScreenComponent
+                                                  *ngIf="startSearchSettings"
+                                                  [startSearchSettings]="startSearchSettings"
+            ></settings-groups-detail-search-screen>
+            <settings-groups-detail-search-by-fields [hidden]="activeSubCategory !== 2"
+                                                     *ngIf="searchFields && columnsMedia && columnsVersion && columnsSimple"
+                                                     [searchFields]="searchFields"
+                                                     [columnsMedia]="columnsMedia"
+                                                     [columnsVersion]="columnsVersion"
+                                                     [columnsSimple]="columnsSimple"
+                                                     [columnsTitle]="columnsTitle"
+                                                     [columnsMediaPortal]="columnsMediaPortal"
+                                                     [columnsVideoBrowser]="columnsVideoBrowser"
+                                                     [defaultSearchColumnsMedia]="defaultSearchColumnsMedia"
+                                                     [defaultSearchColumnsVersion]="defaultSearchColumnsVersion"
+                                                     [defaultSearchColumnsSimple]="defaultSearchColumnsSimple"
+                                                     [defaultSearchColumnsTitle]="defaultSearchColumnsTitle"
+                                                     [defaultSearchColumnsMediaPortal]="defaultSearchColumnsMediaPortal"
+                                                     [defaultSearchColumnsVideoBrowser]="defaultSearchColumnsVideoBrowser"
+                                                     [selectedSearchByFields]="selectedSearchByFields"
+                                                     (changeFields)="onChangeSearchDefaultFields($event)"
+            ></settings-groups-detail-search-by-fields>
+            <!--            <settings-groups-detail-facets [hidden]="activeSubCategory !== 3"-->
+            <!--                                           *ngIf="facets"-->
+            <!--                                           (changeFacets)="onChangeFacetItem()"-->
+            <!--                                           [facets]="facets"-->
+            <!--            ></settings-groups-detail-facets>-->
+            <settings-groups-detail-item-layout [hidden]="activeSubCategory !== 4"
+                                                #settingsGroupsDetailsItemLayoutComponent
+                                                *ngIf="consumerItemSettings"
+                                                [consumerItemSettings]="consumerItemSettings"
+            ></settings-groups-detail-item-layout>
+            <settings-groups-detail-detail-layout [hidden]="activeSubCategory !== 5"
+                                                  #settingsGroupsDetailsDetailsLayoutComponent
+                                                  *ngIf="consumerDetailsSettings"
+                                                  [consumerDetailsSettings]="consumerDetailsSettings"
+            ></settings-groups-detail-detail-layout>
+
+
+            <settings-groups-detail-search-layout [hidden]="activeSubCategory !== 6"
+                                                  *ngIf="layoutSettings"
+                                                  [layoutSettings]="layoutSettings"
+                                                  (changeSearchLayout)="onChangeSearchLayout($event)"
+            ></settings-groups-detail-search-layout>
+            <settings-groups-detail-upload-layout [hidden]="activeSubCategory !== 7"
+                                                  [type]="'upload'"
+                                                  #settingsGroupsDetailsUploadLayoutComponent
+                                                  *ngIf="uploadSearchSettings"
+                                                  [uploadSearchSettings]="uploadSearchSettings"
+                                                  (changeUploadSearchSettings)="onChangeUploadSearchSettings($event)"
+            ></settings-groups-detail-upload-layout>
+            <settings-groups-detail-upload-layout [hidden]="activeSubCategory !== 8"
+                                                  [type]="'login'"
+                                                  #settingsGroupsDetailsRemoteUploadLayoutComponent
+                                                  *ngIf="remoteUploadSearchSettings"
+                                                  [uploadSearchSettings]="remoteUploadSearchSettings"
+                                                  (changeUploadSearchSettings)="onChangeRemoteUploadSearchSettings($event)"
+            ></settings-groups-detail-upload-layout>
+            <settings-groups-misr-details-fields [hidden]="activeSubCategory !== 9"
+                                                 *ngIf="searchFields && columnsMisrDetailsMedia"
+                                                 [searchFields]="searchFields"
+                                                 [columnsMisrDetailsMedia]="columnsMisrDetailsMedia"
+                                                 [defaultSearchMisrDetailsMediaColumns]="defaultSearchMisrDetailsMediaColumns"
+                                                 (changedFields)="onChangeSearchDefaultMisrFields($event);"
+            ></settings-groups-misr-details-fields>
+            <settings-groups-version-creation [hidden]="activeSubCategory !== 10"
+                                              *ngIf="versionCreationSettings"
+                                              [versionCreationSettings]="versionCreationSettings"
+                                              (changedVersionCreationSettings)="onChangeVersionCreationSettings($event)"
+            ></settings-groups-version-creation>
+            <settings-groups-advanced-associate [hidden]="activeSubCategory !== 11"
+                                                #settingsGroupsAdvancedAssociateComponent
+                                                *ngIf="advancedMediaAssociateSettings && advancedVersionAssociateSettings"
+                                                [advancedMediaAssociateSettings]="advancedMediaAssociateSettings"
+                                                [advancedSchemaSettings]="advancedSchemaSettings"
+                                                [advancedVersionAssociateSettings]="advancedVersionAssociateSettings"
+                                                [advancedMediaAssociateSavedSearchId]="advancedMediaAssociateSavedSearchId"
+                                                [advancedVersionAssociateSavedSearchId]="advancedVersionAssociateSavedSearchId"
+                                                [associateMediaVersionColumnsOrderSettings]="associateMediaVersionColumnsOrderSettings"
+                                                [associateMediaMediaColumnsOrderSettings]="associateMediaMediaColumnsOrderSettings"
+                                                [wfRiseSettings]="wfRiseSettings"
+                                                [settingsGroup]="settingsGroup"
+            ></settings-groups-advanced-associate>
+            <settings-groups-advanced-associate-media [hidden]="activeSubCategory !== 12"
+                                                      #settingsGroupsAdvancedAssociateMediaComponent
+                                                      *ngIf="advancedMediaAssociateMediaSettings && advancedUnasMediaAssociateMediaSettings"
+                                                      [advancedUnasMediaAssociateMediaSettings]="advancedUnasMediaAssociateMediaSettings"
+                                                      [advancedMediaAssociateMediaSettings]="advancedMediaAssociateMediaSettings"
+                                                      [advancedUnasMediaAssociateMediaSavedSearchId]="advancedUnasMediaAssociateMediaSavedSearchId"
+                                                      [advancedMediaAssociateMediaSavedSearchId]="advancedMediaAssociateMediaSavedSearchId"
+                                                      [associateMediaWFRiseSettings]="associateMediaWFRiseSettings"
+                                                      [associateMediaUnAssocColumnsOrderSettings]="associateMediaUnAssocColumnsOrderSettings"
+                                                      [associateMediaAssocColumnsOrderSettings]="associateMediaAssocColumnsOrderSettings"
+                                                      [settingsGroup]="settingsGroup"
+            ></settings-groups-advanced-associate-media>
+
+            <settings-groups-advanced-supplier-portal [hidden]="activeSubCategory !== 13"
+                                                      #settingsGroupsAdvancedSupplierPortalComponent
+                                                      *ngIf="advancedAllOrdersSearchCriteria"
+                                                      [versionCompleteSettings]="versionCompleteSettings"
+                                                      [viewsAllOrders]="supplierPortalDefaultViewsAllOrders"
+                                                      [viewsDelHistory]="supplierPortalDefaultViewsDelHistory"
+                                                      [advancedAllOrdersSearchCriteria]="advancedAllOrdersSearchCriteria"
+                                                      [advancedDelHistorySearchCriteria]="advancedDelHistorySearchCriteria"
+                                                      [versionNameOrder]="versionNameOrder"
+                                                      [supplierAllOrdersColumnsSetup]="supplierAllOrdersColumnsSetup"
+                                                      [supplierDelHistColumnsSetup]="supplierDelHistColumnsSetup"
+                                                      [settingsGroup]="settingsGroup"
+            ></settings-groups-advanced-supplier-portal>
+
+            <details-view-metadata-config [hidden]="activeSubCategory !== 14" #detailsViewMetadataConfig
+                                          [settingsGroup]="settingsGroup"
+            ></details-view-metadata-config>
+            <settings-groups-video-browser-app [hidden]="activeSubCategory !== 15"
+                                               *ngIf="videoBrowserAppSettings"
+                                               [videoBrowserAppSettings]="videoBrowserAppSettings"
+                                               (changedVideoBrowserAppSettings)="onChangeVideoBrowserAppSettings($event)"
+            ></settings-groups-video-browser-app>
+            <settings-groups-confidence-feed [hidden]="activeSubCategory !== 16"
+                                             *ngIf="confidenceFeedSettings"
+                                             [settings]="confidenceFeedSettings"
+                                             (changedSettings)="onChangeConfidenceFeedSettings($event)"
+            ></settings-groups-confidence-feed>
+
+            <terms-conditions [data]="termsConditionsData" [settingsGroup]="settingsGroup"
+                              [hidden]="activeSubCategory !== 17"></terms-conditions>
+
+            <settings-groups-raise-workflow [hidden]="activeSubCategory !== 18"
+                                            *ngIf="raiseWorkflowSettings"
+                                            [raiseWorkflowSettings]="raiseWorkflowSettings"
+                                            (changedRaiseWorkflowSettings)="onChangeRaiseWorkflowSettings($event)"
+            ></settings-groups-raise-workflow>
+            <google-maps-api [hidden]="activeSubCategory !== 19"
+                             *ngIf="googleMapsApiSettings"
+                             [googleMapsApiSettings]="googleMapsApiSettings"
+                             (changedGoogleMapsApiSettings)="onChangeGoogleMapsApiSettings($event)"></google-maps-api>
+            <video-player-settings [hidden]="activeSubCategory !== 20"
+                                   *ngIf="videoPlayerSettings"
+                                   [videoPlayerSettings]="videoPlayerSettings"
+                                   (onChangeVideoPlayerSettings)="onChangeVideoPlayerSettings($event)"></video-player-settings>
+            <main-menu-urls-settings [hidden]="activeSubCategory !== 21"
+                                   *ngIf="mainMenuSettings"
+                                   [mainMenuSettings]="mainMenuSettings"
+                                   (onChangeMainMenuSettings)="onChangeMainMenuSettings($event)"></main-menu-urls-settings>
+
+        </div>
+    </div>
+</div>
+<overlay #overlayGroupDetails [mode]="true" [zIndex]="100"></overlay>

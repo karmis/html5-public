@@ -1,0 +1,251 @@
+@import "../../../../../../../../../base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+    .#{$key} {
+
+        loading-icons-detail {
+            height: 100%;
+            .theme-back {
+                min-height: 300px;
+                height: 48%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+            }
+            .dark-theme {
+                background-color: getThemeColor(3, dark);
+                label, .tip {
+                    color: white !important;
+                }
+            }
+            .background-wrap {
+                .tip {
+                    color: getThemeColor(16, $key) !important;
+                }
+            }
+            .light-theme {
+                background-color: getThemeColor(3, default);
+                label, .tip {
+                    color: black !important;
+                }
+            }
+            .default-settings-wrapper {
+                overflow: auto;
+            }
+            .small-logo {
+                position: absolute;
+                top: 5px;
+                left: 0;
+            }
+            .big-logo {
+                //position: relative;
+                //top: 25%;
+                //left: 45%;
+            }
+            .default-settings-row {
+                height: 100%;
+                &-title {
+                    display: block;
+                    margin-bottom: 10px;
+                }
+            }
+            .settings-groups-details-wrapper {
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+
+                .start-search-block .search-row-wrapper.consumer-search {
+                    justify-content: normal;
+                }
+
+                .tab-pane {
+                    margin-top: 5px;
+                }
+
+                .ug-header {
+                    ul {
+                        margin-bottom: 1rem;
+                    }
+
+                    li {
+                        display: inline-block;
+                        margin: 0;
+                        border: 0;
+                        vertical-align: middle;
+                    }
+
+                    h1 {
+                        margin-bottom: 0;
+                    }
+                }
+
+                .spinner.icon {
+                    display: inline-block;
+                    margin: 0 5px;
+                }
+
+                tab {
+                    height: 100%;
+                }
+
+                .nav-tabs {
+                    padding-left: 10px;
+                }
+
+                .tab-content {
+                    height: calc(100% - 81px);
+                    padding-left: 10px;
+                }
+
+                .sub-categories-list-wrapper {
+                    //display: inline-block;
+                    //width: 250px;
+                    height: calc(100% - 45px);
+                    display: flex;
+                    position: relative;
+                }
+
+                .sub-categories-list {
+                    //width: 100%;
+                    //overflow-x: hidden;
+                    overflow-y: auto;
+                    max-width: 250px;
+                    flex: 0 1 180px;
+                    background: getThemeColor(4, $key);
+                    //height: calc(100% - 32px);
+                    //background: getThemeColor(4, $key);
+
+                    .sub-category {
+                        width: 100%;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                        display: block;
+                        line-height: 26px;
+                        padding: 0 5px;
+                        cursor: pointer;
+                        overflow: hidden;
+
+                        //&:hover {
+                        //    background: getThemeColor(5, $key);
+                        //}
+                        &.active {
+                            background: getThemeColor(10, $key);
+                            border: none;
+                            color: #fff;
+                        }
+                    }
+
+                    .sub-menu-types {
+                        background: getThemeColor(5, $key);
+
+                        & > div {
+                            padding-left: 25px;
+                        }
+
+                        & .active-sub {
+                            background: getThemeColor(10, $key);
+                            border: none;
+                            color: #fff;
+                        }
+                    }
+                }
+
+                .category-container {
+                    //toDo
+                    //display: inline-block;
+                    padding: 1rem;
+                    flex: 1;
+                    margin-left: 1rem;
+                    //left: 1rem;
+                    //position: relative;
+                    vertical-align: top;
+                    background: getThemeColor(4, $key);
+                    overflow: hidden;
+                }
+
+            }
+
+            .logo-images-wrapper {
+                display: flex;
+                flex-direction: row;
+                overflow-x: auto;
+                overflow-y: hidden;
+
+                .logo-image-wrapper {
+                    margin-right: 15px;
+                    cursor: pointer;
+                    //height: 90px;
+                    //width: 80px;
+                    padding: 2px;
+                    text-align: center;
+                    //border: 2px solid transparent;
+                    span {
+                        line-height: 80px;
+                    }
+                    label {
+                        margin-top: 5px;
+                        text-transform:capitalize;
+                    }
+                    img {
+                        //width: 80px;
+                        height: 80px;
+                    }
+
+                    &:hover {
+                        ////border: 2px solid blue;
+                        //box-shadow: 0 8px 16px rgba(51, 60, 69, 0.08);
+                        //border-bottom: getThemeColor(7, $key) 2px solid;
+                    }
+
+                    &.selected {
+                        border-bottom: getThemeColor(7, $key) 2px solid;
+                    }
+                }
+            }
+
+            //.logo-images-wrapper {
+            //    display: flex;
+            //    flex-direction: row;
+            //    overflow-x: auto;
+            //    overflow-y: hidden;
+            //}
+            //
+            //.logo-image-wrapper {
+            //    margin-right: 15px;
+            //    /* cursor: pointer; */
+            //    height: 90px;
+            //    width: 80px;
+            //    /* padding: 2px; */
+            //    /* text-align: center; */
+            //    display: flex;
+            //    justify-content: center;
+            //    align-items: center;
+            //}
+
+            .logo-image-wrapper img {
+                //height: 100px;
+            }
+
+            .no-logo {
+
+            }
+
+
+            .background {
+                position: absolute;
+                overflow: hidden;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                background-size: cover;
+                background-position: center center;
+                background-repeat: no-repeat;
+                opacity: 0.2;
+            }
+
+        }
+
+    }
+}

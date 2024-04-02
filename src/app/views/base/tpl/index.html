@@ -1,0 +1,65 @@
+<div class="{{themesProvider.theme_class}} full-height common-app-wrapper timeout-wrapper overlay-wrapper">
+    <div class="full-height body">
+        <nav class="main-menu" *accessmode="moduleAllowed()">
+            <ul style="height: inherit">
+                <li class="logo">
+                    <i class="icons-menu icon"></i>
+                    <div (click)="goHome()" class="main-logo-wrapper">
+                        <img [src]="mainLogo" *ngIf="mainLogo" class="main-logo"
+                             #imgBigLogo
+                             (error)="imgBigLogo.hidden = true; isBigLogo = true"
+                             (load)="imgBigLogo.hidden = false; isBigLogo = false">
+                        <a>
+                            i-mediaflex
+                            <span (mouseover)="showVersions($event)"
+                                  (click)="callAboutInfo($event)"
+                            >
+                                {{appVersion}}
+                            </span>
+                            <div class="version-tooltip">
+                                Build: {{appVersion}}
+                                <br/>
+                                Server Version: {{loginProvider.serverVersion}}
+                            </div>
+                        </a>
+
+                    </div>
+                </li>
+                <li class="full-height nav-center">
+                    <base-top-menu style="height: inherit"></base-top-menu>
+                </li>
+                <li class="full-height nav-right">
+                    <ul class="right-controls">
+                        <base-upload-menu #baseUploadMenu
+                                          *ngIf="loginSettings.isLogged==true && hasPermissionByName('media_upload')"></base-upload-menu>
+                        <media-basket-panel-component *ngIf="hasPermissionByName('media-basket')"
+                                                      #basket></media-basket-panel-component>
+                        <base-profile></base-profile>
+                        <base-mobile-menu></base-mobile-menu>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div class="full-height-width-block-external">
+            <main class="full-height">
+                <router-outlet (activate)="onRouterOutletActivate($event)"></router-outlet>
+            </main>
+        </div>
+    </div>
+    <!-- Notification -->
+    <notification #notification></notification>
+
+    <!--Language switcher-->
+    <base-language-switcher [isVisible]="false"></base-language-switcher>
+
+    <!--Overlay loader-->
+    <overlay #overlay [fade]="false" [color]="getOverlayColor(themesProvider.theme_class)"></overlay>
+
+    <!--<div *ngIf="loginSettings.isLogged==true">-->
+    <!--</div>-->
+</div>
+
+
+
+
+

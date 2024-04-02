@@ -1,0 +1,53 @@
+<div class="h-tab-wrapper">
+    <div class="" style="position: relative; height:100%;   display: flex;
+    flex-direction: column;">
+        <!--Header-->
+      <div class="row-header">
+        <nav>
+          <ul>
+            <li>
+                <search-thumbs
+                        #searchThumbsComp
+                        [config]="searchThumbsConfig"
+                ></search-thumbs>
+            </li>
+              <li style="margin-top: 4px" [hidden]="needUpdateGrid === false">
+                  <i class="imfx-icon fa fa-refresh pulse refresh-grid-icon" style="margin-top: 0;font-size: 15px;" title="Refresh" (click)="onClickRefreshGrid()"></i>
+              </li>
+          </ul>
+        </nav>
+        <nav>
+          <ul>
+              <li [hidden]="!hasPermissionByName('views-modify')"><label>{{ 'common.view' | translate}}:</label></li>
+              <li [hidden]="!hasPermissionByName('views-modify')">
+                  <search-views
+                    #viewsComp
+                    [config]="searchViewsConfig"
+                    [rightSidePosition]="true"
+                  ></search-views>
+              </li>
+              <li [hidden]="!(config.exportEnable && hasPermissionByName('export-options'))">
+                  <search-settings
+                      [config]="searchSettingsConfig"
+                  ></search-settings>
+              </li>
+          </ul>
+        </nav>
+      </div>
+
+        <!--Body-->
+        <div style="height: calc(100% - 32px);margin-top:0;">
+            <div style="height: 100%;width: 100%;" id="externalWrapperSlickGridForMediaTab" class="slick-grid-media-tab">
+                <slick-grid
+                    #slickGridComp
+                    class="media-grid vertical-align-row small-height-header"
+                    style="width: 100%;  height: 100%"
+                    [config]="searchGridConfig"
+                ></slick-grid>
+            </div>
+        </div>
+    </div>
+
+    <!--Settings dropdown-->
+    <media-item-ellipsis-dropdown [slickGridComp]="slickGridComp"></media-item-ellipsis-dropdown>
+</div>

@@ -1,0 +1,37 @@
+@import "../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+      download-viewer {
+        .download-viewer {
+          display: block;
+          line-height: 20px;
+          height: 20px;
+          cursor: pointer;
+          position: relative;
+          text-align: center;
+
+          a {
+            height: 20px;
+            line-height: 20px;
+            color: getThemeColor(1, $key) !important;
+            text-decoration: none !important;
+          }
+
+          i:before {
+            top: -2px;
+            position: relative;
+          }
+        }
+      }
+      .selected {
+        download-viewer {
+          .download-viewer {
+            a {
+              color: #fff !important;
+            }
+          }
+        }
+      }
+    }
+}

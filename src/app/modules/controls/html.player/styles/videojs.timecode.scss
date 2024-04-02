@@ -1,0 +1,60 @@
+@import "../../../../views/base/styles/theme.scss";
+@each $key, $value in $common-themes {
+    .#{$key} {
+        #enter-timecode-wrapper {
+            position: absolute;
+            top: -20px;
+            left: 2px;
+            .icons-cross {
+                position: absolute;
+                top: 0;
+                right: 0px;
+                &:before {
+                    font-size: 13px;
+                    line-height: 20px;
+                }
+            }
+            .enter-timecode {
+                height: 20px;
+                line-height: 20px;
+                width: 90px;
+                font-size: 10px;
+                text-align: center;
+                padding-right: 20px;
+            }
+            .error, .error:focus {
+                border: 1px getThemeColor(13, $key) solid !important;
+            }
+        }
+
+        .vjs-timecode {
+            .live-icon {
+                width: 9px;
+                height: 9px;
+                border: 1px solid getThemeColor(1, $key);
+                display: inline-block;
+                border-radius: 8px;
+                position: absolute;
+                right: -9px;
+                top: 8px;
+                animation: colorchange 2s;
+                -webkit-animation: colorchange 2s;
+                animation-iteration-count:infinite;
+            }
+
+            @keyframes colorchange
+            {
+                0%   {background: transparent;}
+                25% {background: red;}
+                75%   {background: transparent;}
+            }
+
+            @-webkit-keyframes colorchange
+            {
+                0%   {background: transparent;}
+                25% {background: red;}
+                75%   {background: transparent;}
+            }
+        }
+    }
+}

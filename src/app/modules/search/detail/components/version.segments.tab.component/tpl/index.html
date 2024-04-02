@@ -1,0 +1,13 @@
+<div class="segments-tab-wrapper">
+    <div class="segments-btns">
+        <button [disabled]="copyToMediaDisBtn()" (click)="onCopyMedia()">Copy To Media</button>
+    </div>
+    <slick-grid
+        #segmentsAudioGrid
+        class="segments-audio-grid vertical-align-row small-height-header"
+        [ngClass]="{'with-credit': showCredit}"
+        style="width: 100%;"
+        [config]="segmentsAudioGridOptions"
+    ></slick-grid>
+</div>
+

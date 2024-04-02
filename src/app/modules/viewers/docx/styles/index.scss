@@ -1,0 +1,17 @@
+@import "../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .docx-wrapper {
+            height: 100%;
+            .viewer-doc {
+                overflow: auto;
+                height: 100%;
+                width: 100%;
+                background-color: white;
+                color: black;
+                padding: 2em;
+            }
+        }
+    }
+}

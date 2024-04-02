@@ -1,0 +1,121 @@
+
+<div class="settings">
+    <div class="settings__row">
+        <div class="label">{{"settings_group.branding.opacity" | translate}}</div>
+        <div class="control">
+            <input type="range"
+                   #opacityRanger (input)="set('opacity', opacityRanger.value);"
+                   [value]="selectedOpacity"
+                   step="0.05"
+                   style="height: 7px; width: 100%"
+                   min="0"
+                   max="1">
+        </div>
+    </div>
+    <div class="settings__row">
+        <div class="label">{{"settings_group.branding.group" | translate}}</div>
+        <div class="control">
+            <imfx-controls-select2
+                #visualGroupSelectEl
+                [width]="'100%'"
+                [multiple]="false"
+                [data]="[visualGroupSelect.data]"
+                [selected]="visualGroupSelect.selectedId"
+                [placeholder]="'base.selectOoo'|translate"
+                (onSelect)="onVisualGroupSelect($event)"
+                [allowClear]="true"
+                (onUnselect)="onVisualGroupSelect(null)"
+                [placeholderRefToTranslate]="'base.selectOoo'"></imfx-controls-select2>
+        </div>
+    </div>
+
+    <div class="settings__row settings__row--spread">
+        <div class="label">{{"settings_group.branding.try_theme" | translate}}</div>
+        <div class="control">
+            <div class="radio">
+                <label>
+                    <input
+                        type="radio"
+                        name="theme"
+                        value="default"
+                        [(ngModel)]="theme"
+                        (change)="onChangeColorSchema($event)">
+                    Default
+                </label>
+                <label>
+                    <input
+                        type="radio"
+                        name="theme"
+                        value="dark"
+                        [(ngModel)]="theme"
+                        (change)="onChangeColorSchema($event)">
+                    Dark
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="start-search" [ngSwitch]="backgrounds[selectedBackground]?.type" [class]="theme">
+    <div *ngSwitchCase="'img'" class="background"
+         [ngStyle]="{'background-image': 'url(' + backgrounds[selectedBackground].url + ')', 'opacity': selectedOpacity }"></div>
+    <div *ngSwitchCase="'assets_group'" class="background"
+         [ngStyle]="{'background-image': 'url(' + backgrounds[selectedBackground].url + ')', 'opacity': selectedOpacity }"></div>
+    <div *ngSwitchCase="'video'" class="background"
+         [ngStyle]="{'background-image': 'url(' + backgrounds[selectedBackground].preview + ')'}"></div>
+    <!--<div *ngSwitchCase="'video'" class="background">-->
+    <div *ngIf="backgrounds[selectedBackground]?.type == 'video'" class="background">
+        <video class="iw_userfiles_video" playsinline="" autoplay="" muted="" loop=""
+               [src]="backgrounds[selectedBackground].url">
+            <img [src]="backgrounds[selectedBackground].preview" alt="" class="imfx-allow-dnd">
+        </video>
+    </div>
+    <div class="start-search-block">
+        <div class="search-row-wrapper consumer-search full-height" #simpleSearch>
+            <!--             [ngClass]="{'light-theme': theme === 'default', ''}"-->
+            <div class="theme-back">
+                <div class="small-logo">
+                    <img *ngIf="themeSettings[theme].smallLogo"
+                         [src]="themeSettings[theme].smallLogo"
+                         #imgSmallLogo
+                         (error)="imgSmallLogo.hidden = true"
+                         (load)="imgSmallLogo.hidden = false">
+                </div>
+                <div class="big-logo">
+                    <img *ngIf="themeSettings[theme].bigLogo"
+                         [src]="themeSettings[theme].bigLogo"
+                         #imgBigLogo
+                         (error)="imgBigLogo.hidden = true"
+                         (load)="imgBigLogo.hidden = false">
+                </div>
+            </div>
+            <div style="height: 150px">
+                <input [(ngModel)]="title" class="fake-label title" placeholder="{{'settings_group.branding.title' | translate}}">
+                <input [(ngModel)]="subtitle" class="fake-label subtitle" placeholder="{{'settings_group.branding.subtitle' | translate}}">
+            </div>
+            <div class="backgrounds-selector" style="height: 150px">
+                <div *ngFor="let key of backgroundsKeys" class="item"
+                     [ngClass]="{'selected': selectedBackground == key}" (click)="selectBackground(key)">
+                    <img *ngIf="backgrounds[key].type=='img' && backgrounds[key].url"
+                         [src]="backgrounds[key].url"
+                         class="imfx-allow-dnd">
+
+                    <img *ngIf="backgrounds[key].type=='video'"
+                         [src]="backgrounds[key].preview"
+                         class="imfx-allow-dnd">
+
+                    <img *ngIf="backgrounds[key].type=='assets_group'"
+                         [src]="backgrounds[key].url"
+                         class="imfx-allow-dnd"
+                         #img
+                         (error)="backLoadFail(img)"
+                         (load)="backLoadSuccess(img)">
+                    <div *ngIf="backgrounds[key].type=='empty'" class="no-background">
+                        <h2>{{"settings_group.branding.no_background" | translate}}</h2>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

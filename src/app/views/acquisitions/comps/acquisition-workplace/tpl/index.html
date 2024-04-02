@@ -1,0 +1,137 @@
+<div class="full-height full-width acquisition-workplace-wrapper" #overlayWrapper>
+    <div class="back-button-clause">
+        <button *ngIf="!isFirstLocation()"  class="icon-button" title="{{ 'common.back_button' | translate }}"
+                (click)="clickBack()">
+            <i class="icons-left icon"></i>
+        </button>
+    </div>
+  <div class="header-wrapper" *ngIf="mainData != null">
+    <div class="cols-wrapper">
+      <div class="left-cols">
+        <div class="row-wrapper">
+          <div class="title" title="Transfer Job No.">Transfer Job No.</div>
+          <div class="value" title="{{mainData['ALT_ID1']}}">{{mainData['ALT_ID1']}}</div>
+        </div>
+        <div class="row-wrapper">
+          <div class="title" title="Status">Status</div>
+          <div class="value" title="{{mainData['STATUS_TEXT']}}">{{mainData['STATUS_TEXT']}}</div>
+        </div>
+        <div class="row-wrapper">
+          <div class="title" title="System Status">System Status</div>
+          <div class="value" title="{{mainData['SYSTEM_STATUS']}}">{{mainData['SYSTEM_STATUS']}}</div>
+        </div>
+      </div>
+      <div class="right-cols">
+        <div class="row-wrapper">
+          <div class="title" title="Acquisition ID">Acquisition ID</div>
+          <div class="value" title="{{mainData['ID']}}">{{mainData['ID']}}</div>
+        </div>
+        <div class="row-wrapper">
+          <div class="title" title="Created">Created</div>
+          <div class="value" title="{{mainData['CREATED'] | localDate: datetimeFullFormatLocaldatePipe}}">{{mainData['CREATED'] | localDate: datetimeFullFormatLocaldatePipe}}</div>
+        </div>
+        <div class="row-wrapper">
+          <div class="title" title="Updated">Updated</div>
+          <div class="value" title="{{mainData['UPDATED'] | localDate: datetimeFullFormatLocaldatePipe}}">{{mainData['UPDATED'] | localDate: datetimeFullFormatLocaldatePipe}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-buttons">
+      <button type="text" [ngClass]="{'active': activeTab == 0}" (click)="changeTab(0)">Acquisition</button>
+      <button type="text" [ngClass]="{'active': activeTab == 1}" (click)="changeTab(1)">Articles</button>
+      <button type="text" *ngIf="activeTab == 0" (click)="toggleTree(true)">Expand All</button>
+      <button type="text" *ngIf="activeTab == 0" (click)="toggleTree(false)">Collapse All</button>
+      <!--button type="text" (click)="newContactShow()">New Contact</button>
+        <button type="text" [ngClass]="{'active': activeTab == 2}" (click)="changeTab(2)">Proposals</button-->
+        <button type="text">Accessioned</button>
+        <button type="text">Transfers</button>
+        <button type="text">Refresh</button>
+        <button type="text">Reserve Space</button>
+        <button type="text">Create Template</button>
+      <!-- <button type="text" (click)="editAcquisitionShow()">Edit ACQ</button> -->
+      <!-- <button type="text" *ngIf="activeData && activeData.OBJECT_TYPE == 3" (click)="editArticleShow()">Edit Article</button> -->
+      <!--button class="actions-btn" type="text" (click)="opened = !opened">Actions
+      <div class="actions-dropdown" *ngIf="opened">
+        <button type="text">New Proposal</button>
+        <button type="text">Edit Acquisition</button>
+      </div>
+      </button-->
+    </div>
+  </div>
+  <div class="body-wrapper">
+    <div class="containers-tab" [hidden]="activeTab != 0">
+        <as-split
+            [direction]="'horizontal'"><!--(dragEnd)="saveSplitSizes(1, $event)"-->
+            <as-split-area
+                class="color-bkgd-mid"
+                #containersSplit
+                [size]="20"
+                [order]="0">
+                <div class="tree-wrapper">
+                    <imfx-controls-tree #tree
+                                        [extensions]="['filter']"
+                                        [ext_filter]="{autoExpand: true, mode: 'hide', highlight: false}"
+                                        [checkbox]="false"
+                                        [selectMode]="1"
+                                        [icon]="false"
+                                        [source]="data"
+                                        (onClick)="onSelect($event)"
+                    ></imfx-controls-tree>
+                </div>
+            </as-split-area>
+            <as-split-area
+                #containersSplit
+                class="color-bkgd-mid"
+                [size]="80"
+                [order]="1">
+                <div class="data-wrapper">
+                    <table class="header-fake-table">
+                        <thead>
+                        <th style="width: 250px">Item</th>
+                        <th>Value</th>
+                        </thead>
+                    </table>
+                    <div class="content-table">
+                        <div class="fake-rows" *ngFor="let i of containerData">
+                            <div class="fake-cell" style="width: 250px" title="{{i.Key}}">{{i.Key}}</div>
+                            <div class="fake-cell" title="{{i.Key == 'Created' || i.Key == 'Updated'? (i.Value | localDate: datetimeFullFormatLocaldatePipe) : i.Value}}">{{i.Key == 'Created' || i.Key == 'Updated'? (i.Value | localDate: datetimeFullFormatLocaldatePipe) : i.Value}}</div>
+                        </div>
+                    </div>
+                </div>
+            </as-split-area>
+        </as-split>
+    </div>
+    <div class="articles-tab" [hidden]="activeTab != 1">
+      <div class="data-wrapper">
+        <table class="header-fake-table" #articlesHeader>
+          <thead>
+          <th *ngFor="let entry  of articleLabels | keys">
+            {{entry.value}}
+          </th>
+          </thead>
+        </table>
+        <div class="content-table" #articlesBody>
+          <div class="fake-rows" *ngFor="let i of articlesData">
+            <div class="fake-cell" title="{{j.key == 'CREATED' || j.key == 'UPDATED'? (i[j.key.toUpperCase()] | localDate: datetimeFullFormatLocaldatePipe) : i[j.key.toUpperCase()]}}" *ngFor="let j of articleLabels | keys">{{j.key == 'CREATED' || j.key == 'UPDATED'? (i[j.key.toUpperCase()] | localDate: datetimeFullFormatLocaldatePipe) : i[j.key.toUpperCase()]}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="proposals-tab" [hidden]="activeTab != 2">
+      <div class="data-wrapper">
+        <table class="header-fake-table">
+          <thead>
+          <th *ngFor="let entry of proposalLabels">
+            {{entry}}
+          </th>
+          </thead>
+        </table>
+        <div class="content-table">
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <overlay #overlay></overlay>
+</div>

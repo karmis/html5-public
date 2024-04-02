@@ -1,0 +1,10 @@
+@import "../../../../../../../../../base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .detail-detail-layout-wrapper {
+            padding: 1rem;
+            height: 100%;
+        }
+    }
+}

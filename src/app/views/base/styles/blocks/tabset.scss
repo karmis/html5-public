@@ -1,0 +1,44 @@
+@import "../theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .nav-tabs {
+            border-bottom: getThemeColor(22, $key) 1px solid !important;
+            .nav-link {
+                background-color: transparent;
+                border: none;
+                padding: .5em 0;
+            }
+            .nav-link.active {
+                background-color: transparent;
+            }
+        }
+        .nav-item {
+            padding: 0 1em 0 0;
+            a,
+            a:focus,
+            a:active {
+                text-decoration: none;
+                color: getThemeColor(2, $key);
+                transition: none;
+            }
+            a.active, a.active:hover, a.active:focus {
+                border-bottom: getThemeColor(7, $key) 2px solid;
+                color: getThemeColor(16, $key);
+            }
+            &.active, &.active:hover {
+                border-bottom: none;
+            }
+            &:hover {
+                a {
+                    color: getThemeColor(16, $key);
+                }
+            }
+        }
+        .tab-content {
+            .tab-pane {
+                border: none!important;
+            }
+        }
+    }
+}

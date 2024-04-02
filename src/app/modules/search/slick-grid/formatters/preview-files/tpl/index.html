@@ -1,0 +1,11 @@
+<button class="img-preview-btn previewButton" *ngIf="checkType('pdf')" (click)="openPDF()">
+  {{'viewers.preview' | translate }}
+  <i class="icon icons-hide-empty"></i>
+</button>
+<button class="img-preview-btn previewButton" *ngIf="checkType('img')" tmdfullimage [attr.data-src]="params.url">
+  {{'viewers.preview' | translate }}
+  <i class="icon icons-hide-empty"></i>
+</button>
+<div *ngIf="checkType('xml')">
+    <code-prettify-viewer [config]="viewerConfig" [url]="viewerConfig.url" [language]="viewerConfig.language"></code-prettify-viewer>
+</div>

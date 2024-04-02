@@ -1,0 +1,33 @@
+@import "../../../../../../../../../base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .main-menu-wrapper {
+            //height: 100%;
+            display: block;
+            flex-wrap: wrap;
+            flex-direction: column;
+            padding: 1rem;
+            height: 500px;
+            .main-menu-row {
+                display: flex;
+                flex-direction: column;
+                width: 50%;
+                .bg-row {
+                    position: relative;
+                    input {
+                        width: 100%;
+                        padding-right: 32px;
+                    }
+                    .settings-btn {
+                        position: absolute;
+                        right: 8px;
+                        top: 0;
+                        line-height: $baseline*2;
+                    }
+                }
+            }
+
+        }
+    }
+}

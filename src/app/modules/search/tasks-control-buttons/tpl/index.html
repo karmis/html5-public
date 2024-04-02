@@ -1,0 +1,51 @@
+<div class="tcb">
+    <div class="buttons-row" *ngIf="!statusMode">
+        <button class="pause"
+                [hidden]="!btnPaus.visibility" [disabled]="!btnPaus.enabled"
+                (click)="tryToSaveTaskStatus('PAUSED')">
+            {{ 'component_qc.pause' | translate }}
+        </button>
+        <button class="pending"
+                [hidden]="!btnPend.visibility" [disabled]="!btnPend.enabled"
+                (click)="openPendingWizard()">
+            {{ 'component_qc.pending' | translate }}
+        </button>
+        <button class="abort"
+                [hidden]="!btnAbrt.visibility" [disabled]="!btnAbrt.enabled"
+                (click)="openAbortWizard()">
+            {{ 'component_qc.abort' | translate }}
+        </button>
+        <button class="resume"
+                [hidden]="!btnResm.visibility" [disabled]="!btnResm.enabled"
+                (click)="tryToSaveTaskStatus('RESUME')">
+            {{ 'component_qc.resume' | translate }}
+        </button>
+        <button class="start"
+                [hidden]="!btnStrt.visibility" [disabled]="!btnStrt.enabled"
+                (click)="tryToSaveTaskStatus('STARTED')">
+            {{ 'component_qc.start' | translate }}
+        </button>
+        <button class="complete"
+                [hidden]="!btnComp.visibility" [disabled]="!btnComp.enabled"
+                (click)="tryToSaveTaskStatus('COMPLETED')">
+            {{ 'component_qc.complete' | translate }}
+        </button>
+    </div>
+    <div class="spinner-wrapper">
+        <div class="spinner" [hidden]="!showOverlay"></div>
+    </div>
+    <div *ngIf="!error" class="task-status">
+        <span class="status-text">{{ 'tasks.task_status' | translate }}{{statusText}}</span>
+        <span class="locked-by" *ngIf="lockedBy">{{ 'tasks.locked_by' | translate }}{{lockedBy}}</span>
+    </div>
+    <div *ngIf="error" class="task-status">
+        <span>{{text}}</span>
+    </div>
+    <div class="unlock-wrapper">
+        <button class="unlock"
+                [hidden]="!btnUnlock.visibility && !status !== 15"
+                (click)="unlockTask()">
+            {{ 'component_qc.unlock' | translate }}
+        </button>
+    </div>
+</div>

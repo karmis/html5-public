@@ -1,0 +1,22 @@
+<div class="tab-wrapper">
+    <div class="tab-label">
+        <span>{{"user_management.users.modal.groups_tab" | translate}}</span>
+        <div class="buttons-row">
+            <i title="{{'user_management.users.modal.add_group' | translate}}"
+               (click)="addItems()"
+               class="icons-cross icon add-item"></i>
+            <i title="{{'user_management.users.modal.remove_group' | translate}}" class="icons-cross icon"
+               (click)="deleteItems()"
+               [ngClass]="{'disabled': selectedRows.length == 0}"></i>
+        </div>
+    </div>
+    <div class="tab-content-wrapper">
+        <div class="tab-table-wrapper">
+            <div class="tab-row" [ngClass]="{'selected': selectedRows.indexOf(item) > -1}" *ngFor="let item of data; let i = index"
+                 (click)="processRowClick(item, $event, i)">
+                <div class="item name" title="{{item.NAME}}">{{item.NAME}}</div>
+                <div class="item description" title="{{item.DESCRIPTION}}">{{item.DESCRIPTION}}</div>
+            </div>
+        </div>
+    </div>
+</div>

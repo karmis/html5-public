@@ -1,0 +1,36 @@
+@import "../../../../../../views/base/styles/theme";
+
+@each $key, $value in $common-themes {
+    .#{$key} {
+        table-formatter-comp {
+            .table-formatter-comp-wrapper {
+                background: getThemeColor(4, $key);
+                .table {
+                    display: table;
+                    margin: 0;
+                    border-style: solid;
+                    border-color: getThemeColor(9, $key);
+                    border-width: 0px;
+                    border-left-width: 1px;
+                    border-top-width: 1px;
+
+                    .table-row {
+                        display: table-row;
+                        &.table-header {
+                            color: getThemeColor(2, $key);
+                        }
+                        .table-cell {
+                            display: table-cell;
+                            padding: 3px;
+                            border-style: solid;
+                            border-color: getThemeColor(9, $key);
+                            border-width: 0px;
+                            border-right-width: 1px;
+                            border-bottom-width: 1px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,56 @@
+@import "../../../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .subtitles-grid-wrapper {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+
+            slick-grid {
+                overflow-y: hidden;
+            }
+
+            .slick-grid-wrapper {
+                .slick-header-column.ui-state-default {
+                    line-height: inherit;
+                    height: inherit;
+                }
+
+                .slick-row {
+                    &.hover-row {
+                        background: getThemeColor(3, $key);
+                    }
+                }
+
+                //.slick-viewport.slick-viewport-left {
+                //    overflow: auto !important;
+                //    height: auto !important;
+                //    width: auto !important;
+                //}
+            }
+
+            .subs-header-wrapper.with-drop {
+                position: relative;
+                font-size: 0;
+                display: flex;
+                vertical-align: top;
+                box-sizing: border-box;
+
+                search-text-for-mark {
+                    flex-grow: 1;
+                    font-size: 0px;
+                }
+
+                select {
+                    display: inline-block;
+                    width: 180px;
+                    flex-grow: 0;
+                    vertical-align: top;
+                    box-sizing: border-box;
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+}

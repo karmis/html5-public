@@ -1,0 +1,14 @@
+<div class="download-viewer">
+    <a      *ngIf="config.url"
+            href="{{config.url}}"
+            download="{{config.fileName}}"
+            [attr.target]="isSameHost() ? '_self' : '_blank'">
+
+        {{ 'common.download' | translate }}
+        <span *ngIf="config.fileName">
+            ({{config.fileName}})
+        </span>
+        <i class="icon icons-files"></i>
+    </a>
+    <div *ngIf="!config.url" style="text-align: center;">-</div>
+</div>

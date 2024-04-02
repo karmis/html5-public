@@ -1,0 +1,52 @@
+<div class="create-subversion-modal-wrapper">
+    <h2>
+        {{'version.create_version.h2' | translate}} {{(contextItem.TITLE) ? '"' + contextItem.TITLE + '"' : ''}} - {{contextItem.ID}}
+    </h2>
+    <div class="select-name-wrapper"
+         class="form-group">
+        <label class="mr-sm-2">
+            {{'version.create_version.select_name' | translate}}
+        </label>
+        <imfx-controls-select2
+            #nameSelect
+            [width]="'100%'"
+            [validationEnabled]="true"
+            [placeholder]="'base.selectOoo'|translate"
+            [placeholderRefToTranslate]="'base.selectOoo'"
+            (onSelect)="onUpdateNameValue($event, nameSelect)"
+        ></imfx-controls-select2>
+    </div>
+
+    <div class="select-pgm-status-wrapper"
+         class="form-group">
+        <label class="mr-sm-2">
+            {{'version.create_version.select_prg_stat' | translate}}
+        </label>
+        <imfx-lookups-select2
+            #pgmStatusSelect
+            [width]="'100%'"
+            [lookupType]="'PgmStatus'"
+            [clearFormat]="{
+                        showButton: true,
+                        defaultValue: null
+                    }"
+            [placeholder]="'base.selectOoo'|translate"
+            [placeholderRefToTranslate]="'base.selectOoo'"
+            [validationEnabled]="false"
+            (onSelect)="onUpdatePgmStatusValue($event, pgmStatusSelect)"
+            (onUnselect)="onUpdatePgmStatusValue($event, pgmStatusSelect)"
+        ></imfx-lookups-select2>
+    </div>
+
+    <ng-container *ngIf="calcIsAvailableSibling()">
+        <label for="isSibling">
+            {{'version.create_version.as_sibling' | translate}}
+        </label>
+        <input type="checkbox"
+               id="isSibling"
+               style="margin-left: 1em;"
+               [(ngModel)]="isSibling"
+        >
+    </ng-container>
+</div>
+

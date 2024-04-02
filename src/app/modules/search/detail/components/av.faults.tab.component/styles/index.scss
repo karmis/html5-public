@@ -1,0 +1,17 @@
+@import "../../../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .faults-tab-wrapper {
+            height: 100%;
+            .slick-grid-wrapper {
+                height: calc(100% - 32px);
+            }
+            .total-duration {
+                float: right;
+                margin: 0;
+                line-height: 32px;
+            }
+        }
+    }
+}

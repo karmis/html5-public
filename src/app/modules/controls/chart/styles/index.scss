@@ -1,0 +1,22 @@
+@import "../../../../views/base/styles/theme.scss";
+@each $key, $value in $common-themes {
+  .#{$key} {
+      chart {
+          .full-height-width-block.charts-wrapper {
+              overflow: hidden;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 40px;
+              padding: 10px;
+              padding-bottom: 20px;
+
+              .chart-header {
+                  font-size: $basefontsize*2;
+                  text-align: center;
+                  padding-bottom: 10px;
+              }
+          }
+      }
+    }
+  }

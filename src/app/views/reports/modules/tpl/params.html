@@ -1,0 +1,93 @@
+<div class="report-params" style="height: 400px">
+    <div class="table-wrapper" style="overflow-y: auto;height: 100%;overflow-x: hidden;">
+        <div *ngFor="let param of buildParams; let i=index">
+            <!--Text-->
+            <div class="cell-wrapper report-params-item" *ngIf="isControlType(param.PARAMTYPE, 'text')" style="margin: 10px">
+                <div class="node-label">
+                    <span>
+                        <label for="contol_{{i}}">{{param.FRIENDLYNAME}}</label>
+                    </span>
+                </div>
+
+                <div class="node-control">
+                    <input type="text" (keyup)="prepareParams(i, 'text', $event)" class="form-control" id="contol_{{i}}"
+                            placeholder="{{param.FRIENDLYNAME}}">
+                </div>
+            </div>
+
+
+            <!--Number-->
+            <div class="cell-wrapper" *ngIf="isControlType(param.PARAMTYPE, 'number')" style="margin: 10px">
+                <div class="node-label">
+                    <span>
+                        <label for="contol_{{i}}">{{param.FRIENDLYNAME}}</label>
+                    </span>
+                </div>
+
+                <div class="node-control">
+                    <imfx-controls-number (onChange)="prepareParams(i, 'number', $event)"
+                                            [sharpType]="param.PARAMTYPE"></imfx-controls-number>
+                </div>
+            </div>
+
+
+            <!--Datetime-->
+            <div class="cell-wrapper" *ngIf="isControlType(param.PARAMTYPE, 'datetime')" style="margin: 10px">
+                <div class="node-label">
+                    <span>
+                        <label for="contol_{{i}}">{{param.FRIENDLYNAME}}</label>
+                    </span>
+                </div>
+
+                <div class="node-control">
+                    <imfx-controls-datetimepicker
+                            [locale]="'common.locale' | translate"
+                            [format]="'common.date_full_format' | translate"
+                            [formatDate]="'common.date_format' | translate"
+                            [formatTime]="'common.time_format' | translate"
+                            [value]="defaultDate"
+                            [mask]="true"
+                            [dayOfWeekStart]="'common.date_of_week_start' | translate"
+                            [small]="true"
+                            (onChangeDateTime)="prepareParams(i, 'datetime', $event)"
+                            (onSelectDate)="prepareParams(i, 'datetime', $event)"
+                            (onSelectTime)="prepareParams(i, 'datetime', $event)"
+                    ></imfx-controls-datetimepicker>
+                </div>
+            </div>
+
+
+            <!--Checkbox-->
+            <div class="cell-wrapper" *ngIf="isControlType(param.PARAMTYPE, 'checkbox')" style="margin: 10px">
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" (change)="prepareParams(i, 'checkbox', $event)">
+                        {{param.FRIENDLYNAME}}
+                    </label>
+                </div>
+            </div>
+
+
+            <!--Rangedatepicker-->
+            <div class="cell-wrapper" *ngIf="isControlType(param.PARAMTYPE, 'rangedatetime')" style="margin: 10px">
+                <div class="node-label">
+                    <span>
+                        <label for="contol_{{i}}">{{param.FRIENDLYNAME}}</label>
+                    </span>
+                    <div class="node-control">
+                        <imfx-controls-range-date-time-picker
+                                (onChange)="prepareParams(i, 'rangedatetime', $event)"></imfx-controls-range-date-time-picker>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div style="padding: 15px 0 15px 0; float: right;">
+        <button type="button" (click)="data.refs.modal.hide()">
+            {{ 'common.cancel' | translate }}
+        </button>
+        <button type="button" class="primary" (click)="startGenerateReport()" [disabled]="!paramsFilled">
+            {{ 'common.ok' | translate }}
+        </button>
+    </div> -->
+</div>

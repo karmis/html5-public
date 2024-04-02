@@ -1,0 +1,10 @@
+@import "../../../../../base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+    .#{$key} {
+        .channels-table-grid-wrapper {
+            height: 100%;
+            position: relative;
+        }
+    }
+}

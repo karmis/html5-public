@@ -1,0 +1,42 @@
+@import "../../../../../../../../../base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        production-make-workflows {
+            .production-make-workflows-wrapper {
+                display: flex;
+                //flex-direction: column;
+                justify-content: space-between;
+                height: 100%;
+                padding: .5rem 1rem;
+                overflow: auto;
+                border: 1px solid getThemeColor(9, $key);
+
+                //background: getThemeColor(4, $key);
+
+
+                .field-row {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 5px;
+
+                    .field-label {
+                        width: 160px;
+                        line-height: 32px;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        white-space: nowrap;
+                    }
+                    .field-value {
+                        flex: 1;
+
+                        input[type="checkbox"] {
+                            position: relative;
+                            top: -2px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

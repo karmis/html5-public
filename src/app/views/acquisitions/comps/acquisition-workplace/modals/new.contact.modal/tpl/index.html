@@ -1,0 +1,124 @@
+<div class="new-contact-wrapper">
+    <div class="heading-fields">
+        <input type="text" placeholder="ID" class="filed-id"/>
+        <input type="text" placeholder="Title" class="filed-title"/>
+    </div>
+    <div class="heading-tabs">
+        <div>
+            <span class="active">Details</span>
+        </div>
+    </div>
+    <div class="main-fields">
+        <div class="l-col">
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.fname' | translate}}</span>
+                <input type="text" class="filed-value"/>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.oname' | translate}}</span>
+                <input type="text" class="filed-value"/>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.sname' | translate}}</span>
+                <input type="text" class="filed-value"/>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.qualifier' | translate}}</span>
+                <input type="text" class="filed-value"/>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.email' | translate}} 1</span>
+                <input type="text" class="filed-value"/>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.email' | translate}} 2</span>
+                <input type="text" class="filed-value"/>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.email' | translate}} 3</span>
+                <input type="text" class="filed-value"/>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.email' | translate}} 4</span>
+                <input type="text" class="filed-value"/>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.site' | translate}}</span>
+                <input type="text" class="filed-value"/>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.phone' | translate}} 1</span>
+                <input type="text" class="filed-value"/>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.phone' | translate}} 2</span>
+                <input type="text" class="filed-value"/>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.fax' | translate}}</span>
+                <input type="text" class="filed-value"/>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.mphone' | translate}}</span>
+                <input type="text" class="filed-value"/>
+            </div>
+        </div>
+        <div class="r-col">
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.addr' | translate}}</span>
+                <input type="text" class="filed-value"/>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.city' | translate}}</span>
+                <input type="text" class="filed-value"/>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.state' | translate}}</span>
+                <input type="text" class="filed-value"/>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.country' | translate}}</span>
+                <select type="text" class="filed-value">
+                    <option value="" disabled selected>Please select a value</option>
+                </select>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.pcode' | translate}}</span>
+                <input type="text" class="filed-value"/>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.daddr' | translate}}</span>
+                <input type="text" class="filed-value"/>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.dcity' | translate}}</span>
+                <input type="text" class="filed-value"/>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.dstate' | translate}}</span>
+                <input type="text" class="filed-value"/>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.dcountry' | translate}}</span>
+                <select type="text" class="filed-value">
+                    <option value="" disabled selected>Please select a value</option>
+                </select>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.dpcode' | translate}}</span>
+                <input type="text" class="filed-value"/>
+            </div>
+        </div>
+    </div>
+    <ng-template #modalFooterTemplate>
+        <div class="new-contact-buttons modal-footer">
+            <div class="buttons">
+                <button class="back" (click)="closeModal()">Cancel</button>
+            </div>
+            <div class="buttons">
+                <button class="next primary" (click)="closeModal()">Save</button>
+            </div>
+        </div>
+    </ng-template>
+    <div *ngIf="showOverlay" class="modal-overlay"><div class="spinner"></div></div>
+</div>

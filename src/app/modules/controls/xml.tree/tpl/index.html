@@ -1,0 +1,77 @@
+<div class="available-children-list" *ngIf="selectedNodeForAddingChildrens && selectedNodeForAddingChildrens.xmlNode && !readonly">
+    <div class="available-children-add-label">{{"xml.select_nodes_to_add" | translate}}</div>
+    <span class="available-children-close" (click)="closeAddChild()"
+          title="{{ 'xml.close' | translate }}"><i class="icons-cross icon"></i></span>
+    <div class="available-children-items-wrapper">
+        <div class="available-children-item" [ngClass]="{'selected': isSelectedChild(i)}"
+             (click)="toggleAvailableChildrenToAdd(i)"
+             *ngFor="let availableChildren of selectedNodeForAddingChildrens.xmlNode.AvailableChildren; let i=index">
+            {{availableChildren.Name}}
+        </div>
+    </div>
+
+    <div class="available-children-add">
+        <div class="available-children-add-all" (click)="addSelectedAvailableChildrens(true)">{{"xml.add_all" | translate}}</div>
+        <div class="available-children-add-selected" (click)="addSelectedAvailableChildrens(false)">{{"xml.add_selected" | translate}}</div>
+    </div>
+</div>
+<div class="imfx-xml-tree-wrapper" [hidden]="this.selectedNodeForAddingChildrens">
+    <tree-root [nodes]="xmlTree.nodes" #tree *ngIf="!!xmlTree?.nodes">
+
+        <ng-template #treeNodeTemplate let-node="node" let-index="index">
+            <imfx-xml-tree-node #nodeRef [node]="node" [overrides]="xmlTree.overrides" [debug]="false"
+                                [readonly]="readonly"
+                                [allowTristate]="allowTristate" [withNodeSelection]="withNodeSelection"
+                                [preventLastElementRemoving]="preventLastElementRemoving"
+                                (onAddAvailableChildren)="onAddAvailableChildren($event)"
+                                (onSelectNode)="onSelectNodes($event)"
+                                (onUpdate)="xmlTree.updateTree($event)"></imfx-xml-tree-node>
+        </ng-template>
+
+        <ng-template #treeNodeFullTemplate
+                     let-node
+                     let-index="index"
+                     let-templates="templates">
+            <div
+                class="tree-node tree-node-level-{{ node.level }}"
+                [class]="node.getClass()"
+                [class.tree-node-root]="node.level == 1"
+                [class.tree-node-child]="node.level > 1"
+                [class.tree-node-expanded]="node.isExpanded && node.hasChildren"
+                [class.tree-node-collapsed]="node.isCollapsed && node.hasChildren"
+                [class.tree-node-leaf]="node.isLeaf"
+                [class.tree-node-active]="node.isActive"
+                [class.tree-node-focused]="node.isFocused">
+
+                <div class="node-wrapper" [style.padding-left]="node.getNodePadding()">
+                    <!--<tree-node-expander [node]="node"></tree-node-expander>-->
+
+                    <div class="expander" *ngIf="node.hasChildren" (click)="node.mouseAction('expanderClick', $event)">
+                        <i *ngIf="node.isExpanded" class="icons-down icon"></i>
+                        <i *ngIf="!node.isExpanded" class="icons-right icon"></i>
+                    </div>
+
+                    <div class="node-content-wrapper"
+                         (click)="node.mouseAction('click', $event)"
+                         (dblclick)="node.mouseAction('dblClick', $event)"
+                         (contextmenu)="node.mouseAction('contextMenu', $event)"
+                         (treeDrop)="node.onDrop($event)"
+                         [treeAllowDrop]="node.allowDrop"
+                         [treeDrag]="node"
+                         [treeDragEnabled]="node.allowDrag()">
+
+                        <tree-node-content
+                            [node]="node"
+                            [index]="index"
+                            [template]="templates.treeNodeTemplate">
+                        </tree-node-content>
+                    </div>
+                </div>
+
+                <tree-node-children [node]="node" [templates]="templates">
+                </tree-node-children>
+
+            </div>
+        </ng-template>
+    </tree-root>
+</div>

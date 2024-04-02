@@ -1,0 +1,236 @@
+<div class="detail-view-metadata-config-wrapper" #detailConfigWrapper>
+    <div class="details-metadata-tree">
+        <input type="text" #filterInput (keyup)="filterTree($event)" placeholder="{{'system-config.xml.filter' | translate}}"/>
+        <i class="icons-cross icon" *ngIf="filterInput.value.length > 0" (click)="filterInput.value = ''; filterTree(null)"></i>
+        <imfx-controls-tree #detailsMetadataSubtree
+                            (onClick)="onSelectSubType($event)"
+                            [checkbox]="false"
+                            [ext_filter]="{autoExpand: true, mode: 'hide', highlight: false}"
+                            [extensions]="['filter']"
+                            [icon]="false"
+                            [source]="detailsMetadata"
+                            [unselectableLevels]="1"
+        ></imfx-controls-tree>
+    </div>
+    <div class="detail-view-metadata-config" [hidden]="selectedDetailMetadata.selectedId == null">
+        <ng-template #LayoutList
+                     let-list>
+
+            <!--optional placeholder element for dropzone-->
+            <!--will be removed from DOM on init-->
+            <div class="placeholder-ref"
+                 dndPlaceholderRef>
+            </div>
+
+            <div *ngFor="let item of list"
+                 [dndDraggable]="item"
+                 dndEffectAllowed="move"
+                 [dndType]="(item.children ? '0' : '1')"
+                 [dndDisableIf]="item.disable"
+                 (dndStart)="onDragStart($event)"
+                 (dndCopied)="onDragged(item, list, 'copy')"
+                 (dndLinked)="onDragged(item, list, 'link')"
+                 (dndMoved)="onDragged(item, list, 'move')"
+                 (dndCanceled)="onDragged(item, list, 'none')"
+                 (dndEnd)="onDragEnd($event)"
+                 [ngClass]="{'config-drag-field':!item.children, 'config-drag-group':item.children}">
+
+                <!--if [dndHandle] is used inside dndDraggable drag can only start from the handle-->
+                <div class="drag-handle" dndHandle>
+                </div>
+                <div *ngIf="item.children && item.data.GroupID != 0" class="remove-group" (click)="sccp.removeFieldGroup(fieldsList, layoutList, item, compare)" title="{{ 'details_view_metadata.remove_group' | translate }}">
+                    <i class="icon icons-closedelete"></i>
+                </div>
+
+                <input *ngIf="item.children && item.data.GroupID != 0" type="text" class="fld-title" [(ngModel)]="item.data.GroupName">
+                <div *ngIf="item.children && item.data.GroupID == 0" class="fld-title">
+                    {{'details_view_metadata.empty_fields_group' | translate}}
+                </div>
+                <div *ngIf="!item.children" class="flds-wrapper">
+                    <div *ngIf="item.data.IsCustom === 1" class="custom-label">
+                        <div class="letter" title="XPATH: {{extractXPath(item.data.Id)}}">
+                            c
+                        </div>
+                    </div>
+                    <div *ngIf="item.data.IsCustom === 2" class="custom-label orange">
+                        <div class="letter" title="{{item.data.Id}}">
+                            s
+                        </div>
+                    </div>
+                    <div  class="fld-title" [ngClass]="{'extended': this.initialData.Type < 0}">
+                        <div style="display: inline-block;padding: 0 5px;line-height: 32px;text-overflow: ellipsis;white-space: nowrap;max-width: 100%;overflow: hidden;"
+                             title="{{item.data.Title}}"
+                             [ngStyle]="{'background':item.data.Background,
+                             'color':item.data.Foreground,
+                             'font-weight': item.data.IsBold ? 'bold' : null}">{{item.data.Title}}</div>
+                    </div>
+                    <div class="fld-bold">
+                        <div class="fld-label">Bold</div>
+                        <input type="checkbox" [checked]="item.data.IsBold === 1 || item.data.IsBold === true" (change)="$event.target.checked ? item.data.IsBold = true : item.data.IsBold = false"/>
+                    </div>
+                    <div class="fld-visible" *ngIf="this.initialData.Type > 0">
+                        <div class="fld-label">Always Visible</div>
+                        <input type="checkbox" [checked]="item.data.AlwaysVisible === 1 || item.data.AlwaysVisible === true" (change)="$event.target.checked ? item.data.AlwaysVisible = true : item.data.AlwaysVisible = false"/>
+                    </div>
+                    <div class="fld-color" [ngClass]="{'extended': this.initialData.Type < 0}" id="color-wrapper-f-{{item.data.Id}}">
+                        <div class="fld-label">Foreground</div>
+                        <div id="color-f-{{item.data.Id}}" class="color-icon" [ngStyle]="{'background':item.data.Foreground.length > 0 ? item.data.Foreground : 'transparent'}"
+                             [cpPosition]="'bottom'"
+                             [cpAlphaChannel]="'disabled'"
+                             [cpPositionRelativeToArrow]="true"
+                             [colorPicker]="item.data.Foreground"
+                             (colorPickerChange)="onChangeColorField($event,  item, 'Foreground', 'f')"
+                        ></div>
+                        <input  class="color-input" type="text" (focusout)="onColorFocusOut(item, 'Foreground', 'f')"
+                                [(ngModel)]="item.data.Foreground" (click)="pickerClick(item, 'f')">
+                        <i class="icons-cross icon" title="Clear" (click)="item.data.Foreground = ''"></i>
+                    </div>
+                    <div class="fld-color" [ngClass]="{'extended': this.initialData.Type < 0}" id="color-wrapper-b-{{item.data.Id}}">
+                        <div class="fld-label">Background</div>
+                        <div id="color-b-{{item.data.Id}}" class="color-icon" [ngStyle]="{'background':item.data.Background.length > 0 ? item.data.Background : 'transparent'}"
+                             [cpPosition]="'left'"
+                             [cpAlphaChannel]="'disabled'"
+                             [cpPositionRelativeToArrow]="true"
+                             [cpPositionOffset]="50"
+                             [colorPicker]="item.data.Background"
+                             (colorPickerChange)="onChangeColorField($event,  item, 'Background', 'b')"
+                        ></div>
+                        <input  class="color-input" type="text" (focusout)="onColorFocusOut(item, 'Background', 'b')"
+                                [(ngModel)]="item.data.Background" (click)="pickerClick(item, 'b')">
+                        <i class="icons-cross icon" title="Clear" (click)="item.data.Background = ''"></i>
+                    </div>
+                </div>
+
+                <div *ngIf="item.children"
+                     [dndDropzone]="['1']"
+                     (dndDrop)="onDrop($event, item.children)">
+
+                    <ng-container *ngTemplateOutlet="LayoutList; context:{ $implicit: item.children }"></ng-container>
+
+                </div>
+            </div>
+
+        </ng-template>
+
+        <div class="tabs" [hidden]="activeView != 2">
+            <button (click)="switchView(1)" [ngClass]="{'active': activeView == 1}" title="{{ 'details_view_metadata.fields.title' | translate }}">{{ 'details_view_metadata.fields.title' | translate }}</button>
+            <button (click)="switchView(2)" [ngClass]="{'active': activeView == 2}"  title="{{ 'details_view_metadata.tabs.title' | translate }}">{{ 'details_view_metadata.tabs.title' | translate }}</button>
+        </div>
+
+        <div class="tabs-zone" [hidden]="activeView != 2">
+            <div class="tabs-row-header">
+                <div class="title">{{ 'details_view_metadata.t_title' | translate }}</div>
+                <div><input type="checkbox" style="margin: -3px 4px;" title="{{allActive ? 'Uncheck' : 'Check'}} All"
+                            [checked]="allActive" (change)="toggleAll($event.target.checked)"/>{{ 'details_view_metadata.t_active' | translate }}</div>
+            </div>
+            <div class="tabs-rows">
+                <div *ngFor="let item of tabsList" class="tabs-row">
+                    <label>
+                        <div>{{item.Name}}</div>
+                        <input type="checkbox" [checked]="item.Active" (change)="changeTabState($event.target.checked, item)"/>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="tabs-buttons-zone" [hidden]="activeView != 2">
+            <div *ngIf="isUsedDefault()" class="is-default-message">{{ 'details_view_metadata.used_default' | translate }}</div>
+            <button *ngIf="!isDefault() && !isUsedDefault()" (click)="resetLayout()" title="{{ 'details_view_metadata.reset' | translate }}" class="reset-layout-btn">
+                {{ 'details_view_metadata.reset' | translate }}
+            </button>
+            <button *ngIf="!isDefaultOnly()" (click)="showCopyFromModal()" title="{{ 'details_view_metadata.copy_from' | translate }}" class="reset-layout-btn">
+                {{ 'details_view_metadata.copy_from' | translate }}
+            </button>
+            <button (click)="saveLayout()" title="{{ 'details_view_metadata.save' | translate }}" class="save-layout-btn primary">
+                {{ 'details_view_metadata.save' | translate }}
+            </button>
+        </div>
+
+        <div class="config-zone" [hidden]="activeView != 1">
+            <div class="tabs">
+                <button (click)="switchView(1)" [ngClass]="{'active': activeView == 1}" title="{{ 'details_view_metadata.fields.title' | translate }}">{{ 'details_view_metadata.fields.title' | translate }}</button>
+                <button (click)="switchView(2)" [ngClass]="{'active': activeView == 2}"  title="{{ 'details_view_metadata.tabs.title' | translate }}">{{ 'details_view_metadata.tabs.title' | translate }}</button>
+            </div>
+            <div class="center-wrapper">
+                <button (click)="addFieldGroup()" title="{{ 'details_view_metadata.add_field_group' | translate }}" class="add-field-group-btn">
+                    <i class="icons-add icon"></i>
+                </button>
+                <div dndDropzone
+                     class="config-drop-zone"
+                     [dndDropzone]="['0']"
+                     (dndDrop)="onDrop($event, layoutList)">
+
+                    <ng-container *ngTemplateOutlet="LayoutList; context:{ $implicit: layoutList }"></ng-container>
+                </div>
+            </div>
+            <div class="config-buttons-zone">
+                <div *ngIf="isUsedDefault()" class="is-default-message">{{ 'details_view_metadata.used_default' | translate }}</div>
+                <button *ngIf="!isDefault() && !isUsedDefault()" (click)="resetLayout()" title="{{ 'details_view_metadata.reset' | translate }}" class="reset-layout-btn">
+                    {{ 'details_view_metadata.reset' | translate }}
+                </button>
+                <button *ngIf="!isDefaultOnly()" (click)="showCopyFromModal()" title="{{ 'details_view_metadata.copy_from' | translate }}" class="reset-layout-btn">
+                    {{ 'details_view_metadata.copy_from' | translate }}
+                </button>
+                <button *ngIf="isWorkstation()" (click)="addCustomStatusFields()" title="{{ 'details_view_metadata.add_custom_status' | translate }}" class="add-custom-field">
+                    {{ 'details_view_metadata.add_custom_status' | translate }}
+                </button>
+                <button (click)="addCustomMetadataFields()" title="{{ 'details_view_metadata.add_custom_field' | translate }}" class="add-custom-field">
+                    {{ 'details_view_metadata.add_custom_field' | translate }}
+                </button>
+                <button (click)="saveLayout()" title="{{ 'details_view_metadata.save' | translate }}" class="save-layout-btn primary">
+                    {{ 'details_view_metadata.save' | translate }}
+                </button>
+            </div>
+
+        </div>
+
+        <div class="fields-zone" [hidden]="activeView != 1">
+            <div class="fields-header">
+                <div class="title">{{'details_view_metadata.fields.title' | translate}}</div>
+                <div class="sub-title">{{'details_view_metadata.fields.sub_title' | translate}}</div>
+            </div>
+            <div class="fields-drag-zone"
+                 [dndDropzone]="['1']"
+                 dndEffectAllowed="move"
+                 (dndDrop)="onDrop($event, fieldsList)">
+                <div *ngFor="let item of fieldsList"
+                     [ngClass]="{'selected':item.selected}"
+                     (click)="item.selected = !item.selected"
+
+                     [dndDraggable]="item"
+                     [dndEffectAllowed]="item.effectAllowed"
+                     [dndDisableIf]="item.disable"
+                     [dndType]="'1'"
+                     (dndStart)="onDragStart($event)"
+                     (dndCopied)="onDragged(item, fieldsList, 'copy')"
+                     (dndLinked)="onDragged(item, fieldsList, 'link')"
+                     (dndMoved)="onDragged(item, fieldsList, 'move')"
+                     (dndCanceled)="onDragged(item, fieldsList, 'none')"
+                     (dndEnd)="onDragEnd($event)"
+                     class="config-drag-field">
+
+                    <div *ngIf="item.data.IsCustom === 1" class="custom-label">
+                        <div class="letter" title="XPATH: {{extractXPath(item.data.Id)}}">
+                            c
+                        </div>
+                    </div>
+                    <div *ngIf="item.data.IsCustom === 2" class="custom-label orange">
+                        <div class="letter" title="{{item.data.Id}}">
+                            s
+                        </div>
+                    </div>
+                    <div>{{item.data.Title}}</div>
+                </div>
+                <div class="placeholder-ref"
+                     dndPlaceholderRef>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="select-message" [hidden]="selectedDetailMetadata.selectedId != null">
+        <div>
+            {{'details_view_metadata.select_view' | translate}}
+        </div>
+    </div>
+    <overlay #detailConfigOverlay [mode]="true" [zIndex]="999"></overlay>
+</div>

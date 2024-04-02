@@ -1,0 +1,153 @@
+<div class="settings-groups-advanced-associate-media-wrapper">
+    <div class="tabs-wrapper">
+        <hr>
+        <div class="wf-panel clearfix">
+            <div class="wf-panel-item">
+                <label class="pull-left" for="isRaiseWorkflowMedia">
+                    {{ 'mapping.raise_wf' | translate}}:
+                </label>
+                <input type="checkbox"
+                       id="isRaiseWorkflowMedia"
+                       name="expressInstall"
+                       value="1"
+                       (ngModelChange)="mediaAssociateProvider.raiseWFsettings.flag = !mediaAssociateProvider.raiseWFsettings.flag"
+                       [ngModel]="mediaAssociateProvider?.raiseWFsettings?.flag"
+                       class="is-raise-workflow"
+                       [ngClass]="{'disabled': !mediaAssociateProvider?.raiseWFsettings?.preset}"
+                       disabled="{{!mediaAssociateProvider?.raiseWFsettings?.preset}}"/>
+            </div>
+            <div class="wf-panel-item ml-2">
+                <label class="pull-left" for="chosen-preset-title-id-media">
+                    {{ 'mapping.wf_preset' | translate}}:
+                </label>
+                <div class="chosen-preset-title" id="chosen-preset-title-id-media"
+                     title="{{ 'basket.choose_preset' | translate }}"
+                     (click)="mediaAssociateProvider.openChoosePresetModal(false, chooseModalCallBacks)">
+                    {{mediaAssociateProvider.raiseWFsettings?.preset?.Name || 'basket.choose_preset' | translate}}
+                </div>
+            </div>
+
+        </div>
+        <hr>
+
+        <div class="tabs-head">
+        <span class="tabs-head-item" [ngClass]="{'active':activeTab==='media'}" (click)="tab('media')">
+            Media
+        </span>
+            <span class="tabs-head-item" [ngClass]="{'active':activeTab==='unassociated-media'}" (click)="tab('unassociated-media')">
+            Unassociated Media
+        </span>
+        </div>
+        <div class="tabs-body">
+            <div class="tabs-body-item" [hidden]="activeTab !== 'media'">
+                <h3>Settings for Media in associate screen</h3>
+                <div class="adv-panel">
+                    <div class="wf-panel clearfix">
+                        <div class="wf-panel-item">
+                            <button
+                                [hidden]="searchAdvancedConfigMedia.options.builderData && searchAdvancedConfigMedia.options.builderData.groups.length == 0 && searchAdvancedConfigMedia.options.advancedSearchMode == 'builder' "
+
+                                class="test-advanced-searching-button-clear btn-adv btn-adv-left"
+                                (click)="clearParams('media')">
+                                {{ 'base.clear' | translate }}
+                            </button>
+                        </div>
+                        <div class="wf-panel-item ml-1">
+                            <button type="button" [disabled]="!getIsValidAdvSchema('media')"
+                                    (click)="refreshData('media')">{{'common.refresh'| translate}}
+                            </button>
+                        </div>
+
+                        <div class="wf-panel-item ml-1 columns-module">
+                            <button class="button" (click)="setupColumns('MediaGrid', 'associate_media.associated')">Set sort for column</button>
+                        </div>
+                    </div>
+                    <search-advanced
+                        #searchAdvancedComponentMedia
+                        [clearCacheSavedSearch]="false"
+                        [config]="searchAdvancedConfigMedia"
+                    ></search-advanced>
+                </div>
+
+            </div>
+            <div class="tabs-body-item" [hidden]="activeTab !== 'unassociated-media'">
+                <h3>Settings for Unassociated Media in associate screen</h3>
+                <div class="adv-panel">
+                    <div class="wf-panel clearfix">
+                        <div class="wf-panel-item">
+                            <button
+                                [hidden]="searchAdvancedConfigMedia.options.builderData && searchAdvancedConfigMedia.options.builderData.groups.length == 0 && searchAdvancedConfigMedia.options.advancedSearchMode == 'builder' "
+
+                                class="test-advanced-searching-button-clear btn-adv btn-adv-left"
+                                (click)="clearParams('unassociated-media')">
+                                {{ 'base.clear' | translate }}
+                            </button>
+                        </div>
+                        <div class="wf-panel-item ml-1">
+                            <button type="button" [disabled]="!getIsValidAdvSchema('unassociated-media')"
+                                    (click)="refreshData('unassociated-media')">{{'common.refresh'| translate}}
+                            </button>
+                        </div>
+                        <div class="wf-panel-item ml-1 columns-module">
+                            <button class="button" (click)="setupColumns('MediaGrid', 'associate_media.unassociated')">Set sort for column</button>
+                        </div>
+                    </div>
+                    <search-advanced
+                        #searchAdvancedComponentUnassociatedMedia
+                        [clearCacheSavedSearch]="false"
+                        [config]="searchAdvancedConfigUnassociatedMedia"
+                    ></search-advanced>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="results-wrapper">
+        <div class="result-panel" #resultPanelMedia [hidden]="activeTab !== 'media'">
+            <div class="result-panel-wrapper">
+                <div class="result-panel-content-wrapper">
+                    <div class="color-back-wrapper" *ngIf="dataMedia.Data.length > 0">
+                        <div class="tab-content-row" *ngFor="let item of dataMedia.Data; let i = index"
+                             title="{{item.ID + ' - ' + item.TITLE}}">
+                            <span class="left-span">{{item.ID}}</span>
+                            <span>{{item.TITLE}}</span>
+                        </div>
+                    </div>
+                    <div *ngIf="dataMedia.Data.length === 0">
+                        <div class="tab-content-row-blank">
+                            <span>No results</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="angucomplete-overlay" *ngIf="!isDataLoaded"><!---->
+                <div class="spinner small suggestion-overlay"></div>
+            </div>
+        </div>
+
+        <div class="result-panel" #resultPanelUnassociatedMedia [hidden]="activeTab !== 'unassociated-media'">
+            <div class="result-panel-wrapper">
+                <div class="result-panel-content-wrapper">
+                    <div class="color-back-wrapper" *ngIf="dataUnassociatedMedia.Data.length > 0">
+                        <div class="tab-content-row" *ngFor="let item of dataUnassociatedMedia.Data; let i = index"
+                             title="{{item.ID + ' - ' + item.TITLE}}">
+                            <span class="left-span">{{item.ID}}</span>
+                            <span>{{item.TITLE}}</span>
+                        </div>
+                    </div>
+                    <div *ngIf="dataUnassociatedMedia.Data.length === 0">
+                        <div class="tab-content-row-blank">
+                            <span>No results</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="angucomplete-overlay" *ngIf="!isDataLoaded"><!---->
+                <div class="spinner small suggestion-overlay"></div>
+            </div>
+        </div>
+    </div>
+</div>
+

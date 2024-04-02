@@ -1,0 +1,18 @@
+<div #loadMasterGridWrapper class="load-master-table">
+    <input class="data-filter" #datasetFilter placeholder="{{'load_master.filter_data' | translate}}" type="text" (input)="updateDataset($event.target.value)"/>
+    <div class="clear-dataset-filter" (click)="clearDatasetFilter()">
+        <i class="icons-cross icon"></i>
+    </div>
+    <!--button type="button" class="validate-btn" (click)="validateGrid()">{{'load_master.validate'| translate}}</button-->
+    <button *ngIf="tableData" class="add-new-config" (click)="showModal()" title="{{'load_master.add_new' | translate}}">
+        <i class="icons-cross icon"></i>
+    </button>
+    <div class="load-master-grid-wrapper">
+        <div id="externalWrapperLoadMasterTables" style="height: 100%;">
+            <slick-grid #loadMasterGrid
+                        [config]="loadMasterGridOptions" class="small-height-header">
+            </slick-grid>
+        </div>
+    </div>
+</div>
+<overlay #overlayGroup [mode]="true" [zIndex]="100"></overlay>

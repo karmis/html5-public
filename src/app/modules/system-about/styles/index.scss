@@ -1,0 +1,44 @@
+@import "../../../views/base/styles/theme.scss";
+@each $key, $value in $common-themes  {
+    .#{$key} {
+        .about-system {
+            .slick-grid-wrapper{
+                position: relative;
+                width: 100%;
+                height: 65vh;
+
+                ul.pages li {
+                    display: inline-block;
+                }
+            }
+            & #externalWrapperSubPacSlickGridForInfoPanel {
+                height: 100%;
+            }
+
+            .license-details-wrapper {
+                position: relative;
+                .full-license-text {
+                    white-space:pre-wrap;
+                    text-align: center;
+                }
+                .back-license-button {
+                    position: absolute;
+                    left: -20px;
+                    top: -20px;
+
+                    &:hover {
+                        background: getThemeColor(5, $key);
+                    }
+
+                    i {
+                        cursor: pointer;
+
+                        &:hover {
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

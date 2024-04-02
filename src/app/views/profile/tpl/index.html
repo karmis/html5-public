@@ -1,0 +1,36 @@
+<div (click)="$event.preventDefault()" class="profile-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li class="" [ngClass]="{'active': profilePage=='overview' }">
+                        <a href="#" (click)="overview()">
+                            {{ 'profile.menu.overview' | translate }}
+                        </a>
+                    </li>
+                    <li class="" [ngClass]="{'active': profilePage=='security' }">
+                        <a href="#" (click)="security()">
+                            {{ 'profile.menu.security' | translate }}
+                        </a>
+                    </li>
+                    <li class="" [ngClass]="{'active': profilePage=='defaultpages' }">
+                        <a href="#" (click)="defaultPages()">
+                            {{ 'profile.menu.settings' | translate }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 main text" *ngIf="profilePage=='overview' || !profilePage">
+                <profile-overview></profile-overview>
+            </div>
+
+            <div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 main text" *ngIf="profilePage=='security'">
+                <profile-security></profile-security>
+            </div>
+            <div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 main text" *ngIf="profilePage=='defaultpages'">
+              <profile-defaultpage (changedDefaultPage)="onChangeDefaultPage($event)"></profile-defaultpage>
+              <profile-settings-personal></profile-settings-personal>
+            </div>
+        </div>
+    </div>
+</div>

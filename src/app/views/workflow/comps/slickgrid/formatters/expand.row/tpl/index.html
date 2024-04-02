@@ -1,0 +1,75 @@
+<div class="accordion-row captions clicable">
+    <span>
+        <i></i>
+    </span>
+    <span class="ac-viewicon">
+
+    </span>
+    <span class="ac-id">
+        {{ 'sub_task_row.id' | translate }}
+    </span>
+    <span class="ac-owner">
+        {{ 'sub_task_row.operator' | translate }}
+    </span>
+    <span class="ac-name">
+        {{ 'sub_task_row.task_type' | translate }}
+    </span>
+    <span class="ac-status">
+         {{ 'sub_task_row.task_status' | translate }}
+    </span>
+    <span class="ac-info">
+
+    </span>
+    <span class="ac-progress">
+        {{ 'sub_task_row.progress' | translate }}
+    </span>
+</div>
+<div class="accordion-row "
+     *ngFor="let task of tasks; let i=index"
+     [ngClass]="{'selected': item.id==provider.selectedSubRow.id && i==provider.selectedSubRow.index, 'clicable': checkIcon(task)}"
+     (dblclick)="onDoubleClick(item, i)"
+     (click)="onClick(item, i)">
+
+    <span #dotEl *ngIf="isDD" class="dd-dots" draggable="true"
+          (dragstart)="onDragRowStart($event, {item:task, mode:'task'})">
+        <i></i>
+    </span>
+    <span class="ac-viewicon">
+        <i class="icon icons-hide-empty" *ngIf="checkIcon(task)" (click)="onDoubleClick(item, i)"></i>
+    </span>
+    <span class="ac-id">
+        {{i + 1}}
+    </span>
+    <span class="ac-owner">
+        {{task.OP_NAME}}
+    </span>
+    <span class="ac-name" title="{{task.FRIENDLY_NAME  || task.TSK_TYPE_text}}">
+        {{task.FRIENDLY_NAME || task.TSK_TYPE_text}}
+    </span>
+    <span class="ac-status {{getStatusObj(task).class}}">
+        <i *ngIf="getStatusObj(task).status=='off'" class="icons-statusred icon status-red"></i>
+    <i *ngIf="getStatusObj(task).status=='on' && getStatusObj(task).status_text.indexOf('ready') > -1"
+       class="icons-statusgreen icon status-green"></i>
+    <i *ngIf="getStatusObj(task).status=='on' && getStatusObj(task).status_text.indexOf('in progress') > -1"
+       class="icons-statusorange icon status-progress"></i>
+    <i *ngIf="getStatusObj(task).status=='on' && getStatusObj(task).status_text.indexOf('completed') > -1"
+       class="icons-statusgreen icon"></i>
+    <i *ngIf="getStatusObj(task).status!='on' && getStatusObj(task).status!='off'"
+       class="icons-statusorange icon status-orange"></i>
+        {{task.TSK_STATUS_text}}
+    </span>
+
+    <span class="ac-info" *ngIf="isDD" (click)="showInfo($event,task)">
+        <i class="icon icons-info"></i>
+    </span>
+    <span class="ac-progress">
+        <div *ngIf="task.TSK_STATUS == jobStatuses.INPROG || task.TSK_STATUS == jobStatuses.COMPLETED">
+            <progress-component [progress]="task.TSK_PROGRSS"></progress-component>
+        </div>
+        <div *ngIf="task.TSK_STATUS != jobStatuses.INPROG && task.TSK_STATUS != jobStatuses.COMPLETED">
+            <span class="ac-progress-text">
+                <!--Progress not available-->
+            </span>
+        </div>
+    </span>
+</div>

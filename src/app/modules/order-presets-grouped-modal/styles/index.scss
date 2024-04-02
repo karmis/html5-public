@@ -1,0 +1,12 @@
+@import "../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .order-presets-grouped-modal-wrapper {
+            height: 70vh;
+            display: block;
+            margin-bottom: 14px;
+            background-color: getThemeColor(4, $key);
+        }
+    }
+}

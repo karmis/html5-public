@@ -1,0 +1,39 @@
+@import "../../../../views/base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+  .#{$key} {
+    search-settings {
+      .dropdown {
+        width: 32px;
+        text-align: center;
+        cursor: pointer;
+
+        a {
+          text-decoration: none;
+          display: block;
+          color: getThemeColor(2, $key);
+          padding: 0px 12px;
+          line-height: 32px;
+          text-align: left;
+        }
+
+        .submenu {
+          right: 0;
+          z-index: 105;
+          .disabled {
+            opacity: 0.5;
+          }
+          .subdropdown {
+            width: 100%;
+            position: relative;
+
+            .submenu {
+              top: 0;
+              left: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}

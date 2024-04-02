@@ -1,0 +1,58 @@
+@import "../../../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        accordion-block {
+            .panel-heading {
+                .settings-btn {
+                    position: absolute;
+                    top: 0px;
+                    right: 7px;
+                }
+            }
+            .accordion-toggle {
+                outline: none !important;
+            }
+            .panel.card .card-block {
+                .card-row {
+                    .card-col {
+                        .thumbnail-wrapper {
+                            margin: 0;
+                            display: flex;
+                            height: 100px;
+                            width: 165px;
+                            .thumbnail {
+                                position: relative;
+                                max-height: 100%;
+                                max-width: 100%;
+                                width: auto;
+                                height: auto;
+                                top: 0;
+                                bottom: 0;
+                                left: 0;
+                                right: 0;
+                                margin: auto;
+                            }
+                        }
+
+                        a {
+                            color: getThemeColor(16, $key);
+                        }
+                    }
+                    .spinner-wrapper {
+                        display: flex;
+                        width: 30px;
+                        line-height: 32px;
+                        .spinner {
+                            width: 20px;
+                            height: 20px;
+                            position: relative;
+                            margin: 0 auto;
+                            transform-origin: 50% 50% 15px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

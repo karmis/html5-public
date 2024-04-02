@@ -1,0 +1,32 @@
+<div class="tab-wrapper" [ngClass]="{'edit-mode': !readOnly}">
+    <div class="tab-label">
+        <span>{{"user_management.users.modal.presets_tab" | translate}}</span>
+        <div class="buttons-row" *ngIf="!readOnly">
+            <i *ngIf="isSelectAll"
+               title="{{'user_management.access_to_all_presets' | translate}}"
+               [ngClass]="{'is-active': isSelectedAll}"
+               (click)="onChangeSelectAll(!isSelectedAll, false)"
+               class="icon icons-success"></i>
+            <i title="{{'user_management.users.modal.add_new' | translate}}"
+               (click)="addItems()"
+               class="icons-cross icon add-item"></i>
+            <i title="{{'user_management.users.modal.remove' | translate}}"
+               (click)="deleteItems()"
+               class="icons-cross icon" [ngClass]="{'disabled': selectedRows.length == 0}"></i>
+        </div>
+    </div>
+    <div class="tab-content-wrapper">
+        <div *ngIf="!isSelectedAll" class="color-back-wrapper">
+            <div class="tab-content-row" *ngFor="let item of data; let i = index" title="{{item.NAME}}"
+                 [ngClass]="{'selected': selectedRows.indexOf(item) > -1}"
+                 (click)="processRowClick(item, $event, i)">
+                <p class="noselect">{{item.NAME}}</p>
+            </div>
+        </div>
+        <div *ngIf="isSelectedAll" class="color-back-wrapper">
+            <span class="is-all-selected">
+                <i class="icon icons-check success-color"></i>{{'user_management.access_to_all_presets' | translate}}
+            </span>
+        </div>
+    </div>
+</div>

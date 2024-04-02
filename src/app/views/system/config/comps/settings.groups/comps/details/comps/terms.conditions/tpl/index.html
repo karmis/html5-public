@@ -1,0 +1,11 @@
+<div class="settings-groups-tc-wrapper">
+    <label class="terms-label pb-1">
+        {{ 'settings_group.terms_conditions.title' | translate }}
+        <textarea
+            class="terms-textarea text"
+            [(ngModel)]="textAreaValue"
+            (ngModelChange)="onChangeTermsText($event)">
+        </textarea>
+    </label>
+    <button type="button" class="btn btn-default" (click)="showConfirmReset()">{{"settings_group.terms_conditions.reset" | translate }}</button>
+</div>

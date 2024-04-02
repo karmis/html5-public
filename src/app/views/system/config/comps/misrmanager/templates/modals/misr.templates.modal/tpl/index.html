@@ -1,0 +1,318 @@
+<div class="modal-wrapper">
+    <div class="field-wrapper">
+        <div class="label">{{'misrmanager.templates.config_name' | translate}}</div>
+        <input type="text" [(ngModel)]="itemData.CONFIG_NAME"/>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <!-- General Checks -->
+            <div class="field-wrapper border">
+                <div class="caption">
+                    {{'misrmanager.templates.general_checks' | translate}}
+                </div>
+                <div class="field-table-wrapper">
+                    <table class="field-table">
+                        <tr>
+                            <td class="last">
+                                <div class="field-wrapper">
+                                    <div class="label">{{'misrmanager.templates.track_tags' | translate}}</div>
+                                    <input type="checkbox" style="width: 16px;"
+                                           [ngModel]="itemData.TAGGING_FLAG" (ngModelChange)="onUpdateControl('checkbox', 'TAGGING_FLAG', $event)"/>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="field-wrapper">
+                                    <div class="label">{{'misrmanager.templates.timing' | translate}}</div>
+                                    <input type="checkbox" style="width: 16px;"
+                                           [ngModel]="itemData.TIMING_FLAG" (ngModelChange)="onUpdateControl('checkbox', 'TIMING_FLAG', $event)"/>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="field-wrapper">
+                                    <div class="label">{{'misrmanager.templates.qc_status' | translate}}</div>
+                                    <input type="checkbox" style="width: 16px;"
+                                           [ngModel]="itemData.QC_FLAG" (ngModelChange)="onUpdateControl('checkbox', 'QC_FLAG', $event)"/>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="field-wrapper">
+                                    <div class="label">{{'misrmanager.templates.assisted_qc_status' | translate}}</div>
+                                    <input type="checkbox" style="width: 16px;"
+                                           [ngModel]="itemData.AUTO_QC_FLAG" (ngModelChange)="onUpdateControl('checkbox', 'AUTO_QC_FLAG', $event)"/>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio Checks -->
+    <div class="row" style="height: 352px">
+        <div class="col-sm-6">
+            <div class="field-wrapper border" style="height: 350px;min-height: 350px;">
+                <div class="caption">
+                    {{'misrmanager.templates.audio_checks' | translate}}
+                </div>
+                <div class="p10">
+                    <div class="field-wrapper">
+                        <div class="label">{{'misrmanager.templates.audio_media' | translate}}</div>
+                        <input type="checkbox" style="width: 16px;"
+                               [ngModel]="itemData.CHECK_AUDIO_META" (ngModelChange)="onUpdateControl('checkbox', 'CHECK_AUDIO_META', $event)"
+                               (change)="switchMediasMode('CHECK_AUDIO_META')"/>
+                    </div>
+                    <div class="field-wrapper">
+                        <collection-lookup
+                            #devicesAudio
+                            [readonly]="mediasMode==='single'"
+                            [title]="'misrmanager.templates.audio_devices' | translate"
+                            [titleColWidth]="'160px'"
+                            [maxDataItems]="50"
+                            [controlColWidth]="'100%'"
+                            [placeholder]="'base.selectOoo'|translate"
+                            [placeholderRefToTranslate]="'base.selectOoo'"
+                            [idField]="'DEVICES_AUDIO'"
+                            [count]="null"
+                            [minLimit]="0"
+                            [validationEnabled]="false"
+                            (onUpdateControl)="onUpdateControl('devicesAudio', 'DEVICES_AUDIO', $event)"
+                        ></collection-lookup>
+                    </div>
+                    <div class="field-wrapper s2-width-auto">
+                        <div class="label">{{'misrmanager.templates.audio_format' | translate}}</div>
+                        <imfx-lookups-select2
+                            #audioFmt
+                            [readonly]="mediasMode==='collection'"
+                            [dbField]="'AUDIO_FMT'"
+                            [maxDataItems]="50"
+                            [width]="'160px'"
+                            [lookupType]="null"
+                            [placeholder]="'base.selectOoo'|translate"
+                            [placeholderRefToTranslate]="'base.selectOoo'"
+                            (onSelect)="onUpdateControl('audioFmt', 'AUDIO_FMT', $event)"
+                            (onUnselect)="onUpdateControl('audioFmt', 'AUDIO_FMT', $event)"
+                        ></imfx-lookups-select2>
+                    </div>
+                    <div class="field-wrapper">
+                        <div class="label">{{'misrmanager.templates.audio_tracks' | translate}}</div>
+                        <input type="checkbox" style="width: 16px;"
+                               [ngModel]="itemData.CHECK_AUDIO"
+                               (ngModelChange)="onUpdateControl('checkbox', 'CHECK_AUDIO', $event)"
+                               (change)="switchMediasMode('CHECK_AUDIO')"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <!-- Subtitles Checks -->
+            <div class="field-wrapper border" style="height: 350px;min-height: 350px;">
+                <div class="caption">
+                    {{'misrmanager.templates.subs_checks' | translate}}
+                </div>
+                <div class="p10">
+                    <div class="field-wrapper">
+                        <div class="label">{{'misrmanager.templates.subs' | translate}}</div>
+                        <input type="checkbox" style="width: 16px;"
+                               [ngModel]="itemData.CHECK_SUBS"
+                               (ngModelChange)="onUpdateControl('checkbox', 'CHECK_SUBS', $event)"
+                               (change)="switchSubtitlesMode('CHECK_SUBS')"/>
+                    </div>
+                    <div class="field-wrapper">
+                        <collection-lookup
+                            #subsDevices
+                            [readonly]="subtitlesMode==='single'"
+                            [title]="'misrmanager.templates.subs_devices'|translate"
+                            [maxDataItems]="50"
+                            [titleColWidth]="'160px'"
+                            [controlColWidth]="'100%'"
+                            [placeholder]="'base.selectOoo'|translate"
+                            [placeholderRefToTranslate]="'base.selectOoo'"
+                            [idField]="'DEVICES_SUBS'"
+                            [count]="null"
+                            [minLimit]="0"
+                            [validationEnabled]="false"
+                            (onUpdateControl)="onUpdateControl('subsDevices', 'DEVICES_SUBS', $event)"
+                        ></collection-lookup>
+                    </div>
+                    <!--                        <div class="field-wrapper">-->
+                    <!--                            <div class="label">{{'misrmanager.templates.subs_devices' | translate}}</div>-->
+                    <!--                            <input type="checkbox" style="width: 16px;" [(ngModel)]="itemData.CHK_DEVICE"/>-->
+                    <!--                        </div>-->
+
+                    <div class="field-wrapper">
+                        <collection-lookup
+                            #subsFmts
+                            [readonly]="subtitlesMode==='single'"
+                            [title]="'misrmanager.templates.subs_formats'|translate"
+                            [maxDataItems]="50"
+                            [titleColWidth]="'160px'"
+                            [controlColWidth]="'100%'"
+                            [placeholder]="'base.selectOoo'|translate"
+                            [placeholderRefToTranslate]="'base.selectOoo'"
+                            [idField]="'SUBS_FMTS'"
+                            [count]="null"
+                            [minLimit]="0"
+                            [validationEnabled]="false"
+                            (onUpdateControl)="onUpdateControl('subsFmts', 'SUBS_FMTS', $event)"
+                        ></collection-lookup>
+                    </div>
+
+                    <div class="field-wrapper">
+                        <div class="label">{{'misrmanager.templates.subs_chk' | translate}}</div>
+                        <input type="checkbox" style="width: 16px;"
+                               [ngModel]="itemData.CHECK_SUBS_CHK"
+                               (ngModelChange)="onUpdateControl('checkbox', 'CHECK_SUBS_CHK', $event)"
+                               (change)="switchSubtitlesMode('CHECK_SUBS_CHK')"/>
+                    </div>
+                    <div class="field-wrapper s2-width-auto">
+                        <div class="label">{{'misrmanager.templates.chk_devices' | translate}}</div>
+                        <imfx-lookups-select2
+                            #chkDevice
+                            [readonly]="subtitlesMode==='collection'"
+                            [width]="'160px'"
+                            [maxDataItems]="50"
+                            [validationEnabled]="false"
+                            [allowClear]="false"
+                            [firstEmpty]="false"
+                            [value]="null"
+                            [lookupType]="null"
+                            [compContext]="self"
+                            [placeholder]="'base.selectOoo'|translate"
+                            [placeholderRefToTranslate]="'base.selectOoo'"
+                            (onSelect)="onUpdateControl('chkDevice', 'CHK_DEVICE', $event)"
+                            (onUnselect)="onUpdateControl('chkDevice', 'CHK_DEVICE', $event)"
+                        ></imfx-lookups-select2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Other-->
+    <div class="row">
+        <div class="col-sm-12">
+            <!-- Other Checks -->
+            <div class="field-wrapper border" style="margin-top: 5px;">
+                <div class="caption">
+                    {{'misrmanager.templates.other_checks' | translate}}
+                </div>
+
+                <!--                            [selected]="userLookupSelect.selectedId"-->
+                <!--                            [readonly]="userLookupSelect.readonly"-->
+                <!--                            (onSelect)="onChangeSelect($event, 'userLookupSelect')"-->
+                <div class="row p10" style="margin-top: 5px;">
+                    <div class="col-md-12">
+                        <div class="field-wrapper">
+                            <span class="label">{{'misrmanager.templates.tx_start_time' | translate}}</span>
+                            <div style="display: inline-flex;">
+                                <imfx-controls-datetimepicker
+                                    #txDtSt
+                                    [locale]="'common.locale' | translate"
+                                    [format]="'common.date_full_format' | translate"
+                                    [formatDate]="'common.date_format' | translate"
+                                    [formatTime]="'common.time_format' | translate"
+                                    [value]="itemData['TX_DT_ST']"
+                                    [mask]="true"
+                                    [dayOfWeekStart]="'common.date_of_week_start' | translate"
+                                    [small]="true"
+                                    [datepicker]="false"
+                                    [timepicker]="true"
+                                    (onAnyEvent)="onUpdateControl('txDtSt', 'TX_DT_ST', $event)"
+                                ></imfx-controls-datetimepicker>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="field-wrapper version-media">
+                            <!--                                MEDIA_ID_FIELD-->
+                            <div class="label">{{'misrmanager.templates.media_id_to_check' | translate}}</div>
+                            <imfx-controls-select2
+                                #mediaIdField
+                                [width]="'160px'"
+                                [maxDataItems]="50"
+                                [multiple]="false"
+                                [data]="[{}]"
+                                (onAnyEvent)="onUpdateControl('mediaIdField', 'MEDIA_ID_FIELD')"
+                                [placeholder]="'base.selectOoo'|translate"
+                                [placeholderRefToTranslate]="'base.selectOoo'"></imfx-controls-select2>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <!--                            VERSION_ID_FIELD-->
+                        <div class="field-wrapper version-media"  style="padding-right: 25px;">
+                            <div class="label">{{'misrmanager.templates.version_id_to_check' | translate}}</div>
+                            <imfx-controls-select2
+                                #versionIdField
+                                [width]="'160px'"
+                                [maxDataItems]="50"
+                                [multiple]="false"
+                                [data]="[{}]"
+                                [placeholder]="'base.selectOoo'|translate"
+                                (onAnyEvent)="onUpdateControl('versionIdField', 'VERSION_ID_FIELD')"
+                                [placeholderRefToTranslate]="'base.selectOoo'"></imfx-controls-select2>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 " style="padding-right: 25px;">
+                        <!--                            <div class="label">{{'misrmanager.templates.selection_rules' | translate}}</div>-->
+                        <!--                            MisrItems-->
+                        <!--                            [controlColWidth]="'100%'"-->
+                        <collection-lookups
+                            #selectionRulesControl
+                            [title]="'misrmanager.templates.selection_rules'|translate"
+                            [titleColWidth]="'100%'"
+                            [maxDataItems]="50"
+                            [controlColWidth]="'800px'"
+                            [placeholder]="'base.selectOoo'|translate"
+                            [placeholderRefToTranslate]="'base.selectOoo'"
+                            [dbField]="'MisrItems'"
+                            [lookupsObjects]="lookupsObjects"
+                            [count]="null"
+                            [minLimit]="0"
+                            [groups]="true"
+                            (onUpdateControl)="onUpdateControl('selectionRulesControl', 'MisrItems')"
+                            (onUpdateStructure)="onUpdateControl('selectionRulesControl', 'MisrItems')"
+                        ></collection-lookups>
+                    </div>
+                    <div class="col-sm-12" style="margin-top: 15px;">
+                        <div class="field-wrapper">
+                            <!--Components-->
+                            <collection-lookup
+                                #components
+                                [title]="'misrmanager.templates.required_components'|translate"
+                                [titleColWidth]="'160px'"
+                                [maxDataItems]="50"
+                                [controlColWidth]="'100%'"
+                                [placeholder]="'base.selectOoo'|translate"
+                                [placeholderRefToTranslate]="'base.selectOoo'"
+                                [idField]="'Components'"
+                                [count]="null"
+                                [minLimit]="0"
+                                (onUpdateControl)="onUpdateControl('components', 'Components')"
+                                (onUpdateStructure)="onUpdateControl('components', 'Components')"
+                            ></collection-lookup>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="overlay-wrapper" #modalWrapperEl>
+            <div class="spinner"></div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div>
+            <button type="button" (click)="closeModal()">{{'common.cancel'| translate}}</button>
+            <button type="button primary" (click)="saveData()"
+                    [disabled]="!isValid()">{{'common.save'| translate}}</button>
+        </div>
+    </div>
+</ng-template>

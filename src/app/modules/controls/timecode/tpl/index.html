@@ -1,0 +1,38 @@
+<div class="timecode-input-wrapper">
+    <input #inputElement
+           type="text"
+           spellcheck="false"
+           name="inputValue"
+           autocomplete="off"
+           [attr.data-rowId]="rowId"
+           [class]="'timecode-input'"
+           [ngModel]="inputValue"
+           #inputModel="ngModel"
+           [ngClass]="{'timecode-input-error' : enableValidation && (inputModel.errors || inputError)}"
+           (blur)="onBlur($event)"
+           (focus)="onFocus($event)"
+           (click)="onClick($event)"
+           (keyup)="onKeyUp($event)"
+           (copy)="onCopy($event)"
+           (paste)="onPaste($event)">
+    <i class="fa fa-arrow-right go-to-timecode" (click)="goToTimecode()" *ngIf="displayGoToTimecodeBtn" title="Go To Timecode"></i>
+    <div [hidden]="isDisabledTooltip" *ngIf="visibleTooltip && (storagePasteValue || storageInValue || storageOutValue)"
+         #tooltip
+         class="copy-timecode-confirmation-tooltip">
+        <button class="paste-button" *ngIf="storagePasteValue"
+             (mousedown)="tooltipOnMouseDown($event, storagePasteValue)">
+            {{'common.paste'| translate}} "{{storagePasteValue}}"
+        </button>
+        <button class="paste-button" *ngIf="storageInValue"
+             (mousedown)="tooltipOnMouseDown($event, storageInValue)">
+            Use Mark In "{{storageInValue}}"
+        </button>
+        <button class="paste-button" *ngIf="storageOutValue"
+             (mousedown)="tooltipOnMouseDown($event, storageOutValue)">
+            Use Mark Out "{{storageOutValue}}"
+        </button>
+    </div>
+</div>
+
+
+

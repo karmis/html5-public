@@ -1,0 +1,66 @@
+@import "../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .locator-comments-wrapper {
+            .slick-grid-wrapper {
+                .slick-row {
+                    &.hover-row {
+                        background: getThemeColor(3, $key);
+                    }
+                }
+            }
+            .h-tab-wrapper {
+                padding: 10px;
+                height: 100%;
+                .thumbnail {
+                    width: 95px !important;
+                }
+            }
+            .indicator-wrapper {
+                .indicator {
+                    width: 16px;
+                    height: 16px;
+                    border-radius: 8px;
+                }
+
+                .green {
+                    background-color: getThemeColor(12, $key);
+                }
+
+                .red {
+                    background-color: getThemeColor(13, $key);
+                }
+
+                .yellow {
+                    background-color: getThemeColor(7, $key);
+                }
+
+                .blue {
+                    background-color: getThemeColor(10, $key);
+                }
+            }
+            text-formatter-comp {
+                width: 100%;
+                height: 100%;
+                display: block;
+                .text-formatter-wrapper {
+                    height: 100%;
+                    margin: 0;
+
+                    .textarea-field {
+                        width: 100%;
+                        height: 100%;
+                        min-height: 36px;
+                        padding: 0 6px;
+                    }
+                }
+            }
+            .total-duration {
+                float: right;
+                margin: 0;
+                line-height: 32px;
+            }
+        }
+    }
+}

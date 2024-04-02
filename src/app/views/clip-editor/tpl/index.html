@@ -1,0 +1,57 @@
+<div class="rce-wrapper detail-page-wrapper" #rceElement style="height: 100%">
+  <div class="imfx-table">
+  <div class="imfx-detail-btns">
+    <nav>
+      <ul>
+        <li *ngIf="!error" class="back-button-clause">
+          <button *ngIf="!isFirstLocation()" class="icon-button" title="{{ 'common.back_button' | translate }}" (click)="clickBack()">
+            <i class="icons-left icon"></i>
+          </button>
+        </li>
+        <li *ngIf="!error" class="detail-title">
+          <!--h1 title="{{ 'workflow.title' | translate }}">
+            {{ 'workflow.title' | translate }}
+            <span *ngIf="details?.JobRef">-</span> {{details?.JobRef}}
+          </h1-->
+          <h1 title="{{ 'rce.title' | translate }}">
+            {{ 'rce.title' | translate }}
+          </h1>
+          <div class="right-buttons">
+            <button class="preview" (click)="openPreview()">
+              Preview
+            </button>
+            <button class="add-item" *ngIf="checkMediaList()" (click)="showMediaTable()">
+              Add Item
+            </button>
+            <button class="primary place-order" (click)="placeOrder()">
+              Place Order
+            </button>
+          </div>
+        </li>
+        <li *ngIf="error && !isFirstLocation()">
+          <button class="icon-button" title="{{ 'common.back_button' | translate }}" (click)="clickBack()">
+            <i class="icons-left icon"></i>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="imfx-row p-rel-h-full" *ngIf="!error">
+    <div class="golden-layout-detail" style="height: 100%">
+      <golden-clip-editor-layout
+        *ngIf="(checkDetailExistance(config.options.file)) || isPopout"
+        [config]="config.options.provider.goldenConfig"
+        [file]="file"
+        [type]="this.config.options.detailsviewType"
+        #gl>Loading...</golden-clip-editor-layout>
+    </div>
+  </div>
+  <div style="margin: auto; height: 100%;" *ngIf="error">
+    <h2 style="line-height: 90vh; text-align: center;">
+      {{text}}
+    </h2>
+  </div>
+  </div>
+</div>
+<!--<overlay #overlay [detail]="true"></overlay>-->

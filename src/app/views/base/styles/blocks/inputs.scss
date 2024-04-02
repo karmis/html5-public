@@ -1,0 +1,47 @@
+@import "../theme.scss";
+
+@each $key,
+$value in $common-themes {
+  .#{$key} {
+    input[type="checkbox"], input[type="radio"] {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      border: 2px solid getThemeColor(22, $key);
+      background-color: getThemeColor(6, $key);
+      width: 16px;
+      height: 16px;
+      margin-bottom: -0.2rem;
+      transition: all 0.2s ease-in-out;
+      box-sizing: border-box;
+      padding: 0;
+    }
+
+    input[type="checkbox"] {
+      background-position: center center;
+    }
+
+    input[type="checkbox"]:checked {
+      background: getThemeColor(10, $key) url(assets/icons/check.svg) no-repeat center center;
+      border: 2px solid getThemeColor(10, $key);
+    }
+
+    input[type="checkbox"]:indeterminate {
+      border: 2px solid getThemeColor(22, $key);
+      background: url(getThemeIcon(3, $key)) no-repeat center center;
+    }
+
+    input[type="radio"] {
+      background: getThemeColor(3, $key);
+      border-radius: 50%;
+    }
+
+    input[type="checkbox"]:active,
+    input[type="radio"]:active {
+      transform: scale(1.75);
+    }
+
+    input[type="radio"]:checked {
+      border: 5px solid getThemeColor(10, $key);
+    }
+  }
+}

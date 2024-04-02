@@ -1,0 +1,39 @@
+<div class="taxonomy-wrapper">
+    <div class="taxonomy-tree-wrapper" #wrapper>
+        <overlay #overlay [mode]="true" [zIndex]="100"></overlay>
+        <input type="text" class="filter" #filterInput (keyup)="filterTree($event)" placeholder="{{'system-config.xml.filter' | translate}}"/>
+<!--        <i class="icons-cross icon" *ngIf="filterInput.value.length > 0" (click)="filterInput.value = ''; filterTree($event)"></i>-->
+        <imfx-controls-tree #tree
+                            [keyboard]="false"
+                            [extensions]="['filter', 'edit']"
+                            [edit]="editSetups"
+                            [ext_filter]="{autoExpand: true, mode: 'hide', highlight: false}"
+                            [checkbox]="false"
+                            [icon]="false"
+                            [showKey]="true"
+                            [compContext]="context"
+        ></imfx-controls-tree>
+        <div class="buttons-wrapper">
+            <button
+                    class="add-btn"
+                    title="{{'settings_group.taxonomy_config.add_btn' | translate}}"
+                    (click)="onAdd()">
+                <i class="icons-add icon"></i>
+            </button>
+
+            <button
+                    class="edit-btn"
+                    title="{{'settings_group.taxonomy_config.edit_btn' | translate}}"
+                    (click)="onEdit()">
+                <i class="fa fa-edit fa-icon"></i>
+            </button>
+
+            <button
+                    class="remove-btn"
+                    title="{{'settings_group.taxonomy_config.remove_btn' | translate}}"
+                    (click)="onRemove()">
+                <i class="icons-cross icon"></i>
+            </button>
+        </div>
+    </div>
+</div>

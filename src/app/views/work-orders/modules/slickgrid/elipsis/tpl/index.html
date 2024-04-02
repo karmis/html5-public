@@ -1,0 +1,20 @@
+<div *ngIf="slickGridComp.isGridReady || slickGridComp && slickGridComp?.provider?.getSlick()"
+     class="dropdown grid-settings-dropdown workOrdersSettingsPopup {{externalClass}} work-orders-item-ellipsis-dropdown-wrapper"
+     style="margin-top: 15px; margin-right: 15px; position: fixed; display: none;">
+    <ul
+        aria-labelledby="simple-btn-keyboard-nav"
+        style="display: block; top: 0%"
+        class="dropdown-menu dropdown-menu-subrow"
+        role="menu"
+    >
+        <li *ngIf="hasPermissionByName('reset-checks')"
+            [hidden]="slickGridComp.provider.isMultiSelectedItems()"
+            role="menuitem">
+            <a class="dropdown-item"
+               (click)="slickGridComp.provider.resetChecksInSubRow($event)"
+               aria-disabled="true">
+                {{ 'work_orders.table.dropdown.reset_checks.title' | translate }}
+            </a>
+        </li>
+    </ul>
+</div>

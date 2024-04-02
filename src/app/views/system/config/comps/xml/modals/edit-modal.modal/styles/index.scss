@@ -1,0 +1,162 @@
+@import "../../../../../../../base/styles/theme.scss";
+
+$multilineheight: 300px;
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        edit-xml-modal {
+            .edit-xml-modal-wrapper {
+                width: 100%;
+                min-width: 50%;
+                min-height: 50vh;
+                max-height: 70vh;
+                position: relative;
+                overflow-x: hidden;
+                overflow-y: auto;
+                display: flex;
+                flex-direction: column;
+
+                .main-data {
+
+                    .field-wrapper {
+                        width: 100%;
+                        margin-bottom: 5px;
+
+                        .label {
+                            display: inline-block;
+                            width: 80px;
+                            height: 32px;
+                            line-height: 32px;
+                        }
+
+                        input {
+                            display: inline-block;
+                            width: calc(100% - 80px);
+                        }
+
+                        .select2-wrapper {
+                            display: inline-block;
+                            width: calc(100% - 80px);
+                            border: 2px solid getThemeColor(9, $key);
+                            background: getThemeColor(4, $key);
+                        }
+
+                        &.schema {
+                            margin-top: 10px;
+                            padding-top: 5px;
+                            border-top: 1px solid getThemeColor(9, $key);
+                            width: 50%;
+                            padding-right: 4px;
+                            display: inline-block;
+
+                            .label {
+                                width: 200px;
+                            }
+                            .CodeMirror {
+                                height: 400px !important;
+                                line-height: normal;
+                            }
+                        }
+
+                        &.override {
+                            padding-right: 0px;
+                            padding-left: 4px;
+                        }
+
+                        &.description {
+                            display: inline-block;
+                            width: calc(100% - 410px);
+                            padding-right: 4px;
+                            margin: 0;
+                            height: 83px;
+                            vertical-align: top;
+
+                            .label {
+                                vertical-align: top;
+                            }
+
+                            textarea {
+                                width: calc(100% - 80px);
+                                height: 100%;
+                                resize: none;
+                            }
+                        }
+
+                        &.checkboxes {
+                            display: inline-block;
+                            padding-left: 4px;
+                            vertical-align: top;
+                            width: 410px;
+                            margin: 0;
+                            height: 83px;
+
+                            input {
+                                width: 15px;
+                                height: 15px;
+                                margin-right: 10px;
+                            }
+
+                            label {
+                                display: block;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .overlay-wrapper {
+                display: none;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: getThemeColor(3, $key);
+                overflow: hidden;
+                z-index: 5;
+
+                .spinner {
+                    width: 80px;
+                    height: 80px;
+                    border-width: 8px;
+                    margin: 0 auto;
+                    position: relative;
+                    top: calc(50% - 40px);
+                }
+            }
+        }
+
+        .select-file-xml {
+            height: 32px;
+            line-height: 32px;
+            float: left;
+            overflow: hidden;
+            width: 160px;
+            position: relative;
+            cursor: pointer;
+
+            &:hover {
+                button {
+                    background: getThemeColor(12, $key);
+                    opacity: 0.8;
+                }
+            }
+
+            button {
+                background: getThemeColor(12, $key);
+                cursor: pointer;
+            }
+
+            input {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                opacity: 0;
+                cursor: pointer;
+            }
+        }
+    }
+}

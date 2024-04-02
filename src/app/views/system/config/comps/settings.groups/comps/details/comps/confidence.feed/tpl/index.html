@@ -1,0 +1,68 @@
+<div class="settings-groups-cf">
+    <div class="available-names-wrapper">
+        <div class="header">
+            Pages
+            <div class="buttons-row">
+                <i title="Add Page"
+                   (click)="addItems()"
+                   class="icons-cross icon add-item"></i>
+            </div>
+        </div>
+        <div class="names-list">
+            <div *ngFor="let item of data"
+                 class="names-list-item"
+                 (click)="onSelectPage(item)"
+                 [ngClass]="{'active': selectedItemId === item.id}"
+            >
+                {{item.pageName}}
+                <span class="closebtn" (click)="deletePage(item.id)" title="{{ 'common_hints.remove' | translate }}">
+                    <i class="icons-cross icon"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="available-names-wrapper devices">
+        <div class="header" style="height: 21px">Devices
+            <div class="buttons-row">
+                <i title="New Device"
+                   *ngIf="selectedItemId !== null"
+                   (click)="addDevices()"
+                   class="icons-cross icon add-item"></i>
+            </div>
+        </div>
+        <div class="names-list"
+             *ngIf="selectedItemId !== null"
+             [dndDropzone]="['0']"
+             dndEffectAllowed="move"
+             (dndDrop)="onDrop($event)">
+            <div *ngFor="let item of selectedDevices; let i = index"
+                 class="names-list-item"
+                 [dndDraggable]="item"
+                 [dndEffectAllowed]="item.effectAllowed"
+                 [dndDisableIf]="item.disable"
+            >
+                <div class="drag-handle" dndHandle>
+                </div>
+                <imfx-controls-select2
+                        #controls
+                        [width]="'100%'"
+                        [multiple]="false"
+                        [data]="devices"
+                        [selected]="null"
+                        [value]="item.data.deviceId"
+                        [placeholder]="'base.selectOoo'|translate"
+                        [placeholderRefToTranslate]="'base.selectOoo'"
+                        (onSelect)="onChangeDevices($event, i)">
+
+                </imfx-controls-select2>
+                <span class="closebtn" (click)="deleteDevice(i)" title="{{ 'common_hints.remove' | translate }}">
+                    <i class="icons-cross icon"></i>
+                </span>
+            </div>
+
+            <div class="placeholder-ref"
+                 dndPlaceholderRef>
+            </div>
+        </div>
+    </div>
+</div>

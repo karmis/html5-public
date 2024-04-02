@@ -1,0 +1,19 @@
+<input
+        #filterInput
+        class="field"
+        type="search"
+        placeholder="{{ 'ng2_components.ag_grid.start_type_user' | translate }}"
+        (keyup)="filter($event)"
+        style="margin-bottom: 5px;width: calc(100% - 10px);margin-left: 5px;height: 32px;">
+
+<imfx-controls-tree #tree
+                    [externalCompReference]="componentContext"
+                    [extensions]="['filter']"
+                    [ext_filter]="{autoExpand: true, mode: 'hide', highlight: false}"
+                    [checkbox]="true"
+                    [selectMode]="3"
+                    [icon]="false"
+                    [source]="users"
+                    (onSelect)="onSelect($event)"
+                    (onUnSelect)="onSelect($event)"
+></imfx-controls-tree>

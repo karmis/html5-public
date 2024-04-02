@@ -1,0 +1,72 @@
+@import "../../../../../base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+  .#{$key} {
+      .config-tables-wrapper {
+          height: 100%;
+          display: flex;
+
+          //config-tables-grid {
+          //    width: calc(100% - 250px);
+          //}
+          .config-tables-grid-wrapper {
+              height: 100%;
+              width: calc(100% - 250px);
+              position: relative;
+          }
+
+          .tables-list {
+              background: getThemeColor(4, $key);
+              height: 100%;
+              max-width: 250px;
+              width: 250px;
+              flex: 1;
+              position: relative;
+
+              .tables-list-filter {
+                  height: 32px;
+                  line-height: 32px;
+                  width: 100%;
+                  display: block;
+                  padding-right: 28px;
+              }
+              .clear-tables-filter {
+                  cursor: pointer;
+                  opacity: 0.5;
+                  position: absolute;
+                  top: 6px;
+                  right: 6px;
+                  &:hover {
+                      opacity: 1;
+                  }
+              }
+              .tables-list-wrapper {
+                  overflow-x: hidden;
+                  overflow-y: auto;
+                  width: 100%;
+                  height: calc(100% - 32px);
+
+                  .configTableItem {
+                      width: 100%;
+                      white-space: nowrap;
+                      text-overflow: ellipsis;
+                      display: block;
+                      line-height: 26px;
+                      padding: 0 5px;
+                      cursor: pointer;
+                      overflow: hidden;
+
+                      &:hover {
+                          background: getThemeColor(5, $key);
+                      }
+                      &.active {
+                          background: getThemeColor(10, $key);
+                          border: none;
+                          color: #fff;
+                      }
+                  }
+              }
+          }
+      }
+  }
+}

@@ -1,0 +1,61 @@
+@import "../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .clipping-btns-block,
+        .clipping-btns-popup {
+            width: 100%;
+            float: left;
+            flex-wrap: wrap;
+            z-index: 10;
+            .clipping-button[disabled]:hover {
+                background-color: transparent;
+            }
+            .clipping-button[disabled] {
+                //box-shadow: none;
+                cursor: default;
+                opacity: 0.6;
+                pointer-events: none;
+                &:hover, &:focus {
+                    background-color: getThemeColor(5, $key);
+                }
+            }
+            .clipping-button {
+                background-color: getThemeColor(5,$key);
+                width: 8.5em!important;
+                margin-right: 5px;
+                margin-top: 5px;
+                font-size: 11px;
+                span {
+                    font-size: 11px;
+                    position: relative!important;
+                }
+                .cancel-btn {
+                    width: 5px;
+                    height: 5px;
+                    font-size: 10px;
+                    float: right;
+                    opacity: 1;
+                    transition: all;
+                }
+                &:hover, &:focus {
+                    background-color: getThemeColor(18, $key);
+                }
+            }
+            .clipping-button-clear {
+                margin-right: 10px!important;
+            }
+        }
+        .clipping-button-popup {
+            margin-left: 27px!important;
+            .clip-menu {
+                position: relative;
+                line-height: 35px;
+            }
+            .clipping-button {
+                width: 100%!important;
+                margin: 3px 0!important;
+            }
+        }
+    }
+}

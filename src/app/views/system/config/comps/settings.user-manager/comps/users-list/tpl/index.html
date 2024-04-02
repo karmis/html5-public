@@ -1,0 +1,52 @@
+<div class="tab-wrapper edit-mode">
+    <div class="tab-label">
+        <span>
+            {{'user_management.groups.modal.users_block' | translate}}
+        </span>
+        <!--<div class="buttons-row">-->
+            <!--<i class="icons-cross icon add-item" title="Add New"></i>-->
+            <!--<i class="icons-cross icon disabled" ng-reflect-klass="icons-cross icon" ng-reflect-ng-class="[object Object]"-->
+               <!--title="Remove Item"></i>-->
+        <!--</div>-->
+    </div>
+    <div class="tab-content-wrapper">
+        <div class="color-back-wrapper" style="overflow: hidden;">
+            <div style="height: 32px;vertical-align: top;">
+                <input
+                    #filterInput
+                    class="field pull-left"
+                    style="margin-bottom: 5px;
+                    height: 32px;
+                    width: 80%"
+                    placeholder="{{ 'common.just_search_placeholder' | translate }}"
+                    (keyup)="onFilter()">
+                <button (click)="changeUsers()" title="{{'user_management.groups.modal.add_remove_users' | translate}}" class="pull-left" style="
+                width: 20%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;">
+                    {{'user_management.groups.modal.add_remove_users' | translate}}
+                </button>
+            </div>
+
+            <div style="height: calc(100% - 10px);vertical-align: top;">
+                <slick-grid
+                    #slickGridComp
+                    style="width: 100%; height: 100%;"
+                    class=""
+                    [config]="searchGridConfig">
+                </slick-grid>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #modalFooterTemplate>
+        <div class="modal-footer">
+            <div>
+                <button type="button" (click)="applyChanges()">{{'common.save'| translate}}</button>
+                <button type="button" (click)="closeModal()">{{'common.cancel'| translate}}</button>
+            </div>
+        </div>
+    </ng-template>
+</div>
+

@@ -1,0 +1,39 @@
+@import "../../../../../../views/base/styles/theme";
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .slick-cell {
+
+            &.selected .log-type-indicator-wrapper .log-type-indicator {
+                color: #FFFFFF;
+            }
+
+            .log-type-indicator-wrapper {
+                .log-type-indicator {
+                    opacity: 1;
+                }
+                .log-type-error {
+                    color: getThemeColor(13, $key);
+                }
+                .log-type-warning {
+                    color: getThemeColor(7, $key);
+                }
+                .log-type-info {
+                    color: getThemeColor(10, $key);
+                }
+                .log-type-debug {
+                    color: getThemeColor(2, $key);
+                }
+
+                i:before {
+                    font-size: 18px;
+                }
+                span {
+                    vertical-align: top;
+                    line-height: 18px;
+                }
+            }
+        }
+    }
+}

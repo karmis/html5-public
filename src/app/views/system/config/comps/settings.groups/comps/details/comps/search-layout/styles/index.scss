@@ -1,0 +1,107 @@
+@import "../../../../../../../../../base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        settings-groups-detail-search-layout {
+            .search-layout-wrapper {
+                height: 100%;
+                padding: 1rem;
+                .section-wrapper {
+                    display: inline-flex;
+                    flex-direction: column;
+                    margin-right: 3%;
+                    .section-title {
+                        border-bottom: 1px solid getThemeColor(22, $key);
+                        padding: 10px 0;
+                    }
+                    .section-area {
+                        padding: 10px 0;
+                        position: relative;
+                        .icons-cross-wrapper {
+                            background-color: getThemeColor(5, $key);
+                            height: 32px;
+                            vertical-align: middle;
+                            .icons-cross {
+                                opacity: 0.5;
+                                cursor: pointer;
+                                line-height: 32px;
+                                &:hover {
+                                    opacity: 1;
+                                }
+                            }
+                        }
+                        .selection-button-wrapper {
+                            display: flex;
+                            flex-direction: row;
+                        }
+                        button {
+                            flex: 1;
+                        }
+                        .title {
+                            height: 26px;
+                            //line-height: 30px;
+                        }
+                    }
+                    ngx-sortable {
+                        li {
+                            border: none !important;
+                            background: transparent !important;
+                            color: inherit !important;
+                        }
+                        .sortable-list {
+                            background: getThemeColor(5, $key);
+                            li {
+                                border: none !important;
+                                background: transparent !important;
+                                color: inherit !important;
+                                &.active {
+                                    border: none !important;
+                                    background: transparent !important;
+                                    color: inherit !important;
+                                }
+                                &:last-child {
+                                    border-bottom: 1px solid getThemeColor(22, $key) !important;
+                                }
+                            }
+                        }
+                        .sortable-list-item {
+                            display: block;
+                            height: 30px;
+                            line-height: 20px;
+                            padding: 5px;
+                            box-sizing: border-box;
+                            border: 1px solid getThemeColor(22, $key);
+                            border-bottom: none;
+                            cursor: all-scroll;
+                            background: getThemeColor(5, $key);
+                            input {
+                                margin-right: 5px;
+                            }
+                            .default-marker {
+                                opacity: 0.5;
+                            }
+                        }
+                        .sortable-header {
+                            display: none;
+                        }
+                        .sortable-container {
+                            border: none;
+                            overflow: hidden;
+                            border-radius: 0;
+                        }
+                    }
+                }
+                .schemas-selection {
+                    height: 100%;
+                    overflow: hidden;
+                    .tree-wrapper {
+                        height: calc(100% - 40px);
+                        position: relative;
+                        overflow: hidden;
+                        margin-top: 8px;
+                    }
+                }
+            }
+        }
+    }
+}

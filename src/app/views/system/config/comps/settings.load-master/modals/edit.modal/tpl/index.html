@@ -1,0 +1,99 @@
+<div class="load-master-modal-wrapper">
+    <div class="main-fields">
+        <div class="top-row">
+            <div class="task-type">
+                <div class="label">
+                    {{"load_master.fields.task_type" | translate}}
+                </div>
+
+                <imfx-controls-select2
+                    class="tasks-select"
+                    [width]="'100%'"
+                    [data]="tasksLookup"
+                    [value]="[{Id: itemToSave.TaskType}]"
+                    [placeholder]="'xml.select_value'|translate"
+                    [placeholderRefToTranslate]="'xml.select_value'"
+                    (onSelect)="onSelect($event)"></imfx-controls-select2>
+            </div>
+
+            <label class="ignore-checkbox">
+                {{"load_master.fields.ignore" | translate}}
+                <input type="checkbox" [(ngModel)]="itemToSave.IgnorePresets"/>
+            </label>
+        </div>
+        <div class="bottom-row">
+            <div class="left-column">
+                <div class="tab-wrapper">
+                    <div class="tab-label">
+                        <span>{{"load_master.fields.presets" | translate}}</span>
+                        <div class="buttons-row">
+                            <i title="{{'load_master.add_preset' | translate}}"
+                               (click)="addPresets()"
+                               class="icons-cross icon add-item"></i>
+                            <i title="{{'load_master.remove_preset' | translate}}"
+                               (click)="deletePresets()"
+                               class="icons-cross icon" [ngClass]="{'disabled': selectedPresetsRows.length == 0}"></i>
+                        </div>
+                    </div>
+                    <div class="tab-content-wrapper">
+                        <div class="color-back-wrapper">
+                            <div class="tab-content-row" *ngFor="let item of itemToSave.Presets; let i = index" title="{{item.Value}}"
+                                 [ngClass]="{'selected': selectedPresetsRows.indexOf(item) > -1}"
+                                 (click)="processPresetRowClick(item, $event, i)">
+                                <p class="noselect">{{item.Value}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="right-column">
+                <div class="tab-wrapper">
+                    <div class="tab-label">
+                        <span>{{"load_master.fields.queues" | translate}}</span>
+                        <div class="buttons-row">
+                            <i title="{{'load_master.add_queue' | translate}}"
+                               (click)="addQueues()"
+                               class="icons-cross icon add-item"></i>
+                            <i title="{{'load_master.remove_queue' | translate}}"
+                               (click)="deleteQueues()"
+                               class="icons-cross icon" [ngClass]="{'disabled': selectedQueuesRows.length == 0}"></i>
+                            <i class="fa fa-edit"
+                               title="{{'load_master.edit_queue' | translate}}"
+                               [ngClass]="{'disabled': selectedQueuesRows.length != 1}" (click)="editQueue()"></i>
+                        </div>
+                    </div>
+                    <div class="tab-content-wrapper">
+                        <div class="color-back-wrapper">
+                            <div class="tab-content-row head">
+                                <p class="noselect" style="width: 50px">{{"load_master.fields.id" | translate}}</p>
+                                <p class="noselect" style="width: 50px">{{"load_master.fields.size" | translate}}</p>
+                                <p class="noselect" style="width: 80px">{{"load_master.fields.is_enabled" | translate}}</p>
+                                <p class="noselect" style="width: calc(100% - 180px); border-right: none">{{"load_master.fields.name" | translate}}</p>
+                            </div>
+                            <div class="tab-content-row" *ngFor="let item of itemToSave.Queues; let i = index"
+                                 [ngClass]="{'selected': selectedQueuesRows.indexOf(item) > -1}"
+                                 (click)="processQueuesRowClick(item, $event, i)">
+                                <p class="noselect" style="width: 50px" title="{{item.ID}}">{{item.ID}}</p>
+                                <p class="noselect" style="width: 50px" title="{{item.Size}}">{{item.Size}}</p>
+                                <p class="noselect" style="width: 80px; text-align: center;" ><input type="checkbox" disabled="disabled" [checked]="item.IsEnabled"/></p>
+                                <p class="noselect" style="width: calc(100% - 180px); border-right: none" title="{{item.Name}}">{{item.Name}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="overlay-wrapper" #modalOverlayWrapper>
+        <div class="spinner"></div>
+    </div>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div>
+            <button type="button" *ngIf="!inLoad" (click)="saveData()">{{'common.save'| translate}}</button>
+            <button type="button" *ngIf="!inLoad" (click)="closeModal()">{{'common.cancel'| translate}}</button>
+        </div>
+    </div>
+</ng-template>

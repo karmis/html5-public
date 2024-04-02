@@ -1,0 +1,20 @@
+@import "../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+  .#{$key} {
+    .location {
+      height: 100%;
+      input {
+        margin-bottom: 5px;
+        width: calc(100% - 10px) !important;
+        margin-left: 5px;
+        height: 32px !important;
+      }
+      .js-scrollbar-target-adv-modal-user {
+          height: calc(100% - 52px);
+        overflow: auto;
+        //max-height: 400px !important;
+      }
+    }
+  }
+}

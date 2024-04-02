@@ -1,0 +1,19 @@
+@import "../../../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        imfx-clip-comment-tab {
+            text-formatter-comp {
+                textarea {
+                    line-height: 28px!important;
+                    height: 32px;
+                    vertical-align: middle;
+                }
+            }
+        }
+        .h-tab-wrapper {
+            padding: 10px;
+            height: 100%;
+        }
+    }
+}

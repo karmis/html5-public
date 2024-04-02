@@ -1,0 +1,79 @@
+<div style="min-width: 160px;display: flex;
+    width: 100%;">
+    <div style="float: left;">
+        <button (click)="switchMode()">{{modeAbs ? 'A' : 'R'}}</button>
+    </div>
+    <div *ngIf="modeAbs" style="width: calc(100% - 24px);float: left;">
+        <imfx-controls-datetimepicker
+                *ngIf="data.mode=='example'"
+                #control
+                [allowBlank]="true"
+                [value]="null"
+                [mask]="true"
+                [locale]="'common.locale' | translate"
+                [format]="'common.date_full_format' | translate"
+                [formatDate]="'common.date_format' | translate"
+                [formatTime]="'common.time_format' | translate"
+                [dayOfWeekStart]="'common.date_of_week_start' | translate"
+                [small]="true"
+                (onChangeDateTime)="transferData()">
+            >
+        </imfx-controls-datetimepicker>
+
+        <imfx-controls-datetimepicker
+                *ngIf="data.mode=='builder'"
+                #control
+                [allowBlank]="true"
+                [startDate]="null"
+                [defaultDate]="null"
+                [defaultTime]="null"
+                [value]="null"
+                [mask]="true"
+                [locale]="'common.locale' | translate"
+                [format]="'common.date_full_format' | translate"
+                [formatDate]="'common.date_format' | translate"
+                [formatTime]="'common.time_format' | translate"
+                [dayOfWeekStart]="'common.date_of_week_start' | translate"
+                [small]="true"
+                (onChangeDateTime)="transferData()">
+            >
+        </imfx-controls-datetimepicker>
+
+        <!--<imfx-controls-datetimepicker-->
+        <!--*ngIf="data.mode=='builder'"-->
+        <!--#control-->
+        <!--[locale]="'common.locale' | translate"-->
+        <!--[format]="'common.date_full_format' | translate"-->
+        <!--[formatDate]="'common.date_format' | translate"-->
+        <!--[formatTime]="'common.time_format' | translate"-->
+        <!--[value]="defaultValue"-->
+        <!--[mask]="true"-->
+        <!--[dayOfWeekStart]="'common.date_of_week_start' | translate"-->
+        <!--[small]="true"-->
+        <!--(onChangeDateTime)="transferData()"-->
+        <!--(onSelectDate)="transferData()"-->
+        <!--(onSelectTime)="transferData()"-->
+        <!--&gt;</imfx-controls-datetimepicker>-->
+    </div>
+    <div *ngIf="!modeAbs" style="width: calc(100% - 24px);float: left;display: flex;">
+        <imfx-controls-select2
+                #controlSelector
+                class="with-relative"
+                [minimumResultsForSearch]="-1"
+                [selected]="selected"
+                [width]="'100px'"
+                [multiple]="false"
+                [data]="intervals"
+                [placeholder]="'base.selectOoo'|translate"
+                [placeholderRefToTranslate]="'base.selectOoo'"
+                (onSelect)="onSelectInterval()"
+                [wrapperClass]="'advanced'"
+                spellcheck="false"
+                style="float: left;flex:1;display: table;"></imfx-controls-select2>
+        <div style="float: left;flex:1;width: calc(100% - 100px);min-width: calc(100% - 100px);">
+            <input type="text" style="width: 100%; min-width: 100%" #controlInput (keyup)="transferData($event)"
+                   (keydown)="validate($event)" [value]="inputUIVal">
+        </div>
+        <!--Develop Number component-->
+    </div>
+</div>

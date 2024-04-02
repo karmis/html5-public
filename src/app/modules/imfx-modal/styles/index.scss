@@ -1,0 +1,168 @@
+@import "../../../views/base/styles/theme.scss";
+@import "../../../views/base/styles/blocks/mixins.scss";
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        &.modal-dialog.imfx-modal {
+            @include transition(max-width 0.2s ease-in-out 0s, transform .3s ease-out,-webkit-transform .3s ease-out,-o-transform .3s ease-out);
+        }
+        imfx-modal {
+            .modal-body {
+                &.type-error {
+                    //background-color: #f00;
+                }
+                padding: 15px;
+                width: 100%;
+                color: getThemeColor(1, $key);
+                background-color: getThemeColor(3, $key);
+                padding-bottom: 1px;
+                div {
+                    word-wrap: break-word;
+                    font-size: 12px;
+                }
+                .modal-prompt {
+                    .modal-prompt-wrapper {
+                        padding: 3px;
+                        padding-bottom: 15px;
+                    }
+                }
+            }
+            .modal-header {
+                &.type-error {
+                    background-color: #9a0303;
+                }
+                position: relative;
+                border: none;
+                background-color: getThemeColor(4, $key);
+                color: getThemeColor(1, $key);
+                padding: 5px 4px;
+                h4 {
+                    font-size: 1rem;
+                    font-family: "sinkin_sans400_regular", "Roboto", sans-serif !important;
+                    padding: 5px;
+                    padding-left: 5px;
+                }
+                span {
+                    font-size: 20px;
+                }
+                span.modal-subtitle-text, span.modal-title-text, {
+                    font-size: 1rem;
+                    font-family: "sinkin_sans400_regular", "Roboto", sans-serif !important;
+                    padding: 5px;
+                }
+                .modal-title {
+                    width: 100%;
+                    padding-right: 28px;
+                    padding-left: 8px;
+                }
+                .close{
+                    height: 100%;
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    margin: 0;
+                    float: none;
+                    opacity: .6;
+                }
+
+                .icons-closedelete {
+                    top: 0;
+                    bottom: 0;
+                    margin: auto 0;
+                }
+            }
+            .modal-footer {
+                &.type-error {
+                    //background-color: #f00;
+                }
+                min-height: 62px;
+                border: none !important;
+                background-color: getThemeColor(3, $key);
+                //padding-top: 0px;
+                button {
+                    margin-left: 5px;
+                }
+                .primary {
+                    background: #2A8CEA;
+                    color: #fff;
+                    //text-transform: uppercase;
+                    &:hover {
+                        background-color: #1472cd;
+                    }
+                    .icon {
+                        color: #fff;
+                        margin-top: -4px;
+                    }
+                    &:not(.no-label) .icon {
+                        margin-right: 8px;
+                    }
+                }
+
+                .buttons {
+                    .next {
+                        float: right;
+                    }
+                    .back {
+                        float: left;
+                    }
+                    .btn {
+                        border-radius: 0;
+                    }
+                }
+                .form-group {
+                    display: inline-block;
+                    margin-bottom: 0;
+                    color: getThemeColor(1, $key);
+                    margin-right: 15px;
+                }
+            }
+
+            .footer-hider {
+                display: none;
+                background-color: getThemeColor(3, $key);
+                z-index: 251;
+                position: absolute;
+                left: 0;
+                right: 0;
+                height: 57px;
+                bottom: 0;
+                text-align: right;
+
+                .spinner {
+                    height: 30px;
+                    width: 30px;
+                    display: inline-block;
+                    position: relative;
+                    top: 12px;
+                    right: 12px;
+                }
+            }
+
+
+        }
+        &.stretch-modal{
+            .modal-content{
+                height: 100%;
+            }
+            imfx-modal{
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+            }
+            .modal-body {
+                flex-grow: 1;
+                flex-basis: 100%;
+                overflow: hidden;
+                min-height: 400px;
+            }
+            .modal-header, .modal-footer {
+                flex-grow: 0;
+            }
+
+        }
+        .modal-footer-container {
+            border-top: 1px solid getThemeColor(9, $key);
+        }
+    }
+}

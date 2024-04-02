@@ -1,0 +1,11 @@
+@import "../../../base/styles/theme.scss";
+@each $key, $value in $common-themes {
+  .#{$key} {
+
+  .detail .imfx-toolbar-header h4 {
+    margin: 0;
+    line-height: 50px;
+  }
+}
+}
+

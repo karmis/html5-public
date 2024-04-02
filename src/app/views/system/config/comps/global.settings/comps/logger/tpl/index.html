@@ -1,0 +1,53 @@
+<div class="global-settings-logger full-height" #loggerSettingsWrapper>
+    <div class="block-legend-content">
+        <div class="form-group">
+            <label for="sys-glob-sett-logplayer">Media Proxy Player</label>
+            <input
+                id="sys-glob-sett-logplayer"
+                class="form-control"
+                [(ngModel)]="this.loggerData.MediaProxyLogger"
+                aria-describedby="sys-glob-sett-logplayer-help"
+                type="text"
+                placeholder="Endpoint url"/>
+        </div>
+
+        <div class="form-group">
+            <label for="sys-glob-sett-ums-url">UMS Manager URL <i class="icon icons-info" title="Have to have same domain as i-mediaflex"></i> </label>
+            <input
+                id="sys-glob-sett-ums-url"
+                class="form-control"
+                [(ngModel)]="umsUrl"
+                aria-describedby="sys-glob-sett-ums-url-help"
+                type="text"
+                placeholder="Endpoint url"/>
+        </div>
+        <div class="form-group">
+            <label for="sys-glob-sett-ums-url">Video Browser URL<i class="icon icons-info" title="Have to have same domain as i-mediaflex"></i> </label>
+            <input
+                id="sys-glob-sett-vb-url"
+                class="form-control"
+                [(ngModel)]="videoBrowserUrl"
+                aria-describedby="sys-glob-sett-ums-url-help"
+                type="text"
+                placeholder="Endpoint url"/>
+        </div>
+        <div class="error-setup-container">
+            <global-settings-system #gss></global-settings-system>
+        </div>
+        <div class="form-group">
+            <label>
+                <input (change)="changeFrameForwardMode($event)" name="audioOnFrameForward"
+                       [(ngModel)]="audioOnFrameForward" type="checkbox" id="audioOnFrameForward">
+                Play Audio on Frame Forward
+            </label>
+        </div>
+        <div class="form-group">
+            <button class="primary" (click)="SaveLoggerUrl()">Save</button>
+        </div>
+        <button class="secondary" (click)="openVersionModal()" title="Advanced Settings">
+<!--            {{'base.version_client' | translate}}-->
+            Advanced...
+        </button>
+    </div>
+</div>
+

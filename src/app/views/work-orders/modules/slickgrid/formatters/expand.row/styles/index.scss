@@ -1,0 +1,132 @@
+@import "../../../../../../base/styles/theme";
+
+@each $key, $value in $common-themes {
+    .#{$key} {
+        work-orders-grid-rows-cell-detail-component {
+            div.accordion-row {
+                display: flex;
+                position: relative;
+                margin-left: 15px;
+                box-sizing: border-box;
+                align-items: center;
+                text-align: left;
+                //padding: 5px 5px 5px 30px;
+                cursor: pointer;
+
+                &:hover,
+                &:hover div {
+                    //background: getThemeColor(19, $key)!important;
+                }
+
+                &.selected {
+                    color: #fff;
+                    background: getThemeColor(10, $key) !important;
+                }
+
+                &.captions {
+                    font-weight: bold;
+                    border-bottom: 1px getThemeColor(17, $key) solid;
+                    font-weight: 100;
+                    font-style: normal;
+                    //color: #f5f5f594;
+                    opacity: 0.8;
+                    height: 24px;
+                }
+
+                &:not(.clicable) {
+                    .ac-id,
+                    .ac-status,
+                    .ac-job-id,
+                    .ac-media-ref,
+                    .ac-ext-ref {
+                        opacity: 0.8;
+                    }
+                }
+
+                .ac-id,
+                .ac-status,
+                .ac-job-id,
+                .ac-media-ref,
+                .ac-ext-ref {
+                    display: inline-block;
+                    box-sizing: border-box;
+                    flex-grow: 1;
+                    max-width: 150px;
+                    flex-basis: 150px;
+                    padding-right: 15px;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    font-size: 10px;
+                }
+
+                .ac-id {
+                    flex-grow: 0;
+                    flex-basis: 40px;
+                    margin-left: 8px;
+                    padding-right: 10px;
+                }
+
+                .ac-status {
+                    position: relative;
+                    max-width: 180px;
+                    flex-basis: 180px;
+                    .status-blue {
+                        color: getThemeColor(10, $key);
+                    }
+                    //&:before {
+                    //    content: "";
+                    //    position: absolute;
+                    //    width: 8px;
+                    //    height: 8px;
+                    //    border-radius: 8px;
+                    //    top: 50%;
+                    //    margin-top: -4px;
+                    //    left: -10px;
+                    //}
+                    //&.ready:before {
+                    //    background: getThemeColor(12, $key) !important;
+                    //}
+                    //&.failed:before {
+                    //    background: getThemeColor(13, $key) !important;
+                    //}
+                    //&.completed:before {
+                    //    background: getThemeColor(12, $key) !important;
+                    //}
+                    //&.inprogress:before {
+                    //    //background: getThemeColor(10, $key) !important;
+                    //    background: getThemeColor(12, $key) !important;
+                    //}
+                }
+
+                .ac-job-id {
+                    max-width: 60px;
+                }
+
+                .ac-media-ref,
+                .ac-ext-ref {
+                    max-width: 180px;
+                }
+
+                //.ac-info{
+                //    flex-basis: 32px;
+                //    flex-grow: 0;
+                //    min-height: 20px;
+                //    min-width: 25px;
+                //    padding-right: 5px;
+                //    .icons-info{
+                //        cursor: pointer;
+                //        .task-info-wrapper {
+                //            display: flex;
+                //            justify-content: center;
+                //        }
+                //        &:hover{
+                //            opacity: 1;
+                //        }
+                //    }
+                //}
+
+            }
+        }
+    }
+}

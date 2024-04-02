@@ -1,0 +1,16 @@
+<div class="live-player-wrapper full-height">
+  <audio id="mainPlayer">
+    <source/>
+  </audio>
+  <div class="live-container">
+    <div class="live-label ended">Live</div>
+    <div class="live-player">
+      <a class="button" id="live-play" (click)="clickPlay($event, this)"><i class="icons-play icon"></i></a>
+      <a class="button" id="live-pause" (click)="clickPause($event, this)" style="display: none;"><i class="icons-pause icon"></i></a>
+      <a class="button" id="live-mute" (click)="clickMute($event, this)"><i class="icons-volume-high icon"></i></a>
+      <a class="button" id="live-muted" (click)="clickUnMute($event, this)" style="display: none;"><i class="icons-volume-mute icon"></i></a>
+      <input type="range" id="live-seek" value="0" min="0" max="0" (change)="onChangeRange(this)"/>
+      <div class="button live-duration"><span id="live-current">00:00:00</span> / <span id="live-duration">00:00:00</span></div>
+    </div>
+  </div>
+</div>

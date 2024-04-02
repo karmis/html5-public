@@ -1,0 +1,22 @@
+<div class="settings-groups-version-creation-wrapper">
+    <div class="available-names-wrapper">
+        <div class="header">{{'settings_group.version_creation.version_names' | translate}}
+            <div class="buttons-row">
+                <i title="{{'settings_group.version_creation.modal_add_name.label' | translate}}"
+                   (click)="addItems()"
+                   class="icons-cross icon add-item"></i>
+            </div>
+        </div>
+        <div class="names-list">
+            <div *ngFor="let item of availableVersionNames"
+                 class="names-list-item"
+            >
+                {{item}}
+                <span class="closebtn" (click)="deleteRow($event,item)" title="{{ 'common_hints.remove' | translate }}">
+                    <i class="icons-cross icon"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+

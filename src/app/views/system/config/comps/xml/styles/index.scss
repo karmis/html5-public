@@ -1,0 +1,55 @@
+@import "../../../../../base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+  .#{$key} {
+
+    .system-config-xml-wrapper {
+
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+
+        .message-wrapper {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+
+            span {
+                position: relative;
+                display: block;
+                top: 50%;
+                color: getThemeColor(1, $key);
+                opacity: 0.5;
+                font-size: 16px;
+            }
+        }
+
+
+      .sidebar {
+        background: getThemeColor(4, $key);
+        padding: 0px;
+        position: absolute;
+        //top: 51px;
+        top: 0px;
+        bottom: 0px;
+        left: 0;
+        //z-index: 1000;
+        display: block;
+        overflow: hidden;
+      }
+
+
+      .main {
+        height: calc(100vh - 120px);
+        overflow: auto;
+      }
+    }
+
+  }
+
+}

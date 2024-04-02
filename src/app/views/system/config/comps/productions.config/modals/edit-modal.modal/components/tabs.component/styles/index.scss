@@ -1,0 +1,84 @@
+@import "../../../../../../../../../base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .prod-conf-edit-modal-tabs-wrapper {
+            height: 100%;
+            background: getThemeColor(3, $key);
+
+            .head-sub-tabs {
+                margin: 0;
+                display: inline-block;
+                height: 30px !important;
+                line-height: 29px;
+                padding: 0 5px;
+                z-index: 0;
+
+                .sub-tabs-wrapper {
+                    position: relative;
+                    display: inline-block;
+                    margin: 0;
+
+                    .sub-tab {
+                        display: inline-block;
+                        position: relative;
+                        height: 29px!important;
+                        padding: 0;
+                        margin-right: 24px;
+                        cursor: pointer;
+                        background: none!important;
+
+                        .valid-flag {
+                            height: 0;
+                            position: absolute;
+                            left: -2px;
+                            top: 2px;
+                            border-bottom: 10px solid transparent;
+                            border-left: 10px solid red
+                        }
+
+                        span {
+                            user-select: none;
+                            font-size: 12px;
+                            font-family: 'sinkin_sans500_medium', 'Roboto', sans-serif;
+                        }
+
+                        &:hover {
+                            opacity: 1;
+                            i {
+                                opacity: 1;
+                            }
+                            span {
+                                opacity: 1;
+                            }
+                        }
+                        i {
+                            position: relative;
+                            top: -1px;
+                            padding-right: 4px;
+                        }
+
+                        &.active {
+                            border-bottom: getThemeColor(7,$key) 2px solid;
+                            opacity: 1;
+                            i {
+                                opacity: 1;
+                            }
+                            span {
+                                opacity: 1;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .tab-content {
+                height: calc(100% - 30px);
+                position: relative;
+                display: block;
+                width: 100%;
+                background: getThemeColor(4, $key);
+            }
+        }
+    }
+}

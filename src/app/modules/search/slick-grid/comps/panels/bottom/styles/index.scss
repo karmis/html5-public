@@ -1,0 +1,16 @@
+@import "../../../../../../../views/base/styles/theme";
+
+@each $key,
+$value in $common-themes {
+  .#{$key} {
+      .slickgrid-bottom-panel-wrapper {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: space-between;
+          &.fix-height {
+              height: 36px;
+          }
+      }
+  }
+}

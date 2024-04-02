@@ -1,0 +1,15 @@
+@import "../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .tga-wrapper {
+            height: 100%;
+            .viewer-tga {
+                overflow: auto;
+                height: 100%;
+                width: 100%;
+                background-color: white;
+            }
+        }
+    }
+}

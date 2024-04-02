@@ -1,0 +1,70 @@
+@import "../../../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .titles-tab-wrapper {
+            padding: 10px;
+            height: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            .search-grid .ag-header-cell-label {
+                line-height: 19px;
+            }
+            .row-header {
+                margin-bottom: 5px;
+            }
+
+            .slick-grid-wrapper {
+                .slick-row.ui-widget-content {
+                    -webkit-box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.08);
+                    -moz-box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.08);
+                    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.08);
+
+                    &:not(.hover-row) {
+                        &.tree-row-level-1 {
+                            background: getThemeColor(41, $key);
+                        }
+
+                        &.tree-row-level-2 {
+                            background: getThemeColor(42, $key);
+                        }
+
+                        &.tree-row-level-title {
+                            background: getThemeColor(43, $key);
+                        }
+                    }
+                }
+                .slick-pane-top.slick-pane-left .slick-row.ui-widget-content {
+                    &.tree-row-level:before {
+                        content: '';
+                        width: 12px;
+                        display: block;
+                        position: absolute;
+                        right: 0;
+                        top: 5px;
+                        bottom: 5px;
+                        border-radius: 5px 0 0 5px;
+                        z-index: 2;
+                    }
+
+                    &.tree-row-level-0:before {
+                        background: #b13084;
+                    }
+
+                    &.tree-row-level-1:before {
+                        background: #5d5bdc;
+                    }
+
+                    &.tree-row-level-2:before {
+                        background: #58b6fb;
+                    }
+
+                    &.tree-row-level-title:before {
+                        background: #80ad4f;
+                    }
+                }
+            }
+        }
+    }
+}

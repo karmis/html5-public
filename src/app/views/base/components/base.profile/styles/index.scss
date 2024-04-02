@@ -1,0 +1,44 @@
+@import "../../../styles/theme.scss";
+@each $key, $value in $common-themes {
+  .#{$key} {
+    .user-btn {
+      border-left: getThemeColor(22, $key) 1px solid;
+    }
+    .dialog-user {
+        top: 50px;
+      .user-photo {
+        display: inline-flex;
+        width: 64px;
+        height: 64px;
+      }
+      .additional {
+        display: inline-flex;
+        padding: 0 10px;
+        flex-direction: column;
+        vertical-align: top;
+
+        .radio {
+          line-height: 18px;
+          font-size: 10px;
+          padding-top: 3px;
+
+          input {
+            width: 14px;
+            height: 14px;
+          }
+        }
+      }
+
+      .logout {
+        background-color: getThemeColor(7, $key);
+        color: #fff;
+
+        &:hover {
+          background-color: getThemeColor(19, $key);
+        }
+      }
+    }
+  }
+}
+
+

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="description" content="<%= htmlWebpackPlugin.options.title %>">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <link rel="icon" type="image/png" id="favicon"/>
+    <link rel="stylesheet" href="./assets/css/prebootstraping.css" media="screen"/>
+    <% if (webpackConfig.htmlElements.headTags) { %>
+    <!-- Configured Head Tags  -->
+    <%= webpackConfig.htmlElements.headTags %>
+    <% } %>
+
+    <script type="application/javascript">
+        window.IMFX_VERSION = '<%= htmlWebpackPlugin.options.version%>';
+        window.IMFX_API_URL = '<%= htmlWebpackPlugin.options.api_url%>';
+        window.IMFX_ENV = '<%= htmlWebpackPlugin.options.env%>';
+    </script>
+
+    <script type="application/javascript">
+        if (detectIE()) {
+            location.href = location.protocol + "//" + location.host + location.pathname + 'assets/browser-is-not-supported.html';
+        }
+
+        function detectIE() {
+            var ua = window.navigator.userAgent;
+
+            var msie = ua.indexOf('MSIE ');
+            if (msie > 0) {
+                // IE 10 or older => return version number
+                return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+            }
+
+            var trident = ua.indexOf('Trident/');
+            if (trident > 0) {
+                // IE 11 => return version number
+                var rv = ua.indexOf('rv:');
+                return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+            }
+
+            // other browser
+            return false;
+        }
+    </script>
+
+    <!-- base url -->
+    <base href="<%= htmlWebpackPlugin.options.metadata.baseUrl %>">
+</head>
+
+<body>
+<div class="loadingoverlay" id="loadingoverlay-prebootstraping">
+    <div class="rotating spinner large"></div>
+</div>
+
+<script type="text/javascript">
+    if (window.sessionStorage) {
+        var themeName = window.sessionStorage.getItem('tmd.config.user.preferences.color_schema');
+        if (themeName) {
+            document.getElementById('loadingoverlay-prebootstraping').className += ' ' + themeName.replace(/"/g, '');
+        }
+    }
+</script>
+<app></app>
+<% if (htmlWebpackPlugin.options.metadata.isDevServer && htmlWebpackPlugin.options.metadata.HMR !== true) { %>
+<!-- Webpack Dev Server reload -->
+<script src="/webpack-dev-server.js"></script>
+<% } %>
+
+
+</body>
+</html>

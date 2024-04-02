@@ -1,0 +1,25 @@
+@import "../../../../../../views/base/styles/theme";
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        dragdrop-formatter-comp{
+            //position: absolute;
+            //top: 50%;
+            //margin-top: 0px;
+            height: 100%;
+            .dd-dots {
+                display: flex;
+                align-items: center;
+                height: 100%;
+                i {
+                    margin-left: 3px;
+                    //line-height: 6px;
+                    &:before {
+                        //line-height: 6px;
+                    }
+                }
+            }
+        }
+    }
+}

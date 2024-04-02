@@ -1,0 +1,135 @@
+@import "../../base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+    .#{$key} {
+        .media-basket-wrapper {
+
+            padding: 0 16px;
+            background: getThemeColor(3, $key);
+            .row.media-basket-item {
+                margin-right: 0 !important;
+            }
+            .imfx-basket-btns {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 50px;
+                flex-direction: row;
+
+                .btn-wrapper-left {
+                    display: flex;
+                    max-width: 100%;
+                    flex: 1 0;
+                    position: relative;
+                    flex-direction: row;
+                    margin: auto;
+
+                    .back-btn-wrapper {
+                        width: 28px;
+                        height: 32px;
+                        line-height: 32px;
+                        padding: 0 4px;
+                        border-bottom: 2px solid transparent;
+
+                        .icon-button {
+                            height: 32px;
+                            line-height: 32px;
+                        }
+                    }
+
+                    .title-wrapper {
+                        margin: auto 0 auto 15px;
+
+                        h1 {
+                            margin: 0;
+                        }
+                    }
+                }
+
+                .btn-wrapper-right {
+                    display: flex;
+                    /* text-align: left; */
+                    white-space: nowrap;
+                    align-items: end;
+                    justify-content: flex-end;
+                    max-width: 30vw;
+                    margin-left: 9px;
+                    flex: 1 0;
+                }
+
+                .btn-wrapper-center {
+                    margin-left: auto;
+                    margin-right: 4px;
+                }
+
+                .checkbox {
+                    cursor: pointer;
+                }
+            }
+
+            .media-basket-content {
+                max-width: 100%;
+                //margin: 0 32px 0 16px;
+                flex: 1 0;
+                overflow: auto;
+                margin-right: 12px;
+                height: calc(100vh - 120px);
+            }
+
+            .media-basket-order {
+                background: getThemeColor(4, $key);
+                max-width: 30vw;
+                margin: 0;
+                flex: 1 0;
+                padding: 12px;
+                overflow: hidden;
+
+                #selectwf .dropdown {
+                    border: 2px solid #546878;
+                    background: transparent;
+                }
+            }
+
+            .per-item-wrapper {
+                padding-top: 8px;
+                white-space: nowrap;
+
+                label {
+                    margin-right: 10px;
+                }
+
+                //.per-item-checkbox {
+                //
+                //}
+            }
+
+            .media-message {
+                margin: 16px 0;
+            }
+
+            .panel-heading {
+                color: getThemeColor(6, $key);
+            }
+
+            .preset-settings-wrapper {
+                margin: 12px 0;
+            }
+
+            textarea {
+                height: 100%;
+            }
+
+            .loader-login {
+                border: 4px solid getThemeColor(30, $key);
+                border-top: 4px solid getThemeColor(31, $key);
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+                transform-origin: 50% 50%;
+                transform: rotate(0deg);
+                width: 20px !important;
+            }
+        }
+    }
+}
+
+

@@ -1,0 +1,13 @@
+<imfx-lookups-select2
+        #control
+        [multiple]="true"
+        [closeOnSelect]="false"
+        [withCheckboxes]="true"
+        [placeholder]="'base.selectOoo'|translate"
+        [placeholderRefToTranslate]="'base.selectOoo'"
+        [customStandardToString]="data.field.LookupType==='Channels'?customStandardToString:null"
+        [width]="'100%'"
+        [lookupType]="data.field.LookupType"
+        (onSelect)="transferData()"
+        (onUnselect)="transferData()"
+></imfx-lookups-select2>

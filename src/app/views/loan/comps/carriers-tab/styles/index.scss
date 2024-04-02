@@ -1,0 +1,60 @@
+@import "../../../../base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+
+        .version-grid {
+            .tile-mode {
+                [colid="THUMBURL"] {
+                  .thumbnail-wrapper {
+                    height: 150px!important;
+                    width: 267px!important;
+                    margin: -12px -12px 5px -12px;
+                    max-width: none;
+                    max-height: none;
+                  }
+                }
+                .tile-field[colid="SER_NUM"],
+                .tile-field[colid="TITLE"]:not(:empty),
+                .tile-field[colid="VERSION"]:not(:empty),
+                .tile-field[colid="SER_TITLE"]:not(:empty),
+                .tile-field[colid="DURATION_text"]{
+                    display: block;
+                    width: 243px!important;
+                    height: 20px;
+                    font-size: 12px;
+                }
+                .tile-field[colid="_mediaBasket"],
+                .tile-field[colid="_settings"] {
+                    float: right;
+                    display: flex!important;
+                    align-items: flex-end!important;
+                    justify-content: flex-end;
+                    .wrapper{
+                        height: 100%;
+                        position: relative;
+                        div {
+                            position: absolute;
+                            bottom: 0;
+                        }
+                        img {
+                            position: absolute;
+                            bottom: 0;
+                            margin: auto;
+                            left: 0;
+                            right: 0;
+                        }
+                    }
+                }
+                .tile-field[colid="_settings"] img {
+                    bottom: 1px!important;
+                }
+                .tile-field[colid="SER_TITLE"]:empty,
+                .tile-field[colid="TITLE"]:empty,
+                .tile-field[colid="VERSION"]:empty{
+                    display: none!important;
+                }
+            }
+        }
+    }
+}

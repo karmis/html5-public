@@ -1,0 +1,51 @@
+<div class="media-info-tab-wrapper">
+
+    <div class="common-columns">
+        <div class="col-item" *ngFor="let col of filteredCommonCols">
+            <label class="mr-sm-2">{{ 'workflow.details.mediainfo.' + col.label | translate }}</label>
+            <imfx-lookups-select2
+                #commonColumnControl
+                [width]="'100%'"
+                [lookupType]="col.lookupType"
+                [filterResult]="col?.filterResult || initFilter"
+                [placeholder]="'base.selectOoo'|translate"
+                [placeholderRefToTranslate]="'base.selectOoo'"
+                [validationEnabled]="mediaInfoValidationEnabled"
+                (onSelect)="onUpdateControl($event,col.field)"
+                (onUnselect)="onUpdateControl($event,col.field)"
+            ></imfx-lookups-select2>
+            <div *ngIf="col.field == 'AFD_ID'"
+                 class="preview-icon">
+                <i class="icons-hide-empty icon">
+                </i>
+                <div class="image-preview" *ngIf="afdIcon != null"
+                     [style.backgroundImage]="'url(./assets/aspect-images/'+ afdIcon +'.png)'"></div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="config && customStatuses.length"
+         class="custom-statuses"
+         style="position: static;">
+        <custom-status-ctrl-comp *ngFor="let item of customStatuses"
+                                 #customStatusControl
+                                 class="col-item"
+                                 [cuStatValueItem]="getValueBySettings(item.MediaStatusId)"
+                                 [cuStatSettingsItem]="item"
+                                 [cuStatLookupItem]="getLookupBySettings(item.MediaStatusId)"
+                                 [commonReadOnly]="readOnly"
+                                 [commonValidationEnabled]="customStatusValidationEnabled"
+                                 (updatedStatValue)="onUpdateStatValue($event)"
+        ></custom-status-ctrl-comp>
+    </div>
+
+    <div *ngIf="showDescription" class="control-notes">
+        <label class="mr-sm-2">{{ 'upload.notes' | translate }}</label>
+        <textarea class="form-control field"
+                  #control_DESCRIPTION
+                  [attr.rows]="10"
+                  [attr.cols]="10"
+                  [attr.wrap]="'soft'"
+                  (change)="onChangeNotes($event)"></textarea>
+    </div>
+</div>

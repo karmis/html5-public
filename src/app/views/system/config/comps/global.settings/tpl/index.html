@@ -1,0 +1,49 @@
+<div class="global-settings-manager">
+    <tabset #staticTabs>
+        <tab (selectTab)="onActivate('global')" heading="{{'global_settings.system_config_title' | translate}}">
+            <div class="logger-container">
+                <global-settings-logger (onChangeConfig)="onChangeConfig($event)" [data]="config"></global-settings-logger>
+            </div>
+<!--            replaced to group settings-->
+<!--            <div class="mapping-adv-container">-->
+<!--&lt;!&ndash;                [data]="config">&ndash;&gt;-->
+<!--                <mapping-adv-setup (onChangeConfig)="onChangeConfig($event)"></mapping-adv-setup>-->
+<!--            </div>-->
+
+        </tab>
+
+        <tab (selectTab)="onActivate('grafana')" heading="{{'global_settings.grafana' | translate}}">
+            <div class="grafana-container" *ngIf="grafanaIsRendered === true">
+                <global-settings-grafana></global-settings-grafana>
+            </div>
+        </tab>
+        <tab (selectTab)="onActivate('html-player-hotkeys')" heading="{{'global_settings.player_shortcuts.title' | translate}}">
+            <div class="sub-tabs">
+                <tabset>
+                    <tab (selectTab)="onActivate('html-player-hotkeys-v3')" heading="{{'global_settings.player_shortcuts.media' | translate}}">
+                        <div class="hotkeys-container">
+                            <global-settings-html-player-hotkeys></global-settings-html-player-hotkeys>
+                        </div>
+                    </tab>
+                    <tab (selectTab)="onActivate('html-player-hotkeys-media')" heading="{{'global_settings.player_shortcuts.workstation' | translate}}">
+                        <div class="hotkeys-container">
+                            <global-settings-html-player-hotkeys [dataKey]="'mfx.playerhotkeys'"></global-settings-html-player-hotkeys>
+                        </div>
+                    </tab>
+                </tabset>
+            </div>
+        </tab>
+
+        <tab (selectTab)="onActivate('loading-icons')" heading="{{'settings_group.branding.title_tab' | translate}}">
+            <div class="loading-icons-container">
+                <loading-icons></loading-icons>
+            </div>
+        </tab>
+        <tab (selectTab)="onActivate('event-config')" heading="{{'settings_group.event_config.title' | translate}}">
+            <div class="loading-icons-container">
+                <global-settings-event-config></global-settings-event-config>
+            </div>
+        </tab>
+
+    </tabset>
+</div>

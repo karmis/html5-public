@@ -1,0 +1,27 @@
+<div class="main-menu-wrapper">
+    <div class="main-menu-row">
+        <span class="pb-1">{{ 'settings_group.main_menu_links.title' | translate }}</span>
+        <button (click)="add()">
+            {{ 'settings_group.main_menu_links.addURL' | translate }}
+        </button>
+        <div class="bg-row">
+            <div class="color-selector-field">
+                <ng-container *ngFor="let obj of mainMenuSettings; let j=index">
+                    <div class="d-block">
+                        <span class="pb-1 pr-1">{{ 'settings_group.main_menu_links.ref_title' | translate }}</span>
+                        <input [(ngModel)]="obj.title" class="title-input" type="text"/>
+                    </div>
+                    <div class="d-block">
+                        <span class="pb-1 pr-1">{{ 'settings_group.main_menu_links.ref' | translate }}</span>
+                        <input [(ngModel)]="obj.ref" class="ref-input" type="text"/>
+                    </div>
+                    <button (click)="remove(j)" class="pull-right">
+                        {{ 'settings_group.main_menu_links.removeURL' | translate }}
+                    </button>
+                    <hr>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
+

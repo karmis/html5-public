@@ -1,0 +1,23 @@
+@import "../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+  .#{$key} {
+      .users-grid .slick-grid-wrapper .slick-viewport.slick-viewport-left {
+          overflow-x: auto !important;
+      }
+      .users {
+          height: 400px;
+          input {
+              margin-bottom: 5px;
+          }
+          .slick-grid-wrapper {
+              // 29px - height input plus margin-bottom
+              height: calc(100% - 32px);
+              .slick-header-column.ui-state-default, .slick-group-header-column.ui-state-default {
+                  height: 35px !important;
+                  line-height: 25px !important;
+              }
+          }
+      }
+  }
+}

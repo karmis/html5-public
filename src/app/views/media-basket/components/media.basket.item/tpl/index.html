@@ -1,0 +1,49 @@
+<div class="row media-basket-item">
+<!--<div class="row media-basket-item" (click)="toggleSelected($event)" >-->
+  <!--<div class="basket-selection " [ngClass]="{'selected': item.selected}" ><i class="icon check"></i></div>-->
+    <div class="basket-thumbnail">
+        <thumb-component [params]="{'data':item}"></thumb-component>
+    </div>
+    <div class="details-wrapper">
+        <h1 class="title" (click)="goToDetail($event)">{{item.FullTitle || item.TITLE || item.FULL_TITLE}}</h1>
+        <div class="item-detail-col">
+            <div class="version-name" *ngIf="item.VERSION">
+                <span class="field-label">Version: </span>
+                <span>{{item.VERSION}}</span>
+            </div>
+            <div class="series-title" *ngIf="item.VERSIONID1">
+                <span class="field-label">Version ID1: </span>
+                <span>{{item.VERSIONID1}}</span>
+            </div>
+            <div class="description" *ngIf="item.ITEM_TYPE_text" [ngClass]="{'withSubTitle': item.VERSIONID1 && !item.DURATION_text, 'withSubAndDuration': item.VERSIONID1 && item.DURATION_text, 'withDuration': !item.VERSIONID1 && item.DURATION_text}">
+                <span class="field-label">Item Type: </span>
+                <span>{{item.ITEM_TYPE_text}}</span>
+            </div>
+            <div class="barcode" *ngIf="item.SY_BCODE">
+                <span class="field-label">Barcode: </span>
+                <span>{{item.SY_BCODE}}</span>
+            </div>
+        </div>
+        <div class="item-detail-col" style="max-width: 65%;">
+            <div class="usage-type" *ngIf="item.USAGE_TYPE_text">
+                <span class="field-label">Usage: </span>
+                <span>{{item.USAGE_TYPE_text}}</span>
+            </div>
+            <div class="file-name" *ngIf="item.FILENAME">
+                <span class="field-label">File Name: </span>
+                <span style="white-space: normal;">{{item.FILENAME}}</span>
+            </div>
+
+        </div>
+
+        <div class="duration-text" *ngIf="item.DURATION_text || (item.ASPECT_R_text && item.ASPECT_R != -1) || (item.TV_STD_text && item.TV_STD > 0)">
+            <i class="icons-duration icon"></i>
+            <span class="duration" *ngIf="item.DURATION_text">{{item.DURATION_text}}</span>
+            <span class="tv-std" *ngIf="item.TV_STD && item.TV_STD > 0">{{item.TV_STD_text}}</span>
+            <span class="aspect" *ngIf="item.ASPECT_R && item.ASPECT_R != -1">{{item.ASPECT_R_text}}</span>
+        </div>
+    </div>
+    <div class="close">
+        <i (click)="remove($event);" class="icons-closedelete icon"></i>
+    </div>
+</div>

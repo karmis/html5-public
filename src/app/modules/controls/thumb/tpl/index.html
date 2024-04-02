@@ -1,0 +1,23 @@
+<div class="thumbnail-wrapper" #thumbWrapper>
+    <!--<button *ngIf="isVideo && playable && !(hoverOnThumb && start_hover)" class="icon-button large">-->
+    <!--<i class="icons-play icon"></i>-->
+    <!--</button>-->
+    <html-player #thumbPlayer
+                 *ngIf="initedFlag && proxyUrl != null && isVideo && playable"
+                 [muted]="muted"
+                 [isThumb]="true"
+                 [simpleMode]="true"
+                 [autoPlay]="false"
+                 [src]="proxyUrl"
+                 [id]="params.ID"
+                 [som]="params.FILE_SOM"
+                 [aspectRatio]="aspectRatio"
+                 [usePresignedUrl]="params.UsePresignedUrl"
+                 [currentTime]="currentVideoTime"
+                 class="thumbnail simple-mode"
+                 [hidden]="!(isVideo && playable && hoverOnThumb && start_hover)"
+                 [mediaInfoType]="mediaInfoType"></html-player>
+
+    <img [hidden]="isVideo && playable && hoverOnThumb && start_hover" [src]="url?url:'./assets/img/default-thumb.PNG'"
+         class="thumbnail"/>
+</div>

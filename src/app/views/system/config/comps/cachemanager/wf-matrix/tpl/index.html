@@ -1,0 +1,67 @@
+<div #slickGridWrapper class="cm-wf-matrix-wrapper">
+    <div #tableSideEl class="table-wrapper">
+        <div class="header-angle">
+            <div class="top-header">Source Devices</div>
+            <div class="left-header">Destination Devices</div>
+            <div class="line">
+            </div>
+        </div>
+        <div #topSideEl class="top-side">
+            <div class="top-wrp">
+                <div class="col" *ngFor="let srcDev of structRes | keyvalue;">
+                    <div class="cell">
+                        {{slData[srcDev.key]}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div #leftSideEl class="left-side">
+            <div class="left-wrp">
+                <div class="col">
+                    <div class="cell" *ngFor="let destDevText of dlData|keyvalue;">
+                        {{destDevText.value}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div #contentSideEl class="content-side">
+            <div class="content-wrp">
+                <div class="col" *ngFor="let srcDev of structRes | keyvalue;">
+                    <div class="cell" *ngFor="let destDev of structRes[srcDev.key] | keyvalue;">
+                        <ng-container *ngFor="let matrix of structRes[srcDev.key][destDev.key] | keyvalue;">
+                            <imfx-controls-select2
+                                #controls
+                                [additionalData]="getAdditionalData(matrix.value, 'WORKFLOW_ID')"
+                                [maxDataItems]="100"
+                                [allowClear]="true"
+                                [selected]="null"
+                                [value]="[matrix.value['WORKFLOW_ID']]||null"
+                                [width]="'100%'"
+                                [multiple]="false"
+                                [data]="presets"
+                                [placeholder]="'base.none'|translate"
+                                title="Preset for main asset"
+                                [placeholderRefToTranslate]="'base.none'"></imfx-controls-select2>
+                            <imfx-controls-select2
+                                #controls
+                                [additionalData]="getAdditionalData(matrix.value, 'COMP_WORKFLOW_ID')"
+                                [maxDataItems]="100"
+                                [allowClear]="true"
+                                [selected]="null"
+                                [width]="'100%'"
+                                [value]="[matrix.value['COMP_WORKFLOW_ID']]||null"
+                                [multiple]="false"
+                                [data]="presets"
+                                title="Preset for components"
+                                [placeholder]="'base.none'|translate"
+                                [placeholderRefToTranslate]="'base.none'"></imfx-controls-select2>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="button primary save-btn" (click)="save()">Save</button>
+</div>
+
+<overlay #overlayGroup [mode]="true" [zIndex]="100"></overlay>

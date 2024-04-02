@@ -1,0 +1,13 @@
+@import "../../../../../../views/base/styles/theme";
+
+@each $key,
+$value in $common-themes {
+  .#{$key} {
+
+    .wrapper-info {
+      margin-top: 13px;
+      line-height: 20px;
+      //font-size: 15px;
+    }
+  }
+}

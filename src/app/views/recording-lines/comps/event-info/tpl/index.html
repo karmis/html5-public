@@ -1,0 +1,191 @@
+<div class="production-info-wrapper">
+    <div class="main-fields">
+        <div class="field-wrapper">
+            <label class="wrap-label col-1">
+                <span class="filed-label">Event ID</span>
+                <input
+                        class="filed-input"
+                        type="text"
+                        [(ngModel)]="form.eventId"
+                        (ngModelChange)="onUpdateControl($event, 'eventId')">
+            </label>
+            <label class="wrap-label col-2">
+                <span class="filed-label">Status</span>
+                <input
+                        class="filed-input"
+                        type="text"
+                        [(ngModel)]="form.status"
+                        (ngModelChange)="onUpdateControl($event, 'status')">
+            </label>
+        </div>
+        <div class="field-wrapper">
+            <label class="wrap-label">
+                <span class="filed-label">Source</span>
+                <input
+                        (click)="showMediaTable('source')"
+                        class="filed-input"
+                        type="text"
+                        readonly
+                        [(ngModel)]="form.source"
+                        (ngModelChange)="onUpdateControl($event, 'source')">
+            </label>
+        </div>
+        <div class="field-wrapper">
+            <label class="wrap-label">
+                <span class="filed-label">Filename</span>
+                <input
+                        class="filed-input"
+                        type="text"
+                        readonly
+                        [(ngModel)]="form.filename"
+                        (ngModelChange)="onUpdateControl($event, 'filename')">
+            </label>
+        </div>
+        <div class="field-wrapper">
+            <label class="wrap-label">
+                <span class="filed-label">Title</span>
+                <input
+                        (click)="showMediaTable('titles')"
+                        class="filed-input"
+                        type="text"
+                        readonly
+                        [(ngModel)]="form.titles"
+                        (ngModelChange)="onUpdateControl($event, 'titles')">
+            </label>
+        </div>
+        <div class="field-wrapper">
+            <label class="wrap-label">
+                <span class="filed-label">Version</span>
+                <input
+                        (click)="showMediaTable('versions')"
+                        class="filed-input"
+                        type="text"
+                        readonly
+                        [(ngModel)]="form.versions"
+                        (ngModelChange)="onUpdateControl($event, 'versions')">
+            </label>
+        </div>
+        <div class="field-wrapper">
+            <label class="wrap-label">
+                <span class="filed-label">Series</span>
+                <input
+                        (click)="showMediaTable('series')"
+                        class="filed-input"
+                        type="text"
+                        readonly
+                        [(ngModel)]="form.series"
+                        (ngModelChange)="onUpdateControl($event, 'series')">
+            </label>
+        </div>
+        <div class="field-wrapper">
+            <label class="wrap-label">
+                <span class="filed-label">Event Title</span>
+                <input
+                        class="filed-input"
+                        type="text"
+                        [(ngModel)]="form.eventTitle"
+                        (ngModelChange)="onUpdateControl($event, 'eventTitle')">
+            </label>
+        </div>
+        <div class="field-title">
+            <span>Event Time</span>
+            <span>Continuous Recording</span>
+        </div>
+        <div class="field-wrapper">
+            <label class="wrap-label col-1">
+                <span class="filed-label">From</span>
+                <imfx-controls-datetimepicker
+                    class="filed-input"
+                    [locale]="'common.locale' "
+                    [format]="'common.date_full_format' "
+                    [formatDate]="'common.date_format' "
+                    [formatTime]="'common.time_format' "
+                    [allowBlank]="true"
+                    [mask]="true"
+                    [dayOfWeekStart]="'common.date_of_week_start' "
+                    [timepicker]="true"
+                    [datepicker]="true"
+                    (onSelectTime)="onUpdateControl($event, 'from')"
+                ></imfx-controls-datetimepicker>
+            </label>
+            <label class="wrap-label col-2">
+                <span class="filed-label">wk13</span>
+                <span class="filed-input">Monday</span>
+            </label>
+        </div>
+        <div class="field-wrapper">
+            <label class="wrap-label col-1">
+                <span class="filed-label">To</span>
+                <imfx-controls-datetimepicker
+                    class="filed-input"
+                    [locale]="'common.locale' "
+                    [format]="'common.date_full_format'"
+                    [formatDate]="'common.date_format'"
+                    [formatTime]="'common.time_format'"
+                    [allowBlank]="true"
+                    [mask]="true"
+                    [dayOfWeekStart]="'common.date_of_week_start'"
+                    [timepicker]="true"
+                    [datepicker]="true"
+                    (onSelectTime)="onUpdateControl($event, 'to')"
+                ></imfx-controls-datetimepicker>
+            </label>
+
+            <label class="wrap-label col-2">
+                <span class="filed-label">Duration</span>
+                <span class="filed-input"> 00:00</span>
+            </label>
+        </div>
+        <div class="field-wrapper">
+            <label class="wrap-label">
+                <span class="filed-label">Port</span>
+                <input
+                        class="filed-input"
+                        type="text"
+                        [(ngModel)]="form.port"
+                        (ngModelChange)="onUpdateControl($event, 'port')">
+            </label>
+        </div>
+
+        <div class="field-title">
+        </div>
+        <div class="field-wrapper">
+            <label class="wrap-label">
+                <span class="filed-label">Event Profile</span>
+                <imfx-lookups-select2
+                        class="filed-input selector-border"
+                        [width]="'100%'"
+                        [lookupType]="'Channels'"
+                        [placeholder]="'base.selectOoo'|translate"
+                        [placeholderRefToTranslate]="'base.selectOoo'"
+                        (onSelect)="onUpdateControl($event, 'eventProfile')"
+                        (onUnselect)="onUpdateControl($event, 'Owner')"
+                ></imfx-lookups-select2>
+            </label>
+        </div>
+        <div class="field-wrapper">
+            <label class="wrap-label">
+                <span class="filed-label">Media Status</span>
+                <input
+                        class="filed-input"
+                        type="text"
+                        [(ngModel)]="form.mediaStatus"
+                        (ngModelChange)="onUpdateControl($event, 'mediaStatus')">
+            </label>
+        </div>
+        <div class="field-wrapper">
+            <label class="wrap-label">
+                <span class="filed-label">{{ 'lookups.owner' | translate }}</span>
+                <imfx-lookups-select2
+                        class="filed-input selector-border"
+                        [width]="'100%'"
+                        [lookupType]="'Channels'"
+                        [placeholder]="'base.selectOoo'|translate"
+                        [placeholderRefToTranslate]="'base.selectOoo'"
+                        (onSelect)="onUpdateControl($event, 'owner')"
+                        (onUnselect)="onUpdateControl($event, 'owner')"
+                ></imfx-lookups-select2>
+            </label>
+        </div>
+    </div>
+</div>

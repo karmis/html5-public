@@ -1,0 +1,39 @@
+@import "../../../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .tags-formatter-wrapper {
+            word-wrap: break-word;
+            white-space: normal;
+            .chip {
+                margin-left: 5px;
+                display: inline-block;
+                padding: 0px 7px;
+                height: 18px;
+                font-size: 11px;
+                line-height: 18px;
+                background-color: getThemeColor(9, $key);
+                color: getThemeColor(16, $key)!important;
+                p {
+                    display: table-cell;
+                }
+                .closebtn {
+                    padding-left: 5px;
+                    cursor: pointer;
+                }
+                .icon {
+                    color: getThemeColor(16, $key)!important;
+                }
+            }
+            input {
+                height: 25px;
+            }
+
+            .select2-container--default {
+                .select2-selection--single {
+                    background-color: getThemeColor(6, $key);
+                }
+            }
+        }
+    }
+}

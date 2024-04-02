@@ -1,0 +1,24 @@
+@import "../../../../../../views/base/styles/theme";
+
+@each $key,
+$value in $common-themes {
+  .#{$key} {
+    .slick-pager {
+      float: right;
+      //padding-bottom: 5px;
+      //padding-top: 5px;
+      margin-left: auto;
+      display: flex;
+      width: 80%;
+      min-width: 335px;
+      margin-top: 5px;
+      overflow-y: hidden;
+      .pages {
+        overflow: hidden;
+        .page {
+          font-size: 26px;
+        }
+      }
+    }
+  }
+}

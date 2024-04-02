@@ -1,0 +1,16 @@
+<div class="segments-tab-wrapper">
+    <slick-grid
+          #segmentsAudioGrid
+          class="segments-audio-grid vertical-align-row small-height-header"
+          style="width: 100%;"
+          [config]="segmentsAudioGridOptions"
+    ></slick-grid>
+    <button (click)="addSegment()"
+            [disabled]="isBtnDisabled"
+            title="{{ 'simple_assessment.add_segment' | translate }}">
+        <i class="icons-add icon"></i>
+        {{ 'simple_assessment.add_segment' | translate }}
+    </button>
+<!--    <label class="total-duration">Total Duration: {{totalDuration}}</label>-->
+</div>
+

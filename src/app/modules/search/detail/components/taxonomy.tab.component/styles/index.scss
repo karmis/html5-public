@@ -1,0 +1,28 @@
+@import "../../../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .taxonomy-tab-wrapper {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+
+            .taxonomy-filter{
+                display: block;
+                flex-grow: 0;
+                input{
+                    width: 100%;
+                }
+            }
+            .taxonomy-controls-tree{
+                display: block;
+                flex-grow: 1;
+                overflow: auto;
+            }
+            ul.ui-fancytree {
+                overflow: hidden;
+            }
+        }
+    }
+}

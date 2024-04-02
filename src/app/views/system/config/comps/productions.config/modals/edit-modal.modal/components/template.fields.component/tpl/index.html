@@ -1,0 +1,130 @@
+<div class="production-template-fields-wrapper">
+    <div class="main-fields">
+        <div class="field-wrapper" [ngClass]="{'multiline': field.DataType=='TextBoxMultiline',
+        'stretch':field.DataType=='Flags' || field.DataType=='ComboMulti'}"
+             *ngFor="let field of cols">
+            <span class="filed-label">{{field.Label}}</span>
+            <div class="filed-value" id="fullscreen-target-{{field.Field}}" [ngClass]="{'notvalid': field.NotValid}">
+                <!-- NOT READONLY MODE -->
+                <input *ngIf="!readOnlyItem && field.DataType=='TextBox' && (!field.Readonly && (!field.EditOnlyOnNew || isNew))"
+                       type="text"
+                       [(ngModel)]="itemData[field.Field]"
+                       [attr.maxlength]="field.StringMaxLen ? field.StringMaxLen[0] : null"
+                       (ngModelChange)="onChangeSimpleField($event, field.Field)"
+                />
+                <input *ngIf="!readOnlyItem && field.DataType=='NumberBox' && (!field.Readonly && (!field.EditOnlyOnNew || isNew))"
+                       type="number"
+                       [attr.min]="field.PositiveNumber ? '1' : null" step="any"
+                       (input)="field.PositiveNumber && !validatePositive($event.target.value) ?
+                       $event.target.value = defaultPositive :
+                       $event.target.value = processIntegerLimits($event.target.value, field.PositiveNumber)" [(ngModel)]="itemData[field.Field]"
+                       (ngModelChange)="onChangeSimpleField($event, field.Field)"
+                />
+                <textarea *ngIf="!readOnlyItem && field.DataType=='TextBoxMultiline' && (!field.Readonly && (!field.EditOnlyOnNew || isNew)) && !field.CodeEditor"
+                          [(ngModel)]="itemData[field.Field]"
+                          (ngModelChange)="onChangeSimpleField($event, field.Field)"
+                ></textarea>
+                <input *ngIf="!readOnlyItem && field.DataType=='CheckBox' && (!field.Readonly && (!field.EditOnlyOnNew || isNew))" type="checkbox"
+                       [checked]="itemData[field.Field] == 1 || itemData[field.Field] === true || itemData[field.Field] == 'true'"
+                       (change)="onChangeCheckBox($event, field.Field)"/>
+                <imfx-controls-select2
+                    *ngIf="!readOnlyItem && field.DataType=='ComboSingle' && lookupsMap[field.Field] && lookupsMap[field.Field] && (!field.Readonly && (!field.EditOnlyOnNew || isNew))"
+                    class="filed-value"
+                    [clearFormat]="{
+                        showButton: !field.Required,
+                        defaultValue: null
+                    }"
+                    [width]="'100%'"
+                    [data]="lookupsMap[field.Field] ? lookupsMap[field.Field] : []"
+                    [value]="[{Id: itemData[field.Field]}]"
+                    [placeholder]="'xml.select_value'|translate"
+                    [placeholderRefToTranslate]="'xml.select_value'"
+                    [withOptionMouseEnter]="true"
+                    (onSelect)="onSelect($event, field.Field)"></imfx-controls-select2>
+                <imfx-controls-select2
+                    *ngIf="!readOnlyItem && field.DataType=='ComboMulti' && lookupsMap[field.Field] && lookupsMap[field.Field] && (!field.Readonly && (!field.EditOnlyOnNew || isNew))"
+                    class="filed-value"
+                    [clearFormat]="{
+                        showButton: !field.Required,
+                        defaultValue: null
+                    }"
+                    [width]="'100%'"
+                    [multiple]="true"
+                    [data]="lookupsMap[field.Field] ? lookupsMap[field.Field] : []"
+                    [value]="itemData[field.Field]"
+                    [placeholder]="'xml.select_value'|translate"
+                    [placeholderRefToTranslate]="'xml.select_value'"
+                    (onUnselect)="onSelectMulti($event, field.Field)"
+                    (onSelect)="onSelectMulti($event, field.Field)"></imfx-controls-select2>
+                <div
+                    *ngIf="field.DataType=='ComboSingle' && field.ItemsSource && (!lookupsMap[field.Field] || lookupsMap[field.Field] && lookupsMap[field.Field].length == 0)">
+                    Select value for "{{getFriendlyName(field)}}"
+                </div>
+                <div
+                    *ngIf="!readOnlyItem && field.DataType=='Flags' && (!field.Readonly && (!field.EditOnlyOnNew || isNew)) && lookupsMap[field.Field] && lookupsMap[field.Field].length > 0" class="flags-wrapper">
+                    <label *ngFor="let val of lookupsMap[field.Field]">
+                        <input type="checkbox" [checked]="getBit(itemData[field.Field], val.id)" title="{{val.text}}"
+                               (change)="onChangeFlag($event.target.checked, field.Field, val)"/>
+                        <span title="{{val.text}}">{{val.text}}</span>
+                    </label>
+                </div>
+                <div *ngIf="!readOnlyItem && field.DataType=='Time' && (!field.Readonly && (!field.EditOnlyOnNew || isNew))">
+                    <imfx-controls-datetimepicker
+                        #control
+                        [locale]="'common.locale' | translate"
+                        [format]="'common.time_format_full' | translate"
+                        [formatDate]="'common.date_format' | translate"
+                        [formatTime]="'common.time_format_full' | translate"
+                        [allowBlank]="true"
+                        [value]="itemData[field.Field]"
+                        [mask]="true"
+                        [dayOfWeekStart]="'common.date_of_week_start' | translate"
+                        [timepicker]="true"
+                        [datepicker]="false"
+                        [readonly]="false"
+                        (onChangeDateTime)="onSelectTime($event, field.Field)"
+                        (onSelectTime)="onSelectTime($event, field.Field)"
+                    ></imfx-controls-datetimepicker>
+                </div>
+                <div *ngIf="!readOnlyItem && field.DataType=='Date' && (!field.Readonly && (!field.EditOnlyOnNew || isNew))">
+                    <imfx-controls-datetimepicker
+                        #datetimepicker
+                        [locale]="'common.locale' | translate"
+                        [format]="'common.date_full_format' | translate"
+                        [formatDate]="'common.date_format' | translate"
+                        [formatTime]="'common.time_format' | translate"
+                        [allowBlank]="true"
+                        [value]="itemData[field.Field]"
+                        [mask]="true"
+                        [dayOfWeekStart]="'common.date_of_week_start' | translate"
+                        [small]="true"
+                        [timepicker]="false"
+                        [clearButton]="true"
+                        (onChangeDateTime)="onSelectDateTime($event, field.Field)">
+                    </imfx-controls-datetimepicker>
+                </div>
+
+                <!-- READONLY MODE -->
+                <input *ngIf="((field.Readonly || (!isNew && field.EditOnlyOnNew)) || readOnlyItem) && (field.DataType=='TextBox' || field.DataType=='NumberBox')" disabled type="text" value="{{itemData[field.Field]}}"/>
+                <input *ngIf="((field.Readonly || (!isNew && field.EditOnlyOnNew)) || readOnlyItem) && field.DataType=='Time'" disabled type="text"
+                       value="{{itemData[field.Field] | localDate: datetimeFullFormatLocalDateTimePipe}}"/>
+                <input *ngIf="((field.Readonly || (!isNew && field.EditOnlyOnNew)) || readOnlyItem) && field.DataType=='Date'" disabled type="text"
+                       value="{{itemData[field.Field] | localDate: ('common.date_format_localdate_pipe' | translate)}}"/>
+                <textarea *ngIf="((field.Readonly || (!isNew && field.EditOnlyOnNew)) || readOnlyItem) && field.DataType=='TextBoxMultiline' && !field.CodeEditor" disabled value="{{itemData[field.Field]}}"></textarea>
+                <select *ngIf="((field.Readonly || (!isNew && field.EditOnlyOnNew)) || readOnlyItem) && field.DataType=='ComboSingle'" disabled>
+                    <option *ngIf="checkLookup(field.Field)" value="{{itemData[field.Field]}}" selected>{{getFromLookup(field.Field)}}</option>
+                </select>
+                <input *ngIf="((field.Readonly || (!isNew && field.EditOnlyOnNew)) || readOnlyItem) && field.DataType=='CheckBox'" disabled type="checkbox" checked="{{itemData[field.Field] == 1 || itemData[field.Field] === true || itemData[field.Field] == 'true' ? true : null}}"/>
+            </div>
+            <div class="field-mandatory" *ngIf="field.DataType!='CheckBox'">
+                <input type="checkbox"
+                       title="{{mandatoryData[field.Field] ? 'Unset Field Mandatory' : 'Set Field Mandatory'}}"
+                       [checked]="mandatoryData[field.Field] == 1 || mandatoryData[field.Field] === true"
+                       (change)="changeMandatory($event.target.checked, field.Field)"/>
+            </div>
+        </div>
+        <div class="select-config" *ngIf="cols.length == 0">
+            {{"production.production_templates.edit_modal.fields_empty" | translate}}
+        </div>
+    </div>
+</div>

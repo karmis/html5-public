@@ -1,0 +1,14 @@
+<imfx-controls-select2
+        #searchSavedSelect
+        class="saved-searches-field"
+        id="selectSavedSearch"
+        #selectSavedSearch
+        [width]="'100%'"
+        [multiple]="false"
+        [firstEmpty]="true"
+        [data]="[]"
+        [placeholder]="'advanced.select_advanced'|translate"
+        [placeholderRefToTranslate]="'advanced.select_advanced'"
+        (onSelect)="onSelectSavedSearch()"
+        (onUnselect)="onSelectSavedSearch()"
+        [wrapperClass]="'advanced'"></imfx-controls-select2>

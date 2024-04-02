@@ -1,0 +1,66 @@
+@import "../../../../views/base/styles/theme.scss";
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .imfx-timepicker-wrapper {
+            .imfx-timepicker-picker {
+                timepicker {
+                    //.btn {
+                    //    display: none;
+                    //}
+                    table {
+                        tr:nth-child(1) {
+                            background: getThemeColor(4, $key);
+
+                        }
+
+                        tr:nth-child(2) {
+                            background: getThemeColor(4, $key);
+
+                            td:nth-child(1) {
+                                input {
+                                    margin-right: -9px;
+                                    padding-left: 2px;
+                                    padding-right: 2px;
+                                }
+                            }
+
+                            td:nth-child(3) {
+                                input {
+                                    margin-right: -9px;
+                                    margin-left: -9px;
+                                    padding-left: 2px;
+                                    padding-right: 2px;
+                                }
+                            }
+
+                            td:nth-child(5) {
+                                input {
+                                    margin-right: -7px;
+                                    margin-left: -9px;
+                                    padding-left: 2px;
+                                    padding-right: 2px;
+                                }
+                            }
+
+                        }
+
+                        tr:nth-child(4) {
+                            background: getThemeColor(4, $key);
+                        }
+
+                        input {
+                            width: 30px;
+                        }
+                    }
+                }
+            }
+            .imfx-timepicker-dd {
+                .select2-selection__rendered {
+                    display: none;
+                }
+            }
+        }
+    }
+}

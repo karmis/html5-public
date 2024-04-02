@@ -1,0 +1,152 @@
+<!--h4 class="block-header text">{{ 'carrier.title' | translate }}</h4-->
+<div class="full-height full-width" style="padding-top: 10px;">
+  <div class="container-fluid" style="position: relative; height:100%;">
+        <!--Header-->
+      <div class="row-header">
+        <nav>
+          <ul>
+            <li>
+              <search-form
+                [config]="searchFormConfig"
+              ></search-form>
+            </li>
+            <li>
+              <button type="button"
+                      class="icon-button test-advanced-searching-button"
+                      (click)="searchAdvancedConfig.options.provider.setStateForPanel(!searchAdvancedConfig.options.provider.getStateForPanel())"
+                      [ngClass]="{'active': searchAdvancedConfig.options.provider.getStateForPanel() }"
+                      title="{{ 'common_hints.adv_search' | translate }}">
+                          <span style="float:left;">
+                              <i class="icons-advanced-search icon"></i>
+                          </span>
+                <!--div *ngIf="searchAdvancedConfig.options.provider.isCriteriasforSearch"
+             class="circle circle-green"></div-->
+              </button>
+            </li>
+              <li *ngIf="hasPermissionByName('views-options')" class="divider" [ngClass]="{'common-hidden': !flagHide}"></li>
+              <li *ngIf="hasPermissionByName('views-options')" [ngClass]="{'common-hidden': (!flagHide || (slickGridComp && slickGridComp.module.viewMode == 'tile'))}"><label>{{ 'common.view' | translate}}:</label></li>
+              <li [hidden]="!hasPermissionByName('views-modify')" [ngClass]="{'common-hidden': (!flagHide || (slickGridComp && slickGridComp.module.viewMode == 'tile'))}">
+                  <search-views
+                      #viewsComp
+                      [config]="searchViewsConfig"
+                  ></search-views>
+              </li>
+              <li *ngIf="hasPermissionByName('views-options') || hasPermissionByName('export-options') " [ngClass]="{'common-hidden': (!flagHide || (slickGridComp.module.viewMode == 'tile'))}">
+                  <search-settings
+                      [config]="searchSettingsConfig"
+                  ></search-settings>
+              </li>
+          </ul>
+        </nav>
+        <nav>
+          <ul>
+            <li *ngIf="searchGridConfig.options.module.viewModeSwitcher">
+              <button type="button"
+                      class="icon-button"
+                      [ngClass]="{'active': slickGridComp.module.viewMode == 'table'}"
+                      (click)="slickGridComp.provider.setViewMode('table')"
+                      title="{{ 'common_hints.grid' | translate }}">
+                                <span style="float:left;">
+                                    <i class="icons-list icon"></i>
+                                </span>
+              </button>
+            </li>
+            <li *ngIf="searchGridConfig.options.module.viewModeSwitcher">
+              <button type="button"
+                      class="icon-button"
+                      [ngClass]="{'active': slickGridComp.module.viewMode == 'tile'}"
+                      (click)="slickGridComp.provider.setViewMode('tile')"
+                      title="{{ 'common_hints.tiles' | translate }}">
+                                <span style="float:left;">
+                                    <i class="icons-tiles icon"></i>
+                                </span>
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+        <!--Body-->
+        <div class="row-body">
+            <as-split
+                    #split
+                    [style.float]="'left'"
+                    (dragEnd)="saveSplitSizes(0, $event)"
+                    [direction]="'horizontal'">
+
+                <!--Adv search and recent search-->
+                <as-split-area
+                        [order]="0"
+                        [visible]="getSplitAreaVisible([0,0], searchAdvancedConfig.options.provider.getStateForPanel(), false, searchAdvancedConfig.options.provider, searchAdvancedConfig.options.provider.setStateForPanel, searchAdvancedConfig.options.provider.getIsReady())"
+                        [size]="getSplitAreaSize([0,0], 30)">
+                    <as-split
+                            (dragEnd)="saveSplitSizes(1, $event)"
+                            [direction]="'vertical'">
+                        <as-split-area
+                                #advSplit
+                                [size]="getSplitAreaSize([1,0], 50)"
+                                [order]="0">
+                            <search-advanced
+                                [config]="searchAdvancedConfig"
+                            ></search-advanced>
+                        </as-split-area>
+                        <as-split-area
+                                #advSplit
+                                [order]="1"
+                                class="color-bkgd-mid"
+                                [size]="getSplitAreaSize([1,1], 50)">
+                            <search-recent
+                                [config]="searchRecentConfig"
+                            ></search-recent>
+                        </as-split-area>
+                    </as-split>
+                </as-split-area>
+
+                <!--Table-->
+                <as-split-area
+                        #tableSplit
+                        [order]="1"
+                        [size]="getSplitFlexSize([0,1])">
+                    <div style="height: 100%">
+                      <slick-grid
+                        #slickGridComp
+                        class="carrier-grid vertical-align-row"
+                        style="width: 100%;  height: 100%"
+                        [config]="searchGridConfig"
+                      ></slick-grid>
+                    </div>
+                </as-split-area>
+            </as-split>
+        </div>
+    </div>
+</div>
+
+<!--Settings dropdown-->
+<div class="dropdown grid-settings-dropdown carrierSettingsPopup"
+     style="margin-top: 15px; margin-right: 15px; position: fixed; display: none;">
+    <ul
+            aria-labelledby="simple-btn-keyboard-nav"
+            style="display: block; top: 0%"
+            class="dropdown-menu"
+            role="menu"
+    >
+        <li role="menuitem" *ngIf="hasPermissionByName('preset-workflow')">
+            <a class="dropdown-item" (click)="slickGridComp.provider.showRaiseWorkflowWizzard($event)">
+                {{ 'media.table.dropdown.row.rw_wizard' | translate }}
+            </a>
+        </li>
+        <li role="menuitem" [hidden]="slickGridComp.provider.isMultiSelectedItems() || !hasPermission('workflow')">
+            <a class="dropdown-item"
+               (click)="slickGridComp.provider.activeWorkflows($event)"
+               aria-disabled="true">
+                {{ 'misr.table.dropdown.active_wf' | translate }}
+            </a>
+        </li>
+<!--        <li role="menuitem">-->
+<!--            <a class="dropdown-item"-->
+<!--               (click)="searchGridConfig.options.provider.addToBasket($event, searchGridConfig.options.provider.moduleContext.rowData)">-->
+<!--                {{ 'media.table.dropdown.row.add_to_basket' | translate }}-->
+<!--            </a>-->
+<!--        </li>-->
+    </ul>
+</div>

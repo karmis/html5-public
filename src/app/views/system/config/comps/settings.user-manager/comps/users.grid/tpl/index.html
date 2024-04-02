@@ -1,0 +1,82 @@
+<div #userManagerGridWrapper class="user-manager-users">
+    <div class="filter-panel">
+        <input class="data-filter" #datasetFilter placeholder="{{'user_management.users.filter_data' | translate}}" type="text" (input)="updateDataset($event.target.value)"/>
+        <div class="clear-dataset-filter" (click)="clearDatasetFilter()">
+            <i class="icons-cross icon"></i>
+        </div>
+
+        <button class="hide-disabled-toggle"
+                [ngClass]="{'active': hideDisabled}"
+                (click)="toggleDisabled()">{{"user_management.users.hide_disabled" | translate}}
+        </button>
+        <button class="hide-passthru-toggle"
+                [ngClass]="{'active': hidePassThru}"
+                (click)="togglePassThru()">{{"user_management.users.hide_passthru" | translate}}
+        </button>
+        <button class="rebuild-all"
+                (click)="rebuildAllUser()">{{"user_management.users.rebuid_all_view" | translate}}
+        </button>
+    </div>
+
+    <button *ngIf="tableData" class="add-new-user" (click)="showModal(null, false, true)" title="{{'user_management.users.add_new' | translate}}">
+        <i class="icons-cross icon"></i>
+    </button>
+    <div class="user-manager-users-grid-wrapper">
+        <div id="userManagerUsersSlickGridExternalWrapper" style="height: 100%;">
+            <slick-grid #slickGridComp
+                        [config]="slickGridConfig"
+                        class="vertical-align-row small-height-header">
+            </slick-grid>
+        </div>
+    </div>
+
+    <!--<div class="select-table-message" [hidden]="tableData">-->
+        <!--&lt;!&ndash;<span>{{"user_management.users.select_table" | translate}}</span>&ndash;&gt;-->
+    <!--</div>-->
+    <div class="dropdown grid-settings-dropdown userSettingsPopup"
+         style="margin-top: 15px; margin-right: 15px; position: fixed; display: none;">
+        <ul
+            aria-labelledby="simple-btn-keyboard-nav"
+            style="display: block; top: 0%"
+            class="dropdown-menu"
+            role="menu"
+        >
+            <li role="menuitem">
+                <a
+                    class="dropdown-item" (click)="cloneUser($event)"
+                    title="{{'user_management.users.clone' | translate}}">
+                    {{ 'user_management.users.clone' | translate }}
+                </a>
+            </li>
+            <li role="menuitem">
+                <a
+                    class="dropdown-item" (click)="rebuildUser($event)"
+                    title="{{'user_management.users.rebuild' | translate}}">
+                    {{ 'user_management.users.rebuild' | translate }}
+                </a>
+            </li>
+            <li role="menuitem" *ngIf="canResetUserPassword()">
+                <a
+                    class="dropdown-item" (click)="resetUserPassword($event)"
+                    title="{{'user_management.users.reset_password' | translate}}">
+                    {{ 'user_management.users.reset_password' | translate }}
+                </a>
+            </li>
+            <li role="menuitem">
+                <a
+                    class="dropdown-item" (click)="resetUser2fa($event)"
+                    title="{{'user_management.users.reset_2fa' | translate}}">
+                    {{ 'user_management.users.reset_2fa' | translate }}
+                </a>
+            </li>
+            <li role="menuitem" *ngIf="hasPermissionByName('delete-user') && canBeDeleted()">
+                <a
+                    class="dropdown-item" (click)="deleteUser($event)"
+                    title="{{'user_management.users.delete_user' | translate}}">
+                    {{ 'user_management.users.delete_user' | translate }}
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<overlay #overlay [mode]="true" [zIndex]="100"></overlay>

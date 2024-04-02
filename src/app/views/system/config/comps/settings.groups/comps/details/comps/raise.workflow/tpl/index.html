@@ -1,0 +1,67 @@
+<div class="settings-groups-raise-workflow-wrapper">
+    <div class="checkboxes-wrapper">
+        <div class="header">
+            {{'settings_group.raise_workflow_settings.apply_all_to_one_workflow.title' | translate}}
+        </div>
+
+        <div class="checkboxes-list">
+            <div class="checkboxes-item"
+            >
+                <label for="mediaPerItem"
+                       style="user-select: none;"
+                >
+                    {{ 'settings_group.raise_workflow_settings.apply_all_to_one_workflow.for_media' | translate }}
+                </label>
+                <input type="checkbox"
+                       [(ngModel)]="raiseWorkflowSettings.onMedia"
+                       (ngModelChange)="changeRaiseWorkflowSettings($event)"
+                       id="mediaPerItem"
+                       class="per-item-checkbox"
+                />
+            </div>
+            <div class="checkboxes-item"
+            >
+                <label for="versionsPerItem"
+                       style="user-select: none;"
+                >
+                    {{ 'settings_group.raise_workflow_settings.apply_all_to_one_workflow.for_versions' | translate }}
+                </label>
+                <input type="checkbox"
+                       [(ngModel)]="raiseWorkflowSettings.onVersions"
+                       (ngModelChange)="changeRaiseWorkflowSettings($event)"
+                       id="versionsPerItem"
+                       class="per-item-checkbox"
+                />
+            </div>
+            <div class="checkboxes-item"
+            >
+                <label for="carriersPerItem"
+                       style="user-select: none;"
+                >
+                    {{ 'settings_group.raise_workflow_settings.apply_all_to_one_workflow.for_carriers' | translate }}
+                </label>
+                <input type="checkbox"
+                       [(ngModel)]="raiseWorkflowSettings.onCarriers"
+                       (ngModelChange)="changeRaiseWorkflowSettings($event)"
+                       id="carriersPerItem"
+                       class="per-item-checkbox"
+                />
+            </div>
+            <div class="checkboxes-item"
+            >
+                <label for="basketPerItem"
+                       style="user-select: none;"
+                >
+                    {{ 'settings_group.raise_workflow_settings.apply_all_to_one_workflow.from_basket' | translate }}
+                </label>
+                <input type="checkbox"
+                       [(ngModel)]="raiseWorkflowSettings.fromBasket"
+                       (ngModelChange)="changeRaiseWorkflowSettings($event)"
+                       id="basketPerItem"
+                       class="per-item-checkbox"
+                />
+            </div>
+        </div>
+    </div>
+</div>
+

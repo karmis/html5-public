@@ -1,0 +1,819 @@
+@import "../../../../views/base/styles/theme.scss";
+
+$leftsidewidth: 200px;
+$canvasHeight: 20px;
+$canvasTimeHeight: 32px;
+$canvasImageHeight: 40px;
+
+@each $key, $value in $common-themes {
+    .#{$key} {
+        imfx-pro-timeline {
+            .pro-timeline-wrapper {
+                position: relative;
+                margin: 8px 0;
+                margin-right: 15px;
+                border: 1px solid getThemeColor(9, $key);
+                overflow: visible;
+                height: 100%;
+                text-align: left;
+
+
+                .timeline-loader {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 10;
+                    background: getThemeColor(4, $key);
+
+                    .spinner {
+                        position: absolute;
+                        top: 50%;
+                        height: 32px;
+                        width: 32px;
+                        border-width: 3px;
+                        left: calc(50% - 16px);
+                    }
+                }
+
+                .wrong {
+                    position: relative;
+                    top: calc(50% - 20px);
+                    font-size: 20px;
+                    opacity: 0.5;
+                }
+
+                .canvas-hover-tooltip {
+                    position: absolute;
+                    display: inline-block;
+                    width: auto;
+                    max-width: 300px;
+                    height: auto;
+                    background: rgba(0, 0, 0, 0.7);
+                    color: #fff;
+                    padding: 10px;
+                    z-index: 11;
+
+                    div {
+                        width: 100%;
+                        overflow: hidden;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                    }
+                }
+
+                .slider-wrapper {
+                    position: relative;
+                    left: $leftsidewidth;
+                    width: calc(100% - 200px);
+                    height: 15px;
+                    background: getThemeColor(5, $key);
+                    display: inline-block;
+                    -moz-user-select: none;
+                    -webkit-user-select: none;
+                    -ms-user-select: none;
+                    user-select: none;
+                    -o-user-select: none;
+                    z-index: 12;
+                    vertical-align: top;
+                    border-top: 1px solid getThemeColor(9, $key);
+                    border-left: 1px solid getThemeColor(9, $key);
+
+                    .slider {
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        bottom: 0;
+                        width: 100%;
+
+                        .zoom-left {
+                            position: absolute;
+                            top: 0px;
+                            left: 0px;
+                            width: 15px;
+                            height: 15px;
+                            cursor: ew-resize;
+                            border-radius: 21px;
+                            border: 4px solid getThemeColor(2, $key);
+                            -moz-user-select: none;
+                            -webkit-user-select: none;
+                            -ms-user-select: none;
+                            user-select: none;
+                            -o-user-select: none;
+                            z-index: 2;
+                        }
+
+                        .dragable-middle {
+                            position: absolute;
+                            top: 0px;
+                            left: 0px;
+                            right: 0;
+                            height: 15px;
+                            background: getThemeColor(3, $key);
+                            cursor: grab;
+                            border-radius: 15px;
+                            -moz-user-select: none;
+                            -webkit-user-select: none;
+                            -ms-user-select: none;
+                            user-select: none;
+                            -o-user-select: none;
+                            z-index: 1;
+                        }
+
+                        .zoom-right {
+                            position: absolute;
+                            top: 0px;
+                            right: 0px;
+                            width: 15px;
+                            height: 15px;
+                            cursor: ew-resize;
+                            border-radius: 15px;
+                            border: 4px solid getThemeColor(2, $key);
+                            -moz-user-select: none;
+                            -webkit-user-select: none;
+                            -ms-user-select: none;
+                            user-select: none;
+                            -o-user-select: none;
+                            z-index: 2;
+                        }
+                    }
+
+                    &.in-drag {
+                        .dragable-middle {
+                            cursor: grabbing;
+                        }
+                    }
+                }
+
+                .current-time-line-grab {
+                    position: absolute;
+                    top: 0;
+                    left: $leftsidewidth;
+                    width: 1px;
+                    height: 100%;
+                    -moz-user-select: none;
+                    -webkit-user-select: none;
+                    -ms-user-select: none;
+                    user-select: none;
+                    -o-user-select: none;
+                    z-index: 11;
+
+                    .circle {
+                        position: absolute;
+                        top: -3px;
+                        left: -12px;
+                        width: 15px;
+                        height: 15px;
+                        cursor: grab;
+                        width: 0;
+                        height: 0;
+                        border-style: solid;
+                        border-width: 10px 7.5px 0 7.5px;
+                        border-color: getThemeColor(1, $key) transparent transparent transparent;
+                        -moz-user-select: none;
+                        -webkit-user-select: none;
+                        -ms-user-select: none;
+                        user-select: none;
+                        -o-user-select: none;
+                    }
+
+                    .line {
+                        position: absolute;
+                        top: 7px;
+                        left: 0;
+                        width: 1px;
+                        height: calc(100% - 7px);
+                        background: getThemeColor(1, $key);
+                        -moz-user-select: none;
+                        -webkit-user-select: none;
+                        -ms-user-select: none;
+                        user-select: none;
+                        -o-user-select: none;
+                    }
+
+                    &.in-drag {
+                        .circle {
+                            cursor: default;
+                            border-color: getThemeColor(13, $key) transparent transparent transparent;
+                        }
+
+                        .line {
+                            background: getThemeColor(13, $key);
+                        }
+                    }
+                }
+
+                .current-item-line-drag {
+                    display: none;
+                    position: absolute;
+                    top: 0;
+                    left: $leftsidewidth;
+                    width: 1px;
+                    height: 100%;
+                    -moz-user-select: none;
+                    -webkit-user-select: none;
+                    -ms-user-select: none;
+                    user-select: none;
+                    -o-user-select: none;
+                    z-index: 12;
+
+                    .line {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 1px;
+                        height: calc(100%);
+                        background: getThemeColor(7, $key);
+                        box-shadow: 0px 0px 5px 1px getThemeColor(13, $key);
+                        -moz-user-select: none;
+                        -webkit-user-select: none;
+                        -ms-user-select: none;
+                        user-select: none;
+                        -o-user-select: none;
+                    }
+                    &.in-drag {
+                        display: block;
+                    }
+                }
+
+                .rows-wrapper {
+                    height: calc(100% - 48px);
+                    overflow: visible;
+                    position: relative;
+
+                    .scrollable-wrapper{
+                        width: 100%;
+                        height: 100%;
+                        position:relative;
+                        overflow:hidden;
+                        .scrollable-area {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            right: 0;
+
+                            .clip-boxes {
+                                pointer-events: none;
+                                position: absolute;
+                                left: $leftsidewidth;
+                                right: 0;
+                                bottom: 0;
+                                top: 0;
+                                z-index: 1;
+                                overflow: hidden;
+                                .clip-box {
+                                    display: none;
+                                    position: absolute;
+                                    top: 0;
+                                    left: $leftsidewidth;
+                                    width: 0;
+                                    height: calc(100%);
+                                    background: rgba(255, 0, 0, 0.4);
+                                    z-index: 12;
+
+                                    .clip-text {
+                                        width: 100%;
+                                        height: 100%;
+                                        display: inline-block;
+                                        text-overflow: ellipsis;
+                                        overflow: hidden;
+                                        white-space: normal;
+                                        text-shadow: 0px 0px 3px getThemeColor(7, $key);
+                                    }
+
+                                    &.in-drag {
+                                        display: block;
+                                        border: 1px solid #ff0000;
+                                        border-radius: 5px;
+                                        width: 200px;
+                                    }
+                                }
+                                .clip-box-item {
+                                    pointer-events: none;
+                                    position: absolute;
+                                    top: 0;
+                                    bottom: 0;
+                                    left: 0;
+                                    width: 0;
+                                    border: 1px solid getThemeColor(7, $key);
+                                    border-radius: 0px 5px 5px 0px;
+
+                                    &.in-drag {
+                                        background: rgba(0, 0, 0, 0.5);
+                                        .filler {
+                                            background: none;
+                                        }
+                                    }
+
+                                    &.current {
+                                        border: 1px solid getThemeColor(10, $key);
+                                        background: none;
+                                        .filler {
+                                            background: getThemeColor(46, $key);
+                                        }
+                                    }
+
+                                    .filler {
+                                        pointer-events: none;
+                                        position: absolute;
+                                        top: 0;
+                                        bottom: 0;
+                                        left: 0;
+                                        width: 0;
+                                        border-radius: 0px 5px 5px 0px;
+                                        background: getThemeColor(45, $key);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .timeline-scroll-wrapper {
+                        position: absolute;
+                        height: 100%;
+                        width: 15px;
+                        background: getThemeColor(5, $key);
+                        right: -15px;
+                        top: 0;
+                        border: 1px solid getThemeColor(9, $key);
+
+                        .timeline-scroll {
+                            position: absolute;
+                            top: 0;
+                            background: getThemeColor(3, $key);
+                            width: 100%;
+                            height: 50px;
+                        }
+                    }
+                }
+
+                .group-wrapper {
+                    width: 100%;
+                    display: block;
+
+
+                    .row-wrapper {
+                        display: block;
+                        width: 100%;
+                        height: $canvasHeight;
+                        overflow: hidden;
+                        background: getThemeColor(4, $key);
+                        border-top: 1px solid getThemeColor(9, $key);
+
+                        &.is-image {
+                            height: $canvasImageHeight;
+                        }
+
+                        &.highlighted-default,
+                        &.highlighted
+                        {
+                            position: relative;
+                            &:before {
+                                content: '';
+                                position: absolute;
+                                left: 0;
+                                right: 0;
+                                top: 0;
+                                bottom: 0;
+                                border: 1px solid getThemeColor(7, $key);
+                                z-index: 1;
+                                pointer-events: none
+                            }
+                            &:after {
+                                content: "\F12E";
+                                font-family: icons;
+                                position: absolute;
+                                vertical-align: top;
+                                line-height: 15px;
+                                font-size: 15px;
+                                text-align: left;
+                                left: -1px;
+                                top: 0;
+                                width: 15px;
+                                height: 15px;
+                                background: getThemeColor(7, $key);
+                                color: getThemeColor(4, $key);
+                                z-index: 2;
+                                border-radius: 0 0 7px 0;
+                                pointer-events: none
+                            }
+                        }
+
+                        &.highlighted-default:not(.highlighted) {
+                            &:before {
+                                border: 1px solid getThemeColor(2, $key);
+                            }
+                            &:after {
+                                background: getThemeColor(2, $key);
+                            }
+                        }
+
+                        &:last-of-type {
+                            border-bottom: 1px solid getThemeColor(9, $key);
+                        }
+
+                        .row-name {
+                            width: $leftsidewidth;
+                            height: 100%;
+                            line-height: 100%;
+                            border-right: 1px solid getThemeColor(9, $key);
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                            padding: 0 15px;
+                            display: inline-block;
+                            vertical-align: top;
+                            -moz-user-select: none;
+                            -webkit-user-select: none;
+                            -ms-user-select: none;
+                            user-select: none;
+                            -o-user-select: none;
+                            vertical-align: top;
+
+                            position: relative;
+                            padding-right: 30px;
+
+                            span {
+                                position: absolute;
+                                width: 100%;
+                                left: 0;
+                                padding-left: 15px;
+                                height: 14px;
+                                top: calc(50% - 7px);
+                            }
+
+                            .arrows-wrapper {
+                                position: absolute;
+                                width: 30px;
+                                right: 0;
+                                top: 0;
+                                height: 100%;
+
+                                .markers-arrow {
+                                    width: 15px;
+                                    height: 100%;
+                                    position: absolute;
+                                    top: 0;
+                                    cursor: pointer;
+                                    background-color: transparent;
+                                    background-image: none;
+                                    font-family: icons;
+                                    margin-right: 3px;
+                                    opacity: 0.1;
+                                    transition: opacity .15s ease-in-out;
+
+                                    &:hover {
+                                        opacity: 1;
+                                    }
+
+                                    &.leftarrow {
+                                        left: 0;
+
+                                        &:before {
+                                            cursor: pointer;
+                                            content: "\F125";
+                                            font-size: 15px;
+                                        }
+                                    }
+
+                                    &.rightarrow {
+                                        right: 0;
+
+                                        &:before {
+                                            cursor: pointer;
+                                            content: "\F130";
+                                            font-size: 15px;
+                                        }
+                                    }
+
+                                    &.collapse-thumb {
+                                        right: 5px;
+
+                                        &:before {
+                                            cursor: pointer;
+                                            content: "\F135";
+                                            font-size: 15px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        .row-line {
+                            width: calc(100% - 200px);
+                            height: 100%;
+                            line-height: 100%;
+                            display: inline-block;
+                            image-rendering: -moz-crisp-edges;
+                            image-rendering: -o-crisp-edges;
+                            image-rendering: -webkit-optimize-contrast;
+                            image-rendering: pixelated;
+                            -ms-interpolation-mode: nearest-neighbor;
+                            position: relative;
+
+                            canvas {
+                                width: 100%;
+                                height: 100%;
+                                cursor: pointer;
+
+                                &.collapsed {
+                                    display: none;
+                                }
+                            }
+
+                            .row-loader {
+                                position: absolute;
+                                width: 100%;
+                                height: 100%;
+                                z-index: 10;
+                                background: getThemeColor(4, $key);
+
+                                .spinner {
+                                    position: absolute;
+                                    top: 4px;
+                                    height: 32px;
+                                    width: 32px;
+                                    border-width: 3px;
+                                    left: calc(50% - 16px);
+                                }
+                            }
+                        }
+
+                        &.is-image {
+                            position: relative;
+
+                            .row-resizer {
+                                width: 100%;
+                                vertical-align: top;
+                                height: 3px;
+                                position: absolute;
+                                background: transparent;
+                                bottom: 0;
+                                text-align: center;
+                                z-index: 1;
+                                cursor: grab;
+                                transition: opacity 0.3s ease-in;
+                                background: linear-gradient(rgba(0,0,0,0.0), getThemeColor(23, $key));
+                                opacity: 0.5;
+
+                                .row-resizer-handle {
+                                    position: relative;
+                                    bottom: 3px;
+                                    width: 60px;
+                                    height: 6px;
+                                    margin: 0 auto;
+                                    border-radius: 3px 3px 0 0;
+                                    background: getThemeColor(4, $key);
+
+                                    &::before {
+                                        content: "...";
+                                        width: 100%;
+                                        height: 0px;
+                                        top: -2px;
+                                        display: block;
+                                        z-index: 1;
+                                        line-height: 0;
+                                        font-size: 20px;
+                                        position: relative;
+                                        color: getThemeColor(1, $key);
+                                    }
+                                }
+
+                                &:hover {
+                                    transition: opacity 0.3s ease-out;
+                                    opacity: 1;
+
+                                    .row-resizer-handle {
+
+                                    }
+                                }
+                            }
+                        }
+
+                        &.group {
+                            background: getThemeColor(5, $key);
+                            border: none;
+
+                            .row-name {
+                                border-right: none;
+                                position: relative;
+                                padding-right: 45px;
+
+                                .gear {
+                                    width: 20px;
+                                    height: 100%;
+                                    position: absolute;
+                                    right: 20px;
+                                    top: 0;
+                                    cursor: pointer;
+                                    background-color: transparent;
+                                    background-image: none;
+                                    font-family: icons;
+                                    margin-top: 1px;
+                                    opacity: 0.6;
+                                    transition: opacity .15s ease-in-out;
+
+                                    &:hover {
+                                        opacity: 1;
+                                    }
+
+                                    &:before {
+                                        cursor: pointer;
+                                        content: "\F135";
+                                        font-size: 15px;
+                                    }
+                                }
+
+                                .expander {
+                                    width: 20px;
+                                    height: 100%;
+                                    position: absolute;
+                                    right: 0;
+                                    top: 0;
+                                    cursor: pointer;
+                                    background-color: transparent;
+                                    background-image: none;
+                                    font-family: icons;
+                                    margin-right: 3px;
+                                    margin-top: 1px;
+                                    opacity: 0.6;
+                                    transition: opacity .15s ease-in-out;
+
+                                    &:hover {
+                                        opacity: 1;
+                                    }
+
+                                    &:before {
+                                        cursor: pointer;
+                                        content: "\F112";
+                                        font-size: 20px;
+                                    }
+                                }
+                            }
+                        }
+
+                        &.time {
+                            height: $canvasTimeHeight;
+                            background: getThemeColor(5, $key);
+
+                            .row-name {
+                                border-right: none;
+                                height: $canvasTimeHeight;
+                                line-height: $canvasTimeHeight;
+
+                                &.buttons {
+                                    padding: 0;
+
+                                    div {
+                                        display: inline-block;
+                                        width: 33px;
+                                        height: $canvasTimeHeight;
+                                        vertical-align: top;
+                                        background-color: transparent;
+                                        background-image: none;
+                                        font-family: icons;
+                                        opacity: 0.6;
+                                        cursor: pointer;
+                                        transition: opacity .15s ease-in-out;
+
+                                        &:hover {
+                                            opacity: 1;
+                                        }
+
+                                        &.leftarrow {
+                                            &:before {
+                                                cursor: pointer;
+                                                content: "\F125";
+                                                font-size: 20px;
+                                                padding-left: 5px;
+                                                top: -1px;
+                                                position: relative;
+                                            }
+                                        }
+
+                                        &.rightarrow {
+                                            &:before {
+                                                cursor: pointer;
+                                                content: "\F130";
+                                                font-size: 20px;
+                                                padding-left: 5px;
+                                                top: -1px;
+                                                position: relative;
+                                            }
+                                        }
+                                    }
+
+                                    input {
+                                        width: 134px;
+                                        margin: 5px 0;
+                                        height: 20px;
+                                        line-height: 20px;
+                                        vertical-align: top;
+                                        text-align: center;
+                                    }
+                                }
+                            }
+
+                            .row-line {
+                                height: $canvasTimeHeight;
+                            }
+                        }
+                    }
+
+                    &.without-header {
+                        .row-wrapper:first-of-type {
+                            border-top: none;
+                        }
+                    }
+
+                    &.collapsed {
+                        height: $canvasHeight !important;
+                        overflow: hidden !important;
+
+                        .expander {
+                            &:before {
+                                content: "\F130" !important;
+                            }
+                        }
+                    }
+                }
+
+                &.clip-mode {
+                    .group-wrapper {
+                        .row-wrapper {
+                            &.time {
+                                .row-name {
+                                    &.buttons {
+                                        > div {
+                                            display: inline-block;
+                                            width: 33px;
+                                            height: $canvasTimeHeight;
+                                            vertical-align: top;
+                                            background-color: transparent;
+                                            background-image: none;
+                                            font-family: icons;
+                                            opacity: 0.6;
+                                            cursor: pointer;
+                                            transition: opacity .15s ease-in-out;
+
+                                            &:not(.clip-switcher):hover {
+                                                opacity: 1;
+                                            }
+
+                                            &.leftarrow,
+                                            &.rightarrow{
+                                                width: 25px;
+                                                &:before {
+                                                    padding-left: 3px;
+                                                }
+                                            }
+
+                                            &.clip-switcher {
+                                                position: relative;
+                                                width: 44px;
+                                                border-left: 1px solid getThemeColor(9, $key);
+                                                .leftarrow,
+                                                .rightarrow {
+                                                    display: inline-block;
+                                                    width: 50%;
+                                                    height: 100%;
+                                                    &:before {
+                                                        padding-left: 0px;
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        input {
+                                            width: 106px;
+                                        }
+                                    }
+                                }
+
+                                .row-line {
+                                    height: $canvasTimeHeight;
+                                }
+                            }
+                        }
+
+                        &.without-header {
+                            .row-wrapper:first-of-type {
+                                border-top: none;
+                            }
+                        }
+
+                        &.collapsed {
+                            height: $canvasHeight !important;
+                            overflow: hidden !important;
+
+                            .expander {
+                                &:before {
+                                    content: "\F130" !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

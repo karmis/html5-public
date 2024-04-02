@@ -1,0 +1,18 @@
+<div class="radio">
+    <label (click)="$event.stopPropagation()">
+        <input type="radio" name="default"
+               [(ngModel)]="themeProvider.theme_class"
+               [checked]="themeProvider.theme_class == 'default'"
+               (click)="schemaChange($event)"
+               value="default" style="margin-right: 5px;">Default
+    </label>
+</div>
+<div class="radio">
+    <label (click)="$event.stopPropagation()">
+        <input type="radio" name="dark"
+               [(ngModel)]="themeProvider.theme_class"
+               [checked]="themeProvider.theme_class == 'dark'"
+               (click)="schemaChange($event)"
+               value="dark" style="margin-right: 5px;">Dark
+    </label>
+</div>

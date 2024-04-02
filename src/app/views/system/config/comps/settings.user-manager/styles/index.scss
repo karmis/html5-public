@@ -1,0 +1,53 @@
+@import "../../../../../base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+    .#{$key} {
+        .user-manager-wrapper {
+            height: 100%;
+            width: 100%;
+            display: block;
+
+            .um-container{
+                height: 100%;
+                width: 100%;
+            }
+            user-manager-users-grid {
+                display: block;
+                height: 100%;
+            }
+
+            .tables-list {
+                background: getThemeColor(4, $key);
+                height: 100%;
+                max-width: 250px;
+                width: 250px;
+                flex: 1;
+                position: relative;
+
+                .user-manager-item {
+                    width: 100%;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    display: block;
+                    line-height: 26px;
+                    padding: 0 5px;
+                    cursor: pointer;
+                    overflow: hidden;
+                    text-align: left;
+
+                    &:hover {
+                        background: getThemeColor(5, $key);
+                    }
+                    &.active {
+                        background: getThemeColor(10, $key);
+                        border: none;
+                        color: #fff;
+                    }
+                }
+                .h-separator {
+                    border-top: 1px solid getThemeColor(9, $key);
+                }
+            }
+        }
+    }
+}

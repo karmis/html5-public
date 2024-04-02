@@ -1,0 +1,48 @@
+@import "../../../views/base/styles/theme.scss";
+@each $key, $value in $common-themes {
+  .#{$key} {
+    div.accordion-row {
+        position: relative;
+      box-sizing: border-box;
+      padding: 5px 5px 5px 30px;
+      cursor: pointer;
+
+      &:hover,
+      &:hover div{
+        background: getThemeColor( 19, $key)!important;
+      }
+
+      &.selected,
+      &.selected div{
+        background: getThemeColor( 9, $key)!important;
+      }
+
+      .ac-id,
+      .ac-name,
+      .ac-status,
+      .ac-progress {
+        display: inline-block;
+        box-sizing: border-box;
+        width: 150px;
+      }
+      .ac-id {
+        width: 50px;
+      }
+      .ac-status.green {
+        position: relative;
+
+        &:before {
+          content: "";
+          position: absolute;
+          width: 8px;
+          height: 8px;
+          border-radius: 8px;
+          top: 50%;
+          margin-top: -4px;
+          left: -10px;
+          background: getThemeColor(29, $key) !important;
+        }
+      }
+    }
+  }
+}

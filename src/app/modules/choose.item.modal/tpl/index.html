@@ -1,0 +1,19 @@
+<div class="media-wizard" style="min-height: 400px;">
+    <item-table #itemTableGrid (onSave)="addMediaToList()" [typeGrid]="typeGrid"></item-table>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div class="buttons">
+            <button class="next primary"
+                (click)="addMediaToList()">
+                {{ 'common.ok' | translate }}
+            </button>
+            <button class=""
+                (click)="closeModal()">
+                {{ 'views.cancel' | translate }}
+            </button>
+        </div>
+    </div>
+</ng-template>
+

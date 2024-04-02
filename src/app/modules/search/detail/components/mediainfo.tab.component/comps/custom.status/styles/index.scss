@@ -1,0 +1,14 @@
+@import "../../../../../../../../views/base/styles/theme";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .custom-status-ctrl-comp-wrapper{
+            .select2-wrapper .select2-selection--multiple {
+                background: getThemeColor(21, $key);
+                .select2-search__field {
+                    margin: 3px 0;
+                }
+            }
+        }
+    }
+}

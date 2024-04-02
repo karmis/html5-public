@@ -1,0 +1,121 @@
+@import "../../../../../../base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+    .#{$key} {
+        cm-wfmatrix-comp {
+            display: block;
+            height: 100%;
+
+            $cell-width: 160px;
+            $cell-height: 70px;
+
+            .cm-wf-matrix-wrapper {
+                height: 100%;
+                .save-btn{
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+                }
+            }
+
+            .table-wrapper {
+                width: 100%;
+                height: calc(100% - 40px);
+                font-size: 0;
+                >div{
+                    display: inline-block;
+                    vertical-align: top;
+                }
+                .header-angle {
+                    width: $cell-width;
+                    height: $cell-height;
+                    position: relative;
+                    overflow: hidden;
+                    background-color: getThemeColor(5, $key);
+                    //background-color: getThemeColor(3, $key);
+
+                    .line {
+                        width: 144%;
+                        height: 2px;
+                        position: absolute;
+                        top: 35px;
+                        left: -33px;
+                        background-color: getThemeColor(3, $key);
+                        transform: rotate(23deg);
+                    }
+
+                    .top-header {
+                        position: absolute;
+                        top: 9px;
+                        right: 14px;
+                        font-size: 10px;
+                    }
+
+                    .left-header {
+                        position: absolute;
+                        bottom: 8px;
+                        left: 14px;
+                        font-size: 10px;
+                    }
+                }
+                .left-side {
+                    width: $cell-width;
+                    height: calc(100% - #{$cell-height});
+                    overflow: hidden;
+                    background-color: getThemeColor(4, $key);
+                    .left-wrp {
+                        overflow: visible;
+                        border-bottom: 17px solid transparent;
+                    }
+                    .cell {
+                    }
+                }
+                .top-side {
+                    width: calc(100% - #{$cell-width});
+                    height: $cell-height;
+                    overflow: hidden;
+                    background-color: getThemeColor(4, $key);
+                    .top-wrp{
+                        display: inline-block;
+                        border-right: 17px solid transparent;
+                        overflow: visible;
+                        white-space: nowrap;
+                    }
+                    .cell {
+                    }
+                }
+                .content-side {
+                    width: calc(100% - #{$cell-width});
+                    height: calc(100% - #{$cell-height});
+                    overflow: auto;
+                    .content-wrp {
+                        display: flex;
+                    }
+                    .dropdown.select2-wrapper {
+                        background-color: getThemeColor(23, $key);
+                    }
+                }
+
+                .col {
+                    width: $cell-width;
+                    min-width: $cell-width;
+                    display: inline-block;
+                    font-size: 32px;
+                    text-align: center;
+                    vertical-align: middle;
+                    word-wrap: break-word;
+                    white-space: normal;
+
+                    .cell {
+                        height: $cell-height;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        padding: 0 7px;
+                    }
+                }
+            }
+
+        }
+    }
+}

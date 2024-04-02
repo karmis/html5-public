@@ -1,0 +1,200 @@
+<div class="rw-wizzard"
+     [ngStyle]="{'height': currentStep === 0 ? 'auto' : '400px'}">
+    <div *ngIf="currentStep !== 0" class="status-row">
+        <div class="step first"
+             [ngClass]="{'done': currentStep >= 1, 'current': currentStep == 1, 'raise-failed': successPlacement === false}">
+            <span class="step-title">1. Select Preset</span>
+            <span class="step-circle"></span>
+            <span class="step-line"></span>
+        </div>
+        <div class="step second"
+             [ngClass]="{'done': currentStep >= 2, 'current': currentStep == 2, 'raise-failed': successPlacement === false}">
+            <span class="step-title">2. Configure</span>
+            <span class="step-circle"></span>
+            <span class="step-line"></span>
+        </div>
+        <div class="step third"
+             [ngClass]="{'done': currentStep >= 3, 'last': currentStep == 3, 'raise-failed': successPlacement === false}">
+            <span class="step-title">3. Results</span>
+            <span class="step-circle"></span>
+        </div>
+    </div>
+    <div class="wizard-steps">
+        <div class="step-content active-workflow" [hidden]="currentStep !== 0">
+            <workflow-list-comp #workflowListComponent>
+            </workflow-list-comp>
+        </div>
+        <div class="step-content preset" *ngIf="currentStep == 1">
+            <div class="options-wrapper">
+                <div class="datepicker-wrapper">
+                    <label for="datepicker">{{ 'basket.date' | translate }}</label>
+                    <imfx-controls-datetimepicker
+                        id="datepicker"
+                        #datetimepicker
+                        [locale]="'common.locale' | translate"
+                        [format]="'common.date_full_format' | translate"
+                        [formatDate]="'common.date_format' | translate"
+                        [formatTime]="'common.time_format' | translate"
+                        [minDate]="minDate"
+                        [yearStart]="minDate.getFullYear()"
+                        [allowBlank]="true"
+                        [value]="null"
+                        [mask]="true"
+                        [dayOfWeekStart]="'common.date_of_week_start' | translate"
+                        [timepicker]="true"
+                        [datepicker]="true"
+                        [readonly]="false"
+                        [clearButton]="true"
+                        (onChangeDateTime)="onSelectDate($event)"
+                        (onSelectDate)="onSelectDate($event)"
+                        (onSelectTime)="onSelectDate($event)"
+                    ></imfx-controls-datetimepicker>
+                </div>
+
+                <div *ngIf="isVisibleWfPerItem()"
+                     class="per-item-wrapper"
+                >
+                    <label for="toAllItem"
+                           style="user-select: none;"
+                    >
+                        {{ 'basket.apply_all_to_one_workflow' | translate }}
+                    </label>
+                    <input type="checkbox"
+                           [(ngModel)]="applyAllToOneWF"
+                           id="toAllItem"
+                           class="per-item-checkbox"
+                    />
+
+                </div>
+            </div>
+
+
+            <!--            <input type="text" class="filter-field" (keyup)="filterPresets($event)"-->
+            <!--                   placeholder="{{'rwwizard.filter' | translate}}"/>-->
+            <div class="presets-wrapper">
+                <order-presets-grouped
+                    #OrderPresetsGroupedComponent
+                    (clickByPresetItemEvent)="onClickByPresetItem($event)"
+                ></order-presets-grouped>
+                <!--                <div class="preset-item" *ngFor="let item of visiblePresets; let i = index"-->
+                <!--                     [ngClass]="{'selected': selectedPreset && selectedPreset.Id == item.Id}"-->
+                <!--                     (click)="selectPreset(item)">-->
+                <!--                    {{item.Name}}-->
+                <!--                </div>-->
+                <!--                <div class="no-items" *ngIf="visiblePresets && visiblePresets.length == 0">-->
+                <!--                    {{"rwwizard.not_found" | translate}}-->
+                <!--                </div>-->
+            </div>
+        </div>
+        <div class="step-content xml" *ngIf="currentStep == 2">
+            <div class="xml-wrapper">
+                <imfx-xml-tree
+                    #xmlTreePresets
+                    *ngIf="this.selectedPreset && this.selectedPreset.SchemaId"
+                    [schemaModel]="selectedSchemaModel"
+                    [xmlModel]="selectedXmlModel"
+                ></imfx-xml-tree>
+            </div>
+        </div>
+        <div *ngIf="currentStep == 3" class="step-content result">
+            <div *ngIf="!successPlacement && wfResult.length === 0" class="result-wrapper">
+                <div  class="error">
+                    {{resultsMessage}}
+                </div>
+            </div>
+            <div class="result-wrapper" *ngIf="wfResult.length == 1">
+                <i class="result-icon icon "
+                   [ngClass]="{'icons-statusgreen ': (successPlacement === true), 'icons-statusred': (successPlacement === false)}"
+                ></i>
+                <div class="result-job">
+                    {{resultsMessage}}
+                    <span *ngIf="resultJob != null && successPlacement"
+                          class="job-link"
+                          (click)="goToJobDetailFromWizard()"
+                    >{{resultJobRef}}</span>
+                </div>
+                <div *ngIf="successPlacement && firstTask != null"
+                     class="result-task"
+                >
+                    <span [ngClass]="{'task-link':isEnabledTaskDetailPage(firstTask)}"
+                          (click)="goToTaskFromWizard()"
+                    >
+                        {{getFirstTaskMessage()}}
+                    </span>
+                    <div class="task-status">
+                        Status: {{firstTask.TSK_STATUS_text}}
+                        <div class="tast-progress" *ngIf="firstTask.TSK_STATUS == 10">
+                            <div class="progress-fill" [ngStyle]="{'width':firstTask.TSK_PROGRSS + '%'}"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="updating-active-task" *ngIf="taskRefreshInProgress">
+                    Updating
+                    <div class="spinner small"></div>
+                </div>
+            </div>
+
+            <div *ngIf="wfResult.length > 1" class="several-wf-result-wrapper">
+                <div class="wf-result-item"
+                     *ngFor="let item of wfResult">
+                    <div class="media-details">
+                        <div><span class="prop-name">Title</span>: {{(item.Source.Title + ' (' + item.Source.Id + ')')}}
+                        </div>
+                        <div><span class="prop-name">Media Type</span>: {{item.Source.ItemType || ''}}</div>
+                        <!--                        <div><span class="prop-name">Filename</span>: {{item.Source.Filename || ''}}</div>-->
+                    </div>
+                    <div class="wf-details" [ngSwitch]="item.Status">
+                        <ng-container *ngSwitchCase="1">
+                            <span class="wf-details-link"
+                                  (click)="goToJobDetailFromWizard(item.JobId)"
+                            >
+                            Workflow#: {{item.JobId}}
+                        </span>
+                            <span class="wf-details-status"
+                                  [ngClass]="{'green': item.JobStatusType=='Ok', 'yellow': item.JobStatusType == 'Warning', 'red': item.JobStatusType == 'Error'}">
+                                {{item.JobStatus}}
+                            </span>
+
+                        </ng-container>
+                        <ng-container *ngSwitchCase="0">
+                            <span class="wf-details-error" (click)="callErrorModal(item)">
+                                Error: {{item.ErrorDesc}}
+                            </span>
+                            <span class="wf-details-status"
+                                  [ngClass]="{'green': item.JobStatusType=='Ok', 'yellow': item.JobStatusType == 'Warning', 'red': item.JobStatusType == 'Error'}">
+                                Error
+                            </span>
+                        </ng-container>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="wizard-overlay" [ngClass]="{'showed': overlayShowed, 'active-overlay': overlayActive}">
+        <div class="spinner large"></div>
+    </div>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div class="buttons" *ngIf="currentStep == 0">
+            <button class="next" (click)="goToNextStep()">Next</button>
+        </div>
+        <div class="buttons" *ngIf="currentStep == 1">
+            <button *ngIf="showZeroStep || startStep != currentStep" class="back" (click)="goToPreviousStep()">Back
+            </button>
+            <button *ngIf="selectedPreset != null" class="next" (click)="goToNextStep()">Next</button>
+        </div>
+        <div class="buttons" *ngIf="currentStep == 2 && selectedPreset != null">
+            <button *ngIf="showZeroStep || startStep != currentStep" class="back" (click)="goToPreviousStep()">Back
+            </button>
+            <button class="next" (click)="goToNextStep()">Next</button>
+        </div>
+        <div class="buttons" *ngIf="currentStep == 3 && selectedPreset != null && !successPlacement">
+            <button class="back" (click)="goToPreviousStep()">Back</button>
+        </div>
+    </div>
+</ng-template>

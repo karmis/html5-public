@@ -1,0 +1,63 @@
+<div class="group-search-wrapper" style="width: 100%; position:relative; min-height: 80px; height: 100%;" #wrapper>
+    <div *ngIf="withInput" class="search-input-wrapper" style="width: 100%; position:relative;">
+        <input (keyup.enter)="search(text)" [(ngModel)]="text" class="search-input pull-left" placeholder="Search" type="text" />
+        <button (click)="search()" [disabled]="text.length < minLengthForRows" class="btn-secondary pull-left search-btn" title="Search">
+            <i class="icons-search icon"></i>
+        </button>
+    </div>
+
+    <!--style="overflow: auto;"-->
+    <div class="result-wrapper">
+        <div *ngIf="mode==='rows'" class="result-rows-wrapper" style="padding-top: 35px;">
+            <div (click)="_clickByRow({id: resultListItem.key, str: resultListItem.value})"
+                 *ngFor="let resultListItem of provider.searchResultList|keyvalue; index as i; let even = even;"
+                 class="result-row-item">
+                {{resultListItem.value}}
+            </div>
+
+            <!--Type for search-->
+            <div *ngIf="provider.searchResultList === null" class="results-no-items">
+                Type for search
+            </div>
+
+            <!--No items-->
+            <div *ngIf="provider.searchResultList !== null && ObjectRef.keys(provider.searchResultList).length === 0" class="results-no-items">
+                No items
+            </div>
+        </div>
+        <div *ngIf="mode==='tree'" class="result-tree-wrapper">
+            <imfx-controls-tree
+                #tree
+                (onActivate)="onActivateNode($event)"
+                [compContext]="self"
+                [checkbox]="false"
+                [lazyLoadFn]="lazyLoadFn"
+                [ext_filter]="{autoExpand: true, mode: 'hide', highlight: false}"
+                [extensions]="['filter']"
+                [externalCompReference]="moduleContext"
+                [icon]="false"
+                [selectMode]="3"
+                class="tree-group-permissions responsibility-tree"
+            ></imfx-controls-tree>
+        </div>
+
+        <div *ngIf="mode==='groups'" class="result-groups-wrapper" style="margin-top: -5px;">
+            <!--No items-->
+            <div *ngIf="!searchResultGroups || searchResultGroups.length === 0" class="results-no-items">
+                No items
+            </div>
+
+            <!--Results-->
+            <div *ngIf="searchResultGroups && searchResultGroups.length > 0">
+                <div (click)="clickByCollection(group)"
+                     *ngFor="let group of searchResultGroups; index as i; let even = even;"
+                     class="result-row-item">
+                    {{group.Name}} {{group.GroupTypeName}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<overlay #overlay></overlay>
+

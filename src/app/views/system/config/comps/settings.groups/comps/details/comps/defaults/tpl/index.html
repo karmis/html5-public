@@ -1,0 +1,124 @@
+<div class="default-settings-wrapper" style="height: 100%">
+    <div class="default-settings-row">
+        <span class="pb-1">{{ 'settings_group.select_default_homepage' | translate }}</span>
+        <imfx-controls-select2
+            *ngIf="allowedPages"
+            [width]="'100%'"
+            [allowClear]="true"
+            [data]="allowedPages"
+            [value]="[{id: configDefault.defaultHomePage}]"
+            [placeholder]="'xml.select_value'|translate"
+            [placeholderRefToTranslate]="'xml.select_value'"
+            (onSelect)="homePageChange($event)"
+            (onUnselect)="homePageChange($event)"
+        ></imfx-controls-select2>
+    </div>
+
+    <div class="default-settings-row">
+        <span class="pb-1">{{ 'settings_group.select_default_search' | translate }}</span>
+        <imfx-controls-select2
+            *ngIf="allowedPages"
+            [width]="'100%'"
+            [allowClear]="true"
+            [data]="searchTypes"
+            [value]="[{id: configDefault.defaultSearch}]"
+            [placeholder]="'xml.select_value'|translate"
+            [placeholderRefToTranslate]="'xml.select_value'"
+            (onSelect)="searchChange($event)"
+            (onUnselect)="searchChange($event)"
+        ></imfx-controls-select2>
+    </div>
+
+    <div class="default-settings-row">
+        <span class="pb-1">{{ 'settings_group.select_default_helpdeskUrl' | translate }}</span>
+        <input class="text" type="text" [value]="this.configDefault.helpdeskUrl" (change)="changedHelpdeskUrl($event)">
+    </div>
+
+    <div class="default-settings-row">
+        <div class="block-settings">
+            <div class="block-settings__title">{{ 'settings_group.custom_lables' | translate }}</div>
+            <div class="block-settings-row">
+                <div class="block-settings-col-4">
+                    <span class="pb-1">Comments</span>
+                    <input class="text"
+                           placeholder="Text"
+                           type="text"
+                           [(ngModel)]="this.customLabels.comments"
+                           (change)="changedCustomLabels()">
+                </div>
+                <div class="block-settings-col-4">
+                    <span class="pb-1">Legal</span>
+                    <input class="text"
+                           placeholder="Text"
+                           type="text"
+                           [(ngModel)]="this.customLabels.legal"
+                           (change)="changedCustomLabels()">
+                </div>
+                <div class="block-settings-col-4">
+                    <span class="pb-1">Cuts</span>
+                    <input class="text"
+                           placeholder="Text"
+                           type="text"
+                           [(ngModel)]="this.customLabels.cuts"
+                           (ngModelChange)="changedCustomLabels()">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="default-settings-row default-layout-setting">
+        <span class="pb-1">{{ 'settings_group.default_layout_for_type.label' | translate }}
+            <button [hidden]="inAdd" class="icon-button" (click)="showAdd()">
+                <i class="icons-add icon"></i>
+            </button>
+        </span>
+        <div class="layout-for-type-added-defaults">
+            <div class="list-header">
+                <div class="header-field">{{ 'settings_group.default_layout_for_type.header_layout_type' | translate }}</div>
+                <div class="header-field borders">{{ 'settings_group.default_layout_for_type.header_layout' | translate }}</div>
+                <div class="header-field remove"></div>
+            </div>
+            <div class="added-layout-items">
+                <div class="layout-item" *ngFor="let item of configDefault.defaultLayoutForType">
+                    <div class="type-name">{{item.typeName}}</div>
+                    <div class="layout-name">{{item.layoutName}}</div>
+                    <div class="remove-button-icon" (click)="removeDefault(item)">
+                        <i class="icon icons-closedelete"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="add-block" [hidden]="!inAdd">
+                <div class="select-fields">
+                    <imfx-controls-select2
+                        #typeSelect
+                        [className]="'type-selector'"
+                        [width]="'100%'"
+                        [allowClear]="false"
+                        [placeholder]="'settings_group.default_layout_for_type.select_type'|translate"
+                        [placeholderRefToTranslate]="'settings_group.default_layout_for_type.select_type'"
+                        (onSelect)="onSelectLayoutType($event)"
+                    ></imfx-controls-select2>
+                    <imfx-controls-select2
+                        #layoutSelect
+                        [hidden]="!hasSelectedType()"
+                        [className]="'layout-selector'"
+                        [width]="'100%'"
+                        [allowClear]="false"
+                        [placeholder]="'settings_group.default_layout_for_type.select_layout'|translate"
+                        [placeholderRefToTranslate]="'settings_group.default_layout_for_type.select_layout'"
+                        (onSelect)="cd.detectChanges()"
+                    ></imfx-controls-select2>
+                    <div class="select-type" [hidden]="hasSelectedType()">{{'settings_group.default_layout_for_type.must_select_layout'|translate}}</div>
+                </div>
+                <div class="buttons-block">
+                    <button class="add-button primary" [disabled]="!checkLayoutDefaultValid()" (click)="addNewLayoutDefault()">
+                        {{'settings_group.default_layout_for_type.add'|translate}}
+                    </button>
+                    <button class="cancel-button" (click)="cancelAdd()">
+                        {{'settings_group.default_layout_for_type.cancel'|translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

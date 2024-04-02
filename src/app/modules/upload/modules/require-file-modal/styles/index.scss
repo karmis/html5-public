@@ -1,0 +1,13 @@
+@import "../../../../../views/base/styles/theme.scss";
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        modal-require-file-comp {
+            .input-same-upload {
+                padding: 10px 0px 10px 0px;
+            }
+
+        }
+    }
+}

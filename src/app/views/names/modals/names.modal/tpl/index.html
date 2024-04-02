@@ -1,0 +1,229 @@
+<div class="new-name-wrapper">
+    <div class="heading-fields">
+        <input type="text" placeholder="ID" disabled class="filed-id" value="{{contextData?.EntityObject.ID}}" *ngIf="!!contextData"/>
+        <input type="text" placeholder="Contact Search Name" class="filed-title" [(ngModel)]="sendData?.NameObject.CONCAT_SEARCH_NAME" *ngIf="!contextData"/>
+        <input type="text" placeholder="Contact Search Name" class="filed-title" [(ngModel)]="sendData?.NameObject.CONCAT_SEARCH_NAME" *ngIf="!!contextData"/>
+    </div>
+    <div class="heading-tabs">
+        <div>
+            <span class="active">Details</span>
+        </div>
+    </div>
+    <div class="main-fields">
+        <div class="l-col">
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.fname' | translate}}</span>
+                <div class="filed-value">
+                    <input type="text" [(ngModel)]="sendData?.NameObject.CNTCT_FSTNAME" *ngIf="!contextData"/>
+                    <input type="text" [(ngModel)]="sendData?.NameObject.CNTCT_FSTNAME" *ngIf="!!contextData"/>
+                </div>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.oname' | translate}}</span>
+                <div class="filed-value">
+                    <input type="text" [(ngModel)]="sendData?.NameObject.CNTCT_OTHNMS" *ngIf="!contextData"/>
+                    <input type="text" [(ngModel)]="sendData?.NameObject.CNTCT_OTHNMS" *ngIf="!!contextData"/>
+                </div>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.sname' | translate}}</span>
+                <div class="filed-value">
+                    <input type="text" [(ngModel)]="sendData?.NameObject.CNTCT_SURNAME_OR_CMPNY_NAME" *ngIf="!contextData"/>
+                    <input type="text" [(ngModel)]="sendData?.NameObject.CNTCT_SURNAME_OR_CMPNY_NAME" *ngIf="!!contextData"/>
+                </div>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.qualifier' | translate}}</span>
+                <div class="filed-value">
+                    <input type="text" [(ngModel)]="sendData?.NameObject.CNTCT_SUFFIX" *ngIf="!contextData"/>
+                    <input type="text" [(ngModel)]="sendData?.NameObject.CNTCT_SUFFIX" *ngIf="!!contextData"/>
+                </div>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.email' | translate}} 1</span>
+                <div class="filed-value">
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.EMAIL1" *ngIf="!contextData"/>
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.EMAIL1" *ngIf="!!contextData"/>
+                </div>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.email' | translate}} 2</span>
+                <div class="filed-value">
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.EMAIL2" *ngIf="!contextData"/>
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.EMAIL2" *ngIf="!!contextData"/>
+                </div>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.email' | translate}} 3</span>
+                <div class="filed-value">
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.EMAIL3" *ngIf="!contextData"/>
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.EMAIL3" *ngIf="!!contextData"/>
+                </div>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.email' | translate}} 4</span>
+                <div class="filed-value">
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.EMAIL4" *ngIf="!contextData"/>
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.EMAIL4" *ngIf="!!contextData"/>
+                </div>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.site' | translate}}</span>
+                <div class="filed-value">
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.WEB1" *ngIf="!contextData"/>
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.WEB1" *ngIf="!!contextData"/>
+                </div>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.phone' | translate}} 1</span>
+                <div class="filed-value">
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.PHONE1" *ngIf="!contextData"/>
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.PHONE1" *ngIf="!!contextData"/>
+                </div>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.phone' | translate}} 2</span>
+                <div class="filed-value">
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.PHONE2" *ngIf="!contextData"/>
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.PHONE2" *ngIf="!!contextData"/>
+                </div>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.fax' | translate}}</span>
+                <div class="filed-value">
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.FAX" *ngIf="!contextData"/>
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.FAX" *ngIf="!!contextData"/>
+                </div>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.mphone' | translate}}</span>
+                <div class="filed-value">
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.MOBILE" *ngIf="!contextData"/>
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.MOBILE" *ngIf="!!contextData"/>
+                </div>
+            </div>
+        </div>
+        <div class="r-col">
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.title' | translate}}</span>
+                <div class="filed-value">
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.CNTCT_TTL" *ngIf="!contextData"/>
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.CNTCT_TTL" *ngIf="!!contextData"/>
+                </div>
+            </div>
+            <div class="field-wrapper head-wrapper">
+                <div class="header">{{'contacts.labels.addr' | translate}}</div>
+                <div class="line"></div>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.addr' | translate}}</span>
+                <div class="filed-value">
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.ADDR" *ngIf="!contextData"/>
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.ADDR" *ngIf="!!contextData"/>
+                </div>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.city' | translate}}</span>
+                <div class="filed-value">
+                    <input type="text" *ngIf="!contextData"/>
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.CITY" *ngIf="!!contextData"/>
+                </div>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.state' | translate}}</span>
+                <div class="filed-value">
+                    <input type="text" type="text" [(ngModel)]="sendData?.EntityObject.STATE" *ngIf="!contextData"/>
+                    <input type="text" type="text" [(ngModel)]="sendData?.EntityObject.STATE" *ngIf="!!contextData"/>
+                </div>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.country' | translate}}</span>
+                <div class="filed-value">
+                    <imfx-controls-select2
+                        #countrySelect
+                        class="filed-value"
+                        [width]="'100%'"
+                        [data]="[]"
+                        [value]="contextData?.EntityObject.COUNTRY_ID"
+                        [placeholder]="'xml.select_value'|translate"
+                        [placeholderRefToTranslate]="'xml.select_value'"
+                        (onSelect)="onSelectCountry($event)"></imfx-controls-select2>
+                </div>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.pcode' | translate}}</span>
+                <div class="filed-value">
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.POSTCODE" *ngIf="!contextData"/>
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.POSTCODE" *ngIf="!!contextData"/>
+                </div>
+            </div>
+            <div class="field-wrapper head-wrapper">
+                <div class="header">{{'contacts.labels.dlvr' | translate}}</div>
+                <div class="line"></div>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.daddr' | translate}}</span>
+                <div class="filed-value">
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.DELIVERY_ADDRESS" *ngIf="!contextData"/>
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.DELIVERY_ADDRESS" *ngIf="!!contextData"/>
+                </div>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.dcity' | translate}}</span>
+                <div class="filed-value">
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.DELIVERY_CITY" *ngIf="!contextData"/>
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.DELIVERY_CITY" *ngIf="!!contextData"/>
+                </div>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.dstate' | translate}}</span>
+                <div class="filed-value">
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.DELIVERY_STATE" *ngIf="!contextData"/>
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.DELIVERY_STATE" *ngIf="!!contextData"/>
+                </div>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.dcountry' | translate}}</span>
+                <div class="filed-value">
+                    <!--select>
+                        <option value="" disabled [attr.selected]="countries.length == 0 || contextData?.EntityObject.DELIVERY_COUNTRY == null ? true : null">Please select a value</option>
+                        <option *ngFor="let i of countries"
+                                [attr.value]="i.Id"
+                                [attr.selected]="contextData?.EntityObject.DELIVERY_COUNTRY == i.Id ? true : null">
+                            {{i.Value}}
+                        </option>
+                    </select-->
+                        <imfx-controls-select2
+                            #countryDeliverySelect
+                            class="filed-value"
+                            [width]="'100%'"
+                            [data]="[]"
+                            [value]="sendData?.EntityObject.DELIVERY_COUNTRY"
+                            [placeholder]="'xml.select_value'|translate"
+                            [placeholderRefToTranslate]="'xml.select_value'"
+                            (onSelect)="onSelectDeliveryCountry($event)"></imfx-controls-select2>
+
+                </div>
+            </div>
+            <div class="field-wrapper">
+                <span class="filed-label">{{'contacts.labels.dpcode' | translate}}</span>
+                <div class="filed-value">
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.DELIVERY_POSTCODE" *ngIf="!contextData"/>
+                    <input type="text" [(ngModel)]="sendData?.EntityObject.DELIVERY_POSTCODE" *ngIf="!!contextData"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="overlay-wrapper">
+        <div class="spinner"></div>
+    </div>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div>
+            <button type="button"  (click)="saveData()">{{'common.save'| translate}}</button>
+            <button type="button"  (click)="closeModal()">{{'common.cancel'| translate}}</button>
+        </div>
+    </div>
+</ng-template>

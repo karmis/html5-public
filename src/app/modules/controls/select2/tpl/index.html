@@ -1,0 +1,30 @@
+<div class="dropdown button select2-wrapper" [attr.data-uid]="uid" [ngClass]="{'disabled': (disabled || readonly) == true ? true : null}">
+    <select
+            #imfxControlsSelect2
+            [attr.multiple]="multiple==true ? 'multiple' : null"
+            [ngStyle]="{
+            'width': width
+            }"
+            [attr.disabled]="readonly == true ? true : null"
+            id="{{guid}}"
+            class="dropdown button"
+    >
+    </select>
+
+    <span class="input-group-btn" *ngIf="selectAllButton || deselectAllButton"><!---->
+        <button class="btn btn-secondary" type="button" (click)="selectAll()" *ngIf="selectAllButton">
+            {{ 'common.select_all' | translate }}
+        </button>
+
+        <button class="btn btn-secondary" type="button" (click)="deselectAll()" *ngIf="deselectAllButton">
+            {{ 'common.deselect_all' | translate }}
+        </button>
+    </span>
+    <div class="invalid-triangle"></div>
+    <div class="clear-btn" *ngIf="!disabled && clearFormat && clearFormat.showButton && !readonly" (click)="clearSelect()" title="Clear">
+        <i class="icons-cross icon"></i>
+    </div>
+    <div *ngIf="clickableOnlyArrow"
+         class="clickable-only-arrow-overlap">
+    </div>
+</div>

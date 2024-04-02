@@ -1,0 +1,47 @@
+<div #slickGridWrapper class="wrapper-table">
+    <input class="data-filter" #datasetFilter placeholder="{{'system-config.xslt.filter_data' | translate}}" type="text" (input)="updateDataset($event.target.value)"/>
+    <div class="clear-dataset-filter" (click)="clearDatasetFilter()">
+        <i class="icons-cross icon"></i>
+    </div>
+    <button *ngIf="tableData" class="add-new-config" (click)="showModal()" title="{{'system-config.xslt.add_new' | translate}}">
+        <i class="icons-cross icon"></i>
+    </button>
+    <div class="xslt-grid-wrapper">
+        <div id="externalWrapperXsltTables" style="height: 100%;">
+            <slick-grid #slickGridComp
+                        [config]="slickGridConfig" class="small-height-header">
+            </slick-grid>
+        </div>
+    </div>
+</div>
+
+
+<div [hidden]="true">
+<!--    <imfx-lookups-select2-->
+<!--        #devicesControl-->
+<!--        [width]="'100%'"-->
+<!--        [validationEnabled]="false"-->
+<!--        [allowClear]="false"-->
+<!--        [firstEmpty]="false"-->
+<!--        [value]="'first'"-->
+<!--        [lookupType]="'Devices'"-->
+<!--        [compContext]="self"-->
+<!--        [placeholder]="'base.selectOoo'|translate"-->
+<!--        [placeholderRefToTranslate]="'base.selectOoo'"-->
+<!--    ></imfx-lookups-select2>-->
+
+    <imfx-lookups-select2
+        #presetsControl
+        [width]="'100%'"
+        [validationEnabled]="false"
+        [allowClear]="false"
+        [firstEmpty]="false"
+        [value]="'first'"
+        [lookupUrl]="'/api/v3/'"
+        [lookupType]="'order-presets'"
+        [compContext]="self"
+        [placeholder]="'base.selectOoo'|translate"
+        [placeholderRefToTranslate]="'base.selectOoo'"
+    ></imfx-lookups-select2>
+</div>
+<overlay #overlayGroup [mode]="true" [zIndex]="100"></overlay>

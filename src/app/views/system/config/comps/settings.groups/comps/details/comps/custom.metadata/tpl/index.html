@@ -1,0 +1,17 @@
+<div class="default-settings-row">
+    <span class="pb-1">
+        {{ label | translate}}
+    </span>
+    <div class="clear-wrap">
+        <input
+                style="width: 100%"
+                [placeholder]="'base.selectOoo' | translate"
+                (click)="addCustomMetadata()"
+                [(ngModel)]="schema.Name"
+                readonly
+                type="text"
+                id="medata"/>
+        <span class="clear-schema"
+              (click)="onClear()">×</span>
+    </div>
+</div>

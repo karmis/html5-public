@@ -1,0 +1,79 @@
+@import "../../../../base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+  .#{$key} {
+    .full-height-width-block {
+      .grafana-wrapper {
+        overflow: hidden;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 10px;
+        padding-bottom: 20px;
+
+        .grafana-header {
+          font-size: $basefontsize*2;
+          text-align: center;
+          padding-bottom: 10px;
+          color: getThemeColor(1,$key);
+        }
+
+        iframe {
+          width: 100%;
+          height: 100%;
+          border: none;
+        }
+      }
+    }
+    .cssload-container {
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      background-color: getThemeColor(32, $key);
+      position: absolute;
+      display: table;
+      z-index: 20;
+
+      .cssload-container-cell {
+        display: table-cell;
+        vertical-align: middle;
+
+        .cssload-speeding-wheel {
+          width: 119px;
+          height: 119px;
+          margin: 0 auto;
+          border: 14px solid getThemeColor(6, $key);
+          border-radius: 50%;
+          border-left-color: transparent;
+          border-right-color: transparent;
+          animation: cssload-spin 1500ms infinite linear;
+          -o-animation: cssload-spin 1500ms infinite linear;
+          -ms-animation: cssload-spin 1500ms infinite linear;
+          -webkit-animation: cssload-spin 1500ms infinite linear;
+          -moz-animation: cssload-spin 1500ms infinite linear;
+        }
+      }
+    }
+    @keyframes cssload-spin {
+      100%{ transform: rotate(360deg); }
+    }
+
+    @-o-keyframes cssload-spin {
+      100%{ -o-transform: rotate(360deg); transform: rotate(360deg); }
+    }
+
+    @-ms-keyframes cssload-spin {
+      100%{ -ms-transform: rotate(360deg); transform: rotate(360deg); }
+    }
+
+    @-webkit-keyframes cssload-spin {
+      100%{ -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+    }
+
+    @-moz-keyframes cssload-spin {
+      100%{ -moz-transform: rotate(360deg); transform: rotate(360deg); }
+    }
+  }
+}
+

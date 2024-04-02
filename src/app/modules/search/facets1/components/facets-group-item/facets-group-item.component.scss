@@ -1,0 +1,31 @@
+facets-group-item {
+    display: flex;
+    .card-row {
+        cursor: pointer;
+        font-size: 12px;
+        justify-content: space-between !important;
+
+        .card-col {
+            width: auto !important;
+        }
+    }
+}
+
+.facets-group-item {
+    width: 100%;
+    cursor: pointer !important;
+}
+.dark {
+    .facets-group-item {
+        &:hover {
+            background-color: #121619;
+        }
+    }
+}
+.default {
+    .facets-group-item {
+        &:hover {
+            background-color: #D4DADE;
+        }
+    }
+}

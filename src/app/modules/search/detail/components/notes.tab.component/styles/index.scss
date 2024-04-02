@@ -1,0 +1,51 @@
+@import "../../../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .notes-tab-wrapper {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            .admin-notes-wrapper, .job-notes-wrapper {
+                flex: 0;
+                .admin-notes, .job-notes {
+                    display: flex;
+                    flex-direction: column;
+                    overflow: hidden;
+                    max-height: 100px;
+                    height: 100%;
+                    .admin-notes-label, .job-notes-label {
+                        flex: 0 0 auto;
+                    }
+                    .admin-notes-text, .job-notes-text {
+                        white-space: pre-wrap;
+                        flex: 0 1 auto;
+                        overflow-x: auto;
+                        padding: 0 8px;
+
+                        min-height: 20px;
+                    }
+                }
+            }
+            .job-notes-wrapper {
+                padding-top: 10px;
+            }
+            .user-notes {
+                flex-direction: column;
+                flex: 1;
+                display: flex;
+                padding-top: 10px;
+            }
+            .form-control {
+                height: 100%;
+                resize: none;
+            }
+            .readonly-text {
+                width: 100%;
+                height: 100%;
+                resize: none;
+                border: none;
+            }
+        }
+    }
+}

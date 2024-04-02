@@ -1,0 +1,22 @@
+@import "../../../../../../../../../base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .default-settings-row {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            .clear-wrap {
+                cursor: pointer;
+                position: relative;
+            }
+            .clear-schema {
+                position: absolute;
+                right: 10px;
+                top: 7px;
+                font-size: 24px;
+                cursor: pointer;
+            }
+        }
+    }
+}

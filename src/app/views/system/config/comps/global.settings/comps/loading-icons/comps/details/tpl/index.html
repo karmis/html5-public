@@ -1,0 +1,79 @@
+<div #settingsGroupDetails class="settings-groups-details-wrapper">
+
+    <nav class="ug-header">
+        <ul>
+            <li>
+                <button class="icon-button" title="{{ 'common.back_button' | translate }}" (click)="goBack()">
+                    <i style="position: relative;    top: -2px;" class="icons-left icon"></i>
+                </button>
+            </li>
+            <li>
+                <span style="margin-right: 28px; margin-left: 10px;">{{'settings_group.branding_group' | translate}}:</span>
+                <input [(ngModel)]="settingsGroupName"
+                       type="text"
+                       spellcheck="false"
+                       placeholder="{{ 'settings_group.name_column' | translate }}">
+                <button class="save-button primary" (click)="saveImages()" [disabled]="!isValid()">
+                    {{'common.save' | translate }}
+                </button>
+                <ng-template #loadingicon>
+                    <div class="spinner icon"></div>
+                </ng-template>
+            </li>
+        </ul>
+    </nav>
+    <div class="sub-categories-list-wrapper">
+        <div class="category-container">
+            <div class="default-settings-wrapper" style="height: 100%">
+                <div class="default-settings-row">
+                    <span class="default-settings-row-title">{{'settings_group.branding.background' | translate}}</span>
+                    <div class="background-wrap">
+                        <app-upload-file
+                            (onChange)="uploadFile($event, 4)"
+                            [typeImg]="'back'"
+                            [src]="loadFiles[4].DATA_BASE64"></app-upload-file>
+                    </div>
+                    <br>
+                    <span class="default-settings-row-title">{{ 'settings_group.select_logos' | translate }}</span>
+                    <div class="light-theme theme-back">
+                        <div class="background"
+                             [ngStyle]="{'background-image': 'url(data:image/png;base64,' + loadFiles[4].DATA_BASE64 + ')', 'opacity': 0.5 }"></div>
+                        <div class="small-logo">
+                            <app-upload-file
+                                (onChange)="uploadFile($event, 0)"
+                                [typeImg]="'small'"
+                                [src]="loadFiles[0].DATA_BASE64"></app-upload-file>
+                            <label *ngIf="loadFiles[0].DATA_BASE64===null">{{ 'settings_group.branding.sllt' | translate}}</label>
+                        </div>
+                        <div class="big-logo">
+                            <app-upload-file
+                                (onChange)="uploadFile($event,2)"
+                                [typeImg]="'search'"
+                                [src]="loadFiles[2].DATA_BASE64"></app-upload-file>
+                            <label *ngIf="loadFiles[2].DATA_BASE64===null">{{ 'settings_group.branding.searchllt' | translate}}</label>
+                        </div>
+                    </div>
+                    <div class="dark-theme theme-back">
+                        <div class="background"
+                             [ngStyle]="{'background-image': 'url(data:image/png;base64,' + loadFiles[4].DATA_BASE64 + ')', 'opacity': 0.5 }"></div>
+                        <div class="small-logo">
+                            <app-upload-file
+                                (onChange)="uploadFile($event,1)"
+                                [typeImg]="'small'"
+                                [src]="loadFiles[1].DATA_BASE64"></app-upload-file>
+                            <label *ngIf="loadFiles[1].DATA_BASE64===null">{{ 'settings_group.branding.sldt' | translate}}</label>
+                        </div>
+                        <div class="big-logo">
+                            <app-upload-file
+                                (onChange)="uploadFile($event,3)"
+                                [typeImg]="'search'"
+                                [src]="loadFiles[3].DATA_BASE64"></app-upload-file>
+                            <label *ngIf="loadFiles[3].DATA_BASE64===null">{{ 'settings_group.branding.searchldt' | translate}}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,12 @@
+<div class="report-doc-viewer">
+    <button class="img-preview-btn previewButton" *ngIf="mediaType == 'pdfViewer'" (click)="openPDF()">
+        {{'viewers.preview' | translate }}
+        <i class="icon icons-hide-empty"></i>
+    </button>
+    <div *ngIf="mediaType == 'xmlViewer'">
+        <code-prettify-viewer [config]="viewerConfig" [url]="viewerConfig.url" [language]="viewerConfig.language"></code-prettify-viewer>
+    </div>
+    <div *ngIf="mediaType != 'xmlViewer' && mediaType != 'pdfViewer' ">
+        <download-viewer [config]="viewerConfig"></download-viewer>
+    </div>
+</div>

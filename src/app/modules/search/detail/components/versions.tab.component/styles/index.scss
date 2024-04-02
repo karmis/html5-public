@@ -1,0 +1,29 @@
+@import "../../../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        imfx-versions-tab{
+            .slick-grid-wrapper .slick-viewport.slick-viewport-left {
+                overflow-x: auto !important;
+            }
+            .vers-tab-wrapper {
+                padding: 10px;
+                height: 100%;
+                display:flex;
+                flex-direction: column;
+                .view-wrapper {
+                    flex-direction: row;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-bottom: 5px;
+                }
+                .grid-wrapper {
+                    height: calc(100% - 32px);
+                    margin-top: 0;
+                }
+            }
+        }
+
+    }
+}

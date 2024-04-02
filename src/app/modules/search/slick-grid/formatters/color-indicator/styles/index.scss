@@ -1,0 +1,26 @@
+@import "../../../../../../views/base/styles/theme";
+
+@each $key,
+$value in $common-themes {
+  .#{$key} {
+    .indicator-wrapper {
+      .indicator {
+        width: 16px;
+        height: 16px;
+        border-radius: 8px;
+      }
+      .green {
+        background-color: getThemeColor(12, $key);
+      }
+      .red {
+        background-color: getThemeColor(13, $key);
+      }
+      .yellow {
+        background-color: getThemeColor(7, $key);
+      }
+      .blue {
+        background-color: getThemeColor(10, $key);
+      }
+    }
+  }
+}

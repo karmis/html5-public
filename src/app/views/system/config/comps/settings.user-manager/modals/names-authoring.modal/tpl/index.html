@@ -1,0 +1,24 @@
+<div class="names-authoring-modal-wrapper">
+    <div class="names-authoring">
+        <div class="modal-search-field-wrapper">
+            <search-form
+                [config]="searchFormConfig"
+            ></search-form>
+        </div>
+        <div class="modal-names-tree-wrapper">
+            <names-tree #namesTree [searchView]="true"></names-tree>
+            <search-advanced style="display: none;"
+                [config]="searchAdvancedConfig"
+            ></search-advanced>
+        </div>
+    </div>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div>
+            <button type="button"  (click)="saveData()">{{'common.save'| translate}}</button>
+            <button type="button"  (click)="closeModal()">{{'common.cancel'| translate}}</button>
+        </div>
+    </div>
+</ng-template>

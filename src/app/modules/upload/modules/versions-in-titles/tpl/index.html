@@ -1,0 +1,72 @@
+<div class="full-height-width-block" style="top: 0px !important;">
+    <div class="" style="position: relative; height:100%;    display: flex;
+    flex-direction: column;">
+        <!--Header-->
+        <div class="row-header" style="justify-content: flex-start">
+            <nav style="width: calc(100% * 0.4)">
+                <ul>
+                    <li>
+                        <h4 style="font-size: 15px;">{{ 'version.small_title' | translate }}</h4>
+                    </li>
+                </ul>
+            </nav>
+            <nav>
+                <ul style="float: left;">
+                    <li *ngIf="hasPermissionByName('views-options')"><label>{{ 'common.view' | translate}}:</label></li>
+                    <li [hidden]="!hasPermissionByName('views-modify')">
+                        <search-views
+                            #viewsComp
+                            [config]="searchViewsConfig"
+                        ></search-views>
+                    </li>
+                    <li *ngIf="hasPermissionByName('views-options') || hasPermissionByName('export-options') ">
+                        <search-settings
+                                [config]="searchSettingsConfig"
+                        ></search-settings>
+                    </li>
+                </ul>
+                <ul style="float: left; position: absolute; right: 0px;">
+                    <li class="divider"></li>
+                    <li title="Expand/Collapse">
+                        <i (click)="expandCollapseAll(expandedAll)" [ngClass]="{
+                                        'collapse-all': !expandedAll,
+                                        'expand-all': expandedAll
+                                    }"
+                           class="imfx-icon" style="margin-top: 6px;"></i>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!--Body-->
+        <div style="height: calc(100% - 35px);margin-top:0;">
+            <div style="height: 100%;width: 100%;">
+                <slick-grid
+                        style="width: 100%;  height: 100%"
+                        class="version-grid inside-versions-grid vertical-align-row small-height-header"
+                        #slickGridComp
+                        [config]="searchGridConfig"
+                ></slick-grid>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Settings dropdown-->
+<div *ngIf="slickGridComp.isGridReady" class="dropdown grid-settings-dropdown versionSettingsPopup"
+     style="margin-top: 15px; margin-right: 15px; position: fixed; display: none;">
+    <ul
+            aria-labelledby="simple-btn-keyboard-nav"
+            style="display: block; top: 0%"
+            class="dropdown-menu"
+            role="menu"
+    >
+        <li role="menuitem">
+            <a class="dropdown-item"
+               (click)="slickGridComp.provider.openDetail($event)"
+               aria-disabled="true">
+                {{ 'version.table.dropdown.row.open_detail' | translate }}
+            </a>
+        </li>
+    </ul>
+</div>

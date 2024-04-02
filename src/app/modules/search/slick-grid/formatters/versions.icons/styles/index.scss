@@ -1,0 +1,21 @@
+@import "../../../../../../views/base/styles/theme";
+
+@each $key,
+$value in $common-themes {
+  .#{$key} {
+    .version-icon-wrapper {
+      &.green-icon {
+        span {
+          color: getThemeColor(12, $key);
+          line-height: 20px;
+          font-weight: 600;
+        }
+      }
+    }
+    .img-cell div {
+      display: inline-block;
+      width: 24px;
+    }
+  }
+}
+

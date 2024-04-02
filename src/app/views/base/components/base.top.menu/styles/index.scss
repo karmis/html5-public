@@ -1,0 +1,13 @@
+@import "../../../styles/theme.scss";
+@each $key, $value in $common-themes {
+  .#{$key} {
+    .active-submenu {
+      max-height: 999px !important;
+      opacity: 1 !important;
+      overflow: visible !important;
+      transform: translateZ(0) !important;
+      pointer-events: auto !important;
+      //z-index: 9999 !important;
+    }
+  }
+}

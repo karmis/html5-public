@@ -1,0 +1,40 @@
+<li class="dropdown test-search-settings-li-dropdown" dropdown title="{{ 'common_hints.view_settings' | translate }}">
+    <i class="icons-more icon"></i>
+    <ul class="submenu" #submenu>
+        <li *ngIf="isMenuShow.viewsModify">
+            <a (click)="newView()">{{'table_search_dropdown.controls.new_view' | translate }}</a>
+        </li>
+        <li *ngIf="isMenuShow.viewsSave" [ngClass]="{'disabled': !currentSetupItemIsAvailable}">
+            <a (click)="saveView()">{{ 'table_search_dropdown.controls.save_view' | translate }}</a>
+        </li>
+        <li *ngIf="isMenuShow.viewsSaveAs">
+            <a (click)="saveViewAs()">{{'table_search_dropdown.controls.save_view_as' | translate }}</a>
+        </li>
+        <li *ngIf="isMenuShow.viewsSaveAsGlobal" [ngClass]="{'disabled': !currentSetupItemIsAvailable}">
+            <a (click)="saveAsGlobalView()">
+                {{ ((currentViewGlobal) ? 'table_search_dropdown.controls.save_as_personal_view' : 'table_search_dropdown.controls.save_as_global_view') | translate }}
+            </a>
+         </li>
+        <li *ngIf="isMenuShow.viewsSaveAsDefault" [ngClass]="{'disabled': !currentSetupItemIsAvailable}">
+            <a (click)="saveAsDefaultView()">{{ 'table_search_dropdown.controls.save_as_default_view' | translate }}</a>
+        </li>
+        <li *ngIf="isMenuShow.viewsDelete"
+            [ngClass]="{'disabled': !currentSetupItemIsAvailable}">
+            <a (click)="deleteView()">{{ 'table_search_dropdown.controls.delete_view' | translate }}</a>
+        </li>
+        <li *ngIf="isMenuShow.viewsReset">
+            <a (click)="resetView()">{{ 'table_search_dropdown.controls.reset_view' | translate }}</a>
+        </li>
+        <li *ngIf="isMenuShow.viewsColumnsSetup">
+            <a (click)="setupColumns()">{{ 'table_search_dropdown.controls.setup_columns' | translate }}</a>
+        </li>
+        <li *ngIf="isMenuShow.viewsColumnsAutosize">
+            <a (click)="autoSizeColumns()">{{ 'table_search_dropdown.controls.autosize_columns' | translate }}</a>
+        </li>
+        <li *ngIf="isMenuShow.exportOptions">
+            <a (click)="exportResults()">{{ 'table_search_dropdown.controls.export_to_file' | translate }}</a>
+        </li>
+    </ul>
+</li>
+
+

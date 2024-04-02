@@ -1,0 +1,145 @@
+@import "../../../../../../views/base/styles/theme";
+@import "../../../../../../views/base/styles/blocks/inputs";
+@import "../../../../../../views/base/styles/blocks/buttons";
+@import "../../../../../../views/base/styles/blocks/nav";
+@import "../../../../../../views/base/styles/blocks/nav.tabbed";
+@import "../../../../../../views/base/styles/blocks/rows";
+
+@each $key,
+$value in $common-themes {
+  .#{$key} {
+    load-layout-modal {
+      .load-layout-wrapper {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+        padding-bottom: 15px;
+
+        .modal-overlay {
+          position: absolute;
+          left: 0;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          background: getThemeColor(3, $key);
+
+          .spinner {
+            width: 50px;
+            height: 50px;
+            display: block;
+            position: absolute;
+            left: calc(50% - 25px);
+            top: calc(50% - 25px);
+          }
+        }
+
+        .load-layout-filter {
+          width: 100%;
+          position: relative;
+
+          input {
+            width: 100%;
+            padding-right: 32px;
+          }
+          i {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            opacity: 0.3;
+            cursor: pointer;
+
+            &:before {
+              margin-left: 5px;
+              vertical-align: -4px;
+            }
+
+            &:hover {
+              opacity: 0.8;
+            }
+          }
+        }
+        .layouts-results {
+          width: 100%;
+          height: calc(100% - 32px);
+          overflow-x: hidden;
+          overflow-y: auto;
+          background: getThemeColor(4, $key);
+
+          &.selected {
+            height: calc(100% - 32px - 48px);
+
+          }
+
+          div {
+            width: 100%;
+            height: 32px;
+            line-height: 32px;
+            cursor: pointer;
+            padding: 0 8px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            position: relative;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+              user-select: none;
+
+            &:hover {
+              background: getThemeColor(5, $key);
+            }
+
+            &.selected {
+              color: #ffffff;
+              background: getThemeColor(10, $key);
+            }
+
+            i {
+              position: absolute;
+              top: 0;
+              right: 0;
+              width: 32px;
+              height: 32px;
+              line-height: 32px;
+              opacity: 0.3;
+              cursor: pointer;
+
+              &:before {
+                margin-left: 5px;
+                vertical-align: -4px;
+              }
+
+              &:hover {
+                opacity: 0.8;
+              }
+            }
+          }
+        }
+        button {
+          margin-top: $baseline;
+        }
+        .layouts-no-results {
+          width: 100%;
+          height: calc(100% - 32px);
+          overflow-x: hidden;
+          overflow-y: auto;
+          text-align: center;
+          opacity: 0.5;
+          font-size: 18px !important;
+          display: flex;
+          align-items: center;
+
+          span {
+            display: block;
+            width: 100%;
+          }
+        }
+      }
+    }
+      &.layout-modal{
+          max-height: 600px;
+          min-height: 300px;
+      }
+  }
+}

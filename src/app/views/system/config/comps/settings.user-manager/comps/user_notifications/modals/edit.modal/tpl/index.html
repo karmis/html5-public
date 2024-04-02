@@ -1,0 +1,63 @@
+<div class="notifications-modal-wrapper" [ngClass]="{'notif-edit':notificationEdit}">
+    <div class="fields-wrapper" *ngIf="notificationEdit">
+        <div class="field-row">
+            <div class="label">{{"user_management.notifications.modal.fields.user" | translate}}</div>
+            <div class="value-wrapper">
+                <button (click)="changeUser()">{{notificationData.USER_ID != null ? usersNames[notificationData.USER_ID] : "Select User"}}</button>
+            </div>
+        </div>
+        <div class="field-row">
+            <div class="label">{{"user_management.notifications.modal.fields.forename" | translate}}</div>
+            <div class="value-wrapper">
+                <input type="text" value="{{notificationData.USER_ID != null ? usersForenames[notificationData.USER_ID] : ''}}" [attr.disabled]="true"/>
+            </div>
+        </div>
+        <div class="field-row">
+            <div class="label">{{"user_management.notifications.modal.fields.surname" | translate}}</div>
+            <div class="value-wrapper">
+                <input type="text" value="{{notificationData.USER_ID != null ? usersSurnames[notificationData.USER_ID] : ''}}" [attr.disabled]="true"/>
+            </div>
+        </div>
+        <div class="field-row">
+            <div class="label">{{"user_management.notifications.modal.fields.subscription_type" | translate}}</div>
+            <div class="value-wrapper">
+                <select [(ngModel)]="notificationData.SUBS_TYPE" (change)="onChangeType()">
+                    <option selected disabled hidden>{{"user_management.notifications.modal.fields.subscription_type_select" | translate}}</option>
+                    <option *ngFor="let c of lookupData" [ngValue]="c.key">{{c.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="field-row">
+            <div class="label">{{"user_management.notifications.modal.fields.subscription_contacts" | translate}}</div>
+            <div class="value-wrapper">
+                <input type="text" disabled="{{notificationData.SUBS_TYPE < 4 ? true : false}}" [(ngModel)]="notificationData.SUBS_INFO" />
+            </div>
+        </div>
+    </div>
+    <div class="fields-wrapper" *ngIf="!notificationEdit">
+        <div class="field-row">
+            <div class="label">{{"user_management.notifications.modal.fields.n_code" | translate}}</div>
+            <div class="value-wrapper">
+                <input type="text" [(ngModel)]="subscriptionData.NOTIF_CODE" /><!-- [attr.disabled]="isNew ? null : true" -->
+            </div>
+        </div>
+        <div class="field-row">
+            <div class="label">{{"user_management.notifications.modal.fields.n_name" | translate}}</div>
+            <div class="value-wrapper">
+                <input type="text" [(ngModel)]="subscriptionData.NOTIF_NAME"/>
+            </div>
+        </div>
+    </div>
+    <div class="overlay-wrapper" #modalUsersOverlayWrapper>
+        <div class="spinner"></div>
+    </div>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div>
+            <button type="button"  (click)="saveData()">{{'common.save'| translate}}</button>
+            <button type="button"  (click)="closeModal()">{{'common.cancel'| translate}}</button>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,27 @@
+<div class="order-presets-grouped-wrapper">
+
+    <input
+            #filterInput
+            class="filter-field"
+            type="search"
+            placeholder="{{ 'common.just_filter_placeholder' | translate }}"
+            (keyup)="filter($event)">
+    <div class="js-scrollbar-target-adv-modal-user">
+        <imfx-controls-tree #tree
+                            [extensions]="['filter']"
+                            [ext_filter]="{autoExpand: true, mode: 'hide', highlight: false}"
+                            [checkbox]="false"
+                            [icon]="false"
+                            [source]="entries"
+                            [clickFolderMode]="2"
+                            [folderMode]="true"
+                            [debugLevel]="1"
+                            (onRenderNode)="extraOnRenderNode($event)"
+                            (onClick)="onClickByPresetItem($event)"
+                            (onDblClick)="onDblClickByPresetItem($event)"
+        ></imfx-controls-tree>
+    </div>
+    <div class="overlay-wrapper" #overlayWrapper>
+        <div class="spinner"></div>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="load-layout-wrapper">
+  <div class="load-layout-filter">
+    <input type="text" placeholder="{{'layout-manager.placeholder' | translate}}" [(ngModel)]="filterString" (keyup)="filerLayouts()"  focus="true">
+    <i class="icon icons-closedelete" *ngIf="filterString.trim().length > 0" (click)="filerLayouts(true)"></i>
+  </div>
+  <div class="layouts-results" *ngIf="layoutsFiltered.length > 0" [ngClass]="{'selected': selectedLayout}">
+    <div *ngFor="let item of layoutsFiltered" (click)="selectLayout(item)" [ngClass]="{'selected': selectedLayout && item.Id == selectedLayout.Id}" title="{{item.Name}}">
+      {{(item.Name.length > 25 ? item.Name.substring(0,25) + "..." : item.Name)}} {{item.IsMine && item.IsDefault ? '[' + ("layout-manager.default" | translate) + ']' : ''}} {{item.IsShared ? '[' + ("layout-manager.shared" | translate) + ']' : ''}}
+      <i class="icon icons-closedelete" *ngIf="item.IsMine" (click)="deleteLayout(item)"></i>
+    </div>
+  </div>
+  <button *ngIf="selectedLayout && layoutsFiltered.length > 0" (click)="openLayout()">{{'layout-manager.open' | translate}}</button>
+  <div class="layouts-no-results" *ngIf="layoutsFiltered.length == 0">
+    <span>{{"layout-manager.no-results" | translate}}</span>
+  </div>
+  <div *ngIf="showOverlay" class="modal-overlay"><div class="spinner"></div></div>
+</div>
+

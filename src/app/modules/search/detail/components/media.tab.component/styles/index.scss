@@ -1,0 +1,13 @@
+@import "../../../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .h-tab-wrapper {
+            padding: 10px;
+            height: 100%;
+            .search-grid .ag-header-cell-label {
+                line-height: 19px;
+            }
+        }
+    }
+}

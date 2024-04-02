@@ -1,0 +1,64 @@
+<div class="modal-prompt modal-version" *ngIf="DBSettings && DBSettings.MinRequiredAppVersion">
+    <div class="modal-footer">
+        <div style="text-align: left; margin-bottom: 25px; margin-top: -10px;">Minimum Workstation client version</div>
+        <form class="form-inline pull-right"
+              [formGroup]="form"
+              (ngSubmit)="ok()" >
+            <div class="input-wrap">
+                <div class="inputs">
+                    <div class="inputs-col">
+                        <label>
+                            Major
+                            <input type="text"
+                                   id="major"
+                                   formControlName="major">
+                        </label>
+                        <label>
+                            Minor
+                            <input type="text"
+                                   id="minor"
+                                   formControlName="minor">
+                        </label>
+                    </div>
+                    <div class="inputs-col">
+                        <label>
+                            Release
+                            <input type="text"
+                                   id="release"
+                                   formControlName="release">
+                        </label>
+                        <label>
+                            Build
+                            <input readonly type="text" name="Build"
+                                   [value]="DBSettings.MinRequiredAppVersion.Build">
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="input-wrap">
+                <div class="inputs">
+                    <div class="inputs-col">
+                        <label>
+                            Database Name
+                            <input readonly type="text" name="DbName" [value]="DBSettings.DbName">
+                        </label>
+                    </div>
+                    <div class="inputs-col">
+                        <label>
+                            Database Schema
+                            <input readonly type="text" name="DbSchema" [value]="DBSettings.DbSchema">
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="button" class=" left" (click)="hide()">
+                    {{ 'common.cancel' | translate }}
+                </button>
+                <button type="submit" class="primary right" (click)="ok()">
+                    {{ 'common.save' | translate }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

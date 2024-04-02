@@ -1,0 +1,80 @@
+@import "../../../../../../../base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+    .#{$key} {
+
+        .settings-group{
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            &-head {
+                display: flex;
+                flex-direction: row;
+                .form-input {
+                    position: relative;
+                    margin-left: 15px;
+                    width: 100%;
+                }
+                .clear-dataset-filter {
+                    position: absolute;
+                    top: 5px;
+                    right: 10px;
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+                .input {
+                    width: 100%;
+                }
+            }
+            .add-btn-wrapper{
+                display: flex;
+            }
+
+            .settings-group-grid-wrapper{
+                flex-grow: 1;
+                flex-basis: 100%;
+                overflow: hidden;
+                padding-left: 10px;
+
+                .ui-state-default.slick-header.slick-header-left {
+                    padding-left: 1px;
+                }
+
+                .marked-default {
+                    font-style: italic;
+                    opacity: 0.8;
+                    border-bottom: 1px dashed getThemeColor(9, $key)!important;
+                    border-top: 1px dashed getThemeColor(9, $key)!important;
+                    margin-top: 1px;
+                    line-height: 13px;
+                }
+            }
+            .repeat-btn-wrapper{
+                height: 100%;
+            }
+
+            .slick-grid-wrapper {
+                .slick-header-column,
+                .slick-group-header-column,
+                .slick-header-column.ui-state-default,
+                .slick-group-header-column.ui-state-default{
+                    height: 30px;
+                    line-height: inherit;
+                }
+                .slick-cell,
+                .slick-headerrow-column,
+                .slick-footerrow-column{
+                    border: none;
+                    border-right: 1px solid getThemeColor(22, $key);
+                }
+            }
+
+            grid-column-remove-component .icons-closedelete{
+                position: static;
+                display: inline-block;
+                margin-right: 14px;
+            }
+        }
+    }
+}

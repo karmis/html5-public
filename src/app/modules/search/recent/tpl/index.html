@@ -1,0 +1,46 @@
+<div #recentsList
+     class="recent-block sidebar test-advanced-searching-div-recent-searches"
+>
+    <div style="width: 100%;float: left">
+        <h2>
+            {{ 'advanced.resent_searches' | translate }}
+        </h2>
+        <button
+                style="margin-left: 15px;float: right;margin-top: -32px;"
+                (click)="clearRecents()">
+            {{'advanced.repeat_clear' | translate}}
+        </button>
+    </div>
+
+    <div *ngIf="!error" class="recents searches" style="margin-top: 35px;">
+        <div *ngFor="let search of _recentSearches| slice:0:config.options.itemsLimit; let i=index">
+            <input type="radio" id="check{{i}}" name="radiogroup2" (click)="selectResentSearch(search)">
+            <label for="check{{i}}">
+                <div class="icon-wrapper">
+                    <i class="icons-search icon"></i>
+                </div>
+                <div class="recent-item-title" *ngIf="search.total > 4 || search.total == 0">
+                    {{ search.getBeautyString() }} :  {{search.getTotal()}}
+                    {{'advanced.recent_items' | translate}}
+                </div>
+                <div class="recent-item-title" *ngIf="search.total == 1">
+                    {{ search.getBeautyString() }}:  {{search.getTotal()}}
+                    {{'advanced.recent_item' | translate}}
+                </div>
+                <div class="recent-item-title" *ngIf="search.total == 2 || search.total == 3 || search.total == 4">
+                    {{ search.getBeautyString() }} :  {{search.getTotal()}}
+                    {{'advanced.recent_items1' | translate}}
+                </div>
+            </label>
+        </div>
+    </div>
+    <div *ngIf="error">
+        <h2>{{'advanced.error' | translate}}</h2>
+        <button (click)="clickRepeat()">{{'advanced.repeat' | translate}}</button>
+    </div>
+    <div class="angucomplete-overlay" *ngIf="!isDataLoaded"><!---->
+        <div class="spinner small suggestion-overlay"></div>
+        <!--span>{{'common.searching_placeholder' | translate}}</span-->
+    </div>
+</div>
+

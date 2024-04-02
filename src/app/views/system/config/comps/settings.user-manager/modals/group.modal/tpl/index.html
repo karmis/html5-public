@@ -1,0 +1,66 @@
+<div class="manager-group-modal-wrapper" #modalWrapper>
+    <div class="main-group-wrapper" *ngIf="changedGroupData">
+        <div class="left-column" style="width: 45%">
+            <div class="top-row" style="height: 70px;">
+                <group_description [data]="changedGroupData"></group_description>
+            </div>
+            <div class="bottom-row" style="height: calc(100% - 70px)">
+                <responsibilities_tree
+                    [schedules]="changedGroupData.SCHEDULE_AREAS"
+                    [responsibilities]="changedGroupData.RESPONSIBILITIES"
+                    [reportsPermissions]="changedGroupData.REPORTS_PERMISSIONS"
+                    (onUpdateResponsibility)="onUpdateResponsibility($event)"
+                    (onUpdateReportsPermissions)="onUpdateReportsPermissions($event)"
+                    (onUpdateSchedules)="onUpdateSchedules($event)"
+                    [readonly]="false"
+                    [showSelectAllButton]="true"></responsibilities_tree>
+            </div>
+        </div>
+        <div class="right-column" style="width: 55%">
+            <div class="top-row">
+                <div class="left-column">
+                    <user-channels-tab
+                        [data]="changedGroupData.CHANNELS"
+                        [lookup]="channelsLookup"
+                        [isNew]="isNew"
+                        [readOnly]="false"
+                        (onAddItems)="onAddChannels($event)"
+                        (onDeleteItems)="onDeleteChannels($event)"
+                    ></user-channels-tab>
+                </div>
+                <div class="right-column">
+                    <user-presets-tab
+                        [data]="changedGroupData.PRESETS"
+                        [isNew]="isNew"
+                        [isSelectAll]="true"
+                        [isSelectedAll]="presetsIsSelectedAll"
+                        (onAddItems)="onAddPresets($event)"
+                        (onDeleteItems)="onDeletePresets($event)"
+                        (onSetItems)="onSetPresets($event)"
+                        [readOnly]="false"></user-presets-tab>
+                </div>
+            </div>
+            <div class="bottom-row">
+                <users-tab
+                    [data]="changedGroupData.USERS"
+                    [isNew]="isNew"
+                    (onAddItems)="onAddUsers($event)"
+                    (onDeleteItems)="onDeleteUsers($event)"
+                    [readOnly]="false"></users-tab>
+            </div>
+        </div>
+    </div>
+    <div class="overlay-wrapper" #modalOverlayWrapper>
+        <div class="spinner"></div>
+    </div>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div [hidden]="isSaving">
+            <button type="button" (click)="saveData()">{{'common.save'| translate}}</button>
+            <button type="button" (click)="closeModal()">{{'common.cancel'| translate}}</button>
+        </div>
+    </div>
+</ng-template>
+

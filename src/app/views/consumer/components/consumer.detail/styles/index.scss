@@ -1,0 +1,96 @@
+@import "../../../../base/styles/theme.scss";
+
+@each $key,
+$value in $common-themes {
+  .#{$key} {
+    #consumer-search {
+      .detail-content-wrapper {
+        color: getThemeColor(1, $key);
+        flex-direction: column;
+        margin-right: 0;
+        display: block;
+        position: relative;
+        overflow: hidden;
+        .title-container {
+          margin-bottom: 16px;
+          h1 {
+            margin: 16px 0;
+            cursor: pointer;
+          }
+          .series-title {
+            cursor: pointer;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+          }
+        }
+        .icons {
+          //margin-top: 16px;
+          white-space: nowrap;
+          overflow: hidden;
+          .icon {
+            margin-right: 4px;
+          }
+          .duration {
+            margin-right: 16px;
+            vertical-align: -5%;
+            font-size: 11px;
+          }
+        }
+        .basket-block {
+          margin: 16px 0;
+          button {
+            background: getThemeColor(5, $key);
+            .icon {
+              margin-top: -2px;
+              margin-right: 8px;
+            }
+          }
+        }
+        .sidebar-content {
+          margin-left: 32px;
+          padding: 12px;
+          background: getThemeColor(4, $key);
+          transition: all 0.15s ease-in-out;
+          height: 100%;
+          overflow-y: auto;
+          &.collapsed {
+            width: 0;
+            padding: 0;
+            opacity: 0;
+          }
+        }
+        .sidebar-toggle {
+          position: absolute;
+          top: 0;
+          left: 0;
+          background: getThemeColor(4, $key);
+          height: 32px;
+          width: 32px;
+          cursor: pointer;
+          .icon {
+            margin: 6px;
+          }
+          .icons-sidebar-right:before {
+            vertical-align: -12px;
+          }
+          .icons-sidebar-left:before {
+            vertical-align: -12px;
+          }
+        }
+      }
+      #simple-players {
+        position: relative;
+      }
+      #simple-blocks {
+        position: relative;
+        .grid-stack-item {
+          position: absolute;
+          .more-details-btn i {
+            margin-top: 2px;
+            padding-left: 3px;
+          }
+        }
+      }
+    }
+  }
+}

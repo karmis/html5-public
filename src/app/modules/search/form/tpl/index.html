@@ -1,0 +1,118 @@
+<form class="test-search-form search-form"
+      [formGroup]="searchForm"
+      (keydown.enter)="$event.preventDefault()"
+      novalidate
+      #searchFormEl>
+    <div class="combined" [ngClass]="config.options.currentMode?.toLowerCase()+'-input'">
+        <div class="search-mode" *ngIf="config.options.currentMode!='Titles'"
+             [ngClass]="config.options.currentMode?.toLowerCase()">
+            <span>{{config.options.currentMode}}</span>
+            <i (click)="clearSearchMode($event, searchForm.value, searchForm.valid)" *ngIf="config.options.currentMode!='Titles' && config.options.currentMode !='Groups'"
+               class="icons-closedelete icon"></i>
+        </div>
+
+        <!--
+            [disabled]="provider.isLockedForm()"
+            [readOnly]="provider.isLockedForm()"
+            [ngClass]="{'disabled': provider.isLockedForm()}"
+         -->
+        <input
+            #searchStringEl
+            formControlName="searchString"
+            id="formTitleSearchString"
+            class="search field validate test-search-form-input"
+            placeholder="{{ 'common.search_placeholder' | translate }}"
+            required
+            autofocus
+            autocomplete="off"
+            spellcheck="false"
+            type="search"
+            (keyup)="onKeyUp($event)"
+            [ngClass]="config.options.currentMode?.toLowerCase()+'-input'" />
+<!--        <div [hidden]="!config?.options?.provider?.isLoadingInput()" class="spinner spinner-form"></div>-->
+        <button
+            #submitButton
+            class="no-label test-search-form-btn primary"
+            (click)="onSubmit($event, searchForm.value, searchForm.valid)" [disabled]="!isEnabledSearchButton()"
+            title="{{ 'common_hints.search' | translate }}">
+            <i class="icons-search icon"></i>
+        </button>
+        <!--<button-->
+        <!--#submitButton-->
+        <!--class="no-label test-search-form-btn"-->
+        <!--(click)="onRefresh($event)" [disabled]="!isEnabledSearchButton()" title="{{ 'common_hints.refresh' | translate }}">-->
+        <!--&lt;!&ndash;<i class="icons-search icon"></i>&ndash;&gt;-->
+        <!--Re-->
+        <!--</button>-->
+    </div>
+    <div class="dialog-searchdropdown"
+         *ngIf="showAutocompleteDropdown && (searching || (!searching && results && (results.series && results.series.length || results.titles && results.titles.length || results.contributors && results.contributors.length)))">
+        <div class="angucomplete-results grid">
+            <nav class="angucomplete-column" *ngIf="results.titles && results.titles.length">
+                <h2 class="angucomplete-results-title">
+                    {{'suggestions.results' | translate}}
+                </h2>
+                <ul>
+                    <li class="angucomplete-row item" *ngFor="let res of results.titles; let i=index"
+                        [ngClass]="{'selected': i==currentItem && currentArray==0}"
+                        (mouseover)='hoverRow(i, 0)'
+                        (mouseout)="outRow()"
+                        (click)="selectResult(res)">
+                        {{res.title}}
+                    </li>
+                </ul>
+            </nav>
+            <nav class="angucomplete-column" *ngIf="results.series && results.series.length">
+                <h2 class="angucomplete-episodes-title">
+                    {{'suggestions.series' | translate}}
+                </h2>
+                <ul>
+                    <li class="angucomplete-row item" *ngFor="let res of results.series; let i=index"
+                        [ngClass]="{'selected': i==currentItem && currentArray==1}"
+                        (mouseover)='hoverRow(i, 1)'
+                        (click)="selectResult(res, false, true)"
+                        [ngSwitch]="res.image">
+                        <img [src]="res.image" class="angucomplete-image" *ngSwitchDefault/>
+                        <span *ngSwitchCase="null"> {{res.title}}</span>
+                    </li>
+                </ul>
+            </nav>
+            <nav class="angucomplete-column people"
+                 *ngIf="isAvailableTag('CONTRIBUTOR_ID') &&results.contributors && results.contributors.length">
+                <h2 class="angucomplete-episodes-title">
+                    {{'suggestions.contributors' | translate}}
+                </h2>
+                <ul>
+                    <li class="angucomplete-row item" *ngFor="let res of results.contributors; let i=index"
+                        [ngClass]="{'selected': i==currentItem && currentArray==2}"
+                        (mouseover)='hoverRow(i, 2)'
+                        (click)="selectResult(res, false, true)">
+                        <div>
+                            <img [src]="res.image" class="image angucomplete-contributer-image"
+                                 *ngIf="res.image && res.image != ''"/>
+                            <div class="title"> {{res.title}}</div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <!--<nav class="people">-->
+            <!--<h2 *ngIf="results.contributors.length" class="angucomplete-episodes-title">-->
+            <!--Contributors-->
+            <!--</h2>-->
+            <!--<ul>-->
+            <!--<li class="angucomplete-row" *ngFor="let res of results.contributors; let i=index"-->
+            <!--[ngClass]="{'selected': i==currentItem && currentArray==2}"-->
+            <!--(mouseover)='hoverRow(i, 2)'-->
+            <!--(click)="selectResult(res)">-->
+            <!--<img [src]="res.image" class="image" *ngIf="res.image && res.image != ''"/>-->
+            <!--<div class="title"> {{res.title}}</div>-->
+            <!--</li>-->
+            <!--</ul>-->
+            <!--</nav>-->
+        </div>
+        <div class="angucomplete-overlay" *ngIf="searching"><!---->
+            <div class="spinner small suggestion-overlay"></div>
+            <!--span>{{'common.searching_placeholder' | translate}}</span-->
+        </div>
+    </div>
+</form>

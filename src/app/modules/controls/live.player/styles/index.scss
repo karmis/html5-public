@@ -1,0 +1,144 @@
+@import "../../../../views/base/styles/theme.scss";
+@import "../../../../views/base/styles/blocks/inputs.scss";
+@import "../../../../views/base/styles/blocks/buttons.scss";
+@import "../../../../views/base/styles/blocks/nav.scss";
+@import "../../../../views/base/styles/blocks/nav.tabbed.scss";
+@import "../../../../views/base/styles/blocks/rows.scss";
+
+@each $key,
+$value in $common-themes {
+  .#{$key} {
+
+    @-webkit-keyframes color_change {
+      from { background-color: #800000; }
+      to { background-color: red; }
+    }
+    @-moz-keyframes color_change {
+      from { background-color: #800000; }
+      to { background-color: red; }
+    }
+    @-ms-keyframes color_change {
+      from { background-color: #800000; }
+      to { background-color: red; }
+    }
+    @-o-keyframes color_change {
+      from { background-color: #800000; }
+      to { background-color: red; }
+    }
+    @keyframes color_change {
+      from { background-color: #800000; }
+      to { background-color: red; }
+    }
+
+    .live-player-wrapper{
+      background: getThemeColor(4, $key);
+      border-bottom: 1px solid getThemeColor(9, $key);
+
+      .live-container {
+        position: relative;
+        width: 100%;
+        height: 64px;
+      }
+
+      .live-label {
+        width: 100%;
+        line-height: 38px;
+        font-size: 14px;
+        padding-left: 34px;
+        height: 30px;
+        position: relative;
+        &.ended {
+          &:before {
+            content: "";
+            position: absolute;
+            left: 12px;
+            top: 14px;
+            width: 10px;
+            height: 10px;
+            border-radius: 10px;
+            border: 1px solid getThemeColor(22, $key);
+            background: none!important;
+            animation: none;
+          }
+        }
+        &:before {
+          content: "";
+          position: absolute;
+          left: 12px;
+          top: 14px;
+          width: 10px;
+          height: 10px;
+          border-radius: 10px;
+          animation-name: color_change;
+          animation-duration: 1s;
+          animation-iteration-count: infinite;
+          animation-direction: alternate;
+        }
+      }
+
+      .live-player {
+        width: 100%;
+        height: 34px;
+        display: flex;
+        align-items: center;
+      }
+
+      .button {
+        display: block;
+        width: 34px;
+        height: 34px;
+        background-repeat: no-repeat;
+        float: left;
+        background: none;
+        padding: 0;
+      }
+
+      .live-duration {
+        width: 133px;
+        margin-right: 2px;
+        line-height: 34px;
+        text-align: center;
+        color: getThemeColor(1, $key);
+        font-size: 15px;
+      }
+
+      #live-play {
+
+      }
+
+      #live-pause {
+
+      }
+
+      #live-mute {
+
+      }
+
+      #live-muted {
+
+      }
+
+      input[type="range"] {
+        flex: 1;
+      }
+      input{
+        display:none\9!important;
+      }
+      input[type="range"] {
+        -webkit-appearance: none;
+        height: 10px;
+        background-color: getThemeColor(3, $key);
+        background-color: getThemeColor(22, $key);
+      }
+
+      input::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 15px;
+        height: 15px;
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+        background: getThemeColor(1, $key); /* Old browsers */
+      }
+    }
+  }
+}

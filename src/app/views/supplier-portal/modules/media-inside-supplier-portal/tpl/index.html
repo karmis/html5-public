@@ -1,0 +1,107 @@
+<!--h4 class="block-header text">{{ 'media.title' | translate }}</h4-->
+<div class="full-height full-width media-inside-supplier-portal-wrapper">
+    <div class="container-fluid">
+        <!--Header-->
+        <div class="row-header">
+            <nav>
+                <ul>
+                    <li style="flex-grow: 1; max-width: calc(30vw + 80px);">
+                        <h4 style="font-size: 15px; float: left">{{ 'media.small_title' | translate }}</h4>
+                        <span style="margin-top: -2px; float: left; margin-left: 15px;" [hidden]="needUpdateGrid === false">
+                            <i class="imfx-icon fa fa-refresh pulse refresh-grid-icon" style="margin-top: 0;font-size: 15px;" title="Refresh" (click)="onClickRefreshGrid()"></i>
+                        </span>
+                    </li>
+
+                    <li *ngIf="hasPermissionByName('views-options')" class="divider"
+                        [ngClass]="{'common-hidden': (!flagHide || (slickGridComp.module.viewMode == 'tile'))}"
+                    ></li>
+                    <li *ngIf="hasPermissionByName('views-options')"
+                        [ngClass]="{'common-hidden': (!flagHide || (slickGridComp.module.viewMode == 'tile'))}"
+                    >
+                        <label>{{ 'common.view' | translate}}:</label>
+                    </li>
+                    <li [hidden]="!hasPermissionByName('views-modify')" [ngClass]="{'common-hidden': (!flagHide || (slickGridComp && slickGridComp.module.viewMode == 'tile'))}">
+                        <search-views
+                            #viewsComp
+                            [config]="searchViewsConfig"
+                            [gridProviders]="getSlickGridProviders()"
+                        ></search-views>
+                    </li>
+
+                    <li *ngIf="hasPermissionByName('views-options') || hasPermissionByName('export-options') "
+                        [ngClass]="{'common-hidden': (!flagHide || (slickGridComp.module.viewMode == 'tile'))}"
+                    >
+                        <search-settings
+                            [config]="searchSettingsConfig"
+                            [activeSlickGridComp]="slickGridComp"
+                        ></search-settings>
+                    </li>
+
+                    <li *ngIf="hasPermissionByName('views-options')" class="divider"
+                        [ngClass]="{'common-hidden': !flagHide}"
+                    ></li>
+                    <li *ngIf="hasPermissionByName('views-options') || hasPermissionByName('export-options') "
+                        [ngClass]="{'common-hidden': !flagHide, 'visibility-hidden': true}"
+                        style="white-space: nowrap;"
+                    ></li>
+
+                    <li *ngIf="hasPermissionByName('views-options') || hasPermissionByName('export-options') "
+                        [ngClass]="{'common-hidden': !flagHide, 'visibility-hidden': true}"
+                    ></li>
+                </ul>
+            </nav>
+            <nav>
+                <ul>
+                    <li>
+                        <search-thumbs
+                            #searchThumbsComp
+                            [config]="searchThumbsConfig"
+                            [gridProviders]="getSlickGridProviders()"
+                        ></search-thumbs>
+                    </li>
+                    <li class="divider"></li>
+                    <li *ngIf="searchGridConfig.options.module.viewModeSwitcher">
+                        <button type="button"
+                                class="icon-button"
+                                [ngClass]="{'active': slickGridComp.module.viewMode == 'table'}"
+                                (click)="slickGridComp.provider.setViewMode('table');slickGridComp.provider.setViewMode('table')"
+                                title="{{ 'common_hints.grid' | translate }}">
+                              <span style="float:left;">
+                                  <i class="icons-list icon"></i>
+                              </span>
+                        </button>
+                    </li>
+                    <li *ngIf="searchGridConfig.options.module.viewModeSwitcher">
+                        <button type="button"
+                                class="icon-button"
+                                [ngClass]="{'active': slickGridComp.module.viewMode == 'tile'}"
+                                (click)="slickGridComp.provider.setViewMode('tile');slickGridComp.provider.setViewMode('tile')"
+                                title="{{ 'common_hints.tiles' | translate }}">
+                              <span style="float:left;">
+                                  <i class="icons-tiles icon"></i>
+                              </span>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!--Body-->
+        <div class="row-body">
+            <div class="media-inside-supplier-portal-grid-wrapper" id="MediaInsideSupplierPortalGridWrapper">
+                <slick-grid
+                    #slickGridComp
+                    class="media-inside-supplier-portal-grid vertical-align-row"
+                    [config]="searchGridConfig"
+                ></slick-grid>
+            </div>
+        </div>
+    </div>
+
+    <!--Settings dropdown-->
+    <media-item-ellipsis-dropdown
+        *ngIf="slickGridComp.isGridReady"
+        [slickGridComp]="slickGridComp"
+        [externalClass]="'mediaInsideSupplierPortalSettingsPopup'"
+    ></media-item-ellipsis-dropdown>
+</div>

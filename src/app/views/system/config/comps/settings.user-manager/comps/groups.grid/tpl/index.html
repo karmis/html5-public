@@ -1,0 +1,43 @@
+<div #userManagerGroupsGridWrapper class="user-manager-groups">
+    <div class="filter-panel">
+        <input class="data-filter" #datasetFilter placeholder="{{'user_management.groups.filter_data' | translate}}" type="text" (input)="updateDataset($event.target.value)"/>
+        <div class="clear-dataset-filter" (click)="clearDatasetFilter()">
+            <i class="icons-cross icon"></i>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div>
+        <button *ngIf="tableData" class="add-new-group" (click)="showModal()" title="{{'user_management.groups.add_new' | translate}}">
+            <i class="icons-cross icon"></i>
+        </button>
+    </div>
+
+    <div class="user-manager-groups-grid-wrapper">
+        <div id="userManagerGroupsSlickGridExternalWrapper" style="height: 100%;">
+            <slick-grid #slickGridComp
+                        [config]="slickGridConfig"
+                        class="vertical-align-row small-height-header">
+            </slick-grid>
+        </div>
+    </div>
+
+    <div class="dropdown grid-settings-dropdown userSettingsPopup"
+         style="margin-top: 15px; margin-right: 15px; position: fixed; display: none;">
+        <ul
+            aria-labelledby="simple-btn-keyboard-nav"
+            style="display: block; top: 0%"
+            class="dropdown-menu"
+            role="menu"
+        >
+            <li role="menuitem">
+                <a
+                    class="dropdown-item" (click)="rebuildGroup($event)"
+                    title="{{'user_management.users.rebuild_group' | translate}}">
+                    {{ 'user_management.users.rebuild_group' | translate }}
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<overlay #overlay [mode]="true" [zIndex]="100"></overlay>

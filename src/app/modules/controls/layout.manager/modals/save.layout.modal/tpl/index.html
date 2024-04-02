@@ -1,0 +1,10 @@
+<div class="save-layout-wrapper">
+  <div class="save-layout-fields">
+    <input type="text" placeholder="{{'layout-manager.new-name' | translate}}" [(ngModel)]="layoutName" focus="true">
+    <i class="icon icons-closedelete" *ngIf="layoutName.trim().length > 0" (click)="layoutName = ''"></i>
+      <label>{{'layout-manager.default' | translate}} <input type="checkbox" [(ngModel)]="isDefault"></label>
+      <label style="padding-left: 20px;">{{'layout-manager.shared' | translate}} <input type="checkbox" [(ngModel)]="isShared"></label>
+  </div>
+  <button [disabled]="layoutName.trim().length == 0" (click)="saveLayout()">{{ 'layout-manager.save' | translate}}</button>
+  <div *ngIf="showOverlay" class="modal-overlay"><div class="spinner"></div></div>
+</div>

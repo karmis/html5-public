@@ -1,0 +1,48 @@
+@import "../../../../../base/styles/theme.scss";
+@import "../../../../../../modules/controls/progress/styles/index.scss";
+
+@each $key, $value in $common-themes {
+    .#{$key} {
+        .event-detail-btns {
+            height: 50px;
+            display: flex;
+            flex-direction: row;
+            .btn-wrapper-left {
+                display: flex;
+                flex-basis: 100%;
+                flex-grow: 1;
+                position: relative;
+                flex-direction: row;
+                margin: auto;
+                .back-btn-wrapper{
+                    width: 28px;
+                    height: 32px;
+                    line-height: 32px;
+                    padding: 0 4px;
+                    border-bottom: 2px solid transparent;
+                    .icon-button {
+                        height: 32px;
+                        line-height: 32px;
+                    }
+                }
+                .event-title-wrapper{
+                    //margin-left: 15px;
+                }
+            }
+            .btn-wrapper-right{
+                display: flex;
+                flex-grow: 0;
+                white-space: nowrap;
+                align-items: center;
+            }
+        }
+        .slick-top-panel__left {
+            display: flex;
+            margin: -5px;
+            .button-panel {
+                margin: 5px;
+                width: auto !important;
+            }
+        }
+    }
+}

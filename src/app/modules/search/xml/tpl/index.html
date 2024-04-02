@@ -1,0 +1,182 @@
+<div class="xml-schema">
+    <div *ngIf="schemas" class="js-scrollbar-target-modal-one">
+        <!--SchemaIDx-->
+        <div *ngIf="type.indexOf('SCHEMAIDx') != -1 "
+                style="height:100%"
+                layout="row">
+
+            <div style="height:100%; overflow: hidden;position: relative;float: left;" [ngStyle]="{'width': (data && modalData.compContext.withoutXmlTree ? '100%' : 'calc(40% - 20px)'), 'float': (data && modalData.compContext.withoutXmlTree ? 'none' : 'left')}">
+                <!--input *ngIf="!modalData.compContext.withoutXmlTree"
+                        #filterInput
+                        type="text"
+                        placeholder="{{ 'ng2_components.ag_grid.start_type_xml_field_name' | translate }}"
+                        (keyup)="cdrFired()"-->
+                <div class="table-wrapper" [ngStyle]="{'height': (!modalData.compContext.withoutXmlTree ? 'calc(100% - 37px)' : '100%')}">
+                    <!--table *ngIf="!modalData.compContext.withoutXmlTree" class="table table-hover">
+                        <thead>
+                        <tr>
+                            <td>
+                                <strong>
+                                    {{ 'ng2_components.ag_grid.tbl_header_xml_field_schema_name' |
+                                    translate
+                                    }}
+                                </strong>
+                            </td>
+                            <td>
+                                <strong>
+                                    {{
+                                    'ng2_components.ag_grid.tbl_header_xml_field_description'
+                                    |
+                                    translate }}
+                                </strong>
+                            </td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr
+                                [ngClass]="{'active': selectedIndex == schema.Id}"
+                                (click)="onSelect(schema, i, true)"
+                                style="cursor:pointer"
+                                *ngFor="let schema of schemas|filter: ['Name']: filterInput.nativeElement.value; let i = index">
+                            <td>
+                                {{schema.Name}}
+                            </td>
+                            <td>
+                                {{schema.Description}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table-->
+                    <imfx-schema-tree
+                          #schemaTree
+                          [expandOnFilter]="true"
+                          [groups]="originSchemaTypes"
+                          [returnSchema]="true"
+                          (selected)="onSelectTree($event, true)">
+                    </imfx-schema-tree>
+                </div>
+            </div>
+            <div
+              *ngIf="data && !modalData.compContext.withoutXmlTree"
+                    #tableSplit
+                    style="padding-left: 25px; height:100%; position: relative;float: left; width: 60%; overflow: auto; max-height: 400px">
+                <div class="">
+                    <div class="">
+                        <imfx-xml-tree
+                                #xmlTree
+                                [allowTristate]="true"
+                                [serializedData]="modalData && modalData.serializedData ? modalData.serializedData : null"
+                                [schemaModel]="selectedSchemaModel"
+                                [xmlModel]="selectedXmlModel"
+                                [preventLastElementRemoving]="preventLastElementRemoving"
+                        ></imfx-xml-tree>
+                    </div>
+                </div>
+            </div>
+            <!-- <button *ngIf="data && selectedSchemaFormList" style="margin-top: 16px" type="button" class="primary" (click)="onSave()">
+              {{ 'common.ok' | translate }}
+            </button> -->
+            <div *ngIf="data && showOverlay && modalData.compContext.withoutXmlTree" class="modal-overlay"><div class="spinner"></div></div>
+        </div>
+
+        <!--SchemaID-->
+        <div style="height: 100%" *ngIf="type == 'SCHEMAID'">
+            <div style="height:90%">
+                <input
+                    #filterInput
+                    type="text"
+                    placeholder="{{ 'system-config.xml.select' | translate }}"
+                    (keyup)="cdrFired()">
+                <!--<div class="table-wrapper">-->
+                    <!--<table class="table table-hover">-->
+                        <!--<thead>-->
+                        <!--<tr>-->
+                            <!--<td>-->
+                                <!--<strong>-->
+                                    <!--{{ 'ng2_components.ag_grid.tbl_header_xml_field_schema_name' |-->
+                                    <!--translate-->
+                                    <!--}}-->
+                                <!--</strong>-->
+                            <!--</td>-->
+                            <!--<td>-->
+                                <!--<strong>-->
+                                    <!--{{-->
+                                    <!--'ng2_components.ag_grid.tbl_header_xml_field_description'-->
+                                    <!--|-->
+                                    <!--translate }}-->
+                                <!--</strong>-->
+                            <!--</td>-->
+                        <!--</tr>-->
+                        <!--</thead>-->
+                        <!--<tbody>-->
+                        <!--<tr-->
+                            <!--[ngClass]="{'active': selectedIndex == schema.Id}"-->
+                            <!--(click)="onSelect(schema, i, true)"-->
+                            <!--style="cursor:pointer"-->
+                            <!--*ngFor="let schema of schemas|filter: ['Name']: filterInput.value; let i = index">-->
+                            <!--<td>-->
+                                <!--{{schema.Name}}-->
+                            <!--</td>-->
+                            <!--<td>-->
+                                <!--{{schema.Description}}-->
+                            <!--</td>-->
+                        <!--</tr>-->
+                        <!--</tbody>-->
+                    <!--</table>-->
+                <!--</div>-->
+
+
+                <div class="schema-wrapper">
+                    <div class="schema-header">
+                        <div class="header-cell cell-name">
+                            <strong>
+                                {{ 'ng2_components.ag_grid.tbl_header_xml_field_schema_name' |
+                                translate
+                                }}
+                            </strong>
+                        </div>
+                        <div class="header-cell cell-description">
+                            <strong>
+                                {{
+                                'ng2_components.ag_grid.tbl_header_xml_field_description'
+                                    |
+                                    translate }}
+                            </strong>
+                        </div>
+                    </div>
+                    <div class="schema-container">
+                        <div *ngFor="let schema of schemas|filter: ['Name']: filterInput.value; let i = index"
+                             [ngClass]="{'active': selectedIndex == schema.Id}"
+                             (click)="onSelect(schema, i, true)"
+                             class="schema-item"
+                        >
+                            <div class="item-cell cell-name">
+                                {{schema.Name}}
+                            </div>
+                            <div class="item-cell cell-description">
+                                {{schema.Description}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!schemas">
+        <div class="">
+            <div class="">
+                {{"tbl_header_xml_schemas_select_schema"|translate}}
+            </div>
+        </div>
+    </div>
+</div>
+<overlay #overlayXML></overlay>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div>
+            <button type="button" class="btn btn-default primary" style="border-radius: 0;" [attr.disabled]="canCloseModal ? null : true" (click)="onSaveClick()">{{'common.ok'| translate}}</button>
+        </div>
+    </div>
+</ng-template>

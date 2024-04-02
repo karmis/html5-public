@@ -1,0 +1,9 @@
+<button type="button" class="btn btn-default" (click)="showModal()" style="width: 100%;">
+    <span *ngIf="!selectedRow">
+        {{ 'ng2_components.ag_grid.select_value' | translate }}
+    </span>
+    <span *ngIf="selectedRow"
+          style="width: 100% !important; float: left; overflow: hidden; text-overflow: ellipsis;">
+        {{selectedRow.Name}}
+    </span>
+</button>

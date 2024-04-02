@@ -1,0 +1,159 @@
+@import "../../../../views/base/styles/theme.scss";
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        simple-list-component {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+
+            .show-only {
+                display: flex;
+                justify-content: end;
+                align-items: center;
+                width: 100%;
+                text-transform: capitalize;
+
+                input:active {
+                    transform: none !important;
+                }
+            }
+        }
+
+        .simple-list-wrapper {
+            overflow: auto;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+
+            .row-div {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+            }
+
+            .item-wrapper {
+                cursor: pointer;
+                margin-bottom: 5px;
+
+                &:not(.full-item-height) {
+                    height: auto;
+                    min-width: 220px;
+                    display: block;
+                }
+
+                &:hover {
+                    background: getThemeColor(10, $key);
+                    color: getThemeColor(15, $key);
+                }
+
+                &.selected {
+                    background: getThemeColor(21, $key);
+                    color: getThemeColor(16, $key);
+                }
+
+                .remove-simple-list-item {
+
+                }
+
+                .thumb {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: #000;
+
+                    .thumbnail-wrapper {
+                        width: 100px !important;
+                        height: 60px;
+                    }
+
+                    div {
+                        min-width: 0;
+                        min-height: 0;
+                        margin: 0;
+                    }
+
+                    img {
+                        display: inline;
+                    }
+
+                }
+
+                .info {
+                    display: inline-block;
+                    margin: auto 0;
+                    padding: 5px;
+                    width: calc(100% - 80px);
+
+                    .item-name:hover {
+                        text-decoration: underline;
+                    }
+                }
+
+                h4 {
+                    font-size: 12px;
+                    padding-bottom: 5px;
+                    margin: 0;
+                    cursor: pointer;
+                }
+
+                p {
+                    line-height: 16px;
+                    margin: 0;
+                }
+
+                .acceptance-form-group {
+                    margin-bottom: 0;
+                    display: flex;
+                    flex-direction: row;
+                    padding-top: 5px;
+                    justify-content: space-around;
+                    align-items: baseline;
+
+                    &.disabled {
+                        opacity: 0.7;
+                        pointer-events: none;
+                    }
+                }
+
+                .form-check {
+                    cursor: pointer;
+                    margin-right: 5px;
+                    margin-bottom: 0;
+                    display: flex;
+                    width: 33%;
+                    flex-direction: row;
+
+                    input[type="radio"] {
+                        height: 14px;
+                        width: 14px;
+                    }
+
+                    input[id^="radio_accepted"]:checked {
+                        border: 4px solid getThemeColor(12, $key);
+                    }
+
+                    input[id^="radio_rejected"]:checked {
+                        border: 4px solid getThemeColor(13, $key);
+                    }
+
+                    input[id^="radio_not_set"]:checked {
+                        border-width: 4px;
+                    }
+
+                    .label-wrapper {
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        overflow: hidden;
+
+                        label {
+                            margin-bottom: 0;
+                            padding-left: 2px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

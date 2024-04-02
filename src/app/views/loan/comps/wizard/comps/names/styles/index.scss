@@ -1,0 +1,78 @@
+@import "../../../../../../base/styles/theme.scss";
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .media-wizzard-grid {
+            .search-field {
+                min-width: 400px;
+            }
+
+            .media-grid {
+                .tile-view {
+
+                }
+            }
+
+            .slick-column-name {
+                //line-height: 25px !important;
+            }
+
+            .slick-header-column, .slick-pane-left, .slick-pane-right {
+                //height: 35px !important;
+            }
+
+            .row-header {
+                margin-bottom: 15px;
+            }
+
+            .names-tree {
+                background: getThemeColor(4, $key);
+                //flex: 1;
+                //max-width: 300px;
+                //min-width: 300px;
+                position: relative;
+                //border-right: 10px solid getThemeColor(3, $key);
+                overflow: hidden;
+                height: 100%;
+                font-size: 0;
+                ul {
+                    max-height: 400px;
+                    overflow: auto;
+                }
+                .fancytree-title {
+                    position: relative;
+                    padding-left: 20px;
+                }
+
+                .highlighted-company {
+                    background: url(./assets/imfx-icons/company.png);
+                    left: 0;
+                    top: -2px;
+                }
+
+                .highlighted-person {
+                    background: url(./assets/imfx-icons/person.png);
+                    left: 0;
+                    top: -3px;
+                }
+
+                .highlighted-company,
+                .highlighted-person {
+                    filter: getInvertedFilter(1, $key);
+                    width: 20px;
+                    height: 20px;
+                    display: block;
+                    position: absolute;
+                    background-size: contain;
+                }
+
+                .fancytree-active .highlighted-company,
+                .fancytree-active .highlighted-person {
+                    filter: invert(100%);
+                }
+
+            }
+        }
+    }
+}

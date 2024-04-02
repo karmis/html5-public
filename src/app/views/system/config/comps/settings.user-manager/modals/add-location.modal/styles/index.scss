@@ -1,0 +1,104 @@
+@import "../../../../../../../base/styles/theme.scss";
+
+$multilineheight: 300px;
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        add-location-modal {
+            .add-location-modal-wrapper {
+                width: 100%;
+                height: 70vh;
+                position: relative;
+                overflow-x: hidden;
+                overflow-y: auto;
+                display: flex;
+                flex-direction: column;
+
+                .location {
+                    height: 100%;
+                    input {
+                        margin-bottom: 5px;
+                        width: calc(100% - 10px) !important;
+                        margin-left: 5px;
+                        height: 32px !important;
+                    }
+                    .js-scrollbar-target-adv-modal-user {
+                        height: calc(100% - 52px);
+                        overflow: auto;
+                        //max-height: 400px !important;
+
+                        &.with-highlight {
+                            height: calc(100% - 65px);
+
+                            .highlighted-site {
+                                outline: 2px solid getThemeColor(7, $key);
+                            }
+                            .highlighted-area {
+                                outline: 2px solid getThemeColor(12, $key);
+                            }
+                        }
+                    }
+
+                    .highlight-info {
+                        height: 18px;
+                        line-height: 18px;
+                        margin-top: 10px;
+
+                        .marker {
+                            display: inline-block;
+                            height: 6px;
+                            width: 6px;
+                            margin-right: 5px;
+                            position: relative;
+                            top: -1px;
+                        }
+
+                        .highlighted-site {
+                            display: inline-block;
+                            height: 18px;
+                            line-height: 18px;
+                            margin-right: 20px;
+                            margin-left: 2px;
+
+                            .marker {
+                                outline: 2px solid getThemeColor(7, $key);
+                            }
+
+                        }
+                        .highlighted-area {
+                            display: inline-block;
+                            height: 18px;
+                            line-height: 18px;
+
+                            .marker {
+                                outline: 2px solid getThemeColor(12, $key);
+                            }
+
+                        }
+                    }
+                }
+            }
+
+            .overlay-wrapper {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: getThemeColor(3, $key);
+                overflow: hidden;
+                z-index: 5;
+
+                .spinner {
+                    width: 80px;
+                    height: 80px;
+                    border-width: 8px;
+                    margin: 0 auto;
+                    position: relative;
+                    top: calc(50% - 40px);
+                }
+            }
+        }
+    }
+}

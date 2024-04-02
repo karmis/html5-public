@@ -1,0 +1,10 @@
+<div id="media-log-player-page-wrapper">
+    <iframe *ngIf="src" id="MediaProxyLogPlayerComponentPlayer"
+            frameborder="0"
+            style="border: none; width: 100%; height: calc(100% - 50px); position: absolute;">
+    </iframe>
+    <div *ngIf="!src" class="blank">
+        Please, setup reference URL to Media Proxy Player in <a href [routerLink]="['/system/config']">Global Settings</a>
+    </div>
+</div>
+<overlay #overlay></overlay>

@@ -1,0 +1,35 @@
+@import "../../base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+
+        .folder-info {
+          background-color: getThemeColor(4, $key);
+          padding-top: 7px;
+          padding-left: 5px;
+          height: 30px;
+        }
+        .folders-grid {
+            .tile-mode {
+                [colid="THUMBURL"] {
+                  .thumbnail-wrapper {
+                    height: 150px!important;
+                    width: 267px!important;
+                    margin: -12px -12px 5px -12px;
+                    max-width: none;
+                    max-height: none;
+                  }
+                }
+                .tile-field[colid="TITLE"],
+                .tile-field[colid="MEDIA_FORMAT_text"],
+                .tile-field[colid="DURATION_text"],
+                .tile-field[colid="MEDIA_TYPE_text"] {
+                    display: block;//table-row;
+                    width: 243px!important;
+                    height: 20px;
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+}

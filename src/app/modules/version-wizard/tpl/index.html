@@ -1,0 +1,104 @@
+<div class="version-wizard" #overlayWrapper>
+    <div class="wizard-steps">
+        <div class="step-content">
+            <div class="step-content-wrapper">
+                <div class="row" style="max-height: 200px; overflow-y: auto;">
+                    <div class="col-xs-3">
+                        <div class="form-group">
+                            <label class="mr-sm-2">
+                                {{ 'version.wizard.usage' | translate }}
+                            </label>
+                            <imfx-controls-select2
+                                #controlUsageTypes
+                                [width]="'100%'"
+                                [clearFormat]="{
+                                    showButton: true,
+                                    defaultValue: null,
+                                    withTrigger: false
+                                }"
+                                [placeholder]="'base.selectOoo'|translate"
+                                [placeholderRefToTranslate]="'base.selectOoo'"
+                                (onSelect)="updateModel('USAGE_TYPE_text', $event, controlUsageTypes);"
+                            ></imfx-controls-select2>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="form-group">
+                            <label class="mr-sm-2">
+                                {{ 'version.wizard.digital_media_format' | translate }}
+                            </label>
+                            <imfx-controls-select2
+                                #controlMediaTypeFiles
+                                [width]="'100%'"
+                                [clearFormat]="{
+                                    showButton: true,
+                                    defaultValue: null,
+                                    withTrigger: false
+                                }"
+                                [placeholder]="'base.selectOoo'|translate"
+                                [placeholderRefToTranslate]="'base.selectOoo'"
+                                (onSelect)="updateModel('MEDIA_FORMAT_text', $event, controlMediaTypeFiles);"
+                            ></imfx-controls-select2>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="form-group">
+                            <label class="mr-sm-2">
+                                Storage Device
+                            </label>
+                            <imfx-controls-select2
+                                #storageDeviceControl
+                                [width]="'100%'"
+                                [clearFormat]="{
+                                    showButton: true,
+                                    defaultValue: null,
+                                    withTrigger: false
+                                }"
+                                [placeholderRefToTranslate]="'base.selectOoo'"
+                                (onSelect)="updateModel( 'STORAGE_ID', $event, storageDeviceControl);"
+                            ></imfx-controls-select2>
+                        </div>
+                    </div>
+                    <div class="col-xs-1 radio-wrapper">
+                        <input type="radio"
+                               id="radio_audio"
+                               (click)="updateModelFromRadio('MEDIA_TYPE_text', getMediaTypes().Audio);"
+                               [checked]="getModel('MEDIA_TYPE_text').Value == getMediaTypes().Audio"
+                               [value]="'audio'"
+                               name="radiogroup">
+                        <label for="radio_audio">
+                            {{ 'version.wizard.audio' | translate }}
+                        </label>
+                    </div>
+                    <div class="col-xs-1 radio-wrapper">
+                        <input type="radio"
+                               id="radio_media"
+                               (click)="updateModelFromRadio('MEDIA_TYPE_text', getMediaTypes().Video);"
+                               [checked]="getModel('MEDIA_TYPE_text').Value == getMediaTypes().Video"
+                               [value]="'media'"
+                               name="radiogroup">
+                        <label for="radio_media">
+                            {{ 'version.wizard.video' | translate }}
+                        </label>
+                    </div>
+                </div>
+                <div style="height: calc(100% - 65px); position: relative;">
+                    <version-wizard-media #versionWizardMediaGrid></version-wizard-media>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div class="buttons">
+            <button class="next primary btn-next"
+                    [ngClass]="{'disabled': getRows().length == 0}"
+                    [attr.disabled]="getRows().length == 0?true:null"
+                    (click)="goToClipEditor()">
+                {{ 'version.wizard.next' | translate }}
+            </button>
+        </div>
+    </div>
+</ng-template>

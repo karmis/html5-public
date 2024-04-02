@@ -1,0 +1,36 @@
+<div class="user-notifications-wrapper" #gridWrapper>
+    <div class="users-tree-wrapper" >
+        <input type="text" #filterInput (keyup)="filterTree($event, tree)" placeholder="{{'system-config.xml.filter' | translate}}"/>
+        <i class="icons-cross icon" *ngIf="filterInput.value.length > 0" (click)="filterInput.value = ''; filterTree($event, tree)"></i>
+        <imfx-controls-tree #notificationsTree
+                            [extensions]="['filter']"
+                            [ext_filter]="{autoExpand: true, mode: 'hide', highlight: false}"
+                            [checkbox]="false"
+                            [icon]="false"
+                            [showKey]="true"
+                            [source]="notifications"
+                            [keyboard]="false"
+                            (onClick)="onSelect($event)"
+        ></imfx-controls-tree><!-- (onKeydown)="onEnterPress($event)" -->
+        <div class="buttons-wrapper" [ngClass]="{'has-selected': selectedNotification}">
+            <button class="add-btn" title="{{'user_management.notifications.add' | translate}}" (click)="addNotification()"><i class="icons-add icon"></i></button>
+            <button class="edit-btn" title="{{'user_management.notifications.edit' | translate}}" *ngIf="selectedNotification" (click)="editNotification()"><i class="fa fa-edit"></i></button>
+            <button class="remove-btn" title="{{'user_management.notifications.remove' | translate}}" *ngIf="selectedNotification" (click)="removeNotification()"><i class="icons-cross icon"></i></button>
+        </div>
+    </div>
+    <div id="userNotificationsSlickGridExternalWrapper" [hidden]="selectedNotification == null">
+        <button class="add-new-notification" (click)="addSubscription()">
+            <i class="icons-cross icon"></i>
+        </button>
+        <slick-grid #slickGridComp
+                    [config]="slickGridConfig"
+                    class="vertical-align-row small-height-header">
+        </slick-grid>
+    </div>
+    <div class="select-message" [hidden]="selectedNotification != null">
+        <div>
+            {{'user_management.notifications.select_message' | translate}}
+        </div>
+    </div>
+    <overlay #overlay [mode]="true" [zIndex]="100"></overlay>
+</div>

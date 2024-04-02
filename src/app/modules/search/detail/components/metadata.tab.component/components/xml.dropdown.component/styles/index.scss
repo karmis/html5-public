@@ -1,0 +1,17 @@
+@import "../../../../../../../../views/base/styles/theme.scss";
+@each $key, $value in $common-themes {
+  .#{$key} {
+    .dropdown-container {
+      box-sizing: border-box;
+      padding: 10px;
+      position: relative;
+
+      select {
+        width: 100%;
+        display: block;
+        height: 30px;
+        border-radius: 5px;
+      }
+    }
+  }
+}

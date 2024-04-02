@@ -1,0 +1,163 @@
+<div #detailWrapper class="full-height" style="overflow: hidden;">
+    <div #detailPage class="full-height-block full-height detail">
+        <div class="p-rel-h-full content-wrapper info-descr" *ngIf="provider?.detailInfoForUpdate">
+            <table class="table table-hover">
+                <tbody>
+                <tr>
+                    <td>
+                        ID:
+                    </td>
+                    <td>
+                        {{provider?.detailInfoForUpdate?.ID||'none'}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Created Date:
+                    </td>
+                    <td>
+                        {{(provider?.detailInfoForUpdate?.CREATED_DT|date)||'none'}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Created By:
+                    </td>
+                    <td>
+                        {{provider?.detailInfoForUpdate?.CREATED_BY||'none'}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        External Reference:
+                    </td>
+                    <td>
+                        {{provider?.detailInfoForUpdate?.EXT_REF1||'none'}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Event Type:
+                    </td>
+                    <td>
+                        {{provider?.detailInfoForUpdate?.EVENT_TYPE_text||'none'}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Start Datetime:
+                    </td>
+                    <td>
+                        {{provider?.detailInfoForUpdate?.START_DATETIME||'none'}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        End Datetime:
+                    </td>
+                    <td>
+                        {{provider?.detailInfoForUpdate?.END_DATETIME||'none'}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Dub Required:
+                    </td>
+                    <td>
+                        {{provider?.detailInfoForUpdate?.DUB_REQUIRED?"True":"False"}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Backup Material Required:
+                    </td>
+                    <td>
+                        {{provider?.detailInfoForUpdate?.BACKUP_REQUIRED?"True":"False"}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Recording Site:
+                    </td>
+                    <td>
+                        {{provider?.detailInfoForUpdate?.Site_text||'none'}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Incoming Channel Type:
+                    </td>
+                    <td>
+                        {{provider?.detailInfoForUpdate?.IN_CHANNEL_TYPE_text||'none'}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Incoming Channel:
+                    </td>
+                    <td>
+                        {{provider?.detailInfoForUpdate?.IN_CHANNEL_text||'none'}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Incoming Item Type:
+                    </td>
+                    <td>
+                        {{provider?.detailInfoForUpdate?.IN_ITEM_TYPE_text||'none'}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Outgoing Channel Type:
+                    </td>
+                    <td>
+                        {{provider?.detailInfoForUpdate?.OUT_CHANNEL_TYPE_text||'none'}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Outgoing Channel:
+                    </td>
+                    <td>
+                        {{provider?.detailInfoForUpdate?.OUT_CHANNEL_text||'none'}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Notes:
+                    </td>
+                    <td>
+                        {{provider?.detailInfoForUpdate?.NOTES||'none'}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Incoming Feed Notes:
+                    </td>
+                    <td>
+                        {{provider?.detailInfoForUpdate?.IN_FEED_DETAILS||'none'}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Remarks for Media Library:
+                    </td>
+                    <td>
+                        {{provider?.detailInfoForUpdate?.REM_MID_LIB||'none'}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Remarks for Presentation Suite:
+                    </td>
+                    <td>
+                        {{provider?.detailInfoForUpdate?.REM_PRES_SUITE||'none'}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

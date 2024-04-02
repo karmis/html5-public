@@ -1,0 +1,177 @@
+<div class="full-height full-width names-tree-wrapper">
+    <as-split
+        [direction]="'horizontal'"><!--(dragEnd)="saveSplitSizes(1, $event)"-->
+        <as-split-area
+            class="color-bkgd-mid"
+            #containersSplit
+            [size]="20"
+            [order]="0">
+            <div class="names-tree">
+                <button class="add-modal-btn" *ngIf="!searchView" (click)="showAddModal()" [ngClass]="{'strech-full':!activeData}">Add</button>
+                <button class="edit-modal-btn" *ngIf="activeData && !searchView" (click)="showEditModal()">Edit</button>
+                <div class="left-tree-wrapper">
+                    <imfx-controls-tree #tree
+                                        [extensions]="['filter']"
+                                        [ext_filter]="{autoExpand: true, mode: 'hide', highlight: false}"
+                                        [checkbox]="false"
+                                        [selectMode]="1"
+                                        [icon]="false"
+                                        [lazyLoadFn]="lazyLoadFn"
+                                        [compContext]="compContext"
+                                        [source]="mainData"
+                                        (onClick)="onSelect($event)"
+                    ></imfx-controls-tree>
+                </div>
+            </div>
+        </as-split-area>
+        <as-split-area
+            *ngIf="!searchView"
+            #containersSplit
+            class="color-bkgd-mid"
+            [size]="80"
+            [order]="1">
+            <div class="names-detail" *ngIf="mainData.length > 0;else noData">
+                <div class="tabs-wrapper">
+                    <div class="tab">Detail</div>
+                </div>
+                <div class="data" *ngIf="activeData != null;else selectName">
+                    <div class="fields-col">
+                        <div class="field-wrapper" *ngIf="activeData.EntityObject.ITEM_TYPE == 10">
+                            <span class="filed-label">{{'contacts.labels.compname' | translate}}</span>
+                            <div class="field-value" class="filed-value">{{activeData.NameObject.CNTCT_SURNAME_OR_CMPNY_NAME}}</div>
+                        </div>
+                        <div class="field-wrapper" *ngIf="activeData.EntityObject.ITEM_TYPE == 10">
+                            <span class="filed-label">{{'contacts.labels.compno' | translate}}</span>
+                            <div class="field-value" class="filed-value">{{activeData.EntityObject.COMPANY_NO}}</div>
+                        </div>
+                        <div class="field-wrapper" *ngIf="activeData.EntityObject.ITEM_TYPE != 10">
+                            <span class="filed-label">{{'contacts.labels.fname' | translate}}</span>
+                            <div class="field-value" class="filed-value">{{activeData.NameObject.CNTCT_FSTNAME}}</div>
+                        </div>
+                        <div class="field-wrapper" *ngIf="activeData.EntityObject.ITEM_TYPE != 10">
+                            <span class="filed-label">{{'contacts.labels.oname' | translate}}</span>
+                            <div class="field-value" class="filed-value">{{activeData.NameObject.CNTCT_OTHNMS}}</div>
+                        </div>
+                        <div class="field-wrapper" *ngIf="activeData.EntityObject.ITEM_TYPE != 10">
+                            <span class="filed-label">{{'contacts.labels.sname' | translate}}</span>
+                            <div class="field-value" class="filed-value">{{activeData.NameObject.CNTCT_SURNAME_OR_CMPNY_NAME}}</div>
+                        </div>
+                        <div class="field-wrapper" *ngIf="activeData.EntityObject.ITEM_TYPE != 10">
+                            <span class="filed-label">{{'contacts.labels.qualifier' | translate}}</span>
+                            <div class="field-value" class="filed-value">{{activeData.NameObject.CNTCT_SUFFIX}}</div>
+                        </div>
+                        <div class="field-wrapper">
+                            <span class="filed-label">{{'contacts.labels.email' | translate}} 1</span>
+                            <div class="field-value" class="filed-value">{{activeData.EntityObject.EMAIL1}}</div>
+                        </div>
+                        <div class="field-wrapper">
+                            <span class="filed-label">{{'contacts.labels.email' | translate}} 2</span>
+                            <div class="field-value" class="filed-value">{{activeData.EntityObject.EMAIL2}}</div>
+                        </div>
+                        <div class="field-wrapper">
+                            <span class="filed-label">{{'contacts.labels.email' | translate}} 3</span>
+                            <div class="field-value" class="filed-value">{{activeData.EntityObject.EMAIL3}}</div>
+                        </div>
+                        <div class="field-wrapper">
+                            <span class="filed-label">{{'contacts.labels.email' | translate}} 4</span>
+                            <div class="field-value" class="filed-value">{{activeData.EntityObject.EMAIL4}}</div>
+                        </div>
+                        <div class="field-wrapper">
+                            <span class="filed-label">{{'contacts.labels.site' | translate}}</span>
+                            <div class="field-value" class="filed-value">{{activeData.EntityObject.WEB1}}</div>
+                        </div>
+                        <div class="field-wrapper">
+                            <span class="filed-label">{{'contacts.labels.phone' | translate}} 1</span>
+                            <div class="field-value" class="filed-value">{{activeData.EntityObject.PHONE1}}</div>
+                        </div>
+                        <div class="field-wrapper">
+                            <span class="filed-label">{{'contacts.labels.phone' | translate}} 2</span>
+                            <div class="field-value" class="filed-value">{{activeData.EntityObject.PHONE2}}</div>
+                        </div>
+                        <div class="field-wrapper">
+                            <span class="filed-label">{{'contacts.labels.fax' | translate}}</span>
+                            <div class="field-value" class="filed-value">{{activeData.EntityObject.FAX}}</div>
+                        </div>
+                        <div class="field-wrapper">
+                            <span class="filed-label">{{'contacts.labels.mphone' | translate}}</span>
+                            <div class="field-value" class="filed-value">{{activeData.EntityObject.MOBILE}}</div>
+                        </div>
+                    </div>
+                    <div class="fields-col">
+                        <div class="field-wrapper" *ngIf="activeData.EntityObject.ITEM_TYPE != 10">
+                            <span class="filed-label">{{'contacts.labels.title' | translate}}</span>
+                            <div class="field-value" class="filed-value">{{activeData.NameObject.CNTCT_TTL}}</div>
+                        </div>
+                        <div class="field-wrapper head-wrapper" *ngIf="activeData.EntityObject.ITEM_TYPE != 10">
+                            <div class="header">{{'contacts.labels.addr' | translate}}</div>
+                            <div class="line"></div>
+                        </div>
+                        <div class="field-wrapper">
+                            <span class="filed-label">{{'contacts.labels.addr' | translate}}</span>
+                            <div class="field-value" class="filed-value">{{activeData.EntityObject.ADDR}}</div>
+                        </div>
+                        <div class="field-wrapper">
+                            <span class="filed-label">{{'contacts.labels.city' | translate}}</span>
+                            <div class="field-value" class="filed-value">{{activeData.EntityObject.CITY}}</div>
+                        </div>
+                        <div class="field-wrapper">
+                            <span class="filed-label">{{'contacts.labels.state' | translate}}</span>
+                            <div class="field-value" class="filed-value">{{activeData.EntityObject.STATE}}</div>
+                        </div>
+                        <div class="field-wrapper">
+                            <span class="filed-label">{{'contacts.labels.country' | translate}}</span>
+                            <div class="field-value" class="filed-value">{{getCountry(activeData.EntityObject.COUNTRY_ID)}}</div>
+                        </div>
+                        <div class="field-wrapper">
+                            <span class="filed-label">{{'contacts.labels.pcode' | translate}}</span>
+                            <div class="field-value" class="filed-value">{{activeData.EntityObject.POSTCODE}}</div>
+                        </div>
+                        <div class="field-wrapper head-wrapper">
+                            <div class="header">Delivery</div>
+                            <div class="line"></div>
+                        </div>
+                        <div class="field-wrapper">
+                            <span class="filed-label">{{'contacts.labels.daddr' | translate}}</span>
+                            <div class="field-value" class="filed-value">{{activeData.EntityObject.DELIVERY_ADDRESS}}</div>
+                        </div>
+                        <div class="field-wrapper">
+                            <span class="filed-label">{{'contacts.labels.dcity' | translate}}</span>
+                            <div class="field-value" class="filed-value">{{activeData.EntityObject.DELIVERY_CITY}}</div>
+                        </div>
+                        <div class="field-wrapper">
+                            <span class="filed-label">{{'contacts.labels.dstate' | translate}}</span>
+                            <div class="field-value" class="filed-value">{{activeData.EntityObject.DELIVERY_STATE}}</div>
+                        </div>
+                        <div class="field-wrapper">
+                            <span class="filed-label">{{'contacts.labels.dcountry' | translate}}</span>
+                            <div class="field-value" class="filed-value">{{getCountry(activeData.EntityObject.DELIVERY_COUNTRY)}}</div>
+                        </div>
+                        <div class="field-wrapper">
+                            <span class="filed-label">{{'contacts.labels.dpcode' | translate}}</span>
+                            <div class="field-value" class="filed-value">{{activeData.EntityObject.DELIVERY_POSTCODE}}</div>
+                        </div>
+                    </div>
+                </div>
+                <ng-template #selectName>
+                    <div class="data empty">
+                        <span>You must select name</span>
+                    </div>
+                </ng-template>
+
+                <div class="overlay-wrapper" #detailOverlayWrapper>
+                    <div class="spinner small"></div>
+                </div>
+            </div>
+        </as-split-area>
+    </as-split>
+
+    <ng-template #noData>
+        <div class="no-data">
+            <span>No data for this search</span>
+        </div>
+    </ng-template>
+
+    <div class="overlay-wrapper" #overlayWrapper>
+        <div class="spinner small"></div>
+    </div>
+</div>

@@ -1,0 +1,78 @@
+<div class="export" #overlayWrapper>
+    <overlay #overlayExport></overlay>
+    <div class="status-row">
+        <div class="step first" [ngClass]="{'done': currentStep >= 0, 'current': currentStep == 0}">
+            <span class="step-title">{{'export.select_format'|translate}}</span>
+            <span class="step-circle"></span>
+            <span class="step-line"></span>
+        </div>
+        <div class="step third" [ngClass]="{'done': currentStep >= 1, 'last': currentStep == 1}">
+            <span class="step-title">{{'export.finished'|translate}}</span>
+            <span class="step-circle"></span>
+        </div>
+    </div>
+    <div class="wizard-steps">
+        <div class="panel notification warning row-header inline" *ngIf="errorMsg">
+            <p>{{errorMsg}}</p>
+        </div>
+        <div class="step-content formats" *ngIf="currentStep == 0">
+            <div class="formats-wrapper">
+                <!--<div class="panel notification warning row-header inline" *ngIf="errorMsg">-->
+                    <!--<p>{{errorMsg}}</p>-->
+                <!--</div>-->
+                <div *ngFor="let format of formats; let i=index">
+                    <p class="format-item">
+                        <input type="radio"
+                                id="radio_{{i}}"
+                                (click)="setFormat(format.name)"
+                                [checked]="format.name==selectedFormat"
+                                [value]="format.name"
+                                name="radiogroup">
+                        <label for="radio_{{i}}">
+                            {{format.name}}
+                        </label>
+                    </p>
+                </div>
+                <hr>
+                <p class="format-item">
+                    <input type="radio" [value]="true" (click)="isAll(true)" [checked]="isAllExport"
+                            id="radio-1">
+                    <label for="radio-1">{{ 'export.all_pages' | translate }}</label>
+                </p>
+                <p class="format-item">
+                    <input type="radio" [value]="false" (click)="isAll(false)" [checked]="!isAllExport"
+                            id="radio-2">
+                    <label for="radio-2">{{ 'export.current_page'| translate }}</label>
+                </p>
+            </div>
+        </div>
+        <div class="step-content result" *ngIf="currentStep == 1">
+            <div class="success-wrapper">
+
+
+                <div class="result-wrapper">
+                    <i class="icon result-icon icons-statusgreen"></i>
+                    {{'export.success'|translate}}
+                </div>
+
+                <!--/-->
+                <!--<button class="">{{'export.open_in_viewer'|translate}}</button>-->
+            </div>
+        </div>
+    </div>
+
+    <ng-template #modalFooterTemplate>
+        <div class="modal-footer">
+            <div class="buttons" *ngIf="currentStep == 0">
+                <button style="float: right;" class="next primary" (click)="goToNextStep()">{{'export.generate'|translate}}</button>
+            </div>
+            <div class="buttons" *ngIf="currentStep == 1">
+                <button class="back" style="float: left;" (click)="goToPreviousStep()">{{'export.prev'|translate}}
+                </button>
+                <button (click)="downloadFile()" class="primary" style="float: right;">
+                    {{'export.download'|translate}}
+                </button>
+            </div>
+        </div>
+    </ng-template>
+</div>

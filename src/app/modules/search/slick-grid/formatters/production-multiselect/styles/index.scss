@@ -1,0 +1,50 @@
+@import "../../../../../../views/base/styles/theme";
+
+@each $key,
+$value in $common-themes {
+  .#{$key} {
+    .slick-cell {
+
+      .production-status-wrapper {
+        display: flex;
+        .completed {
+          color: getThemeColor(12, $key) !important;
+        }
+        .rejected {
+          color: #bd0606 !important;
+        }
+        .started {
+          color: #137777 !important;
+        }
+        .failed, .aborted {
+          color: getThemeColor(13, $key) !important;
+        }
+        .wish {
+          color: getThemeColor(7, $key) !important;
+        }
+
+        .restarted {
+          color: #873EAD !important;
+        }
+
+        .in-production {
+          color: #0FAEB0 !important;
+        }
+
+        .publishing-edl {
+          color: #5a7b73 !important;
+        }
+
+        i:before {
+          font-size: 24px;
+        }
+        .icon {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 17px;
+        }
+      }
+    }
+  }
+}

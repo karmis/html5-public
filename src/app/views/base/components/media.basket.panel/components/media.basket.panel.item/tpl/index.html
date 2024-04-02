@@ -1,0 +1,12 @@
+<div class="thumb">
+  <thumb-component [params]="{'data':item}" [disablePlayer]="true"></thumb-component>
+</div>
+<div>
+  <h4 (click)="goToDetail()" class="item-name">{{item.FullTitle || item.TITLE || item.FULL_TITLE}}</h4>
+  <p>{{item.DURATION_text}} {{item.ITEM_TYPE_text}}</p>
+  <p>{{item.VERSIONID1}}</p>
+  <p *ngIf="item.SY_BCODE">Barcode: {{item.SY_BCODE}}</p>
+</div>
+<button class="icon-button delete" title="{{ 'consumer.remove_from_basket' | translate }}" (click)="remove($event);">
+<i class="icons-cross icon"></i>
+</button>

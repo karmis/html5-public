@@ -1,0 +1,33 @@
+<div class="choosing-rows-wrapper">
+    <div class="main-choosing-rows-wrapper">
+        <input class="data-filter"
+               type="text"
+               placeholder="{{'common.just_filter_placeholder' | translate}}"
+               #dataFilter
+               (keyup)="filterData($event.target.value)"/>
+        <div class="clear-filter" (click)="clearFilter()">
+            <i class="icons-cross icon"></i>
+        </div>
+        <div class="choosing-table-wrapper">
+            <div *ngFor="let item of filteredRows; let i = index"
+                 class="tab-row"
+                 [ngClass]="{'selected': getSelectedRowById(item[primaryKeyField])}"
+                 (click)="processRowClick(item, $event, i)">
+                <div class="item noselect" title="{{item[displayField]}}">{{item[displayField]}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="overlay-wrapper" #modalDataOverlayWrapper>
+        <div class="spinner"></div>
+    </div>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div>
+            <button type="button" style="float: left;" (click)="setSelectedRows([])">{{'base.clear'| translate}}</button>
+            <button type="button"  (click)="closeModal()">{{'common.cancel'| translate}}</button>
+            <button type="button" (click)="saveData()">{{'common.save'| translate}}</button>
+        </div>
+    </div>
+</ng-template>

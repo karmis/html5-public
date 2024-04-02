@@ -1,0 +1,153 @@
+@import "../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .video-js .vjs-slider:focus {
+            text-shadow: none;
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none;
+        }
+
+        .simple-mode {
+            .vjs-default-skin {
+                .vjs-progress-control {
+                    top: 0px !important;
+                }
+            }
+        }
+        .base-player-mode {
+            .vjs-default-skin {
+                .vjs-progress-control {
+                    height: 9px;
+                    top: -9px;
+                    .vjs-progress-holder .vjs-load-progress, .vjs-progress-holder.vjs-slider-horizontal, .vjs-progress-holder.vjs-slider-horizontal:hover, .vjs-play-progress.vjs-slider-bar, .vjs-progress-holder .vjs-load-progress div {
+                        height: 9px !important;
+                    }
+                }
+                .vjs-progress-holder.vjs-slider.vjs-slider-horizontal {
+                    margin: 0 !important;
+                }
+                .vjs-marker:before, .vjs-marker:after {
+                    font-size: 10px;
+                }
+            }
+        }
+        .player-wrapper:not(.base-player-mode) .vjs-play-progress:before {
+            width: 18px !important;
+            height: 18px !important;
+            right: -9px !important;
+        }
+        .vjs-default-skin {
+            .vjs-progress-control {
+                position: absolute;
+                left: 0;
+                right: 0;
+                width: auto;
+                height: 15px;
+                z-index: 10;
+                transition: none;
+                margin: auto;
+                top: -15px;
+                box-sizing: content-box;
+                border-bottom-width: 32px;
+                border-bottom-color: getThemeColor(4, $key) !important;
+                border-bottom-style: solid;
+
+                .vjs-progress-holder .vjs-load-progress, .vjs-progress-holder.vjs-slider-horizontal, .vjs-progress-holder.vjs-slider-horizontal:hover, .vjs-play-progress.vjs-slider-bar, .vjs-progress-holder .vjs-load-progress div {
+                    height: 15px !important;
+                }
+                .vjs-progress-holder.vjs-slider-horizontal {
+                    margin: 0;
+                }
+                .vjs-play-progress {
+                    background-color: getThemeColor(10, $key);
+                    height: 100%;
+                }
+                &:hover .vjs-play-progress:after {
+                    display: none;
+                }
+                .vjs-thumbnail-full {
+                    display: none;
+                    position: absolute;
+                    overflow: hidden;
+                    width: 100%;
+                    height: 40px;
+                    bottom: 2em;
+                    img {
+                        position: absolute;
+                        height: 40px;
+                        left: -500px;
+                    }
+                }
+                .vjs-thumbnail-audio-wave {
+                    display: none;
+                    position: absolute;
+                    overflow: hidden;
+                    width: 100%;
+                    bottom: 1em;
+                    img {
+                        position: absolute;
+                        left: -500px;
+                    }
+                }
+            }
+            .vjs-mouse-display .vjs-mouse-display-text {
+                top: -22px;
+                right: -44px;
+                padding: 4px 4px;
+                border-radius: 0px;
+                width: 80px;
+                height: 14px;
+                line-height: 14px;
+                position: absolute;
+                pointer-events: auto !important;
+                color: #fff;
+                background-color: #000;
+                background-color: rgba(0, 0, 0, .8);
+                font-family: sinkin_sans400_regular, Roboto, sans-serif;
+                font-size: 12px;
+            }
+            .vjs-mouse-display:after {
+                display: none;
+            }
+            .vjs-mouse-display-chunk-number {
+                top: -44px;
+                right: -44px;
+                padding: 4px 4px;
+                border-radius: 0px;
+                width: 80px;
+                height: 14px;
+                line-height: 14px;
+                position: absolute;
+                pointer-events: auto !important;
+                color: #fff;
+                background-color: #000;
+                background-color: rgba(0, 0, 0, .8);
+                font-family: sinkin_sans400_regular, Roboto, sans-serif;
+                font-size: 12px;
+            }
+            .vjs-mouse-display-file-name {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                top: -66px;
+                right: -44px;
+                width: 80px;
+                height: 14px;
+                padding: 4px 4px;
+                border-radius: 0px;
+                line-height: 16px;
+                position: absolute;
+                pointer-events: auto !important;
+                color: #fff;
+                background-color: #000;
+                background-color: rgba(0, 0, 0, .8);
+                font-family: sinkin_sans400_regular, Roboto, sans-serif;
+                font-size: 12px;
+            }
+        }
+        .vjs-live .vjs-progress-control {
+            display: flex!important;
+        }
+    }
+}

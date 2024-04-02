@@ -1,0 +1,8 @@
+<div class="queues-formatter-wrapper">
+    <div *ngFor="let item of data" [ngClass]="{'disabled':!item.IsEnabled}">
+        <span class="id" title="{{item.ID}}">ID:{{item.ID}}</span>
+        <span class="size" title="{{item.Size}}"> Size:{{item.Size}}</span>
+        <span class="enabled" title="{{(item.IsEnabled ? 'Enabled' : 'Disabled')}}"> {{(item.IsEnabled ? "Enabled" : "Disabled")}}</span>
+        <span class="name" *ngIf="item.Name != null && item.Name.length > 0" title="{{item.Name}}">Name:{{item.Name}}</span>
+    </div>
+</div>

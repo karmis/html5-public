@@ -1,0 +1,17 @@
+<div class="protimeline-additional-buttons">
+    <button (click)="addClip()" class="add-clip" title="Add Clip" [disabled]="readOnly">
+        <i class="icons-add icon"></i>
+        Add Clip
+    </button>
+    <button (click)="replaceClip()" class="replace-clip" [disabled]="disableReplaceBnt() || readOnly" title="{{ 'media_logger.replace_in_out_hint' | translate }}">
+        <i class="fa fa-edit"></i>
+        {{ 'media_logger.replace_in_out' | translate }}
+    </button>
+    <button (click)="removeClip()" class="replace-clip" [disabled]="disableReplaceBnt() || readOnly" title="Remove Clip">
+        <i class="fa fa-edit"></i>
+        Remove Clip
+    </button>
+</div>
+<div class="protimeline-additional-wrapper">
+    <imfx-pro-timeline #timeline></imfx-pro-timeline>
+</div>

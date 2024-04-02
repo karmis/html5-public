@@ -1,0 +1,176 @@
+<div class="modal-wrapper">
+    <div class="main-data">
+        <div class="field-wrapper">
+            <div class="label">{{'cachemanager.ct.template_name' | translate}}</div>
+            <input type="text" [(ngModel)]="itemData.NAME"/>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="field-wrapper">
+                    <div class="label">{{'cachemanager.ct.active' | translate}}</div>
+                    <input type="checkbox" [ngModel]="itemData.ACTIVE" (ngModelChange)="onUpdateControl('checkbox', 'ACTIVE', $event)" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="field-wrapper">
+                    <div class="label">{{'cachemanager.ct.never_replace' | translate}}</div>
+                    <input type="checkbox" [ngModel]="itemData.NEVER_REPLACE" (ngModelChange)="onUpdateControl('checkbox', 'NEVER_REPLACE', $event)" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="field-wrapper">
+                    <div class="label">{{'cachemanager.ct.move_fully_before_misr' | translate}}</div>
+                    <input type="checkbox" [ngModel]="itemData.MISR_PART_MOVE" (ngModelChange)="onUpdateControl('checkbox', 'MISR_PART_MOVE', $event)" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="field-wrapper">
+                    <div class="label">{{'cachemanager.ct.inc_comps' | translate}}</div>
+                    <input type="checkbox" [ngModel]="itemData.COMPONENTS" (ngModelChange)="onUpdateControl('checkbox', 'COMPONENTS', $event)" />
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="field-wrapper">
+                    <div class="label">{{'cachemanager.ct.tx_period' | translate}}</div>
+                    <input type="text"
+                           title="TX Period in hours (mandatory)"
+                           digitOnly
+                           [(ngModel)]="itemData.TX_PERIOD"/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="field-wrapper">
+                    <div class="label">{{'cachemanager.ct.tx_period' | translate}}
+                        ({{'cachemanager.ct.inc_comps' | translate}})
+                    </div>
+                    <input type="text"
+                           title="Components TX Period in hours"
+                           digitOnly
+                           [(ngModel)]="itemData.COMP_TX_PERIOD"/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="field-wrapper">
+                    <div class="label">{{'cachemanager.ct.hiatus' | translate}}</div>
+                    <input type="text"
+                           title="Hiatus in hours (mandatory)"
+                           digitOnly
+                           [(ngModel)]="itemData.HIATUS"/>
+                </div>
+                <div class="field-wrapper">
+                    <div class="label">{{'cachemanager.ct.ignore_not_in_cache' | translate}}</div>
+                    <input type="checkbox" [ngModel]="itemData.IGNORE_HIATUS" (ngModelChange)="onUpdateControl('checkbox', 'IGNORE_HIATUS', $event)" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="field-wrapper">
+                    <div class="label">{{'cachemanager.ct.hiatus' | translate}}
+                        ({{'cachemanager.ct.inc_comps' | translate}})
+                    </div>
+                    <input type="text"
+                           title="Components Hiatus in hours"
+                           digitOnly
+                           [(ngModel)]="itemData.COMP_HIATUS"/>
+                </div>
+                <div class="field-wrapper">
+                    <div class="label">{{'cachemanager.ct.ignore_not_in_cache' | translate}}
+                        ({{'cachemanager.ct.inc_comps' | translate}})
+                    </div>
+                    <input type="checkbox" [ngModel]="itemData.COMP_IGNORE_HIATUS" (ngModelChange)="onUpdateControl('checkbox', 'COMP_IGNORE_HIATUS', $event)" />
+                </div>
+            </div>
+        </div>
+
+        <div class="field-wrapper">
+            <collection-lookup
+                #formatControl
+                [title]="'Format'"
+                [titleColWidth]="'210px'"
+                [controlColWidth]="'100%'"
+                [placeholder]="'base.selectOoo'|translate"
+                [placeholderRefToTranslate]="'base.selectOoo'"
+                [idField]="'FORMATS'"
+                [count]="null"
+                [minLimit]="0"
+                (onUpdateControl)="onUpdateControl('formatControl', 'FORMATS', $event)"
+            ></collection-lookup>
+        </div>
+
+        <div class="field-wrapper">
+            <collection-lookup
+                #sourceDefinitionControl
+                [title]="'Definition'"
+                [titleColWidth]="'210px'"
+                [controlColWidth]="'100%'"
+                [placeholder]="'base.selectOoo'|translate"
+                [placeholderRefToTranslate]="'base.selectOoo'"
+                [idField]="'VideoDefinitions'"
+                [count]="null"
+                [minLimit]="0"
+                (onUpdateControl)="onUpdateControl('sourceDefinitionControl', 'VideoDefinitions', $event)"
+            ></collection-lookup>
+        </div>
+
+        <div class="field-wrapper">
+            <collection-lookup
+                #destinationDeviceControl
+                [title]="'Destination Devices'"
+                [titleColWidth]="'210px'"
+                [controlColWidth]="'100%'"
+                [placeholder]="'base.selectOoo'|translate"
+                [placeholderRefToTranslate]="'base.selectOoo'"
+                [idField]="'DestDevices'"
+                [count]="null"
+                [minLimit]="0"
+                (onUpdateControl)="onUpdateControl('destinationDeviceControl', 'DestDevices', $event)"
+            ></collection-lookup>
+        </div>
+
+        <div class="field-wrapper">
+            <collection-lookup
+                #sourceDeviceControl
+                [title]="'Source Devices'"
+                [titleColWidth]="'210px'"
+                [controlColWidth]="'100%'"
+                [placeholder]="'base.selectOoo'|translate"
+                [placeholderRefToTranslate]="'base.selectOoo'"
+                [idField]="'SrcDevices'"
+                [count]="null"
+                [minLimit]="0"
+                (onUpdateControl)="onUpdateControl('sourceDeviceControl', 'SrcDevices', $event)"
+            ></collection-lookup>
+        </div>
+
+        <div class="field-wrapper">
+            <collection-lookup
+                #sourceDevicePromoControl
+                [title]="'Source Devices Promo'"
+                [titleColWidth]="'210px'"
+                [controlColWidth]="'100%'"
+                [placeholder]="'base.selectOoo'|translate"
+                [placeholderRefToTranslate]="'base.selectOoo'"
+                [idField]="'SrcDevicesPromo'"
+                [count]="null"
+                [minLimit]="0"
+                (onUpdateControl)="onUpdateControl('sourceDevicePromoControl', 'SrcDevicesPromo', $event)"
+            ></collection-lookup>
+        </div>
+        <div class="overlay-wrapper" #modalWrapperEl>
+            <div class="spinner"></div>
+        </div>
+    </div>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div>
+            <button type="button" (click)="closeModal()">{{'common.cancel'| translate}}</button>
+            <button type="button primary" [disabled]="!isValid()" (click)="saveData()">{{'common.save'| translate}}</button>
+        </div>
+    </div>
+</ng-template>

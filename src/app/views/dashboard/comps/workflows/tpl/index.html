@@ -1,0 +1,9 @@
+<div class="full-height full-width dashboard-workflows-wrapper" #workflowtable>
+    <div id="externalWrapperWFDash" style="height: 100%;">
+        <slick-grid #wfBoardTable
+                    [ngClass]="{'standalone': standalone}"
+                    [config]="gridOptions">
+        </slick-grid>
+    </div>
+</div>
+<overlay #overlay></overlay>

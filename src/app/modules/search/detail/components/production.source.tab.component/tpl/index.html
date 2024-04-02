@@ -1,0 +1,74 @@
+<as-split
+        [direction]="'horizontal'">
+    <!--Adv search and recent search-->
+    <as-split-area>
+        <as-split
+                [direction]="'horizontal'">
+            <as-split-area>
+                <div class="source-tab-col">
+                    <div class="source-tab-col__title">
+                        Global {{typeGrids}}
+                        <div class="source-tab-col__title-right">
+
+                            <search-views
+                                    [rightSidePosition]="true"
+                                    *ngIf="gridGlobal && searchViewsConfig"
+                                    [config]="searchViewsConfig"
+                                    [gridProviders]="[getProviders()[0]]"
+                            ></search-views>
+
+                            <search-settings
+                                    *ngIf="gridGlobal && gridGlobalSettingsConfig"
+                                    [config]="gridGlobalSettingsConfig"
+                                    [gridProviders]="[getProviders()[0]]"
+                            ></search-settings>
+                            <button class="add-item" (click)="showMediaTable(typeGrids, 'production')">
+                                Add {{typeGrids}} To Production
+                            </button>
+                        </div>
+                    </div>
+                    <div class="source-tab-col__table">
+                        <slick-grid #gridGlobal
+                                    *ngIf="gridGlobalConfig"
+                                    class="small-height-header"
+                                    [config]="gridGlobalConfig">
+                        </slick-grid>
+                    </div>
+                </div>
+            </as-split-area>
+            <as-split-area>
+                <div class="source-tab-col">
+                    <div class="source-tab-col__title">
+                        Item {{typeGrids}}
+
+                        <div class="source-tab-col__title-right">
+
+                            <search-views
+                                    [rightSidePosition]="true"
+                                    *ngIf="gridItem && gridItemViewsConfig"
+                                    [config]="gridItemViewsConfig"
+                                    [gridProviders]="[getProviders()[1]]"
+                            ></search-views>
+                            <search-settings
+                                    *ngIf="gridItem && gridItemSettingsConfig"
+                                    [config]="gridItemSettingsConfig"
+                                    [gridProviders]="[getProviders()[1]]"
+                            ></search-settings>
+                            <button class="add-item" [disabled]="isDisabledItemBtn"
+                                    (click)="showMediaTable(typeGrids, 'item')">
+                                Add {{typeGrids}} To Item
+                            </button>
+                        </div>
+                    </div>
+                    <div class="source-tab-col__table">
+                        <slick-grid #gridItem
+                                    *ngIf="gridItemConfig"
+                                    class="small-height-header"
+                                    [config]="gridItemConfig">
+                        </slick-grid>
+                    </div>
+                </div>
+            </as-split-area>
+        </as-split>
+    </as-split-area>
+</as-split>

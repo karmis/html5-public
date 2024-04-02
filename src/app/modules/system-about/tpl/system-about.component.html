@@ -1,0 +1,31 @@
+<div class="about-system">
+    <div class="modal-body type-normal">
+        <div id="externalWrapperSubPacSlickGridForInfoPanel" [hidden]="activePackageLicenseText != null"
+             class="external-wrapper-grid">
+            <slick-grid #slickGridComp
+                        class="attachment-grid vertical-align-row small-height-header"
+                        [config]="gridConfig">
+            </slick-grid>
+        </div>
+        <div [hidden]="activePackageLicenseText == null"
+             class="license-details-wrapper">
+            <div class="back-license-button" (click)="backFromLicense()">
+                <i class="icons-left icon"></i>
+            </div>
+            <div class="full-license-text">
+                {{activePackageLicenseText}}
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer-container">
+        <div class="modal-footer">
+            <div class="buttons">
+                <button type="button"
+                        class="primary right"
+                        (click)="onOk()">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

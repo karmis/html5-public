@@ -1,0 +1,135 @@
+<div class="production-list-tab">
+    <div class="production-list-tab__wrap">
+        <make-items-control class="production-list-tab__head" [slickGridComp]="slickGridMakeItemsComp"></make-items-control>
+        <div class="production-list-tab__row">
+            <as-split [direction]="'horizontal'">
+                <as-split-area>
+                    <as-split [direction]="'horizontal'">
+                        <as-split-area [size]="80">
+                            <div class="production-list-tab__col production-list-tab__col-left">
+                                <div class="production-list-table">
+                                    <slick-grid #slickGridMakeItemsComp
+                                                class="small-height-header"
+                                                [config]="gridConfigMakeItems">
+                                    </slick-grid>
+                                </div>
+                            </div>
+                        </as-split-area>
+                        <as-split-area>
+                            <div class="production-list-tab__col production-list-tab__col-right">
+                                <as-split [direction]="'vertical'">
+                                    <as-split-area>
+
+                                        <div class="production-list-tab__top">
+                                            <slick-grid #slickGridMadeItemsComp
+                                                        class="small-height-header"
+                                                        [config]="gridConfigMadeItems">
+                                            </slick-grid>
+                                        </div>
+                                    </as-split-area>
+                                    <as-split-area>
+                                        <div class="production-list-tab__bottom">
+                                            <tabset>
+                                                <tab [heading]="'production.workflows' | translate" [disabled]="!workflowsData.length">
+                                                    <div class="table-bottom__grid" [hidden]="!workflowsData.length">
+                                                        <production-table-tab [typeGrids]="'workflows'"
+                                                                              [data]="workflowsData"></production-table-tab>
+                                                    </div>
+                                                </tab>
+                                                <tab [heading]="'production.history' | translate" [disabled]="!historyData.length">
+                                                    <div class="table-bottom__grid" [hidden]="!historyData.length">
+                                                        <production-table-tab [typeGrids]="'history'"
+                                                                              [data]="historyData"></production-table-tab>
+                                                    </div>
+                                                </tab>
+                                                <tab [heading]="'production.segments' | translate" [disabled]="!segmentsData.length">
+                                                    <div class="table-bottom__grid" [hidden]="!segmentsData.length">
+                                                        <production-table-tab [typeGrids]="'segments'"
+                                                                              [data]="segmentsData"></production-table-tab>
+                                                    </div>
+                                                </tab>
+                                                <tab [heading]="'production.events' | translate" [disabled]="!eventsData.length">
+                                                    <div class="table-bottom__grid" [hidden]="!eventsData.length">
+                                                        <production-table-tab [typeGrids]="'segments'"
+                                                                              [data]="eventsData"></production-table-tab>
+                                                    </div>
+                                                </tab>
+                                                <tab [heading]="'production.audio_shot' | translate" [disabled]="!isMadeItemSelected">
+                                                    <div class="table-bottom__grid" [hidden]="!isMadeItemSelected">
+                                                        <div class="audio-tab-col">
+                                                            <div class="audio-tab-col__title">
+                                                                <button class="add-item" (click)="onAddAudio()">
+                                                                    Add
+                                                                </button>
+                                                            </div>
+                                                            <div class="audio-tab-col__table">
+                                                                <slick-grid #slickGridAudioComp
+                                                                            class="small-height-header"
+                                                                            [config]="gridConfigAudio">
+                                                                </slick-grid>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </tab>
+                                                <tab [heading]="'production.subs' | translate" [disabled]="!isMadeItemSelected">
+                                                    <div class="table-bottom__grid" [hidden]="!isMadeItemSelected">
+                                                        <div class="audio-tab-col">
+                                                            <div class="audio-tab-col__title">
+                                                                <button class="add-item" (click)="onAddSubtitles()">
+                                                                    Add
+                                                                </button>
+                                                            </div>
+                                                            <div class="audio-tab-col__table">
+                                                                <slick-grid #slickGridSubtitlesComp
+                                                                            class="small-height-header"
+                                                                            [config]="gridConfigSubtitles">
+                                                                </slick-grid>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </tab>
+                                            </tabset>
+                                        </div>
+                                    </as-split-area>
+                                </as-split>
+                            </div>
+                        </as-split-area>
+                    </as-split>
+                </as-split-area>
+            </as-split>
+
+        </div>
+    </div>
+    <!--Settings dropdown-->
+    <div *ngIf="slickGridMakeItemsComp.isGridReady || slickGridMakeItemsComp && slickGridMakeItemsComp?.provider?.getSlick()"
+         class="dropdown grid-settings-dropdown mediaSettingsPopup media-item-ellipsis-dropdown-wrapper"
+         style="margin-top: 15px; margin-right: 15px; position: fixed; display: none;">
+        <ul style="display: block; top: 0%" class="dropdown-menu" [hidden]="slickGridMakeItemsComp.provider.isMultiSelectedItems()">
+            <li role="menuitem" *ngIf="showBtns.isFileUpload">
+                <a class="dropdown-item" (click)="openUpload()">
+                    File Upload
+                </a>
+            </li>
+<!--            <li role="menuitem" *ngIf="showBtns.isMakeAvidExplorer">-->
+<!--                <a class="dropdown-item" (click)="slickGridComp.provider.productionClone()">-->
+<!--                    Make Avid Explorer-->
+<!--                </a>-->
+<!--            </li>-->
+<!--            <li role="menuitem" *ngIf="showBtns.isMadeAvidExplorer">-->
+<!--                <a class="dropdown-item" (click)="slickGridComp.provider.productionClone()">-->
+<!--                    Made Avid Explorer-->
+<!--                </a>-->
+<!--            </li>-->
+            <li role="menuitem" *ngIf="showBtns.isOpenMediaRCE">
+                <a class="dropdown-item" (click)="slickGridMakeItemsComp.provider.goToMediaClipEditor()">
+                    Open Media in RCE
+                </a>
+            </li>
+<!--            <li role="menuitem" *ngIf="showBtns.isOpenMediaLogging">-->
+<!--                <a class="dropdown-item" (click)="slickGridComp.provider.goToMediaLogger()">-->
+<!--                    Open Media for Logging-->
+<!--                </a>-->
+<!--            </li>-->
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+<!--{{'media_status_modal.current_media_status'|translate}}: <br>-->
+<div class="pb-2" [ngClass]="{'error': error}">
+    <imfx-lookups-select2
+        #mediaStatusControl
+        [width]="'100%'"
+        [lookupType]="'MediaStatus'"
+        [placeholder]="'base.selectOoo'|translate"
+        [placeholderRefToTranslate]="'base.selectOoo'"
+        [validationEnabled]="false"
+    ></imfx-lookups-select2>
+</div>

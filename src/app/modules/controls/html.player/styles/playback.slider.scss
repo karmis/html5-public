@@ -1,0 +1,39 @@
+@import "../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .fbf-block {
+            display: flex;
+        }
+        .playback-slider-container {
+            //width: 50%;
+            label {
+                position: absolute;
+                width: 20px;
+                margin-left: -10px;
+                text-align: center;
+                margin-top: 12px;
+                color: getThemeColor(16, $key);
+                font-family: 'sinkin_sans400_regular', 'Roboto', sans-serif!important;
+                font-size: $basefontsize*2/3;
+            }
+            height: 8px;
+            background: #d4dae1;
+            display: inline-block;
+            width: 150px;
+            vertical-align: 1px;
+            position: relative;
+            margin: 0 8px;
+            color: rgba(51, 60, 69, 0.5);
+            left: 0;
+            right: 0;
+            text-align: justify;
+            border: none;
+            border-radius: 0;
+            &.disabled {
+                pointer-events: none;
+                opacity: 0.7;
+            }
+        }
+    }
+}

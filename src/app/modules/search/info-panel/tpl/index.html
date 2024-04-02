@@ -1,0 +1,144 @@
+<div #detailWrapper
+     [ngClass]="{'detail-page-wrapper': config.options.showInDetailPage, 'full-height': !config.options.showAccordions || (config.options.mediaParams.addMedia && config.options.mediaParams.mediaType != 'image'), 'ip-empty': !(!config.options.showInDetailPage && checkDetailExistance(config.options.file))}" style="overflow: hidden;">
+    <div #detailPage class="full-height-block full-height detail">
+        <div class="p-rel-h-full content-wrapper"
+             *ngIf="!config.options.showInDetailPage && checkDetailExistance(config.options.file)"
+             [ngClass]="{'imfx-row': config.options.showInDetailPage, 'prevent-player-from-scrolling': config.options.mediaParams.addMedia && config.options.mediaParams.mediaType != 'image'}"
+             [class.just-subtitles]="!config.options.showAccordions">
+            <!--<div class="media-block" *ngIf="config.options.mediaParams.addMedia" [ngSwitch]="config.options.mediaParams.mediaType">-->
+            <div class="media-block" [ngClass]="{'max-height-50': !showPlayer()}"
+                 *ngIf="config.options.mediaParams.addMedia && config.options.mediaParams.mediaType != 'livePlayer'">
+                <div class="full-height" *ngIf="showPlayer()">
+                    <html-player #detailVideo [isLive]="config.options.file.IsLive ? true : false"
+                                 [id]="config.options.file.ID" [src]="config.options.file.PROXY_URL"
+                                 [type]="config.options.file.MEDIA_TYPE" [typeDetails]="config.options.typeDetails"
+                                 [file]="config.options.file" [subtitles]="config.options.file.Subtitles"></html-player>
+                </div>
+                <!--<div class="full-height" *ngSwitchCase="'image'"> <img [src]="config.options.file.PROXY_URL" tmdfullimage/> </div>-->
+
+
+                <div class="img-wrapper" *ngIf="config.options.mediaParams.mediaType == 'image'">
+                    <img [src]="config.options.file.PROXY_URL" tmdfullimage class="media-deteil-img"/>
+                </div>
+            </div>
+            <div class="content-wrapper" *ngIf="config.options.mediaParams.mediaType == 'livePlayer'">
+                <div class="media-block live">
+                    <div class="full-height">
+                        <imfx-live-player [apiSrc]="config.options.file.PROXY_URL"></imfx-live-player>
+                    </div>
+                </div>
+            </div>
+            <div class="detail-sub-tabs-wrapper">
+                <div class="detail-sub-tabs-header" style="display: flex;">
+                    <div style="'position: relative;" [style.order]="(tabsOrder != null ? '' + tabsOrder[0] : '0')">
+                        <span
+                            (click)="toggleDetailActiveTab(0)"
+                            [ngClass]="{'active': activeTab == 0}">
+                            Info
+                        </span>
+                    </div>
+                    <div #subTitlesWrapperTab
+                         style="position: relative;"
+                         [style.order]="(tabsOrder != null ? '' + tabsOrder[1] : '0')"
+                         *ngIf="config.options.typeDetails == 'media-details' && (isMedia() || isSubtile())">
+                        <span
+                            (click)="toggleDetailActiveTab(1, true)"
+                            [ngClass]="{'active': activeTab == 1}">
+                            Timed Text
+                        </span>
+                        <div
+                            class="detil-subtab-overlay"
+                            #subTitlesOverlayTab>
+                            <div class="spinner small">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div #taggingWrapperTab style="position: relative;"
+                         [style.order]="(tabsOrder != null ? '' + tabsOrder[2] : '0')"
+                         *ngIf="config.options.typeDetails == 'media-details' && isMedia()">
+                        <span
+                            (click)="toggleDetailActiveTab(2, true)"
+                            [ngClass]="{'active': activeTab == 2}">
+                            Locators
+                        </span>
+                        <div class="detil-subtab-overlay" #taggingOverlayTab>
+                            <div class="spinner small"></div>
+                        </div>
+                    </div>
+                    <div #metadataWrapperTab style="position: relative;"
+                         [style.order]="(tabsOrder != null ? '' + tabsOrder[3] : '0')"
+                         *ngIf="config.options.typeDetails == 'media-details' && (isMedia() || isImage() || isAudio())">
+                        <span (click)="toggleDetailActiveTab(3, true)" [ngClass]="{'active': activeTab == 3}">Metadata</span>
+                        <div class="detil-subtab-overlay" #metadataOverlayTab>
+                            <div class="spinner small"></div>
+                        </div>
+                    </div>
+                </div>
+                <div [hidden]="activeTab != 0"
+                     class="detail-sub-tabs-content">
+                    <accordion-block #accordion
+                                     [file]="config.options.file"
+                                     [lookup]="config.options.friendlyNamesForDetail"
+                                     [columnData]="config.options.columnData"
+                                     [specifiedEndpointUrl]="config.options.specifiedEndpointUrl"
+                                     [parentSlickgridProvider]="provider.currentParentGridProvider"
+                    ></accordion-block>
+                </div>
+                <div [hidden]="activeTab != 1"
+                     *ngIf="config.options.typeDetails == 'media-details' && (isMedia() || isSubtile())"
+                     class="detail-sub-tabs-content"
+                     style="position: relative; overflow: hidden;">
+                    <div class="pac-subs-wrapper" #subTitlesWrapper style="height: 100%; width: 100%; position: relative; min-height: 100%">
+                        <div class="loadingoverlay" #subTitlesOverlay>
+                            <div class="spinner small"></div>
+                            <div class="overlay-text-inline">
+                                {{loadingSubtitlesMessage}}
+                            </div>
+                        </div>
+                        <subtitles-grid
+                            [hidden]="!(config.options.subtitles  && config.options.subtitles.length && !(this.config.options.mediaParams.mediaType == 'subtitle' && config.options.pacsubtitles && config.options.pacsubtitles.length))"
+                            [subtitles]="config.options.subtitles"
+                            [timecodeFormatString]="config.options.timecodeFormatString"
+                            [standalone]="config.options.showAccordions"
+                            [externalSearchText]="config.options.externalSearchTextForMark"
+                            #subtitlesGrid
+                            (selectSubtitle)="onSelectSubtitle($event)">
+                        </subtitles-grid>
+                        <subtitles-pac-grid
+                            [hidden]="!(this.config.options.mediaParams.mediaType == 'subtitle' && config.options.pacsubtitles && config.options.pacsubtitles.length)"
+                            [subtitles]="config.options.pacsubtitles"
+                            [timecodeFormatString]="config.options.timecodeFormatString" #subtitlesPacGrid></subtitles-pac-grid>
+                    </div>
+                </div>
+                <div [hidden]="activeTab != 2"
+                     *ngIf="config.options.typeDetails == 'media-details' && isMedia()"
+                     class="detail-sub-tabs-content"
+                     style="position: relative; overflow: hidden;" >
+                    <div class="loadingoverlay" #taggingOverlay>
+                        <div class="spinner small"></div>
+                        <div class="overlay-text-inline">
+                            Loading locators...
+                        </div>
+                    </div>
+                    <imfx-media-tagging-tab
+                        #mediaTagging
+                        [config]="mediaTaggingConfig"
+                        (onSetTaggingNode)="mediaTagging_onSetNode($event)"
+                        (onAfterReceiveMediaTagging)="mediaTagging_onAfterReceiveMediaTagging($event)">
+                    </imfx-media-tagging-tab>
+                </div>
+                <div [hidden]="activeTab != 3"
+                     class="detail-sub-tabs-content">
+                    <div class="loadingoverlay" #metadataOverlay>
+                        <div class="spinner small"></div>
+                        <div class="overlay-text-inline">
+                            Loading metadata...
+                        </div>
+                    </div>
+                    <panel-metadata #metadata></panel-metadata>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+@import "../../../base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+    .#{$key} {
+        forgot-password-form {
+            height: 100%;
+            display: block;
+            text-align: center;
+            a {
+                display: inline-block;
+                margin-top: 10px;
+                &:hover {
+                    color: getThemeColor(20, $key);
+                }
+            }
+
+            .forgot-password-container{
+                height: 0;
+                padding-top: 0;
+                overflow: hidden;
+                transition: all .2s ease-in-out;
+
+                &.visible {
+                    height: 94px;
+                    padding-top: .5rem;
+                }
+            }
+
+            .forgot-password-form {
+
+                label {
+                    width: 100%;
+                }
+                input {
+                    width: 100%;
+                    margin-top: .5rem;
+                }
+                button {
+                    margin-top: 8px;
+                }
+            }
+
+            .loader-login {
+                border: 4px solid getThemeColor(30, $key);
+                border-top: 4px solid getThemeColor(31, $key);
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+                transform-origin: 50% 50%;
+                transform: rotate(0deg);
+                width: 3px !important;
+            }
+
+            button>.loader-login {
+                display: inline-block;
+                padding: 4px 0 4px 12px;
+            }
+        }
+
+    }
+}
+
+
+

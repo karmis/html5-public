@@ -1,0 +1,73 @@
+@import "../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .order-presets-grouped-wrapper {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            input {
+                width: 100%;
+                height: 32px !important;
+                flex: 0 0 32px;
+            }
+            .js-scrollbar-target-adv-modal-user {
+                flex: 1;
+                overflow: auto;
+            }
+            span.fancytree-node {
+                &:not(.fancytree-active):hover {
+                    background-color: getThemeColor(5, $key);
+                }
+
+                &.fancytree-exp-n, &.fancytree-exp-nl, &.fancytree-exp-cl  {
+                    span.fancytree-expander {
+                        width: 6px;
+                        margin-left: 5px;
+                    }
+                }
+
+                span.fancytree-expander {
+                    margin-right: 0;
+                    opacity: .8;
+                }
+
+                span.fancytree-title {
+                    margin: 0;
+                    padding: 0 2px;
+                }
+            }
+
+            .fancy-preset-prefix{
+                width: 6px;
+                height: 6px;
+                display: inline-block;
+                vertical-align: bottom;
+                border: 3px solid transparent;
+                border-top-color: transparent !important;
+                border-right-color: transparent !important;
+            }
+            .overlay-wrapper {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: getThemeColor(3, $key);
+                overflow: hidden;
+                z-index: 5;
+
+                .spinner {
+                    width: 80px;
+                    height: 80px;
+                    border-width: 8px;
+                    margin: 0 auto;
+                    position: relative;
+                    top: calc(50% - 40px);
+                }
+            }
+        }
+    }
+}

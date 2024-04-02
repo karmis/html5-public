@@ -1,0 +1,37 @@
+<div class="or-divider"
+     *ngIf="group.id != 0">
+    <span>
+        {{ 'base.or' | translate }}
+    </span>
+</div>
+<div class="criteria-group">
+    <nav>
+        <div *ngFor="let criteria of group.criterias; let i = index;" class="clearfix criteria-group-item">
+            <advanced-criteria-builder
+                    #criteriaModule
+                    [mode]="mode"
+                    [criteria]="criteria"
+                    [groupId]="group.id"
+                    [common]="common"
+                    (onRemoveCriteria)="removeCriteria($event)"
+                    (onUpdateCriteria)="updateCriteria($event)"></advanced-criteria-builder>
+        </div>
+    </nav>
+
+    <div class="bottom-block nav">
+        <div>
+            <button class="test-advanced-searching-button-add-criteria-builder"
+                    (click)="addCriteria()"
+                    title="{{ 'common_hints.add' | translate }}">
+                <i class="icons-add icon"></i>
+                {{ 'advanced.add_criteria' | translate }}
+            </button>
+        </div>
+        <div class="remove-group-wrapper" [hidden]="mode=='example'">
+            <button class="icon-button nav-right delete test-advanced-searching-button-remove-group-builder"
+                    title="{{'advanced.remove_filter'| translate}}" (click)="removeGroup()">
+                <i class="icons-cross icon"></i>
+            </button>
+        </div>
+    </div>
+</div>

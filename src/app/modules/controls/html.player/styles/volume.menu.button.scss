@@ -1,0 +1,61 @@
+@import "../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .video-js {
+            .vjs-volume-level {
+                background-color: getThemeColor(10,$key);
+            }
+            .vjs-volume-vertical {
+                position: absolute;
+                bottom: 2.5em;
+                background-color: rgba(43, 51, 63, 0.7);
+                height: 7.7em;
+                left: -0.2em;
+                width: 2.8em;
+            }
+            .vjs-volume-bar.vjs-slider-vertical, .vjs-volume-level {
+                width: 5px;
+            }
+            .icon-button.vjs-volume-menu-button {
+                .volume-high {
+                    display: inline;
+                }
+                .volume-mute, .volume-low {
+                    display: none;
+                }
+            }
+            .icon-button.vjs-volume-menu-button.vjs-vol-0 {
+               // background-color: getThemeColor(3, $key);
+                .volume-high, .volume-low {
+                    display: none;
+                }
+                .volume-mute {
+                    display: inline;
+                }
+            }
+            .icon-button.vjs-volume-menu-button.vjs-vol-2, .icon-button.vjs-volume-menu-button.vjs-vol-1 {
+                .volume-high, .volume-mute {
+                    display: none;
+                }
+                .volume-low {
+                    display: inline;
+                }
+            }
+            .icon-button.vjs-volume-menu-button {
+                .vjs-menu {
+                    left: -0.2em;
+                   // margin-bottom: 1em;
+                    z-index: 2;
+                }
+                position: relative;
+            }
+            .vjs-volume-panel.vjs-volume-panel-vertical .vjs-volume-control.vjs-volume-vertical{
+                display: none;
+            }
+            .vjs-volume-panel.vjs-volume-panel-vertical:hover .vjs-volume-control.vjs-volume-vertical{
+                display: block
+            }
+        }
+    }
+}

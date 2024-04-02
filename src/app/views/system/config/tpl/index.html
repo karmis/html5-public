@@ -1,0 +1,144 @@
+<div class="system-config-wrapper grid imfx-allow-dnd">
+    <div [ngClass]="{'hidden-bar': isHidden}" class="sc-sidebar">
+
+        <div class="form-input">
+            <input
+                class="input"
+                type="text"
+                name="query"
+                placeholder="Filter..."
+                autocomplete="off"
+                (keyup)="menuFilterKeyup($event)"
+            >
+        </div>
+
+        <ul style="padding: 8px 16px;">
+            <ng-container *ngFor="let menuItem of categories;let i=index;">
+                <ng-container *ngIf="(!menuItem.isDevOrTestMode || isDevOrTestMode) && (!menuItem.permissionByName || securityService.hasPermissionByName(menuItem.permissionByName)) && menuItem.item">
+                    <li *accessmode="moduleAllowed()"
+                        (click)="selectItem(menuItem.item);clickCategory(selectedCategory);menuItem.callback?.call()"
+                        [ngClass]="{'active': (selectedComponent == menuItem.item)}"
+                    >
+                        {{menuItem.title}}
+                    </li>
+                </ng-container>
+                <ng-container *ngIf="(!menuItem.isDevOrTestMode || isDevOrTestMode) && (!menuItem.permissionByName || securityService.hasPermissionByName(menuItem.permissionByName)) && menuItem.children.length">
+                    <li *accessmode="moduleAllowed()"
+                        (click)="clickCategory(i)"
+                        [ngClass]="{'active': isInCategory(menuItem)}"
+                    >
+                        {{menuItem.title}}
+                    </li>
+                    <li *ngIf="(selectedCategory == i) || isInCategory(menuItem) || (!!filterText)" class="sub-menu-types">
+                        <ul style="padding-left: 25px;">
+                            <ng-container *ngFor="let menuSubItem of menuItem.children;let j=index;">
+                                <li (click)="selectItem(menuSubItem.item);clickSubCategory(i,j);menuSubItem.callback?.call()"
+                                    [ngClass]="{'active-sub': selectedComponent == menuSubItem.item && selectedSubCategory == j}"
+                                >
+                                    {{menuSubItem.title}}
+                                </li>
+                            </ng-container>
+                        </ul>
+                    </li>
+                </ng-container>
+            </ng-container>
+        </ul>
+    </div>
+    <div (click)="toggleSidebar()" class="sidebar-hidder">
+        <i *ngIf="isHidden" class="icons-right icon"></i>
+        <i *ngIf="!isHidden" class="icons-left icon"></i>
+    </div>
+    <div [ngSwitch]="selectedComponent" class="sc-viewport">
+        <div *ngSwitchCase="'xml'" class="sc-container">
+            <system-config-xml-tree></system-config-xml-tree>
+        </div>
+        <div *ngSwitchCase="'xslt'" class="sc-container">
+            <system-config-xslt></system-config-xslt>
+        </div>
+        <div *ngSwitchCase="'ug'" class="sc-container">
+            <settings-groups-manager></settings-groups-manager>
+        </div>
+
+
+        <div *ngSwitchCase="'gl'" class="sc-container">
+            <global-settings-logger (onChangeConfig)="onChangeConfig($event)" [data]="globalSettingsConfig"></global-settings-logger>
+        </div>
+        <div *ngSwitchCase="'gf'" class="sc-container">
+                <global-settings-grafana></global-settings-grafana>
+        </div>
+        <div *ngSwitchCase="'ph'" class="sc-container">
+            <global-settings-html-player-hotkeys-tabs></global-settings-html-player-hotkeys-tabs>
+        </div>
+        <div *ngSwitchCase="'li'" class="sc-container">
+            <loading-icons></loading-icons>
+        </div>
+        <div *ngSwitchCase="'ec'" class="sc-container">
+            <global-settings-event-config></global-settings-event-config>
+        </div>
+
+        <div *ngSwitchCase="'tx'" class="sc-container">
+            <global-settings-taxonomy-config></global-settings-taxonomy-config>
+        </div>
+
+        <div *ngSwitchCase="'ct'" class="sc-container">
+            <settings-config-tables-wrapper></settings-config-tables-wrapper>
+        </div>
+        <div *ngSwitchCase="'ch'" class="sc-container">
+            <settings-channels-grid></settings-channels-grid>
+        </div>
+        <div *ngSwitchCase="'chg'" class="sc-container">
+            <settings-channels-groups-grid></settings-channels-groups-grid>
+        </div>
+        <div *ngSwitchCase="'um'" class="sc-container">
+            <settings-user-management-wrapper #userManager></settings-user-management-wrapper>
+        </div>
+        <div *ngSwitchCase="'sc'" class="sc-container">
+            <settings-service-config-wrapper *ngIf="selectedserviceConfigType >= 0"
+                                             [typeId]="selectedserviceConfigType"></settings-service-config-wrapper>
+        </div>
+        <div *ngSwitchCase="'dvcm'" class="sc-container">
+            <details-view-custommetadata-config #detailsCustomMetadataConfig
+                                                [selectedCustomMetadata]="selectedCustomMetadata"
+            ></details-view-custommetadata-config>
+        </div>
+        <div *ngSwitchCase="'lm'" class="sc-container">
+            <settings-load-master-wrapper></settings-load-master-wrapper>
+        </div>
+        <div *ngSwitchCase="'ss'" class="sc-container">
+            <settings-system-settings></settings-system-settings>
+        </div>
+        <div *ngSwitchCase="'tc'" class="sc-container">
+            <productions-template-config></productions-template-config>
+        </div>
+        <div *ngSwitchCase="'pt'" class="sc-container">
+            <productions-config></productions-config>
+        </div>
+
+        <!-- Cache manager-->
+        <div *ngSwitchCase="'cm_destination_dev'" class="sc-container">
+            <!--            <system-config-xslt></system-config-xslt>-->
+            <cm-dd-comp></cm-dd-comp>
+        </div>
+        <div *ngSwitchCase="'cm_source_devices'" class="sc-container">
+            <cm-sd-comp></cm-sd-comp>
+        </div>
+        <div *ngSwitchCase="'cm_channel_templates'" class="sc-container">
+            <ch_tmp_comp></ch_tmp_comp>
+        </div>
+        <div *ngSwitchCase="'cm_wf_matrix'" class="sc-container">
+            <cm-wfmatrix-comp></cm-wfmatrix-comp>
+        </div>
+
+        <!-- MISR manager-->
+        <div *ngSwitchCase="'misr_templates_comp'" class="sc-container">
+            <!--            <system-config-xslt></system-config-xslt>-->
+            <misr-templates-comp></misr-templates-comp>
+        </div>
+        <div *ngSwitchCase="'misr_components_comp'" class="sc-container">
+            <misr-components-comp></misr-components-comp>
+        </div>
+        <div *ngSwitchCase="'misr_audio_subs'" class="sc-container">
+            <misr-audio-comp></misr-audio-comp>
+        </div>
+    </div>
+</div>

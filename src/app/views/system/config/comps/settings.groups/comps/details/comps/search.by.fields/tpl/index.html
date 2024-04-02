@@ -1,0 +1,97 @@
+<!--div *ngFor="let sf of searchFields" class="ug-list-item">
+  <label>
+    <input [(ngModel)]="sf.enabled" type="checkbox" (change)="changeSearchFields()"> {{sf.key}}</label>
+</div-->
+<div class="detail-search-by-fields-wrapper" [ngSwitch]="selectedSearchByFields">
+    <div class="search-fields-wrapper" *ngSwitchCase="0">
+        <div class="header">Media Fields</div>
+        <div class="inputs">
+            <div *ngFor="let f of columnsMedia">
+                <label>
+                    <input
+                        type="checkbox"
+                        [checked]="f.isDefault ? true : checkState(f.id,1)"
+                        [disabled]="f.isDefault"
+                        (change)="changeDefaultSearchFields(f.id, $event.target.checked, 1)">
+                    {{f.text}}
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="search-fields-wrapper" *ngSwitchCase="1">
+        <div class="header">Version Fields</div>
+        <div class="inputs">
+            <div *ngFor="let f of columnsVersion">
+                <label>
+                    <input
+                        type="checkbox"
+                        [checked]="f.isDefault ? true : checkState(f.id,2)"
+                        [disabled]="f.isDefault"
+                        (change)="changeDefaultSearchFields(f.id, $event.target.checked, 2)">
+                    {{f.text}}
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="search-fields-wrapper" *ngSwitchCase="2">
+        <div class="header">Consumer Fields</div>
+        <div class="inputs">
+            <div *ngFor="let f of columnsSimple">
+                <label>
+                    <input
+                        type="checkbox"
+                        [checked]="f.isDefault ? true : checkState(f.id,3)"
+                        [disabled]="f.isDefault"
+                        (change)="changeDefaultSearchFields(f.id, $event.target.checked, 3)">
+                    {{f.text}}
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="search-fields-wrapper" *ngSwitchCase="3">
+        <div class="header">Title</div>
+        <div class="inputs">
+            <div *ngFor="let f of columnsTitle">
+                <label>
+                    <input
+                        type="checkbox"
+                        [checked]="f.isDefault ? true : checkState(f.id,4)"
+                        [disabled]="f.isDefault"
+                        (change)="changeDefaultSearchFields(f.id, $event.target.checked, 4)">
+                    {{f.text}}
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="search-fields-wrapper" *ngSwitchCase="4">
+        <div class="header">Media Portal</div>
+        <div class="inputs">
+            <div *ngFor="let f of columnsMediaPortal">
+                <label>
+                    <input
+                        type="checkbox"
+                        [checked]="f.isDefault ? true : checkState(f.id,5)"
+                        [disabled]="f.isDefault"
+                        (change)="changeDefaultSearchFields(f.id, $event.target.checked, 5)">
+                    {{f.text}}
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="search-fields-wrapper" *ngSwitchCase="5">
+        <div class="header">Video Browser</div>
+        <div class="inputs">
+            <div *ngFor="let f of columnsTitle">
+                <label>
+                    <input
+                        type="checkbox"
+                        [checked]="f.isDefault ? true : checkState(f.id,6)"
+                        [disabled]="f.isDefault"
+                        (change)="changeDefaultSearchFields(f.id, $event.target.checked, 6)">
+                    {{f.text}}
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+

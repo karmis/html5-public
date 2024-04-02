@@ -1,0 +1,59 @@
+<div class="select-tracks-modal-wrapper">
+    <div class="tracks">
+        <div class="tracks-group internal" [ngClass]="{'collapsed': !internalExpanded}">
+            <div class="group-header">
+                <i (click)="internalExpanded = !internalExpanded" class="icon" [ngClass]="{'icons-right': !internalExpanded, 'icons-down': internalExpanded}"></i>
+                <span (click)="internalExpanded = !internalExpanded">{{ 'component_qc.modal.internal' | translate}}</span>
+                <div class="indicator"
+                     *ngIf="audioTracksRowsInternal.length > 0"
+                     [ngClass]="{'all': internalSelectedState == 2, 'partial': internalSelectedState == 1}"
+                     title="{{ internalSelectedState == 2 ? 'Deselect all internal tracks': 'Select all internal tracks'}}"
+                     (click)="selectTracks(true)"></div>
+            </div>
+            <div class="track-items">
+                <div class="track-item"
+                     *ngFor="let track of audioTracksRowsInternal; let i=index"
+                     [ngClass]="{'selected': selectedInternal[i]}"
+                     title="{{selectedInternal[i] ? 'Deselect ' + track.Name : 'Select ' + track.Name}}"
+                     (click)="selectTrack(i, true)">
+                    <span>{{track.Name}}</span>
+                    <div class="indicator"></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="tracks-group external" [ngClass]="{'collapsed': !externalExpanded}">
+            <div class="group-header">
+                <i (click)="externalExpanded = !externalExpanded" class="icon" [ngClass]="{'icons-right': !externalExpanded, 'icons-down': externalExpanded}"></i>
+                <span (click)="externalExpanded = !externalExpanded">{{ 'component_qc.modal.external' | translate}}</span>
+                <div class="indicator"
+                     *ngIf="audioTracksRowsExternal.length > 0"
+                     [ngClass]="{'all': externalSelectedState == 2, 'partial': externalSelectedState == 1}"
+                     title="{{ externalSelectedState == 2 ? 'Deselect all external tracks': 'Select all external tracks'}}"
+                     (click)="selectTracks(false)"></div>
+            </div>
+            <div class="track-items">
+                <div class="track-item"
+                     *ngFor="let track of audioTracksRowsExternal; let i=index"
+                     [ngClass]="{'selected': selectedExternal[i]}"
+                     title="{{selectedExternal[i] ? 'Deselect ' + track.Name : 'Select ' + track.Name}}"
+                     (click)="selectTrack(i, false)">
+                    <span>{{track.Name}}</span>
+                    <div class="indicator"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="overlay-wrapper" #modalSelectTracksOverlayWrapper>
+        <div class="spinner"></div>
+    </div>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div>
+            <button type="button"  (click)="saveData()">{{'common.save'| translate}}</button>
+            <button type="button"  (click)="closeModal()">{{'common.cancel'| translate}}</button>
+        </div>
+    </div>
+</ng-template>

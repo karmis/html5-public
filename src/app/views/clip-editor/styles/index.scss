@@ -1,0 +1,164 @@
+@import "../../base/styles/theme.scss";
+@import "../../../modules/controls/progress/styles/index.scss";
+
+@each $key, $value in $common-themes {
+  .#{$key} {
+
+    .rce-wrapper {
+      padding: 0 15px;
+      height: 100%;
+
+        .drag-btns-wraper {
+            overflow: hidden;
+            flex-direction: column;
+            .layout-manager-wrapper {
+                width: 100%;
+                .layout-manager-menu {
+                    width: 100%;
+                }
+            }
+        }
+
+      .vjs-poster {
+        background-size: contain!important;
+        height: calc(100% - 95px);
+      }
+      .detail-title {
+        position: relative;
+        //margin-right: 15px;
+
+        .right-buttons {
+          position: absolute;
+          right: 0;
+          top: 0;
+        }
+      }
+
+      .version-details {
+        padding: 15px 0;
+      }
+
+      .full-height-width-block {
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-bottom: 15px;
+        overflow: hidden;
+        box-sizing: border-box;
+      }
+
+      .panel-flex-wrapper {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+      .panel.card.panel-default {
+        flex: 1;
+        padding: 12px;
+        .panel-body.card-block,
+        .panel-heading {
+          padding: 0 1rem !important;
+        }
+      }
+
+      h1 {
+        margin: 0;
+        line-height: 32px;
+      }
+      .imfx-detail-btns ul {
+        line-height: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+          > li.back-button-clause {
+              width: 28px;
+          }
+        .detail-title {
+          flex: 1;
+          min-width: 0;
+          h1 {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+      .stick-bottom {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+      }
+
+      .workflow-details-wrapper {
+        border-top: 1px solid #eeeeee;
+      }
+
+      .block-header.text {
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .back-btn {
+        margin: 0 5px;
+      }
+
+      .details-wrapper {
+
+      }
+      .graph-wrapper {
+        background-color: getThemeColor(4, $key);
+        padding: 12px 0px 12px 12px;
+      }
+
+      .buttons-row {
+        position: relative;
+        font-size: 0;
+        padding-bottom: 10px;
+
+        button {
+          width: 23%;
+          margin: 0 1%;
+          opacity: 0.9;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+
+          &:hover {
+            opacity: 1;
+          }
+        }
+
+        .pause {
+          background-color: getThemeColor(10, $key);
+          color: getThemeColor(1, $key);
+        }
+        .pending {
+          background-color: getThemeColor(7, $key);
+          color: getThemeColor(1, $key);
+        }
+        .abort {
+          background-color: getThemeColor(12, $key);
+          color: getThemeColor(1, $key);
+        }
+        .complete {
+          background-color: getThemeColor(13, $key);
+          color: getThemeColor(1, $key);
+        }
+      }
+      .vjs-marker.tags-marker {
+        height: 15px;
+      }
+      .vjs-marker.interval-tags-marker {
+        top: 15px;
+      }
+      .tagging-tab-wrapper {
+        position: absolute;
+        bottom: 0;
+        top: 35px;
+        left: 0;
+        right: 0;
+        height: inherit;
+        padding: 11px;
+      }
+    }
+  }
+}

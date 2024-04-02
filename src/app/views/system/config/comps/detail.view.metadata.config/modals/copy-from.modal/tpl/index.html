@@ -1,0 +1,16 @@
+<div class="copy-from-modal-wrapper">
+    <div class="views">
+        <div *ngFor="let item of types" (click)="selectItem(item)" class="type-items" [ngClass]="{'selected': selected && selected.type == item.type}">{{item.title}}</div>
+    </div>
+    <div class="overlay-wrapper" #modalCopyFromOverlayWrapper>
+        <div class="spinner"></div>
+    </div>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div class="buttons">
+            <button type="button" class="btn btn-default primary" (click)="saveData()">{{'common.ok'| translate}}</button>
+        </div>
+    </div>
+</ng-template>

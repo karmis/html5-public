@@ -1,0 +1,38 @@
+@import "../../../../../../../views/base/styles/theme";
+@import "../../../../../../../views/base/styles/blocks/inputs";
+@import "../../../../../../../views/base/styles/blocks/buttons";
+@import "../../../../../../../views/base/styles/blocks/nav";
+@import "../../../../../../../views/base/styles/blocks/nav.tabbed";
+@import "../../../../../../../views/base/styles/blocks/rows";
+
+@each $key,
+$value in $common-themes {
+  .#{$key} {
+    .multiline {
+      height: 100%;
+      padding-bottom: 15px;
+
+      .CodeMirror {
+        height: 400px !important;
+        line-height: normal;
+      }
+
+      .modal-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 10;
+        background-color: getThemeColor(4, $key);
+
+        .spinner {
+          width: 30px;
+          height: 30px;
+          margin-left: calc(50% - 15px);
+          margin-top: 30%;
+        }
+      }
+    }
+  }
+}

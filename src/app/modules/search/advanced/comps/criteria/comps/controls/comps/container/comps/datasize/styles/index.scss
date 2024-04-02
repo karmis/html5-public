@@ -1,0 +1,17 @@
+@import "../../../../../../../../../../../../views/base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+    .#{$key} {
+        advanced-criteria-control-datasize {
+            .filesize-textbox-dropdown {
+                width: 40%;
+                height: 24px !important;
+                background: getThemeColor(9, $key);
+            }
+
+            .filesize-textbox-input {
+                width: 60% !important;
+            }
+        }
+    }
+}

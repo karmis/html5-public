@@ -1,0 +1,50 @@
+<div class="settings-groups-video-browser-app-wrapper">
+    <div class="default-settings-row">
+        <div class="block-settings">
+<!--            <div class="block-settings__title">{{ 'settings_group.custom_lables' | translate }}</div>-->
+            <div class="block-settings-row">
+                <div class="block-settings-col-6">
+                    <span class="pb-1">Message shown on all screens</span>
+                    <input class="text"
+                           placeholder="Text"
+                           type="text"
+                           [(ngModel)]="this.videoBrowserLabels.messageAllScreens"
+                           (change)="onChangeVideoBrowserAppSettings()">
+                </div>
+                <div class="block-settings-col-6">
+                    <span class="pb-1">The wording that goes in Closed Captions Panel</span>
+                    <input class="text"
+                           placeholder="Text"
+                           type="text"
+                           [(ngModel)]="this.videoBrowserLabels.messageClosedCaptionsPanel"
+                           (change)="onChangeVideoBrowserAppSettings()">
+                </div>
+                <div class="block-settings-col-6">
+                    <span class="pb-1">System Name</span>
+                    <input class="text"
+                           placeholder="Text"
+                           type="text"
+                           [(ngModel)]="this.videoBrowserLabels.systemName"
+                           (ngModelChange)="onChangeVideoBrowserAppSettings()">
+                </div>
+                <div class="block-settings-col-6">
+                    <span class="pb-1">Help Url</span>
+                    <input class="text"
+                           placeholder="https://..."
+                           type="text"
+                           [(ngModel)]="this.videoBrowserLabels.helpUrl"
+                           (ngModelChange)="onChangeVideoBrowserAppSettings()">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="default-settings-row text-area-row">
+        <span class="pb-1">Message shown in media basket</span>
+        <textarea class="text"
+               placeholder="Text"
+               type="text"
+               [(ngModel)]="this.videoBrowserLabels.messageMediaBasket"
+               (change)="onChangeVideoBrowserAppSettings()">
+        </textarea>
+    </div>
+</div>

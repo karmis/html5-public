@@ -1,0 +1,39 @@
+<div #detailConfig  class="settings-service-config-details">
+    <nav class="ug-header">
+        <ul>
+            <li style="width: 100%;">
+                <button class="icon-button" title="{{ 'common.back_button' | translate }}" (click)="goBack()" style="display: inline-block;">
+                    <i class="icons-left icon"></i>
+                </button>
+                <button class="save-btn" title="{{ 'common.save' | translate }}" (click)="saveServiceConfig()" style="float: right;">
+                    {{ 'common.save' | translate }}
+                </button>
+            </li>
+        </ul>
+    </nav>
+    <div *ngIf="dataStored" class="config-fields-wrapper">
+        <div>
+            <span>Name</span>
+            <input type="text" id="cfg-name" value="{{dataStored.CONFIG_NAME}}" (click)="clearValidation()"/>
+        </div>
+        <div>
+            <span>Description</span>
+            <textarea id="cfg-description" value="{{dataStored.DESCRIPTION}}"></textarea>
+        </div>
+        <div>
+            <label>
+                <span>Active</span>
+                <input id="cfg-active" type="checkbox" checked="{{dataStored.ACTIVE == 1 ? true : null}}" (click)="dataStored.ACTIVE = dataStored.ACTIVE == 1 ? 0 : 1"/>
+            </label>
+        </div>
+    </div>
+<div class="config-xml-wrapper">
+    <imfx-xml-tree #xmlTreeRef class="xml-block js-scrollbar-target" *ngIf="selectedSchemaModel"
+                   [schemaModel]="selectedSchemaModel"
+                   [xmlModel]="selectedXmlModel"
+                   [readonly]="false">
+    </imfx-xml-tree>
+</div>
+
+    <overlay #overlayGroup [mode]="true" (isError)="isError($event)" [zIndex]="100"></overlay>
+</div>

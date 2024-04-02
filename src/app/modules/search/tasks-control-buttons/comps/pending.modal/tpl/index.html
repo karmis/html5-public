@@ -1,0 +1,51 @@
+<div class="assessment_abort" #overlayWrapper>
+    <div class="wizard-steps">
+        <div class="step-content">
+            <div class="step-content-wrapper">
+                <!--Priority-->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label for="pending_reason">
+                                {{ 'component_qc.pending_message' | translate }}
+                            </label>
+                            <textarea class="form-control"
+                                      #reasonTextArea
+                                      id="pending_reason"
+                                      rows="10"
+                                      [ngClass]="{'notvalid': !valid}"
+                                      (keyup)="doTextareaValueChange($event)">{{reasonText}}</textarea>
+                            <div class="assign-to-user-wrap">
+                                <span class="assign-to-user-check">
+                                    <input type="checkbox" [(ngModel)]="assignToUser" checked>
+                                    Assign to User
+                                </span>
+                                <span class="assign-to-user-select">
+                                            <imfx-controls-select2
+                                                #select
+                                                [placeholder]="'base.selectOoo'|translate"
+                                                [placeholderRefToTranslate]="'base.selectOoo'"
+                                                [width]="'100%'"
+                                                (onSelect)="onSelect()"
+                                            ></imfx-controls-select2>
+                                </span>
+                            </div>
+                            <span *ngIf="!valid" class="notvalid_error">
+                                {{valid_error}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div class="buttons">
+            <button class="next primary" (click)="sendStatus()">
+                {{ 'common.ok' | translate }}
+            </button>
+        </div>
+    </div>
+</ng-template>

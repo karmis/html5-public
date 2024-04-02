@@ -1,0 +1,39 @@
+@import "../../../../../../views/base/styles/theme.scss";
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        production-settings {
+            margin-right: 25px;
+        }
+        .source-tab-col {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            &__title {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0 6px;
+                text-transform: capitalize;
+                button {
+                    text-transform: capitalize;
+                }
+                &-right {
+                    display: flex;
+                    search-settings {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        margin: 0 10px;
+                    }
+                }
+            }
+            &__table {
+                height: 100%;
+            }
+        }
+    }
+
+
+}

@@ -1,0 +1,28 @@
+<div class="media-wizard" style="min-height: 400px;">
+    <div class="wizard-steps">
+        <div class="step-content">
+            <div class="step-content-wrapper">
+                <div class="row" style="max-height: 200px; overflow-y: auto;">
+                </div>
+                <hr>
+                <div style="height: calc(100% - 28px); min-height: 400px; position: relative;">
+                    <wizard-media-table #wizardMediaTableGrid></wizard-media-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div class="buttons">
+            <button class="next primary"
+                    [ngClass]="{'disabled': ceService.getItemForAddToMediaList() ? false:true}"
+                    [attr.disabled]="ceService.getItemForAddToMediaList() ? null:true"
+                    (click)="addMediaToList()">
+                {{ 'media.wizard.next' | translate }}
+            </button>
+        </div>
+    </div>
+</ng-template>
+

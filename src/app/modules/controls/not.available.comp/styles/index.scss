@@ -1,0 +1,19 @@
+@import "../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        #container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+            justify-content: center;
+            align-items: center;
+        }
+        #content {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+    }
+}

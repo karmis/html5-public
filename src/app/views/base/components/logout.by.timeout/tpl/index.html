@@ -1,0 +1,53 @@
+<!--<div class="modal-content">-->
+    <!--<div class="modal-header">-->
+        <!--<h4 class="modal-title">-->
+            <!--{{ 'logout_modal_module.title_modal' | translate }}-->
+        <!--</h4>-->
+    <!--</div>-->
+    <!--<div class="modal-body">-->
+        <!--<div class="card text-center">-->
+            <!--<div class="card-header">-->
+                <!--{{ 'logout_modal_module.sub_title_modal' | translate:{'timeLeft': timeLeft} }}-->
+            <!--</div>-->
+            <!--<div class="card-block">-->
+                <!--<p class="card-text">-->
+                    <!--{{ 'logout_modal_module.description' | translate }}-->
+                <!--</p>-->
+            <!--</div>-->
+            <!--<div class="card-footer text-muted">-->
+                <!--<button (click)="continueSession()" class="btn btn-success pull-right">-->
+                    <!--{{ 'logout_modal_module.continue' | translate }}-->
+                <!--</button>-->
+
+                <!--<button (click)="logout()" class="btn btn-danger pull-left">-->
+                    <!--{{ 'logout_modal_module.logout' | translate }}-->
+                <!--</button>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+<div class="modal-content prompt-modal test-advanced-searching-div-modaldialog">
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">
+            {{ 'logout_modal_module.title_modal' | translate }}
+        </h4>
+        <i (click)="data.refs.modal.hide()" class="icon icons-closedelete"></i>
+        <!--button type="button" class="close pull-right test-advanced-searching-button-x-modaldialog" aria-label="Close" (click)="data.refs.modal.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button-->
+    </div>
+    <div class="modal-body" style="overflow: auto;">
+            {{ 'logout_modal_module.sub_title_modal' | translate:{'timeLeft': timeLeft} }}
+    </div>
+    <div class="modal-footer">
+        <button type="button" (click)="logout()">
+            {{ 'logout_modal_module.logout' | translate }}
+        </button>
+
+        <button type="button" class="primary" (click)="continueSession()" style="text-transform: inherit;">
+            {{ 'logout_modal_module.continue' | translate }}
+        </button>
+    </div>
+</div>
+

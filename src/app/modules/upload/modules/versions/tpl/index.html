@@ -1,0 +1,64 @@
+<!--Markup for module-->
+<div class="full-height full-width" style="padding-top: 10px;  height:80vh;">
+    <div class="container-fluid" style="position: relative; height: 100%;
+    display: flex;
+    flex-direction: column;">
+        <!--Header-->
+        <div class="row-header">
+            <nav>
+                <ul>
+                    <li>
+                        <search-form
+                            [config]="searchFormConfig"
+                        ></search-form>
+                    </li>
+                    <li class="divider"></li>
+                    <li><label>{{ 'common.view' | translate}}:</label></li>
+                    <li>
+                        <search-views
+                            #viewsComp
+                            [config]="searchViewsConfig"
+                        ></search-views>
+                    </li>
+                    <li>
+                        <search-settings
+                            [config]="searchSettingsConfig"
+                        ></search-settings>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+
+        <as-split
+            #split
+            (dragEnd)="saveSplitSizes(0, $event)"
+            [direction]="'vertical'">
+            <as-split-area
+                    [size]="getSplitAreaSize([0,0], 30)"
+                    [order]="0">
+                <!--Body-->
+                    <div style="height: 94%; width: 100%; margin-top: 10px">
+                        <slick-grid
+                            #slickGridComp
+                            class="version-inside-upload-grid vertical-align-row"
+                            style="width: 100%;  height: 100%;"
+                            [config]="searchGridConfig"
+                        ></slick-grid>
+                    </div>
+            </as-split-area>
+
+<!--            Versions-->
+            <as-split-area
+                    [size]="getSplitAreaSize([1,1], 20)"
+                    [order]="1">
+                <div class="" style="position: relative; height:100%;    display: flex;
+    flex-direction: column;">
+                    <versions-in-titles #versionsInTitlesComponent (onDoubleClick)="onDoubleClick()"></versions-in-titles>
+                </div>
+            </as-split-area>
+        </as-split>
+
+    </div>
+</div>
+

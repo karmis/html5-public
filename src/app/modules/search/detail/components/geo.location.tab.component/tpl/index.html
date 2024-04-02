@@ -1,0 +1,7 @@
+<div class="geo-tab-wrapper">
+    <agm-map *ngIf="geolocationAvailable" [latitude]="lat" [longitude]="lng">
+        <agm-marker [latitude]="lat" [longitude]="lng" [label]="'M'">
+        </agm-marker>
+    </agm-map>
+    <h2 *ngIf="!geolocationAvailable" class="not-available">{{'media_details.geolocation_not_available' | translate}}</h2>
+</div>

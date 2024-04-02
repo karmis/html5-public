@@ -1,0 +1,101 @@
+<div class="priority" #overlayWrapper>
+    <!--<div class="status-row">-->
+        <!--&lt;!&ndash;[ngClass]="{'done': currentStep >= 0, 'current': currentStep == 0}"&ndash;&gt;-->
+        <!--<div class="step first current done">-->
+            <!--<span class="step-title">{{'workflow.topPanel.wizard.priority.step1'|translate}}</span>-->
+            <!--<span class="step-circle"></span>-->
+            <!--<span class="step-line"></span>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;[ngClass]="{'done': currentStep >= 1, 'last': currentStep == 1}"&ndash;&gt;-->
+        <!--<div class="step third">-->
+            <!--<span class="step-title">{{'workflow.topPanel.wizard.priority.finished'|translate}}</span>-->
+            <!--<span class="step-circle"></span>-->
+        <!--</div>-->
+    <!--</div>-->
+    <div class="wizard-steps">
+        <!--<div class="panel notification warning row-header inline" *ngIf="errorMsg">-->
+        <!--<p>{{errorMsg}}</p>-->
+        <!--</div>-->
+        <div class="step-content">
+            <div class="step-content-wrapper">
+                <!--Priority-->
+                <div class="row" style="max-height: 200px; overflow-y: auto;">
+                    <div class="col-xs-12">
+                        <h3>
+                            {{ 'workflow.topPanel.wizard.priority.set' | translate }}
+                        </h3>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input type="radio"
+                                        id="radio_priority_low"
+                                        (click)="onSelectPriority(0)"
+                                        [checked]="isSelectedPriority(0)"
+                                        [value]="0"
+                                        name="priority">
+                                <label for="radio_priority_low">
+                                    {{ 'workflow.topPanel.wizard.priority.low' | translate }}
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input type="radio"
+                                        id="radio_priority_normal"
+                                        (change)="onSelectPriority(1)"
+                                        [checked]="isSelectedPriority(1)"
+                                        [value]="1"
+                                        name="priority">
+                                <label for="radio_priority_normal">
+                                    {{ 'workflow.topPanel.wizard.priority.normal' | translate }}
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input type="radio"
+                                        id="radio_priority_high"
+                                        (change)="onSelectPriority(2)"
+                                        [checked]="isSelectedPriority(2)"
+                                        [value]="2"
+                                        name="priority">
+                                <label for="radio_priority_high">
+                                    {{ 'workflow.topPanel.wizard.priority.high' | translate }}
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input type="radio"
+                                        id="radio_priority_immediate"
+                                        (change)="onSelectPriority(3)"
+                                        [checked]="isSelectedPriority(3)"
+                                        [value]="3"
+                                        name="priority">
+                                <label for="radio_priority_immediate">
+                                    {{ 'workflow.topPanel.wizard.priority.immediate' | translate }}
+                                </label>
+                            </div>
+
+<!--                            <div class="form-check last-form">-->
+<!--                                <input type="checkbox"-->
+<!--                                       [checked]="isUpdateChildren()"-->
+<!--                                       (change)="onChangeUpdateChildren($event)"-->
+<!--                                       [value]="true"-->
+<!--                                       id="update_child">-->
+<!--                                <label class="" for="update_child">-->
+<!--                                    {{ 'workflow.topPanel.wizard.update_child' | translate }}-->
+<!--                                </label>-->
+<!--                            </div>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div class="buttons">
+            <button class="next primary" (click)="apply()">
+                {{ 'version.wizard.apply' | translate }}
+            </button>
+        </div>
+    </div>
+</ng-template>

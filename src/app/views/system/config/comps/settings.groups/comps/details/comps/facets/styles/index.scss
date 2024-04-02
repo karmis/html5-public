@@ -1,0 +1,16 @@
+@import "../../../../../../../../../base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .settings-groups-detail-facets{
+            height: 100%;
+            padding: 1rem;
+            .ug-list-item {
+                margin: 5px 0;
+                &:first-child{
+                    margin: 0;
+                }
+            }
+        }
+    }
+}

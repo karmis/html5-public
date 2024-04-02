@@ -1,0 +1,71 @@
+<div class="wrapper subrow" id="container-{{item.ID}}">
+    <div class="accordion-group-wrapper" *ngFor="let group of items; let i=index">
+        <span *ngIf="!(group.name=='Media Items' && !group.data.MIS)" class="sub-row-selectable">
+            <div class="accordion-header-row js-subrow-header "
+                 [ngClass]="{'selected-row': item.ID==provider.selectedSubRow.id && group._id==provider.selectedSubRow.index && i == provider.selectedSubRow.subIndex}"
+                 (click)="onClick($event, group)">
+                <i *ngIf="!group.hideme" class="icons-down icon"></i>
+                <i *ngIf="group.hideme" class="icons-right icon"></i>
+                {{group.name}}
+            </div>
+<!--            media subrow header-->
+            <div *ngIf="group.name=='Media Items' && group.props.length !== 0" class="accordion-item-row-header"
+                 [hidden]="group.hideme">
+                <span>
+                    <div class="row-item popups"></div>
+                    <div class="icon"></div>
+                    <div class="row-item num">ID</div>
+                    <div class="row-item type">Media Type</div>
+                    <div class="row-item format">Media Format</div>
+                    <div class="row-item server">Server Name</div>
+                    <div class="row-item pass">Qc Pass</div>
+                    <div class="row-item"
+                    *ngFor="let itemOfFields of fields">
+                        {{itemOfFields.text}}
+                    </div>
+                </span>
+            </div>
+
+            <div class="accordion-item-row js-subrow "
+                 [hidden]="group.hideme"
+                 *ngFor="let itemOfGroup of group.props; let j=index"
+                 [ngClass]="{'pointer':group.name=='Media Items', 'selected-row': item.ID==provider.selectedSubRow.id && group._id==provider.selectedSubRow.index && j == provider.selectedSubRow.subIndex}"
+                 (dblclick)="goToDetail(itemOfGroup.Id, group.name)"
+                 (click)="selectRow(group, j);">
+                <!--Media Items-->
+                <span *ngIf="!(group.name=='Media Items')">
+                    <i *ngIf="!itemOfGroup.IsPresent" class="icons-statusred icon status-red"></i>
+                    <i *ngIf="itemOfGroup.IsPresent" class="icons-statusgreen icon status-green"></i>
+                    <div class="row-item code" *ngIf="group.name!='Components'">{{itemOfGroup.Code}}</div>
+                    <div class="row-item name">{{itemOfGroup.Name}}</div>
+                </span>
+                <span *ngIf="group.name=='Media Items'">
+                    <div class="row-item popups">
+                        <i class="icons-more icon reveal"
+                           (click)="openPopups($event, itemOfGroup)"
+                           [attr.data-popupid]="'settings'"
+                           [attr.data-rowid]="'subrow-' + itemOfGroup.Id + '-' + i + '-' + j">
+                        </i>
+                    </div>
+                    <i *ngIf="!itemOfGroup.MatchedMedia" class="icons-statusred icon status-red"></i>
+                    <i *ngIf="itemOfGroup.MatchedMedia" class="icons-statusgreen icon status-green"></i>
+                    <div class="row-item num">{{itemOfGroup.Id}}</div>
+                    <div class="row-item type">{{itemOfGroup.MediaType}}</div>
+                    <div class="row-item format">{{itemOfGroup.MediaFormat}}</div>
+                    <div class="row-item server">{{itemOfGroup.ServerName}}</div>
+                    <div class="row-item pass">{{itemOfGroup.QcPass}}</div>
+                    <div class="row-item"
+                         *ngFor="let itemOfFields of fields">
+                        {{itemOfGroup[itemOfFields.id] || ''}}
+                    </div>
+                </span>
+                <!--Audio-->
+            </div>
+        </span>
+    </div>
+
+    <div class="misr-item-ctrls">
+        <button class="btn status-green raise-preview-workflow" [disabled]="!provider.canRaisePreviewWfBool" (click)="raisePreviewWorkflow(item.ID)">Raise Preview Workflow</button>
+<!--        <button class="btn btn-danger" (click)="canRaisePreviewWf()">Can Raise Preview Workflow</button>-->
+    </div>
+</div>

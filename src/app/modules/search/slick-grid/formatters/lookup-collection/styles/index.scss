@@ -1,0 +1,11 @@
+@import "../../../../../../views/base/styles/theme";
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .lookup-collection-formatter-comp-wrapper {
+            white-space: pre-wrap;
+            //word-wrap: break-word;
+        }
+    }
+}

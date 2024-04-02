@@ -1,0 +1,112 @@
+<div class="resp-tree-wrapper">
+    <div class="resp-tabs">
+        <div class="resp-tab" [ngClass]="activeTab === 0?'active':''" (click)="toggleTab(0)">
+            {{'user_management.groups.modal.permissions' | translate}}
+        </div>
+        <div class="resp-tab" [ngClass]="activeTab === 1?'active':''" (click)="toggleTab(1)">
+            {{'user_management.groups.modal.schedules_area_access' | translate}}
+        </div>
+        <div class="resp-tab" [ngClass]="activeTab === 2?'active':''" (click)="toggleTab(2)">
+            {{'user_management.groups.modal.reports_permissions' | translate}}
+        </div>
+    </div>
+    <div class="tab" [hidden]="activeTab !== 0">
+        <div [ngClass]="{panel:showSelectAllButton }">
+            <input
+                class="tree-filter"
+                #filterInput
+                type="search"
+                placeholder="{{ 'common.just_search_placeholder' | translate }}"
+                (keyup)="responsibilityFilter($event)">
+        </div>
+        <div class="resp-tree">
+            <imfx-controls-tree
+                class="tree-group-permissions responsibility-tree"
+                #responsibilitiesTree
+                [externalCompReference]="componentContext"
+                [extensions]="['filter']"
+                [ext_filter]="{autoExpand: true, mode: 'hide', highlight: false}"
+                [checkbox]="true"
+                (onRenderNode)="responsibility_onRenderNode($event)"
+                [selectMode]="3"
+                (onCollapse)="responsibility_expandCollaps()"
+                (onSelect)="responsibility_onSelectNode($event, 'select')"
+                (onUnSelect)="responsibility_onSelectNode($event, 'unselect')"
+                (onClick)="responsibility_onClick($event)"
+                [readonly]="isReadonly"
+                [icon]="false"
+            ></imfx-controls-tree>
+        </div>
+    </div>
+    <div class="tab" [hidden]="activeTab !== 1">
+        <div [ngClass]="{panel:showSelectAllButton }">
+            <input
+                class="tree-filter"
+                #filterInput
+                type="search"
+                placeholder="{{ 'common.just_search_placeholder' | translate }}"
+                (keyup)="schedulesFilter($event)">
+        </div>
+        <div class="resp-tree">
+            <imfx-controls-tree
+                #schedulesTree
+                class="tree-group-permissions schedules-tree"
+                [externalCompReference]="componentContext"
+                [extensions]="['filter']"
+                [ext_filter]="{autoExpand: true, mode: 'hide', highlight: false}"
+                [checkbox]="true"
+                (onRenderNode)="schedules_onRenderNode($event)"
+                (onCollapse)="schedules_expandCollaps()"
+                (onSelect)="schedules_onSelectUnselectNode($event)"
+                (onUnSelect)="schedules_onSelectUnselectNode($event)"
+                (onClick)="onSchedulesClick($event)"
+                [selectMode]="3"
+                [readonly]="isReadonly"
+                [icon]="false"
+            ></imfx-controls-tree>
+        </div>
+    </div>
+    <div class="tab" [hidden]="activeTab !== 2">
+        <div [ngClass]="{panel:showSelectAllButton }">
+            <input
+                class="tree-filter"
+                #filterInput
+                type="search"
+                placeholder="{{ 'common.just_search_placeholder' | translate }}"
+                (keyup)="reportsPermissionsFilter($event)">
+            <span class="btns-row" *ngIf="showSelectAllButton"><!---->
+                <button type="button" (click)="selectAll()" *ngIf="selectAllButton">
+                    {{ 'common.select_all' | translate }}
+                </button>
+
+                <button type="button" (click)="deselectAll()" *ngIf="deselectAllButton">
+                    {{ 'common.deselect_all' | translate }}
+                </button>
+            </span>
+        </div>
+        <div class="resp-tree">
+            <imfx-controls-tree
+                    class="tree-group-permissions reports-permissions-tree jqSelectAll"
+                    #reportsPermissionsTree
+                    [externalCompReference]="componentContext"
+                    [extensions]="['filter']"
+                    [ext_filter]="{autoExpand: true, mode: 'hide', highlight: false}"
+                    [checkbox]="true"
+                    (onRenderNode)="reportsPermissions_onRenderNode($event)"
+                    [selectMode]="3"
+                    (onCollapse)="reportsPermissions_expandCollaps()"
+                    (onSelect)="reportsPermissions_onSelectNode($event)"
+                    (onUnSelect)="reportsPermissions_onSelectNode($event)"
+                    (onClick)="reportsPermissions_onClick($event)"
+                    [readonly]="isReadonly"
+                    [folderMode]="true"
+                    [icon]="false"
+            ></imfx-controls-tree>
+        </div>
+    </div>
+</div>
+
+
+
+
+

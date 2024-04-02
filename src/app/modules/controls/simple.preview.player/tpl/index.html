@@ -1,0 +1,35 @@
+<div class="simple-preview-wrapper full-width full-height">
+    <div class="preview-palyer-wrapper" #previewPlayerWrapper>
+        <div class="tl-wrapper" #timelineArea>
+            <input type="range" class="hidden-slider" #timelineSeek value="0" min="0" max="0" (mousedown)="freezeChange(this)" (mouseup)="onClickRange(this)"/>
+            <div #timelineFill class="tl-fill"></div>
+        </div>
+        <div #playerOverlay class="video-loader-overlay"><div class="spinner" ></div></div>
+    </div>
+    <div class="preview-palyer-button-wrapper">
+        <button *ngIf="srcs.length > 0" (click)="play()" class="preview-palyer-button"><i class="icons-play icon play"></i></button>
+        <button *ngIf="srcs.length > 0" (click)="pause()" class="preview-palyer-button"><i class="icons-pause icon pause"></i></button>
+        <button *ngIf="srcs.length > 0" (click)="restart()" class="preview-palyer-button"><i class="fa fa-repeat icon-repeat-media"></i></button>
+        <button *ngIf="srcs.length > 0 && players && players[currentIndex] && players[currentIndex].type != 1"
+                (click)="toggleSubsList()"
+                class="preview-palyer-button"
+                [disabled]="tracksList.length == 0 || tracksList[currentIndex].length == 0">
+            <i class="icons-subtitles icon"></i>
+        </button>
+        <div [hidden]="!this.subsShowed"
+             class="subs-wrapper">
+            <div class="item" *ngFor="let s of tracksList[currentIndex]" (click)="setSubs(s.language)" [ngClass]="{'selected': s.mode == 'showing'}">{{s.language}}</div>
+        </div>
+        <button *ngIf="srcs.length > 0 && players && players[currentIndex] && players[currentIndex].type != 1" (click)="speed(false)" class="preview-palyer-button">
+            <i class="fas fa-backward icon"></i>
+        </button>
+        <button *ngIf="srcs.length > 0 && players && players[currentIndex] && players[currentIndex].type != 1" (click)="speed(true)" class="preview-palyer-button">
+            <i class="fas fa-forward icon"></i>
+        </button>
+        <span style="line-height: 32px;" *ngIf="srcs.length > 0 && players && players[currentIndex] && players[currentIndex].type != 1">
+             Playback speed x{{playbackRate}}
+        </span>
+
+    </div>
+    <!--div class="preview-overlay" *ngIf="readyCounter < players.length"><div class="spinner small"></div></div-->
+</div>

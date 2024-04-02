@@ -1,0 +1,5 @@
+<span *ngFor="let attach of data; let i=index">
+    <a tmdfullimage [attr.data-src]="url + attach.AttachId">
+        {{attach.CreatedBy}} - {{attach.CreatedDate | localDate: params.columnDef.__deps.datetimeFullFormatLocaldatePipe}}
+    </a>
+</span>

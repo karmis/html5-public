@@ -1,0 +1,127 @@
+@import "../../../styles/theme.scss";
+
+@each $key, $value in $common-themes {
+  .#{$key} {
+    .basket-dropdown {
+      position: relative;
+      min-width: 65px;
+      transition: all linear 0.5s;
+      &.updated:not(:hover) {
+          background: getThemeColor(12, $key)!important;
+          transition: all linear 0.5s;
+
+        .basket-btn {
+          color: #fff!important;
+
+          .icon {
+            color: #fff!important;
+          }
+        }
+
+      }
+      .dialog-basket {
+        max-width: 35rem;
+        max-height: 350px !important;
+        top: -9999px;
+        bottom: 100px;
+
+        &.active-submenu {
+          top: 100%!important;
+          bottom: initial;
+        }
+
+        .item {
+          max-height: 350px;
+          overflow-y: auto;
+        }
+
+        .row-item {
+          height: 84px;
+          overflow: hidden;
+          position: relative;
+
+          &:hover {
+            color: getThemeColor(15, $key);
+            background-color: getThemeColor(10, $key);
+            .delete {
+              opacity: 1;
+            }
+            p {
+              color: #FFFFFF;
+            }
+          }
+
+          .delete {
+            background-color: transparent;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+            display: inline-block;
+            position: absolute;
+            right: 12px;
+            top: 27px;
+            width: 26px;
+            height: 26px;
+            padding: 0;
+            line-height: 20px;
+            opacity: 0.7;
+
+            &:hover {
+              background-color: getThemeColor(13, $key);
+              opacity: 1;
+
+              i.icon {
+                color: getThemeColor(15, $key);
+              }
+            }
+          }
+
+          //&:before {
+          //  content: "";
+          //  position: absolute;
+          //  right: 0;
+          //  bottom: 0;
+          //  top: 0;
+          //  width: 50px;
+          //  background: linear-gradient(to right, transparent 5%, getThemeColor(6, $key) 35%);
+          //}
+
+          div {
+            display: inline-block;
+          }
+          div:not(.thumb) {
+            padding-left: 12px;
+            max-width: 25rem;
+            padding-right: 30px;
+          }
+
+          .thumb {
+            width: 60px;
+            height: 60px;
+            line-height: 57px;
+            background-color: #000;
+            vertical-align: top;
+
+            img {
+              width: 100%;
+              display: inline;
+            }
+
+          }
+          h4 {
+            font-size: 12px;
+            padding-bottom: 12px;
+            margin: 0;
+            cursor: pointer;
+              overflow: hidden;
+              text-overflow: ellipsis;
+          }
+          p {
+            line-height: 16px;
+            margin: 0;
+          }
+
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+<div class="change-custom-status">
+    <label>
+        Reason
+    </label>
+    <input type="text" [(ngModel)]="name">
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div class="buttons">
+            <button class="next"
+                    (click)="closeModal()">
+                {{ 'views.cancel' | translate }}
+            </button>
+            <button class="next primary"
+                    [disabled]="name.length === 0"
+                    (click)="save()">
+                {{ 'common.save' | translate }}
+            </button>
+        </div>
+    </div>
+</ng-template>
+

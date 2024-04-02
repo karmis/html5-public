@@ -1,0 +1,103 @@
+<div #systemSettingsGridWrapper class="system-settings-table">
+    <div class="row-header">
+        <input class="data-filter" #datasetFilter placeholder="{{'system_settings.filter_data' | translate}}" type="text" (input)="updateDataset($event.target.value)"/>
+        <div class="top-buttons">
+            <select (change)="onChangeGroupFilter($event.target.value)">
+                <option value="">All</option>
+                <option *ngFor="let group of groups;" value="{{group.key}}">{{group.value}}</option>
+            </select>
+            <div class="hide-on-small-screen">
+                <div class="select-file">
+                            <button type="button browse" class="browse">{{'system_settings.import' | translate}}</button>
+                            <input type='file' accept='.msf' (change)='import($event)'>
+        </div>
+                <button (click)="export(true)">{{'system_settings.export' | translate}}</button>
+                <button (click)="export()">{{'system_settings.export_v' | translate}}</button>
+                <button (click)="saveAll()" disabled="{{(someDataChanged ? someDataChanged : null)}}"
+                        style="float:right;">{{'system_settings.save_all' | translate}}</button>
+            </div>
+          <nav class="hide-on-big-screen">
+                <ul>
+                    <li class="dropdown dropdown-hiddens" dropdown>
+                        <i class="icons-more icon"></i>
+                        <ul class="submenu">
+                            <li>
+                                <div class="select-file">
+                                    <button type="button browse" class="browse submenu-btn">{{'system_settings.import' | translate}}</button>
+                                    <input type='file' accept='.msf' (change)='import($event)'>
+                                </div>
+                            </li>
+                            <li>
+                                <button class="submenu-btn" (click)="export(true)">{{'system_settings.export' | translate}}</button>
+                            </li>
+                            <li>
+                                <button class="submenu-btn" (click)="export()">{{'system_settings.export_v' | translate}}</button>
+                            </li>
+                            <li>
+                                <button class="submenu-btn" (click)="saveAll()" disabled="{{(someDataChanged ? someDataChanged : null)}}"
+                                        style="float:right;">{{'system_settings.save_all' | translate}}</button>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="clear-dataset-filter" (click)="clearDatasetFilter()">
+            <i class="icons-cross icon"></i>
+        </div>
+    </div>
+    <div class="system-settings-grid-wrapper" [ngClass]="{'edit-mode': selectedData != null}">
+        <div id="externalWrapperSystemSettingsTables" style="height: 100%;">
+            <slick-grid #systemSettingsGrid
+                        [config]="systemSettingsGridOptions"
+                        class="small-height-header">
+            </slick-grid>
+        </div>
+    </div>
+    <div class="system-settings-item-wrapper" *ngIf="selectedData != null">
+        <div class="value-wrapper">
+            <div class="header">
+                {{selectedData.Name}}
+                <div class="code">{{selectedData.Code}}</div>
+            </div>
+            <div class="label">{{"system_settings.fields.value" | translate}}</div>
+            <div class="value-field">
+                <input *ngIf="selectedData.ValueType=='TextBox'" type="text" [(ngModel)]="selectedData.Value" (ngModelChange)="onChangeValue($event)"/>
+                <input *ngIf="selectedData.ValueType=='NumberBox'"
+                       type="text"
+                       digitOnly
+                       [(ngModel)]="selectedData.Value"
+                       (ngModelChange)="onChangeValue($event)"
+                       [attr.min]="numberRanges ? numberRanges[0] : null"
+                       [attr.max]="numberRanges ? numberRanges[1] : null"/>
+                <textarea *ngIf="selectedData.ValueType=='TextBoxMultiline'" [(ngModel)]="selectedData.Value" (ngModelChange)="onChangeValue($event)"></textarea>
+                <input *ngIf="selectedData.ValueType=='CheckBox'" type="checkbox"
+                       [indeterminate]="selectedData.Value === '0'"
+                       [ngModel]="selectedData.Value === '1'"
+                       (ngModelChange)="onChangeValue(selectedData)"
+                       />
+                <imfx-controls-select2
+                    *ngIf="selectedData.ValueType=='ComboSingle'"
+                    class="filed-value"
+                    [width]="'100%'"
+                    [data]="lookupsMap"
+                    [value]="[{Id: selectedData.Value}]"
+                    [placeholder]="'xml.select_value'|translate"
+                    [placeholderRefToTranslate]="'xml.select_value'"
+                    [readonly]="false"
+                    [clearFormat]="{
+                        showButton: hasClear,
+                        defaultValue: null
+                    }"
+                    (onSelect)="onChangeValue($event)"></imfx-controls-select2>
+            </div>
+        </div>
+        <div class="description-wrapper">
+            <div class="label">{{"system_settings.fields.description" | translate}}</div>
+            <!--textarea [(ngModel)]="selectedData.Description"
+                      (ngModelChange)="onChangeDescription($event)"></textarea-->
+            {{selectedData.Description}}
+        </div>
+    </div>
+</div>
+<overlay #overlayGroup [mode]="true" [zIndex]="100"></overlay>

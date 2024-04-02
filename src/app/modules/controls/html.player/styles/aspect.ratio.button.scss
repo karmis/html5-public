@@ -1,0 +1,28 @@
+@import "../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .video-js {
+            .aspect-ratio-btn {
+                width: auto;
+                button {
+                    min-width: 28px;
+                }
+                //padding: 0;
+            }
+            .icon-aspect-select {
+                width: 20px;
+                opacity: 0.6;
+                vertical-align: middle;
+                transition: all 0.2s ease-in-out;
+                text-align: center;
+                white-space: pre-wrap;
+                &:hover {
+                    opacity: 1;
+                }
+            }
+            .default-aspect {
+            }
+        }
+    }
+}

@@ -1,0 +1,58 @@
+<div class="notification-wrapper" #notificationWrapperEl>
+    <div class="notification row-header sample-notification"
+         *ngFor="let notification of notificationsList"
+         [ngClass]="{'warning': notification.notificationType == 2, 'show': notification.show, 'hidden': !notification.show}"
+    >
+        <div class="notification-content"
+             *ngIf="notification.notificationType == 1; else errorMessage"
+             (click)="CopyToClipboard(notification.index)"
+             title="Click to copy">
+            <div class="icons-block">
+                <div style="margin-right: 8px">
+                    <i class="icons-success icon notif-icon"></i>
+                    <div [ngStyle]="{'visibility': (notification.copied) ? 'visible' : 'hidden'}">Copied</div>
+                </div>
+            </div>
+            <div class="notif-message"
+                 id="messageEl-{{notification.index}}"
+                 title="{{(notification.message.toClipboard | translate)}}"
+            >
+                {{ notification.message.text | translate }}
+            </div>
+        </div>
+        <ng-template #errorMessage>
+            <div class="notification-content"
+                 [ngClass]="{'non-full-height': !showWholeMessage, 'with-show-btn': CalcMessageHeight()}"
+                 (click)="CopyToClipboard(notification.index)"
+                 title="Click to copy">
+                <div class="icons-block">
+                    <i *ngIf="!notification.copied"
+                       class="icons-info icon notif-icon">
+                    </i>
+                    <i *ngIf="notification.copied"
+                        class="icons-success icon notif-icon">
+                    </i>
+                    <div [ngStyle]="{'visibility': (notification.copied) ? 'visible' : 'hidden'}">Copied</div>
+                </div>
+
+
+                <a *ngIf="CalcMessageHeight()"
+                   class="more-btn" (click)="showWholeMessage=true; $event.stopPropagation();">
+                    {{ 'common.learn_more' | translate }}
+                </a>
+
+                <div class="notif-message"
+                     id="messageEl-{{notification.index}}"
+                     title="{{(notification.message.toClipboard | translate)}}">
+                    <p [innerHTML]="notification.message.text | translate"></p>
+
+                </div>
+
+            </div>
+        </ng-template>
+        <i (click)="HideNotificationHandler(notification.index)"
+           class="nav-right close-trigger icon-button icons-closedelete icon close"
+           *ngIf="notification.notificationType == 1 || notification.notificationType == 2;"></i>
+    </div>
+</div>
+

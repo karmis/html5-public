@@ -1,0 +1,42 @@
+@import "../../../../views/base/styles/theme.scss";
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        #disable-video-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            background-color: black;
+            color: white !important;
+            z-index: 2;
+        }
+
+        #disable-video {
+            svg {
+                stroke: getThemeColor(1, $key);
+            }
+            &.active {
+                //top: 2px;
+            }
+        }
+
+        .icon-disable-video {
+            /* display: flex; */
+            /* width: 24px; */
+            /* height: 16px; */
+            position: relative;
+            top: 8px;
+            opacity: 0.6;
+            vertical-align: middle;
+            transition: all 0.2s ease-in-out;
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+}

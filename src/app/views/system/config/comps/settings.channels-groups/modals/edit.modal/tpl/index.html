@@ -1,0 +1,104 @@
+<div class="channel-groups-modal-wrapper">
+    <div class="main-fields">
+        <div class="field-wrapper" [ngClass]="{'multiline': field.DataType=='TextBoxMultiline' || field.DataType=='XmlEditor'}"
+             *ngFor="let field of cols">
+            <span class="filed-label">{{field.Label}}</span>
+            <div class="filed-value" [ngClass]="{'notvalid': field.NotValid}">
+            <!-- NOT READONLY MODE -->
+                <input *ngIf="field.DataType=='TextBox' && !field.Readonly" type="text" [(ngModel)]="itemToSave[field.Field]"/>
+                <input *ngIf="field.DataType=='NumberBox' && !field.Readonly" type="number"
+                       [attr.min]="field.PositiveNumber ? '1' : null" step="any"
+                       (input)="$event.target.value < 1 ? $event.target.value = 1 : return"
+                       [(ngModel)]="itemToSave[field.Field]"/>
+                <textarea *ngIf="field.DataType=='TextBoxMultiline' && !field.Readonly && !field.CodeEditor" [(ngModel)]="itemToSave[field.Field]"></textarea>
+                <input *ngIf="field.DataType=='CheckBox' && !field.Readonly" type="checkbox"
+                       [checked]="itemToSave[field.Field] == 1 || itemToSave[field.Field] === true" (change)="$event.target.checked ? itemToSave[field.Field] = 1 : itemToSave[field.Field] = 0"/>
+                <imfx-controls-select2
+                    *ngIf="field.DataType=='ComboSingle' && lookupsMap[field.Field] && lookupsMap[field.Field] && !field.Readonly"
+                    class="filed-value"
+                    [clearFormat]="{
+                        showButton: !field.Required,
+                        defaultValue: null
+                    }"
+                    [width]="'100%'"
+                    [data]="lookupsMap[field.Field]"
+                    [value]="[{Id: itemToSave[field.Field]}]"
+                    [placeholder]="'xml.select_value'|translate"
+                    [placeholderRefToTranslate]="'xml.select_value'"
+                    (onSelect)="onSelect($event, field.Field)"></imfx-controls-select2>
+                <div
+                    *ngIf="field.DataType=='ComboSingle' && field.ItemsSource && (!lookupsMap[field.Field] || lookupsMap[field.Field] && lookupsMap[field.Field].length == 0)">
+                    Select value for "{{getFriendlyName(field)}}"
+                </div>
+                <codemirror *ngIf="field.DataType=='XmlEditor' || (field.DataType=='TextBoxMultiline' && field.CodeEditor)"
+                            [(ngModel)]="itemToSave[field.Field]"
+                            [config]="{'readOnly':field.Readonly, 'lineNumbers': true }">
+                </codemirror>
+                <div class="color-selector-field" *ngIf="field.DataType=='ColorSelector' && !field.Readonly" id="color-wrapper-{{field.Field}}">
+                    <div *ngIf="itemToSave[field.Field] != null" id="color-{{field.Field}}" class="color-icon" [ngStyle]="{'background':itemToSave[field.Field].length > 1 ? itemToSave[field.Field] : ''}"
+                         [cpPosition]="'bottom'"
+                         (click)="pickerClick(field.Field)"
+                         [cpAlphaChannel]="'disabled'"
+                         [cpPositionRelativeToArrow]="true"
+                         [colorPicker]="itemToSave[field.Field].length > 1 ? itemToSave[field.Field] : '#000'"
+                         (colorPickerChange)="onChangeColorField($event,  field.Field, this)"
+                    ></div>
+                    <input  class="color-input" type="text" (focusout)="onColorFocusOut(field.Field)"
+                            [(ngModel)]="itemToSave[field.Field]" (click)="pickerClick(field.Field)">
+                </div>
+                <div *ngIf="field.DataType=='Time' && !field.Readonly">
+                    <imfx-controls-datetimepicker
+                        #control
+                        [locale]="'common.locale' | translate"
+                        [format]="'common.time_format_full' | translate"
+                        [formatDate]="'common.date_format' | translate"
+                        [formatTime]="'common.time_format_full' | translate"
+                        [allowBlank]="true"
+                        [value]="itemToSave[field.Field]"
+                        [mask]="true"
+                        [dayOfWeekStart]="'common.date_of_week_start' | translate"
+                        [timepicker]="true"
+                        [datepicker]="false"
+                        [readonly]="false"
+                        (onChangeDateTime)="onSelectTime($event, field.Field)"
+                        (onSelectTime)="onSelectTime($event, field.Field)"
+                    ></imfx-controls-datetimepicker>
+                </div>
+
+            <!-- READONLY MODE -->
+                <div class="color-selector-field" *ngIf="field.DataType=='ColorSelector' && field.Readonly">
+                    <div  class="color-icon" [ngStyle]="{'background':itemToSave[field.Field].length > 1 ? itemToSave[field.Field] : ''}"
+                    ></div>
+                    <input  class="color-input" type="text" disabled value="{{itemToSave[field.Field]}}">
+                </div>
+                <input *ngIf="field.Readonly && (field.DataType=='TextBox' || field.DataType=='NumberBox')" disabled type="text" value="{{itemToSave[field.Field]}}"/>
+                <input *ngIf="field.Readonly && field.DataType=='Time'" disabled type="text"
+                       value="{{itemToSave[field.Field] | localDate: params.columnDef.__deps.datetimeFullFormatLocaldatePipe}}"/>
+                <textarea *ngIf="field.Readonly && field.DataType=='TextBoxMultiline' && !field.CodeEditor" disabled value="{{itemToSave[field.Field]}}"></textarea>
+                <select *ngIf="field.Readonly && field.DataType=='ComboSingle'" disabled>
+                    <option *ngIf="checkLookup(field.Field)" value="{{itemToSave[field.Field]}}" selected>{{getFromLookup(field.Field)}}</option>
+                </select>
+                <input *ngIf="field.Readonly && field.DataType=='CheckBox'" disabled type="checkbox" checked="{{itemToSave[field.Field] == 1 ? true : null}}"/>
+            </div>
+        </div>
+    </div>
+    <div class="channels-field-wrapper">
+        <settings-channels-tab [data]="itemToSave['Channels']" [lookup]="channelsLookup" (onAddItems)="onAddChannel($event)" (onDeleteItems)="onDeleteChannel($event)"></settings-channels-tab>
+    </div>
+    <div class="overlay-wrapper" #modalOverlayWrapper>
+        <div class="spinner"></div>
+    </div>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div>
+            <div class="channel-groups-active-filed-wrapper" *ngIf="itemToSave.hasOwnProperty('ACTIVE') && !inLoad">
+                <span>{{translateKey + ".active_field" | translate}}</span>
+                <input type="checkbox" [checked]="itemToSave['ACTIVE'] === 1 || itemToSave['ACTIVE'] === true" (change)="$event.target.checked ? itemToSave['ACTIVE'] = 1 : itemToSave['ACTIVE'] = 0"/>
+            </div>
+            <button type="button" *ngIf="!inLoad" (click)="saveData()">{{'common.save'| translate}}</button>
+            <button type="button" *ngIf="!inLoad" (click)="closeModal()">{{'common.cancel'| translate}}</button>
+        </div>
+    </div>
+</ng-template>

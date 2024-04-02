@@ -1,0 +1,12 @@
+<div class="overlay-wrapper">
+    <div class="prompt-wrapper">
+        <div class="prompt-title">
+          Leaving this page will lose unsaved changes. <br>
+              Are you sure?
+        </div>
+        <div class="prompt-options">
+            <div class="option-item" (click)="choosePromptOption(true)">{{'common.yes' | translate}}</div>
+            <div class="option-item" (click)="choosePromptOption(false)">{{'common.no' | translate}}</div>
+        </div>
+    </div>
+</div>

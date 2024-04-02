@@ -1,0 +1,6 @@
+<div class="wrapper">
+    <i *ngIf="status=='off'" class="icons-statusred icon status-red"></i>
+    <i *ngIf="status=='on'" class="icons-statusgreen icon status-green"></i>
+    <i *ngIf="status!='on' && status!='off'" class="icons-statusorange icon status-orange"></i>
+    <span>{{statusText}}</span>
+</div>

@@ -1,0 +1,33 @@
+<nav class="flex-criterias" [ngClass]="{'criteria-disabled': criteria.data.isDisabled }">
+    <div class="flex-criteria-field">
+        <!--Criteria-->
+        <advanced-criteria-field-builder
+                #advancedCriteriaFieldBuilder
+                [common]="common"
+                [criteria]="criteria"
+                (onSelected)="onSelectField($event)"
+        ></advanced-criteria-field-builder>
+    </div>
+    <div class="flex-criteria-comparison" [hidden]="mode=='example'">
+        <!--Division-->
+        <advanced-criteria-operators
+                #advancedCriteriaOperatorsModule
+                (onSelected)="onSelectOperator($event)"></advanced-criteria-operators>
+    </div>
+
+    <!--Control-->
+    <div class="flex-criteria-value">
+        <advanced-criteria-controls
+                #advancedCriteriaControlModule
+        ></advanced-criteria-controls>
+    </div>
+
+    <!--Remove criteria button-->
+    <div class="flex-criteria-delete">
+        <button class="icon-button delete nav-right test-advanced-searching-button-remove-criteria-builder"
+                title="{{'advanced.remove_criteria'| translate}}"
+                (click)="removeCriteria()">
+            <i class="icons-cross icon"></i>
+        </button>
+    </div>
+</nav>

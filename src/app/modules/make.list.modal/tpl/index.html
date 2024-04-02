@@ -1,0 +1,54 @@
+<form>
+    <div class="form-group">
+        <label>Duration</label>
+
+        <imfx-controls-datetimepicker
+            #durationComp
+            [format]="'common.time_format' | translate"
+            [formatTime]="'common.time_format' | translate"
+            [allowBlank]="true"
+            [mask]="true"
+            [timepicker]="true"
+            [datepicker]="false"
+            [value]="null"
+            (onChangeDateTime)="onDate($event)"
+        ></imfx-controls-datetimepicker>
+    </div>
+    <div class="form-group">
+        <label>Title</label>
+        <input [(ngModel)]="form.title" class="form-control" type="text" name="title" autocomplete="off">
+    </div>
+    <div class="form-group">
+        <label>Media File Type</label>
+        <imfx-lookups-select2
+                #mediaFileComp
+                [width]="'100%'"
+                [value]="form.mediaTypeId"
+                [lookupType]="'MediaFileTypes'"
+                [placeholder]="'base.selectOoo'|translate"
+                [placeholderRefToTranslate]="'base.selectOoo'"
+                (onSelect)="onSelectMediaFile($event)"
+        ></imfx-lookups-select2>
+    </div>
+    <div class="form-group">
+        <label>Notes</label>
+        <textarea name="notes" class="form-control notes-input" [(ngModel)]="form.notes">
+    </textarea>
+    </div>
+</form>
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div class="buttons">
+            <button class="next primary"
+                    [disabled]="!form.title||!form.title.length"
+                    (click)="addMediaToList()">
+                {{ 'common.ok' | translate }}
+            </button>
+            <button class=""
+                    (click)="closeModal()">
+                {{ 'views.cancel' | translate }}
+            </button>
+        </div>
+    </div>
+</ng-template>
+

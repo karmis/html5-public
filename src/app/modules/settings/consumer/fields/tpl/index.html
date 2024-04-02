@@ -1,0 +1,31 @@
+<div class="fields">
+    <div class="modal-row ms-search ">
+        <input #inputSearchRef
+               type="text"
+               name="search"
+               placeholder="{{ 'common.search_placeholder' | translate }}"
+               class="search-input form-control"
+               [(ngModel)]="searchText"
+               autocomplete="off"/>
+        <i class="search-icon"></i>
+    </div>
+    <div class="js-scrollbar-target-modal-one">
+        <div *ngFor="let field of fields | orderBy : ['TemplateName'] | byName : [searchText]">
+            <div class="modal-row">
+                <div class="modal-col">
+                    <input type="checkbox" id="field_{{field.BindingName}}" value="{{field.BindingName}}"
+                           (change)="onChangeCheckbox($event, field)"
+                           [checked]="tmpSettings.staticWidgets[field.BindingName].enabled">
+                </div>
+                <div class="modal-col">
+                    <label for="field_{{field.BindingName}}">{{field.TemplateName}}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <button type="button" (click)="modalRef.hide()"> {{'common.close'|translate}}</button>
+        <button type="button" (click)="selectAll()"> {{'common.select_all'|translate}}</button>
+        <button type="button" class="primary" (click)="apply()"> {{'common.apply'|translate}}</button>
+    </div>
+</div>

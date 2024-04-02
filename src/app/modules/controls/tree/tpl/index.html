@@ -1,0 +1,15 @@
+<!--use hidden because with ngIf we fo not have nativeElement whe starting initialization of a plugin-->
+<div #imfxControlsTree [hidden]="isTree()"></div>
+
+<table #imfxControlsTableTree [hidden]="!isTree()">
+  <thead>
+  <tr>
+    <th>label</th>
+    <th>control</th>
+    <th>+/-</th>
+  </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+

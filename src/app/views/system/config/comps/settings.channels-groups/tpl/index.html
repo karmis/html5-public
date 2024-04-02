@@ -1,0 +1,9 @@
+<div class="channels-groups-table-grid-wrapper">
+    <common-tables-grid #commonTablesGridComponent
+                        [allowDeleteOnClient]="false"
+                        [customEditModal]="customEditModal"
+                        (changeModalOk$)="onModalOk($event)"
+                        (deleteItem$)="onDeleteItem($event)"
+                        (changeItem$)="onChangeItem($event)"
+    ></common-tables-grid>
+</div>

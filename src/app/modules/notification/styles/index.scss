@@ -1,0 +1,174 @@
+@import "../../../views/base/styles/theme.scss";
+
+@-webkit-keyframes showNotification {
+    from {
+        transform: translateX(105vw);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes hideNotification {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(105vw);
+        opacity: 0;
+    }
+}
+
+@each $key, $value in $common-themes {
+    .#{$key} {
+        .notification-wrapper {
+            position: fixed;
+            bottom: 16px;
+            right: 16px;
+            overflow: visible;
+            z-index: 500;
+            //width: 300px;
+
+            .notification {
+                background: getThemeColor(12, $key);
+                color: white;
+                padding: 8px 16px;
+                box-shadow: 0 8px 16px rgba(33, 40, 46, 0.08);
+                max-width: 33vw;
+                cursor: pointer;
+                overflow: hidden;
+            }
+
+            .notification.show {
+                -webkit-animation: showNotification 0.2s ease-in-out forwards;
+                animation: showNotification 0.2s ease-in-out forwards;
+            }
+
+            .notification.hidden {
+                -webkit-animation: hideNotification 0.2s ease-in-out forwards;
+                animation: hideNotification 0.2s ease-in-out forwards;
+            }
+
+            .notification:not(.inline) {
+                position: relative;
+                display: flex;
+                margin-top: 10px;
+            }
+
+            .notification.warning {
+                background: #d95817;
+
+
+                .notification-content:before {
+                    content: "";
+                    position: absolute;
+                    bottom: -8px;
+                    left: 40px;
+                    right: 0;
+                    background: linear-gradient(rgba(217, 88, 23, 0), #d95817, #d95817);
+                    height: 11px;
+                }
+            }
+
+            .notification-content {
+                margin-bottom: 0;
+                display: flex;
+                min-height: 30px;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                position: relative;
+                &.with-show-btn {
+                    .icons-block {
+                        width: 105px;
+                    }
+                }
+            }
+
+            .non-full-height {
+                max-height: 150px;
+            }
+
+            .more-btn {
+                position: absolute;
+                bottom: 0;
+                margin: 0;
+                opacity: 0.6;
+                color: white;
+
+                &:hover {
+                    opacity: 1;
+                    color: white;
+                }
+            }
+
+            .notification .icon.notif-icon {
+                margin-right: 20px;
+                line-height: 30px;
+            }
+
+            .icons-block {
+                width: 50px;
+            }
+
+            .icon.notif-icon {
+                color: white;
+            }
+
+            .notif-icon {
+                vertical-align: top;
+            }
+
+            .notif-message {
+                margin-right: 20px;
+                display: flex;
+                line-height: normal;
+                justify-content: center;
+                align-items: center;
+                margin-top: 7px;
+                width: 100%;
+            }
+
+            .notification button {
+                margin-left: 32px;
+            }
+
+            .notification button.icon-button {
+                background: transparent;
+                display: block;
+                height: 16px;
+                line-height: 16px;
+                padding: 0;
+                margin-right: 0;
+                cursor: pointer;
+                text-align: center;
+
+            }
+            .icons-closedelete {
+                top: 14px;
+            }
+            .notification .icon.close {
+                color: white;
+            }
+
+            .notification button.icon-button .icon {
+                margin-right: 0;
+            }
+
+            .notification button:not(.no-label) .icon {
+                margin-right: 8px;
+                margin-top: -6px;
+            }
+
+            .notification button .icon {
+                margin-top: -2px;
+                color: #dfebf3;
+            }
+        }
+    }
+}
+
+

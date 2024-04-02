@@ -1,0 +1,21 @@
+<div class="files-upload-area" id="filedrop-for-aspera" (click)="fileInput.click()" [style.display]="src ? 'none' : 'block'">
+    <input hidden type="file" #fileInput (change)="uploadFile($event)">
+    <div class="files-block select-files-block-handler">
+        <div
+            class="click-me-for-upload-placeholder">
+            <i class="icon upload-icon"></i>
+
+            <div class="tip">{{'upload.upload_placeholder_click'|translate}}</div>
+
+        </div>
+    </div>
+</div>
+<div class="preview-img" [style.display]="src ? 'flex' : 'none'" (click)="deleteAttachment()">
+    <img #previewImg [class]="getClassImg()" [src]="'data:image/png;base64,' + src">
+    <div class="close-wrap">
+        <span class="closebtn"
+              title="{{ 'common_hints.remove' | translate }}">
+            <i class="icons-cross icon small"></i>
+        </span>
+    </div>
+</div>

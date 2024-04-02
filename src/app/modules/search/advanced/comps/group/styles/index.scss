@@ -1,0 +1,147 @@
+@import "../../../../../../views/base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+  .#{$key} {
+
+    .criteria-group {
+       >nav, >.nav {
+        display: table;
+         width: 100%;
+        //margin-right: $grid*3;
+
+        //& > div {
+        //  display: table-cell;
+        //  padding: $grid;
+        //  vertical-align: top;
+        //}
+
+
+        //.row-form {
+        //  flex-wrap: nowrap;
+        //}
+
+        .field {
+          width: 100%;
+        }
+
+      }
+
+      .delete {
+        background-color: transparent;
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+        display: inline-block;
+        right: 12px;
+        top: 27px;
+        //width: 26px;
+        //height: 26px;
+        padding: 0;
+        //line-height: 20px;
+        opacity: 0.7;
+
+        height: 24px;
+        line-height: 24px;
+        width: 24px;
+
+        .icon {
+          margin-top: -3px;
+          margin-right: -2px;
+        }
+
+        &:hover {
+          background-color: getThemeColor(13, $key);
+          opacity: 1;
+
+          i.icon {
+            color: getThemeColor(15, $key);
+            opacity: 1;
+          }
+        }
+      }
+
+
+      .bottom-block {
+        width: 100%;
+        div {
+          display: inline-block;
+            padding: $grid;
+        }
+        .remove-group-wrapper {
+          float: right;
+          //padding: 4px;
+          button {
+            border-right: 2px solid transparent;
+            //padding: 0 4px;
+            //margin-right: 1px;
+            i:before {
+              vertical-align: -4px;
+            }
+          }
+        }
+        .test-advanced-searching-button-add-criteria-builder i:before {
+          vertical-align: -4px;
+        }
+      }
+    }
+
+
+
+    //.advanced-group {
+    //  padding-bottom: 10px;
+    //  padding-top: 10px;
+    //  border: 1px solid #ccc;
+    //  margin-bottom: 5px;
+    //  position: relative;
+    //  //display: block;
+    //
+    //  .select2-search__field {
+    //    width: 100% !important;
+    //  }
+    //
+    //  .advanced-or {
+    //    position: absolute;
+    //    border: 1px solid #808080;
+    //    padding: 1px 28px;
+    //    background-color: #bbb;
+    //    top: -20px;
+    //    left: 15px;
+    //    cursor: default;
+    //    z-index: 2;
+    //  }
+    //  .remove-group {
+    //    margin: .3rem;
+    //  }
+    //  .container, .row {
+    //    box-sizing: border-box;
+    //    width: 100%;
+    //    margin: 0;
+    //    padding: 0;
+    //  }
+    //  .third-column .select2-container--default.select2-container--focus .select2-selection--multiple,
+    //  .third-column .select2-container--default .select2-selection--multiple,
+    //  .third-column .select2-container .select2-selection--single,
+    //  .third-column .advanced-group input.form-control {
+    //    border-radius: 4px;
+    //    margin-top: 2px;
+    //    min-height: 29px;
+    //  }
+    //
+    //  .third-column [type=checkbox] {
+    //    margin-top: 10px;
+    //  }
+    //  .third-column advanced-criteria-control-singledatetime {
+    //    button {
+    //      margin-top: 2px;
+    //      min-height: 28px;
+    //    }
+    //    input {
+    //      min-height: 29px;
+    //      margin-top: 2px;
+    //      margin-left: 5px;
+    //      border-radius: 4px;
+    //      border: 1px solid #aaaaaa;
+    //    }
+    //  }
+    //}
+  }
+}

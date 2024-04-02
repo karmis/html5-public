@@ -1,0 +1,24 @@
+<div class="segments-tab-wrapper">
+    <div class="segments-btns" *ngIf="showCredit">
+        <label>{{"End Credit OK for V/O" | translate}}<input type="checkbox" [disabled]="forceReadOnly || config.readOnly"
+                                                             [checked]="checkedCredit"
+                                                             (click)="onChangeEndCredit(!checkedCredit)"/></label>
+    </div>
+    <slick-grid
+          #segmentsAudioGrid
+          class="segments-audio-grid vertical-align-row small-height-header"
+          [ngClass]="{'with-credit': showCredit}"
+          style="width: 100%;"
+          [config]="segmentsAudioGridOptions"
+    ></slick-grid>
+    <button (click)="addEntry(false)"*ngIf="!config.readOnly" title="{{ 'simple_assessment.add_segment' | translate }}">
+        <i class="icons-add icon"></i>
+        {{ 'simple_assessment.add_segment' | translate }}
+    </button>
+    <button (click)="addEntry(true)" *ngIf="!config.readOnly && !isProductionTable" [disabled]="disableReplaceBnt()" style="margin-left: 5px;" title="{{ 'media_logger.replace_in_out_hint' | translate }}">
+        <i class="fa fa-edit" style="width: 20px;height: 32px;opacity: 0.6;"></i>
+        {{ 'media_logger.replace_in_out' | translate }}
+    </button>
+    <label class="total-duration">Total Duration: {{totalDuration}}</label>
+</div>
+

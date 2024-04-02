@@ -1,0 +1,34 @@
+<div [hidden]="isEmpty" class="viewer-wrapper viewer-wrapper-pdf jq-pdf" id="test-for-overlay"
+     [ngClass]="{'fullSize': config.fullSize, 'notFullSize': !config.fullSize, 'onlyButton':config.onlyButton}">
+    <!--<div class="viewer-pdf height_100 {{config.renderMode}}" #target [ngClass]="{'overflow_auto': config.renderMode=='canvas'}"></div>-->
+    <button *ngIf="!showEmptyPdf" class="max-min-btn" (click)="toggleFullSize()">
+        <span *ngIf="config.fullSize === false">{{(config.onlyButton === true ? 'viewers.preview' : 'viewers.full_display_mode_enable') | translate }}</span>
+        <span *ngIf="config.fullSize === true">{{  'viewers.full_display_mode_disable' | translate }}</span>
+        <i *ngIf="config.onlyButton === true && config.fullSize === false" class="icon icons-hide-empty"></i>
+    </button>
+    <div *ngIf="config.renderMode === 'canvas' && shownPages >= shownMaxPagesInCanvasMode">
+        {{
+        'pdf_viewer.shown_part_from_all'|translate:{
+        'shownPages': shownPages,
+        'totalPages':totalPagesInDocument
+        }
+        }}
+
+        <a
+            class="btn download-btn"
+            target="_blank"
+            href="{{config.url}}">
+
+
+            {{'pdf_viewer.download_full_doc'|translate}}
+        </a>
+    </div>
+    <div *ngIf="showEmptyPdf" style="text-align: center;padding: 5px;">-</div>
+    <div class="viewer-pdf height_100 {{config.renderMode}} {{config.renderMode=='canvas' ? 'overflow_auto': ''}}"
+         (click)="toggleFullSize()" #target>
+        <div *ngIf="config.fullSize === true" class="full-preview-overlay">
+            <div class="spinner small"></div>
+        </div>
+    </div>
+</div>
+

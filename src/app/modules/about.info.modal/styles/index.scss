@@ -1,0 +1,48 @@
+@import "../../../views/base/styles/theme.scss";
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .about-info-modal-wrapper {
+            h2:first-child {
+                margin-top: -.8rem;
+            }
+            .info-wrapper {
+                min-height: 100px;
+                overflow: auto;
+            }
+            .info-container{
+                width: 100%;
+                display: table;
+                margin-bottom: 1rem;
+                .info-item{
+                    display: table-row;
+                    >div {
+                        //width:50%;
+                        display: table-cell;
+                        &.item-title{
+                            width: 25%;
+                            min-width: 200px;
+                        }
+                        &.item-data{
+                            //width:60%;
+                        }
+                    }
+                }
+            }
+            .server-log-container{
+                height: 200px;
+                width: 100%;
+                padding: 5px;
+                overflow: auto;
+                margin-bottom: 1rem;
+                resize: none;
+                line-height: 20px;
+                background-color: getThemeColor(4, $key);
+                .log-item {
+                    white-space: pre-wrap;
+                }
+            }
+        }
+    }
+}

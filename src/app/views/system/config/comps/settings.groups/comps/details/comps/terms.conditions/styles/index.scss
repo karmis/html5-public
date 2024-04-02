@@ -1,0 +1,32 @@
+@import "../../../../../../../../../base/styles/theme.scss";
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        terms-conditions {
+            .settings-groups-tc-wrapper {
+                display: flex;
+                flex-direction: column;
+                padding: 10px;
+
+                .terms-label {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    & .terms-textarea {
+                        margin-top: 5px;
+                        resize: none;
+                        height: 250px;
+                        &.terms-textarea-error {
+                            //border-color:
+                        }
+                    }
+                    .error-message {
+                        color: getThemeColor(13, $key) !important;
+                        padding: 5px;
+                    }
+                }
+            }
+        }
+    }
+}

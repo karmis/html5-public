@@ -1,0 +1,41 @@
+@import "../../../../../views/base/styles/theme.scss";
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        version-already {
+            .version-info {
+                display: flex;
+                justify-content: center;
+                align-items: start;
+                flex-direction: column;
+                padding: 12px;
+                background: getThemeColor(26, $key);
+
+                .caption {
+                    font-size: 1.2rem;
+                }
+
+                &__row {
+                    display: flex;
+                    flex-direction: row;
+                }
+                &__col {
+                    margin-right: 20px;
+                }
+            }
+            .slick-grid-wrapper {
+                position: relative;
+                width: 100%;
+            }
+
+            .media-wizard {
+                position: relative;
+                height: 100%;
+            }
+            .slick-grid-wrapper {
+                min-height: 400px;
+            }
+        }
+    }
+}

@@ -1,0 +1,174 @@
+@import "../../../../../../../../../base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+  .#{$key} {
+    .default-settings-wrapper {
+      display: flex;
+      flex-direction: column;
+        padding: 1rem;
+      .default-settings-row {
+        padding-top: 10px;
+
+          &.default-layout-setting {
+              .pb-1 {
+                  height: 28px;
+                  vertical-align: top;
+                  line-height: 24px;
+                  padding: 0!important;
+              }
+
+              .icon-button {
+                  display: inline-block;
+                  margin-left: 10px;
+              }
+
+              .layout-for-type-added-defaults {
+                  .list-header {
+                      display: flex;
+                      height: 20px;
+
+                      .header-field {
+                          opacity: 0.6;
+                          &:not(.remove) {
+                              flex: 1;
+                              &.borders {
+                                  border-left: 1px solid getThemeColor(9, $key);
+                                  padding: 0 0 0 5px;
+                              }
+                          }
+
+                          &.remove {
+                              width: 20px;
+                          }
+                      }
+                  }
+                  .added-layout-items {
+                      max-height: 400px;
+                      flex-direction: column;
+                      display: flex;
+
+                      .layout-item {
+                          display: flex;
+                          background: getThemeColor(3, $key);
+                          margin-bottom: 1px;
+                          padding: 5px;
+                          height: 28px;
+                          line-height: 18px;
+
+                          .type-name {
+                              overflow: hidden;
+                              text-overflow: ellipsis;
+                              white-space: nowrap;
+                              flex: 1;
+                          }
+                          .layout-name {
+                              overflow: hidden;
+                              text-overflow: ellipsis;
+                              white-space: nowrap;
+                              flex: 1;
+                              padding: 0 0 0 5px;
+                          }
+                          .remove-button-icon {
+                              width: 20px;
+                              position: relative;
+
+                              i {
+                                  left: 0;
+                                  top: 0;
+                              }
+                          }
+                      }
+                  }
+                  .add-block {
+                      display: flex;
+                      flex-direction: column;
+                      padding-top: 20px;
+
+                      .select-fields {
+                          .select-type {
+                              height: 32px;
+                              line-height: 32px;
+                              padding: 0 8px;
+                          }
+
+                          .dropdown.button.select2-wrapper {
+                              margin-bottom: 5px;
+                          }
+                      }
+
+                      .buttons-block {
+                          display: flex;
+                          flex-direction: row;
+                          width: 100%;
+
+                          button {
+                              flex: 1;
+                          }
+                      }
+                  }
+              }
+          }
+
+          imfx-controls-select2{
+              margin-top: 5px;
+          }
+
+          .block-settings {
+              //border: 1px solid getThemeColor(9, $key);
+              padding: 5px;
+              &__title {
+                  font-weight: bold;
+                  margin-bottom: 5px;
+                  margin-left: -5px;
+                  margin-top: -5px;
+              }
+              &-row {
+                  display: flex;
+                  margin: -10px;
+              }
+              &-col-4 {
+                  width: 35%;
+                  padding: 10px;
+              }
+          }
+          &:first-child {
+              padding-top: 0;
+          }
+          .text {
+              width: 100%;
+              margin-top: 5px;
+          }
+      }
+      .logo-images-wrapper {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        overflow-y: hidden;
+        .logo-image-wrapper {
+          margin-right: 15px;
+          cursor: pointer;
+          height: 90px;
+          //width: 80px;
+          padding: 2px;
+          text-align: center;
+          //border: 2px solid transparent;
+          span {
+            line-height: 80px;
+          }
+          img {
+            //width: 80px;
+            height: 80px;
+          }
+          &:hover {
+            //border: 2px solid blue;
+            box-shadow: 0 8px 16px rgba(51, 60, 69, 0.08);
+            border-bottom: getThemeColor(7, $key) 2px solid;
+          }
+          &.selected {
+            border-bottom: getThemeColor(7, $key) 2px solid;
+          }
+        }
+      }
+    }
+  }
+}

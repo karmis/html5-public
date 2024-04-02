@@ -1,0 +1,15 @@
+<div class="misr-details-fields-wrapper">
+    <div class="search-fields-wrapper">
+        <div class="header">Media Fields</div>
+        <div class="inputs">
+            <div *ngFor="let item of fields">
+                <label>
+                    <input type="checkbox" #checkbox
+                           [checked]="checkState(item.id)"
+                           (change)="changeDefaultSearchFields(item.id, checkbox.checked)">
+                    {{item.text}}
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

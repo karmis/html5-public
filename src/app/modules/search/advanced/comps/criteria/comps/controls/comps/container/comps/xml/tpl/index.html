@@ -1,0 +1,20 @@
+<button type="button" class="btn btn-default sidx" (click)="showModal()" *ngIf="data.field.Name?.indexOf('SCHEMAIDx') > -1">
+    <div *ngIf="serializedValue && serializedValue != ''"
+         style="width: 100%;    overflow: hidden;    text-overflow: ellipsis;    min-width: 100px;    max-width: 300px;"
+         [title]="modelName">
+    {{cuttedSerializedValue}}
+    </div>
+    <span *ngIf="!serializedValue">
+    {{ 'ng2_components.ag_grid.select_xml_fields' | translate }}
+    </span>
+</button>
+
+
+<button type="button" class="btn btn-default sid" (click)="showModal()" *ngIf="data.field.Name == 'SCHEMAID'">
+    <span [title]="modelName" *ngIf="modelName && modelName != ''">
+    {{modelName}}
+    </span>
+    <span *ngIf="!modelName">
+    {{ 'ng2_components.ag_grid.select_xml_schema' | translate }}
+    </span>
+</button>

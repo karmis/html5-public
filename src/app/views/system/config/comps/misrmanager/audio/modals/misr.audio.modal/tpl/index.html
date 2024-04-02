@@ -1,0 +1,238 @@
+<div class="modal-wrapper">
+    <div class="main-data">
+        <div class="field-wrapper">
+            <div class="label">
+                Code
+                <!--                {{'misrmanager.components.modal' | translate}}-->
+            </div>
+            <input type="text"
+                   [(ngModel)]="itemData.CH_CODE"
+                   style="width: calc(100% - 280px); margin-right: 54px;"
+            />
+            <div class="label" style="width: 50px;">
+                Active
+                <!--                {{'misrmanager.components.modal' | translate}}-->
+            </div>
+            <input type="checkbox"
+                   [(ngModel)]="itemData.ACTIVE"
+                   style="width: 16px; margin-bottom: -3px;"
+            />
+        </div>
+        <div class="field-wrapper">
+            <div class="label">
+                Name
+                <!--                {{'misrmanager.components.modal' | translate}}-->
+            </div>
+            <input type="text" [(ngModel)]="itemData.CH_FULL"/>
+        </div>
+        <div class="field-wrapper">
+            <div class="label">
+                Priority
+                <!--                {{'misrmanager.components.modal' | translate}}-->
+            </div>
+            <input type="text" [(ngModel)]="itemData.CH_PRI"/>
+        </div>
+        <div class="field-wrapper">
+            <div class="label">
+                Country
+                <!--                {{'misrmanager.components.modal' | translate}}-->
+            </div>
+            <imfx-controls-select2
+                #countryControl
+                [width]="'100%'"
+                [allowClear]="false"
+                [data]="lookups.OP_CNTRY_ID"
+                [value]="[itemData.OP_CNTRY_ID]"
+                [placeholder]="'base.selectOoo'|translate"
+                [placeholderRefToTranslate]="'base.selectOoo'"
+                (onSelect)="onUpdateControl('countryControl', 'OP_CNTRY_ID')"
+                (onUnselect)="onUpdateControl('countryControl', 'OP_CNTRY_ID')"
+            ></imfx-controls-select2>
+        </div>
+        <div class="field-wrapper">
+            <div class="label">
+                Default Language
+                <!--                {{'misrmanager.components.modal' | translate}}-->
+            </div>
+            <imfx-controls-select2
+                #languagesControl
+                [width]="'100%'"
+                [validationEnabled]="false"
+                [allowClear]="false"
+                [firstEmpty]="false"
+                [data]="lookups.DEF_LANG_ID"
+                [value]="[itemData.DEF_LANG_ID]"
+                [placeholder]="'base.selectOoo'|translate"
+                [placeholderRefToTranslate]="'base.selectOoo'"
+                (onSelect)="onUpdateControl('languagesControl', 'DEF_LANG_ID')"
+                (onUnselect)="onUpdateControl('languagesControl', 'DEF_LANG_ID')"
+            ></imfx-controls-select2>
+        </div>
+        <div class="field-wrapper">
+            <div class="label">
+                Time Zone
+                <!--                {{'misrmanager.components.modal' | translate}}-->
+            </div>
+            <imfx-controls-select2
+                #timeZoneControl
+                [width]="'100%'"
+                [validationEnabled]="false"
+                [allowClear]="false"
+                [firstEmpty]="false"
+                [data]="lookups.TIME_ZONE"
+                [value]="[itemData.TIME_ZONE]"
+                [placeholder]="'base.selectOoo'|translate"
+                [placeholderRefToTranslate]="'base.selectOoo'"
+                (onSelect)="onUpdateControl('timeZoneControl', 'TIME_ZONE')"
+                (onUnselect)="onUpdateControl('timeZoneControl', 'TIME_ZONE')"
+            ></imfx-controls-select2>
+        </div>
+
+        <div class="field-wrapper">
+            <div class="label">
+                Start Time
+            </div>
+            <imfx-controls-datetimepicker
+                #startTimeControl
+                [allowBlank]="true"
+                [value]="itemData.TX_DT_ST || '1900-01-01T00:00:00'"
+                [mask]="true"
+                [datepicker]="false"
+                [locale]="'common.locale' | translate"
+                [format]="'common.date_full_format' | translate"
+                [formatDate]="'common.date_format' | translate"
+                [formatTime]="'common.time_format' | translate"
+                [dayOfWeekStart]="'common.date_of_week_start' | translate"
+                [small]="true"
+                (onChangeDateTime)="onChangeDateTime($event, 'startTimeControl', 'TX_DT_ST')">
+                >
+            </imfx-controls-datetimepicker>
+        </div>
+
+        <div class="field-wrapper">
+            <div class="label">
+                CM Template
+                <!--                {{'misrmanager.components.modal' | translate}}-->
+            </div>
+            <imfx-controls-select2
+                #CMTemplateControl
+                [width]="'100%'"
+                [validationEnabled]="false"
+                [allowClear]="false"
+                [firstEmpty]="false"
+                [data]="lookups.CM_TEMPLATE_ID"
+                [value]="[itemData.CM_TEMPLATE_ID]"
+                [placeholder]="'base.selectOoo'|translate"
+                [placeholderRefToTranslate]="'base.selectOoo'"
+                (onSelect)="onUpdateControl('CMTemplateControl', 'CM_TEMPLATE_ID')"
+                (onUnselect)="onUpdateControl('CMTemplateControl', 'CM_TEMPLATE_ID')"
+            ></imfx-controls-select2>
+        </div>
+        <div class="field-wrapper">
+            <div class="label">
+                MISR Template
+                <!--                {{'misrmanager.components.modal' | translate}}-->
+            </div>
+            <imfx-controls-select2
+                #MISRTemplateControl
+                [width]="'100%'"
+                [validationEnabled]="false"
+                [allowClear]="false"
+                [firstEmpty]="false"
+                [data]="lookups.MISR_TEMPLATE_ID"
+                [value]="[itemData.MISR_TEMPLATE_ID]"
+                [placeholder]="'base.selectOoo'|translate"
+                [placeholderRefToTranslate]="'base.selectOoo'"
+                (onSelect)="onUpdateControl('MISRTemplateControl', 'MISR_TEMPLATE_ID')"
+                (onUnselect)="onUpdateControl('MISRTemplateControl', 'MISR_TEMPLATE_ID')"
+            ></imfx-controls-select2>
+        </div>
+        <div class="field-wrapper">
+            <div class="label">
+                Location
+                <!--                                {{'misrmanager.components.modal' | translate}}-->
+            </div>
+            <imfx-controls-select2
+                #locationControl
+                [width]="'100%'"
+                [validationEnabled]="false"
+                [allowClear]="false"
+                [firstEmpty]="false"
+                [data]="lookups.LOCATION"
+                [value]="[itemData.LOCATION]"
+                [placeholder]="'base.selectOoo'|translate"
+                [placeholderRefToTranslate]="'base.selectOoo'"
+                (onSelect)="onUpdateControl('locationControl', 'LOCATION')"
+                (onUnselect)="onUpdateControl('locationControl', 'LOCATION')"
+            ></imfx-controls-select2>
+        </div>
+        <div class="separator"></div>
+        <div class="field-wrapper">
+            <div class="label">
+                FIELD LABELS:
+                <!--                {{'misrmanager.components.modal' | translate}}-->
+            </div>
+        </div>
+        <div class="field-wrapper">
+            <div class="label">
+                Job reference
+                <!--                {{'misrmanager.components.modal' | translate}}-->
+            </div>
+            <input type="text" [(ngModel)]="itemData.CT_REF_NAM"/>
+        </div>
+        <div class="field-wrapper">
+            <div class="label">
+                Series ID
+                <!--                {{'misrmanager.components.modal' | translate}}-->
+            </div>
+            <input type="text" [(ngModel)]="itemData.SER_ID_NAM"/>
+        </div>
+        <div class="field-wrapper">
+            <div class="label">
+                Programme ID
+                <!--                {{'misrmanager.components.modal' | translate}}-->
+            </div>
+            <input type="text" [(ngModel)]="itemData.PGM_ID_NAM"/>
+        </div>
+        <div class="field-wrapper">
+            <div class="label">
+                Version ID1
+                <!--                {{'misrmanager.components.modal' | translate}}-->
+            </div>
+            <input type="text" [(ngModel)]="itemData.VERID_NAM"/>
+        </div>
+        <div class="field-wrapper">
+            <div class="label">
+                Version ID2
+                <!--                {{'misrmanager.components.modal' | translate}}-->
+            </div>
+            <input type="text" [(ngModel)]="itemData.VERID_NAM2"/>
+        </div>
+        <div class="field-wrapper">
+            <div class="label">
+                Container ID1
+                <!--                {{'misrmanager.components.modal' | translate}}-->
+            </div>
+            <input type="text" [(ngModel)]="itemData.CTNR_ID_NAM"/>
+        </div>
+        <div class="field-wrapper">
+            <div class="label">
+                Container ID2
+                <!--                {{'misrmanager.components.modal' | translate}}-->
+            </div>
+            <input type="text" [(ngModel)]="itemData.CTNR_ID_NAM2"/>
+        </div>
+        <div class="overlay-wrapper" #modalWrapperEl>
+            <div class="spinner"></div>
+        </div>
+    </div>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div>
+            <button type="button" (click)="closeModal()">{{'common.cancel'| translate}}</button>
+            <button type="button primary" (click)="saveData()" [disabled]="!isValid()">{{'common.save'| translate}}</button>
+        </div>
+    </div>
+</ng-template>

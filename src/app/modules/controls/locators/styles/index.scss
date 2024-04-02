@@ -1,0 +1,53 @@
+@import "../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .locator-wrapper {
+            padding-top: 5px;
+            height: 100%;
+            .locators-head-tabs {
+                margin: 0;
+                display: inline-block;
+                height: 30px !important;
+                line-height: 20px;
+                z-index: 0;
+                width: 100%;
+                .locators-tabs-wrapper {
+                    position: relative;
+                    display: inline-block;
+                    margin: 0;
+                    height: 100%;
+                    .locators-sub-tab {
+                        padding: 0 1em 0 0;
+                        display: flex;
+                        float: left;
+                        height: 100%;
+                        &:hover a {
+                            color: getThemeColor(16, $key);
+                        }
+                        a.active {
+                            color: getThemeColor(16, $key);
+                        }
+                        a {
+                            text-decoration: none;
+                            color: getThemeColor(2, $key);
+                            transition: none;
+                        }
+                    }
+                }
+            }
+            .h-tab-wrapper{
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+            }
+            .locators-content {
+                height: calc(100% - 32px);
+                overflow: hidden;
+                position: relative;
+                display: block;
+                width: 100%;
+            }
+        }
+    }
+}

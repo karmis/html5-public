@@ -1,0 +1,12 @@
+@import "../../../../../../views/base/styles/theme";
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .checkbox-wrapper {
+            .checkbox-label {
+                margin-left: 5px;
+            }
+        }
+    }
+}

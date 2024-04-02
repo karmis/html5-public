@@ -1,0 +1,91 @@
+
+<!--IMPORTANT NOTE!!! If you change this menu you must change same menu in Actions button (Media details) and in Media Tab "dropdown grid-settings-dropdown mediaSettingsPopup"-->
+
+<div *ngIf="slickGridComp.isGridReady || slickGridComp && slickGridComp?.provider?.getSlick()"
+     class="dropdown grid-settings-dropdown {{slickGridComp.config?.options?.module?.popupsSelectors?.settings?.popupEl?.substr(1)}} {{externalClass}} media-item-ellipsis-dropdown-wrapper"
+     style="margin-top: 15px; margin-right: 15px; position: fixed; display: none;">
+    <ul
+        aria-labelledby="simple-btn-keyboard-nav"
+        style="display: block; top: 0%"
+        class="dropdown-menu"
+        role="menu"
+    >
+        <li role="menuitem" *ngIf="hasPermissionByName('media-basket')" [hidden]="slickGridComp.provider.isMultiSelectedItems()">
+            <a
+                *ngIf="!slickGridComp.provider.isOrdered()"
+                class="dropdown-item" (click)="slickGridComp.provider.addToBasket($event)">
+                {{ 'media.table.dropdown.row.add_to_basket' | translate }}
+            </a>
+            <a
+                *ngIf="slickGridComp.provider.isOrdered()"
+                class="dropdown-item" (click)="slickGridComp.provider.removeFromBasket($event)">
+                {{ 'media.table.dropdown.row.remove_from_basket' | translate }}
+            </a>
+        </li>
+        <li role="menuitem" [hidden]="slickGridComp.provider.isMultiSelectedItems()">
+            <a class="dropdown-item" (click)="slickGridComp.provider.getMediaDetails($event)">
+                {{ 'media.table.dropdown.row.media_details' | translate }}
+            </a>
+        </li>
+        <li role="menuitem" *ngIf="hasPermissionByName('preset-workflow')">
+            <a class="dropdown-item" (click)="slickGridComp.provider.showRaiseWorkflowWizzard($event)">
+                {{ 'media.table.dropdown.row.rw_wizard' | translate }}
+            </a>
+        </li>
+        <li role="menuitem" *ngIf="slickGridComp.provider.isMediaLoggerShow()" [hidden]="slickGridComp.provider.isMultiSelectedItems()">
+            <a class="dropdown-item" (click)="slickGridComp.provider.goToMediaLogger($event, context)"
+               [class.disabled]="!slickGridComp.provider.isMediaLoggerEnable()">
+                {{ 'media.table.dropdown.row.media_logger' | translate }}
+            </a>
+        </li>
+        <li role="menuitem" *ngIf="hasPermissionByName('clip-editor')">
+            <a class="dropdown-item" [class.disabled]="!slickGridComp.provider.clipEditorEnabled()"
+               (click)="slickGridComp.provider.clipEditor($event)">
+                {{ 'media.table.dropdown.row.clip_editor' | translate }}
+            </a>
+        </li>
+        <li role="menuitem" style="display:none;"><a class="dropdown-item disabled"
+                                                     (click)="slickGridComp.provider.requestBrowseCopy($event)"
+                                                     [class.disabled]="true" aria-disabled="true">
+            {{ 'media.table.dropdown.row.request_browse_copy' | translate }}
+        </a></li>
+
+        <!--<li role="menuitem"><a class="dropdown-item"-->
+        <!--(click)="slickGridComp.provider.openInRCE($event)">-->
+        <!--{{ 'media.table.dropdown.row.open_in_rce' | translate }}-->
+        <!--</a></li>-->
+        <!--*ngIf="hasPermissionByName('media-change-status')"-->
+        <li role="menuitem">
+            <a class="dropdown-item"
+        (click)="slickGridComp.provider.changeStatus()">
+        {{ 'media.table.dropdown.row.change_status' | translate }}
+            </a>
+        </li>
+        <li role="menuitem" [hidden]="!hasPermissionByName('unattach-media')">
+            <a class="dropdown-item disabled"
+               (click)="slickGridComp.provider.unbind($event)"
+               [class.disabled]="slickGridComp.provider.canUnbindMedia()" aria-disabled="true"
+            >
+                {{ 'mapping.unbind' | translate }}
+            </a>
+        </li>
+        <li role="menuitem" [hidden]="slickGridComp.provider.isMultiSelectedItems() || !hasPermission('workflow')"><a class="dropdown-item"
+                               (click)="slickGridComp.provider.activeWorkflows($event)"
+                               aria-disabled="true">
+            {{ 'misr.table.dropdown.active_wf' | translate }}
+        </a></li>
+        <li role="menuitem" [hidden]="slickGridComp.provider.isMultiSelectedItems() || !hasPermissionByName('download-media') ">
+            <a class="dropdown-item"
+               [attr.download]="slickGridComp.provider.getDownloadLink() ? '' : null"
+               [attr.disabled]="!slickGridComp.provider.getDownloadLink() ? '' : null"
+               [class.disabled]="!slickGridComp.provider.getDownloadLink()"
+               [href]="slickGridComp.provider.getDownloadLink()"
+               [ngStyle]="{'text-decoration':'none'}"
+               aria-disabled="true">
+            {{ 'media.table.dropdown.row.download' | translate }}
+        </a></li>
+        <li role="menuitem" *ngIf="hasPermission('change-custom-media-status') && (type === 'media' || type === 'version')">
+            <a class="dropdown-item" (click)="slickGridComp.provider.onChangeCustom()">Change Custom Status</a>
+        </li>
+    </ul>
+</div>

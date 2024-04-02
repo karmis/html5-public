@@ -1,0 +1,116 @@
+<div class="settings-groups-advanced-supplier-portal-wrapper">
+
+    <hr>
+    <div class="wf-panel clearfix">
+
+        <div class="wf-panel-item">
+            <label class="pull-left" for="chosen-preset-title-id-version">
+                {{ 'supplier_portal.wf_preset' | translate}}:
+            </label>
+            <div class="chosen-preset-title" id="chosen-preset-title-id-version"
+                 title="{{ 'basket.choose_preset' | translate }}"
+                 (click)="suppierPortalSGP.openChoosePresetModal(false, chooseModalCallBacks)">
+                {{suppierPortalSGP.vcSettings?.Name || 'basket.choose_preset' | translate}}
+            </div>
+        </div>
+
+    </div>
+    <div class="tabs-wrapper">
+        <div class="tabs-head">
+        <span class="tabs-head-item" [ngClass]="{'active':activeTab==='allOrders'}" (click)="tab('allOrders')">
+            {{'settings_group.advanced_supplier_portal.all_orders' | translate}}
+        </span>
+            <span class="tabs-head-item" [ngClass]="{'active':activeTab==='delHistory'}" (click)="tab('delHistory')">
+            {{'settings_group.advanced_supplier_portal.delivery_history' | translate}}
+        </span>
+        </div>
+        <div class="tabs-body">
+            <div class="tabs-body-item" [hidden]="activeTab !== 'allOrders'">
+                <div class="selected-view">
+                    <div class="selected-view__label">{{ 'common.view' | translate}}:</div>
+                    <imfx-controls-select2
+                        #allOrdersViewControl
+                        [width]="'100%'"
+                        [multiple]="false"
+                        (onSelect)="onSelectView($event)"
+                        [minimumResultsForSearch]="10">
+                    </imfx-controls-select2>
+                    <!--div class="wf-panel-item ml-1 columns-module">
+                        <button class="button" (click)="setupColumns('VersionGrid', 'supplier.orders')">Set sort for
+                            column
+                        </button>
+                    </div-->
+                    <buttons-views [SettingsGroupsAdvancedSupplierPortalComponent]="this"
+                                   [type]="'allOrders'"
+                                   [isDisabledBtn]="isDisabledBtn"></buttons-views>
+                </div>
+
+
+                <div class="adv-panel">
+                    <search-advanced
+                        #allOrdersComponent
+                        [clearCacheSavedSearch]="false"
+                        [config]="searchAdvancedConfigAllOrders"
+                    ></search-advanced>
+                </div>
+            </div>
+            <div class="tabs-body-item" [hidden]="activeTab !== 'delHistory'">
+                <div class="selected-view">
+                    <div class="selected-view__label">{{ 'common.view' | translate}}:</div>
+                    <imfx-controls-select2
+                        #delHistoryViewControl
+                        [width]="'100%'"
+                        [multiple]="false"
+                        (onSelect)="onSelectView($event)"
+                        [minimumResultsForSearch]="10">
+                    </imfx-controls-select2>
+                    <!--div class="wf-panel-item ml-1 columns-module">
+                        <button class="button" (click)="setupColumns('VersionGrid', 'supplier.history')">Set sort for
+                            column
+                        </button>
+                    </div-->
+                    <buttons-views [SettingsGroupsAdvancedSupplierPortalComponent]="this"
+                                   [type]="'delHistory'"
+                                   [isDisabledBtn]="isDisabledBtn"></buttons-views>
+
+                </div>
+                <div class="adv-panel">
+                    <search-advanced
+                        #delHistoryComponent
+                        [clearCacheSavedSearch]="false"
+                        [config]="searchAdvancedConfigDelHistory"
+                    ></search-advanced>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="version-names-wrapper">
+        <div class="header">{{'settings_group.advanced_supplier_portal.add_version_title' | translate}}
+            <div class="buttons-row">
+                <i title="{{'settings_group.advanced_supplier_portal.add_version_btn' | translate}}"
+                   (click)="addItems()"
+                   class="icons-cross icon add-item"></i>
+            </div>
+        </div>
+        <div class="names-list" cdkDropList (cdkDropListDropped)="drop($event)">
+            <div *ngFor="let item of versionNameOrderList; let i = index"
+                 class="names-list-item"
+                 cdkDrag>
+                <div class="names-list-item-text">
+                    {{item}}
+                </div>
+                <div class="names-list-ctrl">
+                    <span class="editbtn" (click)="editRow(item, i)" title="{{ 'settings_group.advanced_supplier_portal.change_version_btn' | translate }}">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </span>
+                        <span class="closebtn" (click)="deleteRow(i)" title="{{ 'common_hints.remove' | translate }}">
+                        <i class="icons-cross icon"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+

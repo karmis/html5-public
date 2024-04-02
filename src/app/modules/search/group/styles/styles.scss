@@ -1,0 +1,62 @@
+@import "../../../../views/base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+  .#{$key} {
+    search-group {
+      .group-search-wrapper {
+        .search-input-wrapper {
+          .search-btn {
+            width: 44px;
+            float: left;
+            position: absolute;
+            right: 0;
+          }
+        }
+
+        .result-tree-wrapper {
+          imfx-controls-tree {
+            ul.fancytree-container ul {
+              padding: 0 0 0 10px !important;
+              margin: 0;
+            }
+          }
+        }
+
+        .search-input {
+          width: calc(100% - 44px);
+          padding: 8px;
+        }
+
+        .result-row-item {
+          margin-top: 5px;
+          cursor: pointer;
+          border-bottom: 1px darken(getThemeColor(4, $key), 30) solid;
+          padding: 3px 5px 3px 3px;
+          width: 100%;
+          display: inline-block;
+          word-break: break-word;
+          &:hover {
+            background-color: lighten(getThemeColor(4, $key), 20);
+          }
+        }
+        .result-groups-wrapper {
+          margin-left: 0;
+        }
+
+        .result-tree-wrapper {
+          clear: both;
+          display: block;
+        }
+
+        .result-rows-wrapper {
+          margin-left: 10px;
+        }
+
+        .results-no-items {
+          text-align: center;
+          padding: 15px;
+        }
+      }
+    }
+  }
+}

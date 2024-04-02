@@ -1,0 +1,29 @@
+<div class="order-preset-grouped-input-wrapper">
+    <div #inputDiv
+         class="field"
+         (click)="inputDivOnClick($event)"
+    >
+        <span style="opacity: .6;">
+            {{'basket.choose_preset'|translate}}
+        </span>
+
+    </div>
+    <i
+        *ngIf="_allowClear"
+        (click)="clear()"
+        class="icons-closedelete icon"
+        style="margin-right: 20px;"></i>
+    <i class="icons-down icon" (click)="inputDivOnClick($event)"></i>
+</div>
+
+<div #tooltip
+     class="tooltip-order-presets-grouped-wrapper"
+     [ngClass]="{'hidden': isHiddenTooltip}"
+     [ngStyle]="getStyleForTooltip()"
+>
+    <order-presets-grouped
+        #orderPresetsGroupedComponent
+        (clickByPresetItemEvent)="onClickByPresetItemEvent($event)"
+        [dontLoadAfterViewInit]="dontLoadAfterViewInit"
+    ></order-presets-grouped>
+</div>

@@ -1,0 +1,40 @@
+<div class="add-location-modal-wrapper">
+    <div class="location">
+        <input
+            #filterInput
+            class="field"
+            type="search"
+            spellcheck="false"
+            placeholder="{{ 'ng2_components.ag_grid.start_type_location' | translate }}"
+            (keyup)="filter($event)">
+        <div class="js-scrollbar-target-adv-modal-user" [ngClass]="{'with-highlight':withHighlight}">
+            <imfx-controls-tree #tree
+                                [extensions]="['filter']"
+                                [ext_filter]="{autoExpand: true, mode: 'hide', highlight: false}"
+                                [checkbox]="true"
+                                [icon]="false"
+                                [selectMode]="4"
+                                [unselectableLevels]="[1]"
+                                [source]="locations"
+                                (onSelect)="onSelect($event)"
+                                (onUnSelect)="onSelect($event)"
+            ></imfx-controls-tree>
+        </div>
+        <div class="highlight-info" *ngIf="withHighlight">
+            <div class="highlighted-site"><div class="marker"></div>Site</div>
+            <div class="highlighted-area"><div class="marker"></div>Area</div>
+        </div>
+    </div>
+    <div class="overlay-wrapper" #modalLocationOverlayWrapper>
+        <div class="spinner"></div>
+    </div>
+</div>
+
+<ng-template #modalFooterTemplate>
+    <div class="modal-footer">
+        <div>
+            <button type="button"  (click)="saveData()">{{'common.save'| translate}}</button>
+            <button type="button"  (click)="closeModal()">{{'common.cancel'| translate}}</button>
+        </div>
+    </div>
+</ng-template>

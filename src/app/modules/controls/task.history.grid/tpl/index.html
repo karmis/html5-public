@@ -1,0 +1,34 @@
+<div id="historySlickGridExternalWrapper" style="height: 100%;">
+    <slick-grid
+        #slickGridComp
+        class="workflow-assessment-history-grid vertical-align-row"
+        style="width: 100%;  height: 100%"
+        [config]="slickGridConfig"
+    ></slick-grid>
+</div>
+<div
+    id="copyPopup"
+    class="dropdown grid-settings-dropdown"
+    style="margin-top: 15px; margin-right: 15px; position: fixed; display: none;">
+    <ul
+        aria-labelledby="simple-btn-keyboard-nav"
+        style="display: block; top: 0"
+        class="dropdown-menu"
+        role="menu">
+        <li role="menuitem">
+            <a class="dropdown-item"
+               (click)="slickGridComp.provider.copy('OPERATOR_ID')"
+               aria-disabled="true">
+                Copy Operator ID
+            </a>
+        </li>
+        <li role="menuitem">
+            <a class="dropdown-item"
+               (click)="slickGridComp.provider.copy('NOTES')"
+               aria-disabled="true">
+                Copy Notes
+            </a>
+        </li>
+    </ul>
+</div>
+

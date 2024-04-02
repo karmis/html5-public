@@ -1,0 +1,86 @@
+@import "../../../../views/base/styles/theme.scss";
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        .video-js {
+            .vjs-control-bar {
+                .sub-control-bar{
+                    .pitch-button-wrapper {
+                        position: relative;
+                        overflow: visible;
+                        &:hover {
+                            .pitch-slider-wrapper {
+                                display: flex;
+                            }
+                            span.pitch-icon {
+                                opacity: 1;
+                            }
+                        }
+
+                        .pitch-icon {
+                            width: 18px;
+                            height: 22px;
+                            display: block;
+                            margin-top: 8px;
+                            overflow: hidden;
+                            opacity: 0.6;
+                            svg {
+                                stroke: getThemeColor(1, $key);
+                                fill: getThemeColor(1, $key);
+                            }
+                        }
+                    }
+
+                    .pitch-slider-wrapper {
+                        display: none;
+                        position: absolute;
+                        flex-direction: column;
+                        align-items: center;
+                        padding: 5px 10px;
+                        bottom: 2.3em;
+                        background-color: rgba(43, 51, 63, 0.7);
+                        height: 7.7em;
+                        left: -0.2em;
+                        width: 2.8em;
+
+                        .pitch-level {
+                            line-height: 16px;
+                        }
+                        .pitch-slider {
+                            //position: absolute;
+                            //width: 5px !important;
+                            height: 5rem;
+                            position: relative;
+                            margin: 7px auto 1.35rem;
+                            border: none;
+                            border-radius: 0;
+                            cursor: pointer;
+                            background-color: #73859f;
+                            background-color: rgba(115,133,159,.5);
+                            .ui-slider-handle {
+                                top: auto;
+                                left: -3px;
+                                border: none;
+                            }
+                            .ui-slider-range {
+                                border-radius: 0;
+                                background: getThemeColor(10, $key);
+                            }
+                        }
+                        .buffering-loader {
+                            height: 15px;
+                            line-height: 12px;
+                            margin-left: 15px;
+                            .spinner {
+                                width: 15px;
+                                height: 15px;
+                                display: inline-block;
+                                vertical-align: bottom;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,10 @@
+<imfx-controls-select2
+        #control
+        [width]="'100%'"
+        [multiple]="false"
+        [data]="data.types"
+        [placeholder]="'base.selectOoo'|translate"
+        [placeholderRefToTranslate]="'base.selectOoo'"
+        (onSelect)="transferData()"
+        (onUnselect)="transferData()"
+        [wrapperClass]="'advanced'"></imfx-controls-select2>

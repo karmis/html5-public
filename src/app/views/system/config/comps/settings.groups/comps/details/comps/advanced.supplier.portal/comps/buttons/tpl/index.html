@@ -1,0 +1,18 @@
+<div class="view-panel">
+    <div class="view-panel-item">
+        <button (click)="comp.openSetupColumnsModal()"
+                [disabled]="isDisabledBtn === undefined || isDisabledBtn === null">{{ 'table_search_dropdown.controls.setup_columns' | translate}}</button>
+    </div>
+    <div class="view-panel-item">
+        <button (click)="comp.deleteCurrentView()"
+                [disabled]="isDisabledBtn === undefined || isDisabledBtn === null">{{ 'table_search_dropdown.controls.delete_view' | translate}}</button>
+    </div>
+    <div class="view-panel-item">
+        <button
+            (click)="comp.openSetupColumnsModal(true)">{{ 'table_search_dropdown.controls.new_view' | translate}}</button>
+    </div>
+    <div class="view-panel-item">
+        <button (click)="comp.saveViewAs()"
+                [disabled]="isDisabledBtn === undefined || isDisabledBtn === null">{{ 'table_search_dropdown.controls.save_view_as' | translate}}</button>
+    </div>
+</div>

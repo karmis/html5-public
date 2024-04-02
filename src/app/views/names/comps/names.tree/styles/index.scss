@@ -1,0 +1,206 @@
+@import "../../../../base/styles/theme.scss";
+@each $key, $value in $common-themes {
+  .#{$key} {
+    names-tree {
+      .names-tree-wrapper {
+          display: flex;
+          position: relative;
+
+          .names-tree {
+              background: getThemeColor(4, $key);
+              //flex: 1;
+              //max-width: 300px;
+              //min-width: 300px;
+              position: relative;
+              //border-right: 10px solid getThemeColor(3, $key);
+              overflow: hidden;
+              height: 100%;
+              font-size: 0;
+
+              .add-modal-btn,
+              .edit-modal-btn {
+                  width: 50%;
+                  display: inline-block;
+                  background: getThemeColor(5, $key)!important;
+                    &:hover {
+                        background: getThemeColor(9, $key)!important;
+                    }
+                  &.strech-full {
+                      width: 100%;
+                  }
+              }
+
+              .left-tree-wrapper {
+                  height: calc(100% - 32px);
+                  overflow: auto;
+
+                  .fancytree-title {
+                      position: relative;
+                      padding-left: 20px;
+                  }
+
+                  .highlighted-company {
+                      background: url(./assets/imfx-icons/company.png);
+                      left: 0;
+                      top: -2px;
+                  }
+                  .highlighted-person {
+                      background: url(./assets/imfx-icons/person.png);
+                      left: 0;
+                      top: -3px;
+                  }
+                  .highlighted-company,
+                  .highlighted-person {
+                      filter: getInvertedFilter(1, $key);
+                      width: 20px;
+                      height: 20px;
+                      display: block;
+                      position: absolute;
+                      background-size: contain;
+                  }
+                  .fancytree-active .highlighted-company,
+                  .fancytree-active .highlighted-person
+                  {
+                      filter: invert(100%);
+                  }
+              }
+          }
+
+          .names-detail {
+              background: getThemeColor(4, $key);
+              //flex: 2;
+              height: 100%;
+              position: relative;
+              overflow: hidden;
+
+              .tabs-wrapper {
+                  height: 32px;
+                  border-bottom: 1px solid getThemeColor(3, $key);
+                  line-height: 32px;
+
+                  .tab {
+                      display: inline-block;
+                      height: 32px;
+                      line-height: 32px;
+                      border-bottom: 2px solid getThemeColor(7, $key);
+                      padding: 0 10px;
+                      cursor: pointer;
+
+                      &:hover {
+                          background: getThemeColor(5, $key);
+                      }
+                  }
+              }
+
+              .data {
+                  display: flex;
+                  width: 100%;
+                  height: calc(100% - 32px);
+                  overflow-x: auto;
+                  overflow-y: auto;
+                  font-size: 0;
+                  flex-wrap: wrap;
+                  align-items: flex-start;
+                  align-content: flex-start;
+                  .fields-col {
+                      flex: 1;
+                      min-width: 300px;
+
+                      .field-wrapper {
+                          width: 100%;
+                          display: flex;
+
+                          &.head-wrapper {
+                              position: relative;
+
+                              .header {
+                                  text-align: center;
+                                  color: getThemeColor(3, $key);
+                                  display: inline-block;
+                                  padding: 8px;
+                                  margin: 0 auto;
+                                  z-index: 2;
+                                  background: getThemeColor(4, $key);
+                              }
+                              .line {
+                                  height: 1px;
+                                  border-bottom: 1px solid getThemeColor(3, $key);;
+                                  position: absolute;
+                                  left: 0;
+                                  right: 0;
+                                  top: 16px;
+                                  z-index: 1;
+                              }
+                          }
+
+                          .filed-label {
+                              width: 100px;
+                              overflow: hidden;
+                              text-overflow: ellipsis;
+                              white-space: nowrap;
+                              line-height: 32px;
+                              padding: 2px 8px;
+                              background: getThemeColor(5, $key);;
+                              color: getThemeColor(1, $key);
+                              border-bottom: 1px solid getThemeColor(3, $key);
+                          }
+                          .filed-value {
+                              flex: 1;
+                              padding: 2px 8px;
+                              line-height: 32px;
+                          }
+                      }
+                  }
+
+                  &.empty {
+                      text-align: center;
+                      position: relative;
+                      span {
+                          display: block;
+                          margin: 0 auto;
+                          position: relative;
+                          height: 20px;
+                          top: calc(50% - 10px);
+                          color: getThemeColor(2, $key);
+                      }
+                  }
+              }
+          }
+
+          .no-data {
+              background: getThemeColor(4, $key);
+              flex: 2;
+              text-align: center;
+              position: relative;
+              top: 50%;
+              span {
+                  position: relative;
+                  top: calc(50% - 10px);
+                  color: getThemeColor(2, $key);
+              }
+          }
+
+        .overlay-wrapper {
+          display: none;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background: getThemeColor(3, $key);
+            overflow: hidden;
+          z-index: 5;
+
+          .spinner {
+            width: 80px;
+            height: 80px;
+            border-width: 8px;
+            margin: 0 auto;
+            position: relative;
+            top: calc(50% - 40px);
+          }
+        }
+      }
+    }
+  }
+}

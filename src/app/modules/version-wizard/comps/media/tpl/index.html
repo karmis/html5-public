@@ -1,0 +1,139 @@
+<div class="container-fluid" style="position: relative; height: 100%;">
+    <!--Header-->
+    <div class="row-header">
+        <nav>
+            <ul>
+                <li [hidden]="!hasPermissionByName('views-modify')" class="divider" [ngClass]="{'common-hidden': !flagHide}"></li>
+                <li [hidden]="!hasPermissionByName('views-modify')" [ngClass]="{'common-hidden': !flagHide}"><label>{{ 'common.view' | translate}}:</label></li>
+                <li [hidden]="!hasPermissionByName('views-modify')">
+                    <search-views
+                        #viewsComp
+                        [config]="searchViewsConfig"
+                    ></search-views>
+                </li>
+            </ul>
+        </nav>
+        <nav>
+            <ul>
+                <li>
+                    <search-thumbs
+                        #searchThumbsComp
+                        [config]="searchThumbsConfig"
+                    ></search-thumbs>
+                </li>
+                <li class="divider" *ngIf="searchGridConfig.options.viewModeSwitcher"></li>
+                <li *ngIf="searchGridConfig.options.viewModeSwitcher">
+                    <button type="button"
+                            class="icon-button"
+                            [ngClass]="{'active': searchGridConfig.options.provider.moduleContext.config.options.viewMode == 'table'}"
+                            (click)="searchGridConfig.options.provider.moduleContext.setViewMode('table'); flagHide = true"
+                            title="{{ 'common_hints.grid' | translate }}">
+                            <span style="float:left;">
+                                <i class="icons-list icon"></i>
+                            </span>
+                    </button>
+                </li>
+                <li *ngIf="searchGridConfig.options.viewModeSwitcher">
+                    <button type="button"
+                            class="icon-button"
+                            [ngClass]="{'active': searchGridConfig.options.provider.moduleContext.config.options.viewMode == 'tile'}"
+                            (click)="searchGridConfig.options.provider.moduleContext.setViewMode('tile'); flagHide = false"
+                            title="{{ 'common_hints.tiles' | translate }}">
+                            <span style="float:left;">
+                                <i class="icons-tiles icon"></i>
+                            </span>
+                    </button>
+                </li>
+                <li class="divider" *ngIf="searchGridConfig.options.viewModeSwitcher"></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!--Body-->
+    <div class="row-body">
+        <div style="height: 100%; width: 100%;" id="versionWizardMediaSlickGridExternalWrapper">
+            <slick-grid
+                #slickGridComp
+                class="version-media-grid vertical-align-row"
+                style="width: 100%;  height: 100%"
+                [config]="searchGridConfig"
+            ></slick-grid>
+        </div>
+
+    </div>
+</div>
+
+
+<!--Settings dropdown-->
+<div *ngIf="slickGridComp && slickGridComp?.provider?.getSlick()"
+     class="dropdown grid-settings-dropdown mediaSettingsPopup"
+     id="versionWizardMediaPopup"
+     style="margin-top: 15px; margin-right: 15px; position: fixed; display: none;">
+    <ul
+        aria-labelledby="simple-btn-keyboard-nav"
+        style="display: block; top: 0%"
+        class="dropdown-menu"
+        role="menu"
+    >
+        <li role="menuitem" *ngIf="hasPermissionByName('media-basket')">
+            <a
+                *ngIf="!slickGridComp.provider.isOrdered()"
+                class="dropdown-item" (click)="slickGridComp.provider.addToBasket($event)">
+                {{ 'media.table.dropdown.row.add_to_basket' | translate }}
+            </a>
+            <a
+                *ngIf="slickGridComp.provider.isOrdered()"
+                class="dropdown-item" (click)="slickGridComp.provider.removeFromBasket($event)">
+                {{ 'media.table.dropdown.row.remove_from_basket' | translate }}
+            </a>
+        </li>
+        <li role="menuitem">
+            <a class="dropdown-item" (click)="slickGridComp.provider.getMediaDetails($event)">
+                {{ 'media.table.dropdown.row.media_details' | translate }}
+            </a>
+        </li>
+        <li role="menuitem" *ngIf="hasPermissionByName('preset-workflow')">
+            <a class="dropdown-item" (click)="slickGridComp.provider.showRaiseWorkflowWizzard($event)">
+                {{ 'media.table.dropdown.row.rw_wizard' | translate }}
+            </a>
+        </li>
+        <li role="menuitem" *ngIf="slickGridComp.provider.isMediaLoggerShow()">
+            <a class="dropdown-item" (click)="slickGridComp.provider.goToMediaLogger($event)"
+               [class.disabled]="!slickGridComp.provider.isMediaLoggerEnable()">
+                {{ 'media.table.dropdown.row.media_logger' | translate }}
+            </a>
+        </li>
+        <li role="menuitem" *ngIf="hasPermissionByName('clip-editor')">
+            <a class="dropdown-item" [class.disabled]="!slickGridComp.provider.clipEditorEnabled()"
+               (click)="slickGridComp.provider.clipEditor($event)">
+                {{ 'media.table.dropdown.row.clip_editor' | translate }}
+            </a>
+        </li>
+        <li role="menuitem" style="display:none;"><a class="dropdown-item disabled"
+                                                     (click)="slickGridComp.provider.requestBrowseCopy($event)"
+                                                     [class.disabled]="true" aria-disabled="true">
+            {{ 'media.table.dropdown.row.request_browse_copy' | translate }}
+        </a></li>
+
+        <!--<li role="menuitem"><a class="dropdown-item"-->
+        <!--(click)="slickGridComp.provider.openInRCE($event)">-->
+        <!--{{ 'media.table.dropdown.row.open_in_rce' | translate }}-->
+        <!--</a></li>-->
+        <li role="menuitem">
+            <a class="dropdown-item disabled"
+               (click)="slickGridComp.provider.changeStatus($event)"
+               [class.disabled]="slickGridComp.provider.canUnbindMedia()" aria-disabled="true"
+            >
+                {{ 'media.table.dropdown.row.change_status' | translate }}
+            </a>
+        </li>
+        <li role="menuitem" [hidden]="!hasPermissionByName('unattach-media')">
+            <a class="dropdown-item disabled"
+               (click)="slickGridComp.provider.unbind($event)"
+               [class.disabled]="slickGridComp.provider.canUnbindMedia()" aria-disabled="true"
+            >
+                {{ 'mapping.unbind' | translate }}
+            </a>
+        </li>
+    </ul>
+</div>

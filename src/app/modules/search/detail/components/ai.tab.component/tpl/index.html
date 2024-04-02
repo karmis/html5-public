@@ -1,0 +1,38 @@
+<div class="ai-tab-wrapper" #tabsHeader>
+  <div class="ai-head-sub-tabs lm_header">
+    <ul class="ai-tabs-wrapper lm_tabs">
+      <li class="ai-sub-tab lm_tab" [ngClass]="{'active': activeTab == 1}" (click)="activateTab(1, speechData)" title='{{"ai.speech" | translate}}'>
+        <i class="icons-audio-select icon"></i><span>{{"ai.speech" | translate}}</span></li>
+      <li class="ai-sub-tab lm_tab" [ngClass]="{'active': activeTab == 2}" (click)="activateTab(2, tagsData)" title='{{"ai.tags" | translate}}'>
+        <i class="icons-list icon"></i><span>{{"ai.tags" | translate}}</span></li>
+      <li class="ai-sub-tab lm_tab" [ngClass]="{'active': activeTab == 3}" (click)="activateTab(3, ocrData)" title='{{"ai.visual" | translate}}'>
+        <i class="icons-subtitles icon"></i><span>{{"ai.visual" | translate}}</span></li>
+      <li class="ai-sub-tab lm_tab" [ngClass]="{'active': activeTab == 4}" (click)="activateTab(4, peopleData)" title='{{"ai.people" | translate}}'>
+        <i class="icons-user icon"></i><span>{{"ai.people" | translate}}</span></li>
+      <li class="ai-sub-tab lm_tab" [ngClass]="{'active': activeTab == 5}" (click)="activateTab(5, logosData)" title='{{"ai.logos" | translate}}'>
+        <i class="icons-thumbs icon"></i><span>{{"ai.logos" | translate}}</span></li>
+      <li class="ai-sub-tab lm_tab" [ngClass]="{'active': activeTab == 6}" (click)="activateTab(6, adultData)" title='{{"ai.adult" | translate}}'>
+        <i class="icons-remove icon"></i><span>{{"ai.adult" | translate}}</span></li>
+        <li class="ai-sub-tab lm_tab" [ngClass]="{'active': activeTab == 7}" *ngIf="overviewUrl" (click)="wind.open(overviewUrl, translate.instant('ai.overview'), 'width=800,height=600');" title='{{"ai.overview" | translate}}'>
+            <i class="icons-hide-empty icon"></i><span>{{"ai.overview" | translate}}</span></li>
+    </ul>
+  </div>
+  <div class="ai-content" *ngIf="activeTab != 7">
+    <input class="notes-filter" type="text" placeholder="Filter" [(ngModel)]="notesFilter" (keyup)="filterNotes()">
+    <table #tableHeader class="header-fake-table imfx-table">
+      <thead>
+        <th class="ai-in">Time</th>
+        <th class="ai-notes">Notes</th>
+      </thead>
+    </table>
+    <div #tableBody class="content-table">
+      <div class="fake-rows" (click)="setPlayerTime(i)" *ngFor="let i of activeDataFiltered">
+        <div class="fake-cell ai-in" title="{{i.InTc}}">{{i.InTc}}</div>
+        <div class="fake-cell ai-notes" title="{{i.Notes}}">{{i.Notes}}</div>
+      </div>
+    </div>
+  </div>
+    <div class="ai-content" *ngIf="activeTab == 7">
+
+    </div>
+</div>

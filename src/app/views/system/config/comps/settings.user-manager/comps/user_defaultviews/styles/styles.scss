@@ -1,0 +1,121 @@
+@import "../../../../../../../base/styles/theme.scss";
+@each $key, $value in $common-themes {
+    .#{$key} {
+        user-default-views {
+            .user-default-views-wrapper {
+                display: block;
+                height: 100%;
+                overflow: hidden;
+
+                .tree-locations-left {
+                    margin-left: 16px;
+                    width: 300px;
+                    overflow-x: hidden;
+                    overflow-y: auto;
+                    background: getThemeColor(4, $key);
+                    height: 100%;
+                    position: relative;
+                    display: inline-block;
+
+                    input {
+                        position: absolute;
+                        top: 0;
+                        width: 100%;
+                        padding-right: 30px;
+                    }
+
+                    .icons-cross {
+                        position: absolute;
+                        right: 7px;
+                        top: 6px;
+                        opacity: 0.6;
+                        cursor: pointer;
+
+                        &:hover {
+                            opacity: 1;
+                        }
+                    }
+
+                    imfx-controls-tree > div {
+                        height: 100%;
+                        overflow: hidden;
+
+                        &>ul {
+                            height: calc(100% - 32px);
+                            overflow-x: hidden;
+                            overflow-y: auto;
+                            margin-top: 32px;
+                        }
+                    }
+                }
+                .select-message {
+                    height: 100%;
+                    width: calc(100% - 320px);
+                    display: inline-block;
+                    vertical-align: top;
+
+                    div {
+                        display: block;
+                        text-align: center;
+                        position: relative;
+                        height: 32px;
+                        line-height: 32px;
+                        font-size: 18px;
+                        opacity: 0.5;
+                        top: calc(50% - 16px);
+                    }
+                }
+                .views-controls {
+                    margin-left: 16px;
+                    display: inline-block;
+                    background: getThemeColor(4, $key);
+                    overflow-x: hidden;
+                    overflow-y: auto;
+                    height: 100%;
+                    width: calc(100% - 300px - 36px);
+
+                    .location-title {
+                        padding: 10px;
+                        border-bottom: 1px solid getThemeColor(9, $key);
+                        display: flex;
+
+                        div {
+                            flex: 1;
+                            height: 32px;
+                            line-height: 32px;
+                        }
+                        button {
+
+                        }
+                    }
+                    .view-fields-wrapper {
+
+                        .view-field {
+                            display: flex;
+                            line-height: 32px;
+                            padding: 10px 10px 0 10px;
+                            max-width: 400px;
+
+                            .label {
+                                width: 130px;
+                            }
+
+                            imfx-controls-select2 {
+                                width: calc(100% - 130px);
+                                .select2-wrapper {
+                                    background: transparent;
+                                }
+                                .select2-container {
+                                    width: 100%;
+                                    border: 2px solid getThemeColor(9, $key);
+                                    vertical-align: top;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+

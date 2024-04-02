@@ -1,0 +1,213 @@
+<!--h4 class="block-header text">{{ 'media.title' | translate }}</h4-->
+<div class="full-height full-width" style="padding-top: 10px;" xmlns="http://www.w3.org/1999/html">
+    <div class="container-fluid" style="position: relative; height:100%;">
+        <!--Header-->
+        <div class="row-header">
+            <nav>
+                <ul>
+                    <li>
+                        <search-form
+                            [config]="searchFormConfig"
+                        ></search-form>
+                    </li>
+                    <!--<li>-->
+                    <!--Visible? {{searchAdvancedConfig.options.provider.getStateForPanel()?'true':'false'}}-->
+                    <!--</li>-->
+                    <li>
+                        <button type="button"
+                                class="icon-button test-advanced-searching-button"
+                                (click)="searchAdvancedConfig.options.provider.setStateForPanel(!searchAdvancedConfig.options.provider.getStateForPanel())"
+                                [ngClass]="{'active': searchAdvancedConfig.options.provider.getStateForPanel()}"
+                                title="{{ 'common_hints.adv_search' | translate }}">
+                        <span style="float:left;">
+                            <i class="icons-advanced-search icon"></i>
+                        </span>
+                            <!--div *ngIf="searchAdvancedConfig.options.provider.isCriteriasforSearch"
+                                 class="circle circle-green"></div-->
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="icon-button"
+                                [ngClass]="{'active': facetsConfig.service.isOpenFacets}"
+                                (click)="facetsConfig.service.toggleFacetsPage()"
+                                title="{{ 'common_hints.facets' | translate }}">
+                            <i class="icons-filters icon"></i>
+                        </button>
+                    </li>
+                    <li *ngIf="hasPermissionByName('views-options')" class="divider"
+                        [ngClass]="{'common-hidden': !flagHide}"></li>
+                    <li *ngIf="hasPermissionByName('views-options')"
+                        [ngClass]="{'common-hidden': (!flagHide || (slickGridComp.module.viewMode == 'tile'))}">
+                        <label>{{
+                            'common.view' | translate}}:</label></li>
+                    <li [hidden]="!hasPermissionByName('views-modify')"
+                        [ngClass]="{'common-hidden': (!flagHide || (slickGridComp && slickGridComp.module.viewMode == 'tile'))}">
+                        <search-views
+                            #viewsComp
+                            [config]="searchViewsConfig"
+                        ></search-views>
+                    </li>
+                    <li *ngIf="hasPermissionByName('views-options') || hasPermissionByName('export-options') "
+                        [ngClass]="{'common-hidden': (!flagHide || (slickGridComp && slickGridComp.module.viewMode == 'tile'))}">
+                        <search-settings
+                            [config]="searchSettingsConfig"
+                        ></search-settings>
+                    </li>
+<!--                    <li>-->
+<!--                        <button (click)="onOpenNewLoanPage()" class="refresh-flowchart-and-grid-btn"-->
+<!--                                [title]="'loans.new_loan' | translate">-->
+<!--                            {{ 'loans.new_loan' | translate}}-->
+<!--                        </button>-->
+<!--                    </li>-->
+                </ul>
+            </nav>
+            <nav>
+                <ul>
+                    <li>
+<!--                        <search-thumbs-->
+<!--                            #searchThumbsComp-->
+<!--                            [config]="searchThumbsConfig"-->
+<!--                        ></search-thumbs>-->
+                    </li>
+                    <li *ngIf="searchGridConfig.options.module.viewModeSwitcher">
+                        <button type="button"
+                                class="icon-button"
+                                [ngClass]="{'active': slickGridComp.module.viewMode == 'table'}"
+                                (click)="slickGridComp.provider.setViewMode('table')"
+                                title="{{ 'common_hints.grid' | translate }}">
+                              <span style="float:left;">
+                                  <i class="icons-list icon"></i>
+                              </span>
+                        </button>
+                    </li>
+                    <li *ngIf="searchGridConfig.options.module.viewModeSwitcher">
+                        <button type="button"
+                                class="icon-button"
+                                [ngClass]="{'active': slickGridComp.module.viewMode == 'tile'}"
+                                (click)="slickGridComp.provider.setViewMode('tile')"
+                                title="{{ 'common_hints.tiles' | translate }}">
+                              <span style="float:left;">
+                                  <i class="icons-tiles icon"></i>
+                              </span>
+                        </button>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <button type="button" class="icon-button"
+                                [ngClass]="{'active': infoPanelConfig.options.provider.getStateForPanel()}"
+                                (click)="infoPanelConfig.options.provider.togglePanel()"
+                                title="{{ 'common_hints.info' | translate }}">
+                            <span style="float:left;">
+                                <i class="icons-info icon"></i>
+                            </span>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!--Body-->
+        <div class="row-body">
+            <as-split
+                #split
+                (dragEnd)="saveSplitSizes(0, $event)"
+                [style.float]="'left'"
+                [direction]="'horizontal'">
+                <!--Adv search and recent search-->
+                <as-split-area
+                    [visible]="getSplitAreaVisible([0,0], searchAdvancedConfig.options.provider.getStateForPanel(), false, searchAdvancedConfig.options.provider, searchAdvancedConfig.options.provider.setStateForPanel, searchAdvancedConfig.options.provider.getIsReady())"
+                    [size]="getSplitAreaSize([0,0], 30)"
+                    [order]="0">
+                    <as-split
+                        (dragEnd)="saveSplitSizes(1, $event)"
+                        [direction]="'vertical'">
+                        <as-split-area
+                            class="color-bkgd-mid"
+                            #advSplit
+                            [size]="getSplitAreaSize([1,0], 50)"
+                            [order]="0">
+                            <search-advanced
+                                [config]="searchAdvancedConfig"
+                            ></search-advanced>
+                        </as-split-area>
+                        <as-split-area
+                            #advSplit
+                            class="color-bkgd-mid"
+                            [size]="getSplitAreaSize([1,1], 50)"
+                            [order]="1">
+                            <search-recent
+                                [config]="searchRecentConfig"
+                            ></search-recent>
+                        </as-split-area>
+                    </as-split>
+                </as-split-area>
+
+                <!--Facets-->
+                <as-split-area
+                    #facetsSplit
+                    [visible]="getSplitAreaVisible([0,1], facetsConfig.service.isOpenFacets, false, facetsConfig.service, facetsConfig.service.toggleFacetsPage, facetsConfig.service.getIsReady())"
+                    [order]="1"
+                    [size]="getSplitAreaSize([0,1], 20)">
+                    <div class="no-padding" style="height: 100%">
+                        <facets-page [config]="facetsConfig"></facets-page>
+                    </div>
+                </as-split-area>
+
+                <!--Detail-->
+                <as-split-area
+                    #detailSplit
+                    [visible]="getSplitAreaVisible([0,3], infoPanelConfig.options.provider.getStateForPanel(), false, infoPanelConfig.options.provider, infoPanelConfig.options.provider.setStateForPanel, infoPanelConfig.options.provider.getIsReady())"
+                    [size]="getSplitAreaSize([0,3], 30)"
+                    [order]="3">
+                    <div class="search-details" style="height: 100%">
+                        <search-info-panel
+                            #imfxInfoPanel
+                            [config]="infoPanelConfig"
+                        ></search-info-panel>
+                    </div>
+                </as-split-area>
+
+                <!--Table-->
+                <as-split-area
+                    #tableSplit
+                    [order]="2"
+                    [size]="getSplitFlexSize([0,2])">
+                    <div style="height: 100%">
+                        <slick-grid
+                            #slickGridComp
+                            class="media-grid vertical-align-row"
+                            style="width: 100%;  height: 100%"
+                            [config]="searchGridConfig"
+                        ></slick-grid>
+                    </div>
+                </as-split-area>
+            </as-split>
+        </div>
+    </div>
+
+    <!--Settings dropdown-->
+    <div *ngIf="slickGridComp.isGridReady || slickGridComp && slickGridComp?.provider?.getSlick()"
+         class="dropdown grid-settings-dropdown mediaSettingsPopup media-item-ellipsis-dropdown-wrapper"
+         style="margin-top: 15px; margin-right: 15px; position: fixed; display: none;">
+        <ul
+            aria-labelledby="simple-btn-keyboard-nav"
+            style="display: block; top: 0%"
+            class="dropdown-menu"
+            role="menu"
+        >
+<!--            <li role="menuitem" *ngIf="hasPermissionByName('media-basket')"-->
+<!--                [hidden]="slickGridComp.provider.isMultiSelectedItems()">-->
+<!--                <a-->
+<!--                    *ngIf="!slickGridComp.provider.isOrdered()"-->
+<!--                    class="dropdown-item" (click)="slickGridComp.provider.addToBasket($event)">-->
+<!--                    {{ 'media.table.dropdown.row.add_to_basket' | translate }}-->
+<!--                </a>-->
+<!--                <a-->
+<!--                    *ngIf="slickGridComp.provider.isOrdered()"-->
+<!--                    class="dropdown-item" (click)="slickGridComp.provider.removeFromBasket($event)">-->
+<!--                    {{ 'media.table.dropdown.row.remove_from_basket' | translate }}-->
+<!--                </a>-->
+<!--            </li>-->
+        </ul>
+    </div>
+</div>

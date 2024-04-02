@@ -1,0 +1,20 @@
+<div class="taxonomy-tab-wrapper">
+    <div class="taxonomy-filter">
+        <input
+            #taxonomyFilterInput
+            class="field"
+            placeholder="{{ 'media_logger.taxonomy_filter' | translate }}"
+            (keyup)="searchKeyUp($event)"
+            [(ngModel)]="filterText">
+    </div>
+
+    <div class="taxonomy-controls-tree">
+
+        <imfx-controls-tree
+            #tree
+            [extensions]="['filter']"
+            [ext_filter]="{autoExpand: true, mode: 'hide', highlight: true}"
+            (onDblClick)="onDblClickByTreeItem($event)">
+        </imfx-controls-tree>
+    </div>
+</div>

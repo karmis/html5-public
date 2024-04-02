@@ -1,0 +1,153 @@
+@import "../../../../views/base/styles/theme.scss";
+
+$multilineheight: 300px;
+
+@each $key,
+$value in $common-themes {
+    .#{$key} {
+        imfx-controls-remote-file-browser {
+            button {
+                border-radius: 0px;
+            }
+            .choosing-rows-wrapper {
+                width: 100%;
+                height: 70vh;
+                position: relative;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+
+                .main-choosing-rows-wrapper {
+                    display: flex;
+                    flex: 1;
+                    height: 100%;
+                    flex-direction: column;
+                    position: relative;
+                    overflow: hidden;
+
+                    .data-filter {
+                        width: 100%;
+                        height: 28px;
+                        line-height: 28px;
+                        flex-grow: 0;
+                        padding-right: 25px;
+                    }
+
+                    .clear-filter {
+                        cursor: pointer;
+                        opacity: 0.5;
+                        position: absolute;
+                        width: 20px;
+                        top: 4px;
+                        right: 4px;
+
+                        &:hover {
+                            opacity: 1;
+                        }
+                    }
+
+                    .choosing-table-wrapper {
+                        background: getThemeColor(3, $key);
+                        width: 100%;
+                        overflow-x: hidden;
+                        overflow-y: auto;
+                        //height: calc(100% - 28px);
+                        flex: 1;
+                        border: 1px solid getThemeColor(4, $key);
+                        .error-msg {
+                            color: getThemeColor(13, $key);
+                            padding: 30px;
+                        }
+                        .tab-row {
+                            height: 24px;
+                            line-height: 24px;
+                            width: 100%;
+                            font-size: 0;
+                            cursor: pointer;
+                            border-bottom: 1px solid getThemeColor(4, $key);
+                            &:last-child {
+                                border: none;
+                            }
+
+                            &.locked {
+                                opacity: 0.6;
+                            }
+
+                            .row-item {
+                                height: 24px;
+                                line-height: 23px;
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                display: inline-block;
+                                cursor: pointer;
+                                padding: 0 5px;
+                                width: 100%;
+
+                                &.noselect {
+                                    -webkit-touch-callout: none;
+                                    -webkit-user-select: none;
+                                    -khtml-user-select: none;
+                                    -moz-user-select: none;
+                                    -ms-user-select: none;
+                                    user-select: none;
+                                }
+
+                                &.selected {
+                                    background: getThemeColor(10, $key);
+                                    color: #fff;
+                                }
+
+                                &:hover {
+                                    background: getThemeColor(4, $key);
+                                    color: getThemeColor(1, $key);
+                                }
+                                .col-item {
+                                    &.icon {
+                                        max-width: 30px;
+                                    }
+                                    &.prop-Filename {
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;
+                                        white-space: nowrap;
+                                        max-width: 250px;
+                                        width: 250px;
+                                    }
+                                    &.prop-FileSize {
+                                        min-width: 80px;
+                                        text-align: right;
+                                        width: 100%;
+                                        padding-right: 17px;
+                                    }
+                                    white-space: nowrap;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .overlay-wrapper {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: getThemeColor(3, $key);
+                overflow: hidden;
+                z-index: 5;
+
+                .spinner {
+                    width: 80px;
+                    height: 80px;
+                    border-width: 8px;
+                    margin: 0 auto;
+                    position: relative;
+                    top: calc(50% - 40px);
+                }
+            }
+        }
+    }
+}

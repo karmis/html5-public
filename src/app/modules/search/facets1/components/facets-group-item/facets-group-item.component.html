@@ -1,0 +1,6 @@
+<div class="card-row facets-group-item"
+     [ngClass]="{'selected': item.isSelected}"
+     (click)="onClick()">
+    <div class="card-col">{{item.Field}}</div>
+    <div class="card-col">{{getItemCount(item)}}</div>
+</div>

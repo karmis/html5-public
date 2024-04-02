@@ -1,0 +1,140 @@
+@import "../../base/styles/theme.scss";
+
+
+
+@each $key, $value in $common-themes {
+    .#{$key} {
+        .dialog-reset-pass {
+            padding: 32px;
+            max-width: 35rem;
+            margin: 0 auto;
+            background-color: getThemeColor(6, $key);
+            box-shadow: 0 8px 16px rgba(63, 63, 63, 0.05);
+            position: relative;
+
+            .form-grid {
+                display: table;
+                .error {
+                    color: #ffffff;
+                    background-color: getThemeColor(13, $key);
+                    padding: 8px 16px;
+                    margin-bottom: 16px;
+                    display: table-caption;
+                    width: 100%;
+                    word-break: break-word;
+                    .err-more-btn{
+                        position: relative;
+                        display: inline-block;
+                        float: right;
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
+                    .err-info-popup{
+                        position: absolute;
+                        top: 100%;
+                        left: 100%;
+                        width: 0;
+                        height: 0;
+                        padding: 0;
+                        opacity: 0;
+                        overflow-y: auto;
+                        border: none;
+                        border-bottom: 1px getThemeColor(22, $key) solid;
+                        color: getThemeColor(16, $key);
+                        background-color: getThemeColor(6, $key);
+                        box-shadow: 0 8px 16px rgba(63, 63, 63, 0.05);
+                        transition: 0.2s ease-in-out;
+                        &.visible{
+                            display: block;
+                            width: 400px;
+                            height: 300px;
+                            padding: 8px 16px;
+                            opacity: 1;
+                        }
+                    }
+                }
+
+                .form-grid-row {
+                    display: table-row;
+
+                    > div {
+                        width: 100%;
+                        padding: 4px 0 4px 12px;
+                    }
+                    label {
+                        display: table-cell;
+                        white-space: nowrap;
+                    }
+                    .row-actions {
+                        align-items: baseline;
+                        justify-content: space-between;
+                        display: flex;
+                        margin-top: $baseline;
+                        padding: 0;
+                    }
+                    .field {
+                        width: 100%;
+                    }
+                    [type="checkbox"] {
+                        margin-right: 8px;
+                    }
+                    button {
+                        margin-top: $baseline;
+                    }
+                }
+            }
+
+
+
+        }
+        .loader-login {
+            border: 4px solid getThemeColor(30, $key);
+            border-top: 4px solid getThemeColor(31, $key);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            transform-origin: 50% 50%;
+            transform: rotate(0deg);
+            width: 3px !important;
+        }
+
+        button>.loader-login {
+            display: inline-block;
+            padding: 4px 0 4px 12px;
+        }
+
+
+        //footer {
+        //    position: absolute;
+        //    bottom: 0;
+        //    vertical-align: top;
+        //    display: block;
+        //    width: 100%;
+        //    text-align: center;
+        //
+        //    p, a, li, ul {
+        //        font-size: 10px;
+        //    }
+        //    nav > ul {
+        //        max-width: 30rem;
+        //    }
+        //    .submenu {
+        //        top: auto!important;
+        //        bottom: 0;
+        //    }
+        //}
+        //
+        //.login-screen {
+        //    .main-logo {
+        //        height: auto;
+        //        width: auto;
+        //        max-width: 300px;
+        //        max-height: 120px;
+        //        margin: 0 auto 45px;
+        //        display: block;
+        //    }
+        //}
+    }
+}
+
+
+

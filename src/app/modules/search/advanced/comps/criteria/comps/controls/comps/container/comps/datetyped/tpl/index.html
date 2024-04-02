@@ -1,0 +1,62 @@
+<div style="min-width: 160px;display: flex;
+    width: 100%;">
+    <div style="float: left;">
+        <button (click)="switchMode()">{{modeAbs ? 'A' : 'R'}}</button>
+    </div>
+    <div *ngIf="modeAbs" style="width: calc(100% - 24px);float: left;">
+        <imfx-controls-datetimepicker
+                #control
+                [allowBlank]="true"
+                [value]="null"
+                [mask]="true"
+                [locale]="'common.locale' | translate"
+                [format]="'common.date_full_format' | translate"
+                [formatDate]="'common.date_format' | translate"
+                [formatTime]="'common.time_format' | translate"
+                [dayOfWeekStart]="'common.date_of_week_start' | translate"
+                [small]="true"
+                [timepicker]="true"
+                (onChangeDateTime)="transferData()">
+            >
+        </imfx-controls-datetimepicker>
+    </div>
+    <div *ngIf="!modeAbs" style="width: calc(100% - 24px);float: left;display: flex;">
+        <button class="discard-custom" [hidden]="!showCustom" (click)="resetRelative()">
+            <i class="icons-cross icon"></i>
+        </button>
+        <imfx-controls-select2
+            [hidden]="showCustom"
+            class="with-relative"
+                               #friendlySelector
+                               [minimumResultsForSearch]="-1"
+                               [selected]="selectedFormat"
+                               [width]="'100%'"
+                               [multiple]="false"
+                                [sorter]="customSorter"
+                               [data]="friendlyDates"
+                               [placeholder]="'base.selectOoo'|translate"
+                               [placeholderRefToTranslate]="'base.selectOoo'"
+                               (onSelect)="onSelectType()"
+                               [wrapperClass]="'advanced'"
+                               spellcheck="false"
+                               style="float: left;flex:1;display: table;width: 100%;"></imfx-controls-select2>
+        <imfx-controls-select2 [hidden]="!showCustom"
+                               #controlSelector
+                class="with-relative"
+                [minimumResultsForSearch]="-1"
+                [selected]="selected"
+                [width]="'100px'"
+                [multiple]="false"
+                [data]="intervals"
+                [placeholder]="'base.selectOoo'|translate"
+                [placeholderRefToTranslate]="'base.selectOoo'"
+                (onSelect)="onSelectInterval()"
+                [wrapperClass]="'advanced'"
+                spellcheck="false"
+                style="float: left;flex:1;display: table;"></imfx-controls-select2>
+        <div class="relative-input" [hidden]="!showCustom">
+            <input type="text" style="width: 100%; min-width: 100%" #controlInput (keyup)="transferData($event)"
+                   (keydown)="validate($event)" [value]="inputUIVal">
+        </div>
+    </div>
+</div>

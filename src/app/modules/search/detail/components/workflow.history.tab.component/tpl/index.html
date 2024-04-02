@@ -1,0 +1,96 @@
+<div class="wf-history-tab-wrapper">
+    <div class="view-wrapper">
+        <nav class="">
+            <ul>
+                <li>
+                    <button (click)="collapseAll()"
+                            *ngIf="isGridExpanded; else collapseButton">
+                        {{'workflow.collapse_all' | translate}}
+                    </button>
+                    <ng-template #collapseButton>
+                        <button (click)="expandAll()">{{'workflow.expand_all' | translate}}</button>
+                    </ng-template>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="grid-wrapper">
+        <slick-grid
+            #wfHistorySlickGrid
+            class="vertical-align-row small-height-header"
+            style="width: 100%; height: 100%;"
+            [config]="searchGridConfig"
+        ></slick-grid>
+    </div>
+</div>
+<!--Settings dropdown-->
+
+<div *ngIf="slickGridComp.isGridReady"
+     class="dropdown grid-settings-dropdown workflowSettingsPopup"
+     style="margin-top: 15px; margin-right: 15px; position: fixed; display: none;">
+    <ul
+        aria-labelledby="simple-btn-keyboard-nav"
+        style="display: block;"
+        class="dropdown-menu"
+        role="menu"
+    >
+        <li role="menuitem"
+            [hidden]="slickGridComp.provider.isMultiSelectedItems()"
+        >
+            <a
+                class="dropdown-item"
+                (click)="slickGridComp.provider.changeCompletedDate($event)">
+                {{ 'changeby.title' | translate }}
+            </a>
+        </li>
+        <li role="menuitem"
+            [hidden]="slickGridComp.provider.isMultiSelectedItems()"
+        >
+            <a
+                class="dropdown-item"
+                [class.disabled]="!slickGridComp.provider.isDeleteEnabled()"
+                (click)="slickGridComp.provider.delete($event)">
+                {{ 'workflow.table.dropdown.row.delete' | translate }}
+            </a>
+        </li>
+        <li role="menuitem"
+            [hidden]="slickGridComp.provider.isNothingToResolve()"
+        >
+            <a
+                class="dropdown-item"
+                [class.disabled]="!slickGridComp.provider.isMarkResolvedEnabled()"
+                (click)="slickGridComp.provider.markResolved($event)">
+                {{ 'workflow.table.dropdown.row.mark_resolved' | translate }}
+
+            </a>
+        </li>
+    </ul>
+</div>
+<div *ngIf="slickGridComp.isGridReady"
+     class="dropdown grid-settings-dropdown workflowMultiSettingsPopup"
+     style="margin-top: 15px; margin-right: 15px; position: fixed; display: none;">
+    <ul
+        aria-labelledby="simple-btn-keyboard-nav"
+        style="display: block;"
+        class="dropdown-menu"
+        role="menu">
+        <li role="menuitem">
+            <a
+                class="dropdown-item"
+                [class.disabled]="!slickGridComp.provider.isDeleteMultiEnabled()"
+                (click)="slickGridComp.provider.deleteMulti()">
+                {{ 'workflow.table.dropdown.row.delete' | translate }}
+            </a>
+        </li>
+        <li role="menuitem"
+            [hidden]="slickGridComp.provider.isNothingToResolve()">
+            <a
+                class="dropdown-item"
+                [class.disabled]="!slickGridComp.provider.isMarkResolvedEnabled()"
+                (click)="slickGridComp.provider.markResolved($event)">
+                {{ 'workflow.table.dropdown.row.mark_resolved' | translate }}
+
+            </a>
+        </li>
+    </ul>
+</div>

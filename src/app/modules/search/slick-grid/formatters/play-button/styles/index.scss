@@ -1,0 +1,80 @@
+@import "../../../../../../views/base/styles/theme.scss";
+@each $key, $value in $common-themes {
+    .#{$key} {
+        play-button-formatter-comp {
+            height: 100%;
+            .play-button-formatter-wrapper {
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+        .media-icon-wrapper {
+            &.green-icon {
+                .video-icon {
+                    opacity: 1;
+                    color: getThemeColor(12, $key) !important;
+                }
+            }
+            .spinner-wrapper {
+                margin: auto;
+                width: 30px!important;
+                height: 30px!important;
+                margin-left: 20px;
+                .spinner {
+                    width: 27px;
+                    height: 27px;
+                    position: relative;
+                    margin: 0 auto;
+                    border: 4px solid #707579;
+                    border-top: 4px solid getThemeColor(8, $key);
+                }
+            }
+        }
+        .slick-cell.selected {
+            .media-icon-wrapper {
+                &.green-icon {
+                    .video-icon {
+                        opacity: 1;
+                        color: getThemeColor(15, $key);
+                    }
+                }
+                &.green-icon.orange-icon{
+                    .video-icon {
+                        opacity: 1;
+                        color: getThemeColor(7, $key)!important;
+                    }
+                }
+            }
+
+        }
+        .img-cell div {
+            //display: inline-block;
+            //width: 24px;
+            &.media-icon-wrapper {
+                width: 100%;
+                span {
+                    vertical-align: middle;
+                }
+            }
+        }
+        .slick-cell .media-icon-wrapper  {
+            &.orange-icon {
+                .video-icon {
+                    color: getThemeColor(7, $key)!important;
+                }
+            }
+            &.green-icon i.icons-play {
+                cursor: pointer;
+            }
+            i.icons-play:before {
+                font-size: 30px;
+            }
+        }
+    }
+}
+
+.at-tab-wrapper .skipSelection {
+    justify-content: center;
+}

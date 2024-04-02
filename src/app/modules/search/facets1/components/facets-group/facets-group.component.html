@@ -1,0 +1,23 @@
+<div class="panel-heading card-header">
+    <h2 (click)="toggleFacet()">
+        <i [ngClass]="{'icons-right': facet.isClose, 'icons-down': !facet.isClose}"
+           class="icon"
+        ></i>
+        {{facet.FieldName}}
+    </h2>
+</div>
+<div *ngIf="!facet.isClose" class="panel-body card-block">
+    <facets-group-item
+        *ngFor="let item of facet.Facets"
+        [item]="item"
+        [group]="facet"
+        [ngClass]="{'hide': getHideFacetItem(item) }"
+        [store]="store">
+    </facets-group-item>
+    <div (click)="toggleEmptyFacets($event)"
+         [ngClass]="{'hide': getHideToggleEmptyFacets()}">
+        <span
+            style="cursor: pointer;"
+            class="card-col small">{{toggleEmpty ? ('common.learn_more' | translate) : ('common.hide_more' | translate)}}</span>
+    </div>
+</div>

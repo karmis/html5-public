@@ -1,0 +1,215 @@
+<div *ngIf="item && item.VersionId" #simpleDetail>
+    <!--<div id="simple-players" [hidden]="error">-->
+    <div id="simple-players">
+        <div class="thumbnail-container centred" *ngIf="setImage" style="width: 100%;position: relative;">
+            <div class="series-thumbnail-wrapper">
+                <img [src]="item.ThumbUrl || './assets/img/default-thumb.PNG'"
+                     class="thumbnail" />
+            </div>
+        </div>
+        <div class="video-container" *ngIf="setPlayer&&item.ProxyUrl">
+            <html-player #detailVideo [id]="item.ID" [src]="item.ProxyUrl" [type]="item.MEDIA_TYPE"
+                         [typeDetails]="typeDetails" [file]="item" [cinemaMode]="cinemaMode"
+                         [mediaInfoType]="'version'"
+                         (playerReady)="onPlayerReady($event)"
+                         (playerError)="onPlayerError($event)"></html-player>
+        </div>
+    </div>
+    <!--Player show Error -->
+    <!--<div [hidden]="!error" style="margin-bottom: 10px;">-->
+    <!--<h2>{{getPlayerErrorText()}}</h2>-->
+    <!--&lt;!&ndash;<h2>{{'consumer.error' | translate}}</h2>&ndash;&gt;-->
+    <!--<button (click)="clickRepeat()">{{'consumer.repeat' | translate}}</button>-->
+    <!--</div>-->
+
+    <div id="simple-blocks" style="position: relative">
+        <!--Dynamic widgets-->
+        <div *ngFor="let dynWidget of settings.dynamicWidgets; let i=index" class="grid-stack-item"
+             [attr.data-custom-id]="dynWidget.id"
+             [ngStyle]="getStylesForWidget(dynWidget.id, 'dynamicWidgets')"
+        >
+            <div class="grid-stack-item-content">
+                <div class="label-value">{{dynWidget.value}}</div>
+            </div>
+        </div>
+        <div class="grid-stack-item"
+             [hidden]="!settings.staticWidgets.Title.enabled"
+             data-custom-id="Title"
+             [ngStyle]="getStylesForWidget('Title')"
+             style="cursor: pointer;">
+            <div class="grid-stack-item-content">
+                <div class="">
+                    <h1 class="breaktext" title="{{item.Title}}">
+                        {{item.Title || ('consumer_settings.no_data'|translate)}}</h1>
+                    <!--<h1 class="" title="{{item.Title}}">{{item.Title||('consumer_settings.no_data'|translate)}}</h1><br/>-->
+                </div>
+            </div>
+        </div>
+
+
+        <!--VersionId1-->
+        <div class="grid-stack-item"
+             [hidden]="!settings.staticWidgets.VersionId1?.enabled"
+             data-custom-id="VersionId1"
+             [ngStyle]="getStylesForWidget('VersionId1')">
+            <div class="grid-stack-item-content">
+                <div class="item-title-versionId1">
+                    <div class="series-versionId1">{{item?.VersionId1 || ('consumer_settings.no_data'|translate)}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--ItemType-->
+        <div class="grid-stack-item"
+             [hidden]="!settings.staticWidgets.ItemType?.enabled"
+             data-custom-id="ItemType"
+             [ngStyle]="getStylesForWidget('ItemType')">
+            <div class="grid-stack-item-content">
+                <div class="item-title-itemType">
+                    <div class="series-itemType">{{item?.ItemType || ('consumer_settings.no_data'|translate)}}</div>
+                </div>
+            </div>
+        </div>
+
+        <!--SeasonTitle-->
+        <div class="grid-stack-item"
+             [hidden]="!settings.staticWidgets.SeasonTitle?.enabled"
+             data-custom-id="SeasonTitle"
+             [ngStyle]="getStylesForWidget('SeasonTitle')">
+            <div class="grid-stack-item-content">
+                <div class="item-title-seasonTitle">
+                    <div class="series-seasonTitle  item-title-reference" (click)="toggleModifications('SERIES_ID', item?.SeriesId)">
+                        {{item?.SeasonTitle || ('consumer_settings.no_data'|translate)}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--EpisodeNo-->
+        <div class="grid-stack-item"
+             [hidden]="!settings.staticWidgets.EpisodeNo?.enabled"
+             data-custom-id="EpisodeNo"
+             [ngStyle]="getStylesForWidget('EpisodeNo')">
+            <div class="grid-stack-item-content">
+                <div class="item-title-episodeNo">
+                    <div class="series-episodeNo item-title-reference" (click)="toggleModifications('EPISODE_ID', item?.EpisodeNo)">{{item?.EpisodeNo || ('consumer_settings.no_data'|translate)}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--SeasonNo-->
+        <div class="grid-stack-item"
+             [hidden]="!settings.staticWidgets.SeasonNo?.enabled"
+             data-custom-id="SeasonNo"
+             [ngStyle]="getStylesForWidget('SeasonNo')">
+            <div class="grid-stack-item-content">
+                <div class="item-title-seasonNo">
+                    <div class="series-seasonNo item-title-reference" (click)="toggleModifications('SEASON_ID', item?.SeasonNo)">{{item?.SeasonNo || ('consumer_settings.no_data'|translate)}}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-stack-item"
+             [hidden]="!settings.staticWidgets.SeriesTitle.enabled||item.SeriesTitle.length==0"
+             data-custom-id="SeriesTitle"
+             [ngStyle]="getStylesForWidget('SeriesTitle')"
+             style="cursor: pointer;">
+            <div class="grid-stack-item-content">
+                    <span
+                        (click)="toggleModifications('SERIES_ID', item?.SeriesId)"
+                        class="series-title breaktext item-title-reference" title="{{item.SeriesTitle}}">
+                        {{item.SeriesTitle || ('consumer_settings.no_data'|translate)}}
+                    </span><br/>
+            </div>
+
+            <div class="subtitles-container" *ngIf="setPlayer">
+                <subtitles-grid *ngIf="subtitles && subtitles.length" [subtitles]="subtitles"
+                                [timecodeFormatString]="timecodeFormatString" [standalone]="true"
+                                #subtitlesGrid></subtitles-grid>
+            </div>
+        </div>
+
+        <div class="grid-stack-item"
+             #Synopsis
+             [hidden]="!settings.staticWidgets.Synopsis.enabled||item.Synopsis.length==0"
+             data-custom-id="description"
+             style="display: inline; height: initial !important;"
+             [ngStyle]="{
+                 'height': ssip.getHeightForWidget('Synopsis'),
+                 'left': ssip.getLeftForWidget('Synopsis'),
+                 'top': ssip.getTopForWidget('Synopsis'),
+                 'width': ssip.getWidthForWidget('Synopsis')}">
+            <div class="grid-stack-item-content">
+                <div class="content-container">
+                    <div
+                        [ngStyle]="{'height': ssip.getHeightForWidget('Synopsis'), 'overflow': 'auto'}"
+                        class="description">
+                        {{item.Synopsis || ('consumer_settings.no_data'|translate)}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-stack-item"
+             [hidden]="!settings.staticWidgets.Duration.enabled"
+             data-custom-id="duration"
+             [ngStyle]="getStylesForWidget('Duration')">
+            <div class="grid-stack-item-content">
+                <i class="icons-duration icon"></i>
+                <span class="duration">{{item.Duration || ('consumer_settings.no_data'|translate)}}</span>
+            </div>
+        </div>
+
+        <div class="grid-stack-item"
+             [hidden]="!settings.staticWidgets.icons.enabled"
+             data-custom-id="icons"
+             [ngStyle]="getStylesForWidget('icons')">
+            <div class="grid-stack-item-content">
+                <div class="icons">
+                    <i class="icons-files icon"></i>
+                    <i class="icons-audio icon"></i>
+                    <i class="icons-video icon"></i>
+                    <i class="icons-video-hd icon"></i>
+                    <i class="icons-video-sd icon"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-stack-item" *ngIf="hasPermissionByName('media-basket')"
+             [hidden]="!settings.staticWidgets.cart.enabled"
+             data-custom-id="cart"
+             [ngStyle]="getStylesForWidget('cart')">
+            <div class="grid-stack-item-content" style="cursor: pointer;">
+                <button class="full-width" (click)="toggleBasket()" *ngIf="isOrdered(); else notOrdered">
+                    <i class="icons-inbasket icon"></i>
+                    {{ 'consumer.remove_from_basket' | translate }}
+                </button>
+
+                <ng-template #notOrdered>
+                    <button class="full-width" (click)="toggleBasket()">
+                        <i class="icons-addbakset icon"></i>
+                        {{ 'consumer.add_to_basket' | translate }}
+                    </button>
+                </ng-template>
+            </div>
+        </div>
+
+        <!--moreDetails-->
+        <div class="grid-stack-item"
+             [hidden]="!settings.staticWidgets.moreDetails.enabled"
+             data-custom-id="moreDetails"
+             [ngStyle]="getStylesForWidget('moreDetails')">
+            <button class="button centred full-width more-details-btn" [routerLink]="['/versions','detail', item.ID]"
+                    style="cursor: pointer;">
+                    <span>
+                        {{ 'consumer.more_details' | translate }}
+                    </span>
+                <!--<i class="icons-more icon"></i>-->
+            </button>
+        </div>
+    </div>
+</div>
+
+<overlay #overlay (isError)="isError($event)" [mode]="true" [zIndex]="100"></overlay>

@@ -1,0 +1,7 @@
+<div class="system-setting-formatter-wrapper">
+    <input *ngIf="checkbox" type="checkbox"
+           disabled="disabled"
+           [indeterminate]="value === '0'"
+           [ngModel]="value === '1'"/>
+    <span *ngIf="!checkbox"> {{data.Value}}</span>
+</div>

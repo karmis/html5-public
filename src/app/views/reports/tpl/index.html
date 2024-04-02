@@ -1,0 +1,35 @@
+<!--h4 class="block-header text">{{ 'reports.title' | translate }}</h4-->
+<div class="full-height full-width" style="padding-top: 10px; padding-bottom: 10px" #list>
+    <div class="container-fluid" style="position: relative; height:100%;">
+        <!--Body-->
+        <div class="row reports" style="height:100%;">
+            <div class="pull-left report-left-side-panel">
+                <div style="height: calc(100% - 35px);" class="sidebar">
+                    <input
+                        #filterInput
+                        class="field"
+                        placeholder="{{ 'reports.filter' | translate }}"
+                        (keyup)="filter($event)" style="margin-bottom: 5px;width: calc(100% - 10px);margin-left: 5px;">
+                    <imfx-controls-tree #tree
+                                        [extensions]="['filter']"
+                                        [ext_filter]="{autoExpand: true, mode: 'hide', highlight: false}"
+                                        [checkbox]="false"
+                                        (onClick)="onClickByTreeItem($event)"
+                                        (onDblClick)="onDblClickByTreeItem($event)"
+                    ></imfx-controls-tree>
+                </div>
+            </div>
+            <div #report class="pull-left report-right-side-panel">
+                <div *ngIf="error">
+                    <h2 style="text-align: center">{{'reports.error' | translate}}</h2>
+                    <div class="d-block text-center">
+                        {{errDescr}}
+                    </div>
+                </div>
+                <pdf-viewer *ngIf="!error" #pdfViewer></pdf-viewer>
+            </div>
+        </div>
+    </div>
+</div>
+
+<overlay #overlayReports [zIndex]="100"></overlay>

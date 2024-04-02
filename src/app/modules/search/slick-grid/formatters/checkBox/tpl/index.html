@@ -1,0 +1,5 @@
+<div class="checkbox-wrapper">
+    <input type="checkbox" [disabled]="setups?!setups.enabled:true" [checked]="isActive" (change)="onChange($event)" />
+    <span *ngIf="isActive && setups && setups.messageTrue" class="checkbox-label">{{setups.messageTrue}}</span>
+    <span *ngIf="!isActive && setups && setups.messageFalse" class="checkbox-label">{{setups.messageFalse}}</span>
+</div>

@@ -1,0 +1,63 @@
+@import "../../../../../base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+    .#{$key} {
+        .global-settings-manager {
+            height: 100%;
+            .loading-icons-container {
+                height: 100%;
+            }
+            .nav-tabs .nav-link {
+                padding: 10px;
+            }
+            .sub-tabs {
+                .nav-tabs {
+                    border-bottom: 0 !important;
+                }
+                .nav-link {
+                    padding: 5px !important;
+                    span {
+                        font-size: 13px !important;
+                    }
+                }
+            }
+            .tab-content {
+                padding: 1rem 1rem 0;
+                height: calc(100% - 38px);
+                .tab-pane {
+                    height: 100%;
+                    overflow: auto;
+                    .grafana-container {
+                        height: 100%;
+                    }
+                    .logger-container {
+                        height: auto;
+                    }
+                    .mapping-adv-container, .error-setup-container {
+                        height: auto;
+                    }
+                }
+
+            }
+        }
+        .user-groups-manager {
+
+            height: 100%;
+            .ugm-container {
+                height: 100%;
+            }
+
+        }
+        .tabs-wrapper {
+            flex: 1 0;
+            .tabs-body {
+                padding-top: 20px;
+            }
+            .tabs-head-item {
+                padding-bottom: 3px;
+                margin-right: 20px;
+                cursor: pointer;
+            }
+        }
+    }
+}

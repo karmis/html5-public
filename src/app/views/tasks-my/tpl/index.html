@@ -1,0 +1,195 @@
+<!--h4 class="block-header text">{{ 'workflow.title' | translate }}</h4-->
+<div class="full-height full-width" style="padding-top: 10px;">
+    <div class="container-fluid my-tasks-view" style="position: relative; height:100%;">
+        <!--Header-->
+        <div class="row-header">
+            <nav>
+                <ul>
+                    <li>
+                        <search-form
+                                [config]="searchFormConfig"
+                        ></search-form>
+                    </li>
+                    <li>
+                        <button type="button"
+                                class="icon-button test-advanced-searching-button"
+                                (click)="searchAdvancedConfig.options.provider.setStateForPanel(!searchAdvancedConfig.options.provider.getStateForPanel())"
+                                [ngClass]="{'active': searchAdvancedConfig.options.provider.getStateForPanel() }"
+                                title="{{ 'common_hints.adv_search' | translate }}">
+                          <span style="float:left;">
+                              <i class="icons-advanced-search icon"></i>
+                          </span>
+                            <!--div *ngIf="searchAdvancedConfig.options.provider.isCriteriasforSearch"
+                       class="circle circle-green"></div-->
+                        </button>
+                    </li>
+                    <li *ngIf="hasPermissionByName('views-options')" class="divider"></li>
+                    <li *ngIf="hasPermissionByName('views-options')"><label>{{ 'common.view' | translate}}:</label></li>
+                    <li [hidden]="!hasPermissionByName('views-modify')">
+                        <search-views
+                            #viewsComp
+                            [config]="searchViewsConfig"
+                        ></search-views>
+                    </li>
+                    <li *ngIf="hasPermissionByName('views-options') || hasPermissionByName('export-options') ">
+                        <search-settings
+                            [config]="searchSettingsConfig"
+                        ></search-settings>
+                    </li>
+                    <li>
+                        <button type="button" class="button"
+                                [ngClass]="{'active': searchFormProvider.hideFailed}"
+                                (click)="searchFormProvider.changeJobFilterFailed(searchFormProvider.hideFailed)"
+                                title="{{ 'workflow.hide_failed' | translate }}">
+                            {{ 'workflow.hide_failed' | translate }}
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="button"
+                                [ngClass]="{'active': searchFormProvider.showCompleted}"
+                                (click)="searchFormProvider.changeJobFilterCompleted(searchFormProvider.showCompleted)"
+                                title="{{ 'workflow.show_completed' | translate }}">
+                            {{ 'workflow.show_completed' | translate }}
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+            <nav>
+                <ul>
+                    <li *ngIf="searchGridConfig.options.viewModeSwitcher">
+                        <button type="button" class="icon-button"
+                                [ngClass]="{'active': searchGridConfig.options.provider.moduleContext.config.options.viewMode == 'table'}"
+                                (click)="searchGridConfig.options.provider.moduleContext.setViewMode('table')"
+                                title="{{ 'common_hints.grid' | translate }}">
+                    <span style="float:left;">
+                        <i class="icons-list icon"></i>
+                    </span>
+                        </button>
+                    </li>
+                    <li *ngIf="searchGridConfig.options.viewModeSwitcher">
+                        <button type="button" class="icon-button"
+                                [ngClass]="{'active': searchGridConfig.options.provider.moduleContext.config.options.viewMode == 'tile'}"
+                                (click)="searchGridConfig.options.provider.moduleContext.setViewMode('tile')"
+                                title="{{ 'common_hints.tiles' | translate }}">
+                            <span style="float:left;">
+                                <i class="icons-tiles icon"></i>
+                            </span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class=""
+                                (click)="openPriorityWizard()"
+                                [ngClass]="{'disabled': disabledGroupOperationButtons}"
+                                [disabled]="disabledGroupOperationButtons">
+                            {{'workflow.topPanel.change_priority'|translate}}
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                                class=""
+                                (click)="openRestartWizard()"
+                                [ngClass]="{'disabled': disabledGroupOperationButtons || disabledRestartButton}"
+                                [disabled]="disabledGroupOperationButtons || disabledRestartButton || this.slickGridComp.provider.getData().length == 0">
+                            {{'workflow.topPanel.abort'|translate}}
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="button"
+                                (click)="switchSchedule()"
+                                [ngClass]="{'active': isOpenedSchedule}"
+                                title="{{ 'workflow.schedules' | translate }}">
+                            {{ 'workflow.schedules' | translate }}
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!--Body-->
+        <div class="row-body">
+            <as-split
+                    #split
+                    [style.float]="'left'"
+                    (dragEnd)="saveSplitSizes(0, $event)"
+                    [direction]="'horizontal'">
+
+                <!--Adv search and recent search-->
+                <as-split-area
+                        [visible]="getSplitAreaVisible([0,0], searchAdvancedConfig.options.provider.getStateForPanel(), false, searchAdvancedConfig.options.provider, searchAdvancedConfig.options.provider.setStateForPanel, searchAdvancedConfig.options.provider.getIsReady())"
+                        [size]="getSplitAreaSize([0,0], 30)"
+                        [order]="0">
+                    <as-split
+                            [direction]="'vertical'"
+                            (dragEnd)="saveSplitSizes(1, $event)">
+                        <as-split-area
+                                #advSplit
+                                class="color-bkgd-mid"
+                                [size]="getSplitAreaSize([1,0], 50)"
+                                [order]="0">
+                            <search-advanced
+                                [config]="searchAdvancedConfig"
+                            ></search-advanced>
+                        </as-split-area>
+                        <as-split-area
+                                #advSplit
+                                class="color-bkgd-mid"
+                                [size]="getSplitAreaSize([1,1], 50)"
+                                [order]="1">
+                            <search-recent
+                                [config]="searchRecentConfig"
+                            ></search-recent>
+                        </as-split-area>
+                    </as-split>
+                </as-split-area>
+
+                <!--Table-->
+                <as-split-area
+                        #tableSplit
+                        [order]="2"
+                        [size]="getSplitFlexSize([0,2])">
+                    <div style="height: 100%">
+                        <slick-grid
+                                #slickGridComp
+                                class="workflow-grid"
+                                style="width: 100%;  height: 100%"
+                                [config]="searchGridConfig"
+                        ></slick-grid>
+                    </div>
+                </as-split-area>
+                <!--Detail-->
+                <as-split-area
+                    [visible]="getSplitAreaVisible([0,1], isOpenedSchedule, false, this, setOpenedSchedule, getIsReady())"
+                    [size]="getSplitAreaSize([0,1], 20)"
+                    class="color-bkgd-mid"
+                    [order]="1">
+                    <div class="search-details" style="padding-top: 8px;">
+                        <workflow-dd-users #ddUser [slickGridProvider]="slickGridComp.provider"></workflow-dd-users>
+                    </div>
+                </as-split-area>
+
+            </as-split>
+        </div>
+    </div>
+</div>
+
+<!--Settings dropdown-->
+<div *ngIf="slickGridComp.isGridReady"
+     class="dropdown grid-settings-dropdown tasksSettingsPopup"
+     style="margin-top: 15px; margin-right: 15px; position: fixed; display: none;">
+    <ul
+        aria-labelledby="simple-btn-keyboard-nav"
+        style="display: block;"
+        class="dropdown-menu"
+        role="menu"
+    >
+        <li role="menuitem">
+            <a
+                class="dropdown-item"
+                [class.disabled]="!slickGridComp.provider.isUnassignTaskEnabled()"
+                (click)="slickGridComp.provider.unassignTask($event)">
+                {{'tasks.table.dropdown.row.unassign_task' | translate}}
+            </a>
+        </li>
+    </ul>
+</div>
+

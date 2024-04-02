@@ -1,0 +1,105 @@
+<div class="create-episode-title-modal-wrapper">
+    <!-- episode title -->
+    <div class="form-group" *ngIf="modalMode == 1" [ngClass]="{'notvalid': title.notvalid && !title.value.length}">
+        <label class="mr-sm-2">
+          {{'titles.create_title.episode_title' | translate}} {{(contextItem.SER_TITLE) ? '"' + contextItem.SER_TITLE + '"' : ''}} - {{contextItem.ID}}
+        </label>
+        <input type="text" class="validation"
+          [(ngModel)]="title.value"
+          [placeholder]="'titles.create_title.episode_label' | translate">
+    </div>
+    <div class="form-group" *ngIf="modalMode == 1" [ngClass]="{'notvalid': number.notvalid && (number.value === ''||number.value === null)}">
+        <label class="mr-sm-2">
+          {{'titles.create_title.episode_number' | translate}}
+        </label>
+        <input type="text"
+               digitOnly
+               class="validation"
+               [(ngModel)]="number.value"
+               [placeholder]="'titles.create_title.episode_number_label' | translate">
+    </div>
+    <!-- season name -->
+    <div class="form-group" *ngIf="modalMode == 2" [ngClass]="{'notvalid': title.notvalid && !title.value.length}">
+        <label class="mr-sm-2">
+            {{'titles.create_title.season_name' | translate}} {{(contextItem.SER_TITLE) ? '"' + contextItem.SER_TITLE + '"' : ''}} - {{contextItem.ID}}
+        </label>
+        <input type="text" class="validation"
+               [(ngModel)]="title.value"
+               [placeholder]="'titles.create_title.season_name_label' | translate">
+    </div>
+    <!-- Standalone Title -->
+    <div class="form-group" *ngIf="modalMode == 3" [ngClass]="{'notvalid': title.notvalid && !title.value.length}">
+        <label class="mr-sm-2">
+            {{'titles.topPanel.create_title' | translate}}
+        </label>
+        <input type="text" class="validation"
+               [(ngModel)]="title.value"
+               [placeholder]="'titles.create_title.create_title_label' | translate">
+    </div>
+    <div class="form-group" *ngIf="modalMode == 3" [ngClass]="{'notvalid': ownersNotValid}">
+        <label class="mr-sm-2">
+            {{'titles.create_title.select_owners' | translate}}
+        </label>
+        <imfx-lookups-select2
+            #ownersSelect
+            [width]="'100%'"
+            [multiple]="true"
+            [closeOnSelect]="false"
+            [withCheckboxes]="true"
+            [allowClear]="false"
+            [firstEmpty]="false"
+            [lookupType]="'Channels'"
+            [placeholder]="'base.selectOoo'|translate"
+            [placeholderRefToTranslate]="'base.selectOoo'"
+            [validationEnabled]="false"
+            (onSelect)="onSelect()"
+        ></imfx-lookups-select2>
+    </div>
+    <!--  New Series -->
+    <div class="form-group" *ngIf="modalMode == 4" [ngClass]="{'notvalid': title.notvalid && !title.value.length}">
+        <label class="mr-sm-2">
+            {{'titles.topPanel.create_series' | translate}}
+        </label>
+        <input type="text" class="validation"
+               [(ngModel)]="title.value"
+               [placeholder]="'titles.create_title.create_series_label' | translate">
+    </div>
+    <div class="form-group" *ngIf="modalMode == 4" [ngClass]="{'notvalid': letter.notvalid && !letter.value.length}">
+        <label class="mr-sm-2">
+            {{'titles.create_title.series_letter' | translate}}
+        </label>
+        <input type="text" class="validation"
+               [(ngModel)]="letter.value"
+               [placeholder]="'titles.create_title.series_letter_label' | translate">
+    </div>
+    <div class="form-group notvalid" *ngIf="modalMode == 4" [ngClass]="{'notvalid': number.notvalid && (number.value === ''||number.value === null)}">
+        <label class="mr-sm-2">
+            {{'titles.create_title.series_number' | translate}}
+        </label>
+        <input type="text"
+               digitOnly
+               class="validation"
+               [(ngModel)]="number.value"
+               [placeholder]="'titles.create_title.series_number_label' | translate">
+    </div>
+    <div class="form-group" *ngIf="modalMode == 4" [ngClass]="{'notvalid': ownersNotValid}">
+        <label class="mr-sm-2">
+            {{'titles.create_title.select_owners' | translate}}
+        </label>
+        <imfx-lookups-select2
+            #ownersSelect
+            [width]="'100%'"
+            [multiple]="true"
+            [closeOnSelect]="false"
+            [withCheckboxes]="true"
+            [allowClear]="false"
+            [firstEmpty]="false"
+            [lookupType]="'Channels'"
+            [placeholder]="'base.selectOoo'|translate"
+            [placeholderRefToTranslate]="'base.selectOoo'"
+            [validationEnabled]="false"
+            (onSelect)="onSelect()"
+        ></imfx-lookups-select2>
+    </div>
+</div>
+

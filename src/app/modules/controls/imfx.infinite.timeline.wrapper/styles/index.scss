@@ -1,0 +1,46 @@
+@import "../../../../views/base/styles/theme.scss";
+
+@each $key, $value in $common-themes {
+    .#{$key} {
+        imfx-infinite-timeline-wrapper {
+            .infinite-timeline-wrapper {
+                position: relative;
+                vertical-align: top;
+                margin: 0;
+                padding: 0;
+                height: 100%;
+
+                .controls-block {
+                    display: flex;
+                    padding: 5px 5px 0 5px;
+
+                    .anchor-date-wrapper {
+
+                    }
+
+                    .days-of-week-buttons {
+                        display: flex;
+                        padding: 0 10px;
+
+                        .day-of-week {
+                            line-height: 32px;
+
+                        }
+                    }
+
+                    .reset-timeline {
+                        margin-left: auto;
+
+                        .reset-date-btn {
+                            
+                        }
+                    }
+                }
+
+                .timeline-container {
+                    height: calc(100% - 37px);
+                }
+            }
+        }
+    }
+}

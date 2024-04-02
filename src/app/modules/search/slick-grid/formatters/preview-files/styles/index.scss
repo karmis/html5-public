@@ -1,0 +1,31 @@
+@import "../../../../../../views/base/styles/theme";
+
+@each $key,
+$value in $common-themes {
+  .#{$key} {
+      preview-files-formatter-comp {
+          pdf-viewer {
+              canvas {
+                  padding-bottom: 50px !important;
+                  display: block !important;
+                  margin: auto !important;
+              }
+          }
+          .img-preview-btn {
+              background: none;
+              width: 100%;
+              height: 100%;
+              &:hover {
+                  background: none;
+              }
+          }
+          .previewButton {
+              i {
+                  position: relative;
+                  top: -2px;
+              }
+          }
+      }
+  }
+}
+

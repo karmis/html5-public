@@ -1,0 +1,36 @@
+@import "../../styles.scss";
+.thumbnail-container {
+  margin: 0px;
+  padding: 0px;
+  flex: 1;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+div.more-details-btn {
+  height: 100%;
+  line-height: normal;
+  span {
+    margin-top: -2px;
+    padding-right: 3px;
+  }
+}
+
+#consumer-builder-item .grid-stack-item {
+  $gridstack-columns: 120;
+
+  @for $i from 1 through $gridstack-columns {
+    &[data-gs-width='#{$i}'] {
+      width: (100% / $gridstack-columns) * $i;
+    }
+    &[data-gs-x='#{$i}'] {
+      left: (100% / $gridstack-columns) * $i;
+    }
+    &.grid-stack-item[data-gs-min-width='#{$i}'] {
+      min-width: (100% / $gridstack-columns) * $i;
+    }
+    &.grid-stack-item[data-gs-max-width='#{$i}'] {
+      max-width: (100% / $gridstack-columns) * $i;
+    }
+  }
+}
